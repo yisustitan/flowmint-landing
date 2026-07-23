@@ -1,0 +1,2961 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowMint — Tu Gestión Financiera</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #00C896;
+    --mint-light: #E6FBF4;
+    --mint-mid: #00A67A;
+    --mint-dark: #007A58;
+    --gold: #F5A623;
+    --gold-light: #FFF8EC;
+    --coral: #FF5C5C;
+    --coral-light: #FFF0F0;
+    --navy: #0F1B2D;
+    --navy2: #162236;
+    --navy3: #1E2F47;
+    --slate: #3A4E68;
+    --muted: #6B7F99;
+    --border: rgba(255,255,255,0.07);
+    --border-light: rgba(255,255,255,0.12);
+    --card: rgba(22, 34, 54, 0.95);
+    --card2: rgba(30, 47, 71, 0.8);
+    --text: #F0F4FF;
+    --text-sec: #9AABC4;
+    --text-muted: #5E7090;
+    --radius: 16px;
+    --radius-sm: 10px;
+    --shadow: 0 4px 24px rgba(0,0,0,0.35);
+    --shadow-sm: 0 2px 12px rgba(0,0,0,0.25);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0,200,150,0.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245,166,35,0.06) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .app { display: flex; min-height: 100vh; position: relative; z-index: 1; }
+
+  /* SIDEBAR */
+  .sidebar {
+    width: 240px; min-height: 100vh;
+    background: var(--navy2);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    padding: 24px 0;
+    position: fixed; top: 0; left: 0; bottom: 0;
+    z-index: 100;
+    transition: transform 0.3s ease;
+  }
+
+  .logo { padding: 0 24px 28px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .logo-mark { display: flex; align-items: center; gap: 10px; }
+  .logo-icon { width: 36px; height: 36px; background: var(--mint); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
+  .logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: -0.5px; }
+  .logo-text span { color: var(--mint); }
+  .logo-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.5px; text-transform: uppercase; }
+
+  nav { flex: 1; padding: 0 12px; }
+  .nav-section { margin-bottom: 24px; }
+  .nav-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 12px; margin-bottom: 6px; }
+
+  .nav-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 10px 12px; border-radius: var(--radius-sm);
+    cursor: pointer; font-size: 14px; color: var(--text-sec);
+    transition: all 0.2s; margin-bottom: 2px;
+    border: none; background: none; width: 100%; text-align: left;
+  }
+  .nav-item:hover { background: var(--border); color: var(--text); }
+  .nav-item.active { background: rgba(0,200,150,0.12); color: var(--mint); font-weight: 500; }
+  .nav-icon { font-size: 18px; width: 20px; text-align: center; }
+
+  .sidebar-footer { padding: 16px 24px; border-top: 1px solid var(--border); }
+  .budget-bar-wrap { margin-bottom: 12px; }
+  .budget-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sec); margin-bottom: 6px; }
+  .budget-bar { height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; }
+  .budget-fill { height: 100%; background: var(--mint); border-radius: 2px; transition: width 0.5s ease; }
+
+  /* MAIN */
+  .main { margin-left: 240px; flex: 1; min-height: 100vh; }
+
+  .topbar {
+    height: 64px; display: flex; align-items: center; justify-content: space-between;
+    padding: 0 32px; border-bottom: 1px solid var(--border);
+    background: rgba(15,27,45,0.7); backdrop-filter: blur(10px);
+    position: sticky; top: 0; z-index: 50;
+  }
+  .topbar-left { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .page-title { font-family: 'DM Serif Display', serif; font-size: 22px; }
+
+  .period-select, .currency-select {
+    background: var(--card2); border: 1px solid var(--border-light);
+    color: var(--text); font-family: 'DM Sans', sans-serif;
+    font-size: 13px; padding: 6px 10px; border-radius: 8px;
+    cursor: pointer; outline: none; transition: border-color 0.2s;
+  }
+  .period-select:hover, .currency-select:hover { border-color: var(--mint); }
+
+  .period-picker { display: flex; align-items: center; gap: 4px; }
+  .period-picker input[type="number"] {
+    background: var(--card2); border: 1px solid var(--border-light);
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 6px 8px; border-radius: 8px; outline: none; width: 72px;
+    transition: border-color 0.2s;
+  }
+  .period-picker input[type="number"]:hover,
+  .period-picker input[type="number"]:focus { border-color: var(--mint); }
+  .period-picker input[type="number"]::-webkit-inner-spin-button { opacity: 0.4; }
+
+  .period-all-btn {
+    background: var(--card2); border: 1px solid var(--border-light);
+    color: var(--text-sec); font-family: 'DM Sans', sans-serif; font-size: 12px;
+    padding: 6px 10px; border-radius: 8px; cursor: pointer; transition: all 0.2s; white-space: nowrap;
+  }
+  .period-all-btn:hover, .period-all-btn.active { border-color: var(--mint); color: var(--mint); background: rgba(0,200,150,0.08); }
+
+  .currency-wrap { display: flex; align-items: center; gap: 4px; }
+  .currency-edit-row { display: none; align-items: center; gap: 6px; }
+  .currency-edit-row.open { display: flex; }
+  .currency-edit-row input {
+    background: var(--card2); border: 1px solid var(--mint);
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px;
+    padding: 6px 10px; border-radius: 8px; outline: none; width: 90px; text-transform: uppercase;
+  }
+  .currency-edit-row button {
+    background: var(--mint); border: none; color: var(--navy);
+    font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; cursor: pointer;
+  }
+
+  .lang-switch {
+    display: flex; background: var(--navy3); border: 1px solid var(--border-light);
+    border-radius: 9px; padding: 2px; gap: 2px; align-items: center;
+  }
+  .lang-btn {
+    background: transparent; border: none; color: var(--text-sec);
+    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 700;
+    padding: 5px 10px; border-radius: 7px; cursor: pointer; transition: all 0.2s;
+    line-height: 1; display: flex; align-items: center; justify-content: center;
+  }
+  .lang-btn.active {
+    background: var(--mint); color: var(--navy);
+  }
+  .lang-btn:hover:not(.active) {
+    color: var(--text); background: rgba(255,255,255,0.05);
+  }
+
+  .topbar-right { display: flex; align-items: center; gap: 12px; }
+  .btn-primary {
+    background: var(--mint); color: var(--navy); border: none;
+    padding: 9px 18px; border-radius: 9px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; font-weight: 600; cursor: pointer;
+    display: flex; align-items: center; gap: 6px; transition: background 0.2s;
+  }
+  .btn-primary:hover { background: var(--mint-mid); }
+  .btn-ghost {
+    background: transparent; color: var(--text-sec); border: 1px solid var(--border-light);
+    padding: 8px 14px; border-radius: 9px; font-family: 'DM Sans', sans-serif;
+    font-size: 13px; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-ghost:hover { background: var(--border); color: var(--text); }
+  .hamburger { display: none; background: none; border: none; color: var(--text); font-size: 22px; cursor: pointer; padding: 4px; }
+
+  /* CONTENT */
+  .content { padding: 28px 32px; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* KPI CARDS */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
+  .kpi-card {
+    background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 20px; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .kpi-card:hover { transform: translateY(-2px); box-shadow: var(--shadow); }
+  .kpi-card::after { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; }
+  .kpi-card.income::after { background: var(--mint); }
+  .kpi-card.expense::after { background: var(--coral); }
+  .kpi-card.balance::after { background: var(--gold); }
+  .kpi-card.invest::after { background: #7C6EF5; }
+
+  .kpi-label { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+  .kpi-value { font-family: 'DM Serif Display', serif; font-size: 28px; line-height: 1; margin-bottom: 6px; }
+  .kpi-value.income { color: var(--mint); }
+  .kpi-value.expense { color: var(--coral); }
+  .kpi-value.balance { color: var(--gold); }
+  .kpi-value.invest { color: #7C6EF5; }
+  .kpi-change { font-size: 12px; color: var(--text-muted); }
+  .kpi-change .up { color: var(--mint); }
+  .kpi-change .down { color: var(--coral); }
+  .kpi-icon { position: absolute; right: 16px; top: 16px; font-size: 28px; opacity: 0.15; }
+
+  /* CHARTS */
+  .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
+
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
+  .card-title { font-size: 15px; font-weight: 500; }
+  .card-sub { font-size: 12px; color: var(--text-muted); }
+
+  .tag { font-size: 11px; padding: 4px 10px; border-radius: 20px; font-weight: 500; }
+  .tag.green { background: rgba(0,200,150,0.12); color: var(--mint); }
+  .tag.red { background: rgba(255,92,92,0.12); color: var(--coral); }
+  .tag.gold { background: rgba(245,166,35,0.12); color: var(--gold); }
+  .tag.purple { background: rgba(124,110,245,0.12); color: #7C6EF5; }
+
+  .bar-chart { display: flex; align-items: flex-end; gap: 10px; height: 140px; padding: 0 4px; }
+  .bar-group { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .bars { display: flex; gap: 4px; align-items: flex-end; height: 120px; }
+  .bar { width: 18px; border-radius: 4px 4px 0 0; transition: opacity 0.2s; cursor: pointer; }
+  .bar:hover { opacity: 0.8; }
+  .bar.income-bar { background: var(--mint); }
+  .bar.expense-bar { background: var(--coral); }
+  .bar-label { font-size: 10px; color: var(--text-muted); }
+
+  .donut-wrap { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+  .donut-svg { overflow: visible; }
+  .donut-center { text-anchor: middle; }
+  .donut-legend { width: 100%; }
+  .legend-item { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: 13px; cursor: pointer; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+  .legend-label { flex: 1; color: var(--text-sec); }
+  .legend-pct { color: var(--text-muted); font-size: 12px; }
+  .legend-amt { font-weight: 500; font-size: 13px; }
+
+  /* TRANSACTIONS */
+  .tx-grid { display: grid; grid-template-columns: 1.6fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .tx-filters { display: flex; gap: 8px; margin-bottom: 14px; flex-wrap: wrap; }
+  .filter-btn {
+    font-size: 12px; padding: 5px 12px; border-radius: 20px;
+    border: 1px solid var(--border-light); background: transparent; color: var(--text-sec);
+    cursor: pointer; transition: all 0.2s; font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover { border-color: var(--mint); color: var(--mint); }
+  .filter-btn.active { background: rgba(0,200,150,0.12); border-color: var(--mint); color: var(--mint); }
+
+  .tx-list { max-height: 360px; overflow-y: auto; }
+  .tx-list::-webkit-scrollbar { width: 4px; }
+  .tx-list::-webkit-scrollbar-track { background: transparent; }
+  .tx-list::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+
+  .tx-item {
+    display: flex; align-items: center; gap: 12px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s; cursor: pointer;
+    border-radius: 8px; padding: 10px 10px; margin: 0 -10px;
+  }
+  .tx-item:hover { background: var(--border); }
+  .tx-item:last-child { border-bottom: none; }
+
+  .tx-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; }
+  .tx-info { flex: 1; min-width: 0; }
+  .tx-name { font-size: 14px; font-weight: 500; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tx-cat { font-size: 12px; color: var(--text-muted); }
+  .tx-right { text-align: right; flex-shrink: 0; display: flex; align-items: center; gap: 12px; }
+  .tx-amount { font-size: 15px; font-weight: 600; }
+  .tx-amount.pos { color: var(--mint); }
+  .tx-amount.neg { color: var(--coral); }
+  .tx-amount.invest-cls { color: #7C6EF5; }
+  .tx-date { font-size: 11px; color: var(--text-muted); }
+
+  .btn-delete {
+    background: none; border: none; color: var(--text-muted); cursor: pointer;
+    font-size: 14px; padding: 4px 6px; border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    transition: color 0.2s; flex-shrink: 0;
+  }
+  .btn-delete:hover { color: var(--coral); }
+
+  /* UPCOMING */
+  .upcoming-item { display: flex; align-items: center; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .upcoming-item:last-child { border-bottom: none; }
+  .upcoming-info { flex: 1; }
+  .upcoming-name { font-size: 14px; font-weight: 500; }
+  .upcoming-date { font-size: 12px; color: var(--text-muted); }
+  .upcoming-amount { font-size: 14px; font-weight: 600; color: var(--coral); }
+
+  /* INVESTMENTS */
+  .invest-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
+  .invest-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: transform 0.2s; cursor: pointer; }
+  .invest-card:hover { transform: translateY(-2px); }
+  .invest-name { font-size: 14px; font-weight: 500; margin-bottom: 4px; }
+  .invest-ticker { font-size: 12px; color: var(--text-muted); margin-bottom: 12px; }
+  .invest-value { font-family: 'DM Serif Display', serif; font-size: 22px; margin-bottom: 4px; }
+  .invest-return { font-size: 13px; }
+  .invest-return.pos { color: var(--mint); }
+  .invest-return.neg { color: var(--coral); }
+
+  /* GOALS */
+  .goal-item { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; margin-bottom: 14px; }
+  .goal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+  .goal-name { font-size: 15px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .goal-meta { font-size: 13px; color: var(--text-sec); }
+  .progress-bar { height: 8px; background: var(--border-light); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
+  .progress-fill { height: 100%; border-radius: 4px; transition: width 0.8s ease; }
+  .progress-labels { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-muted); }
+
+  /* MODAL */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.6); z-index: 200;
+    align-items: center; justify-content: center; padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--navy2); border: 1px solid var(--border-light);
+    border-radius: var(--radius); width: 100%; max-width: 460px;
+    padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .modal-title { font-family: 'DM Serif Display', serif; font-size: 20px; }
+  .modal-close { background: none; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; padding: 0 4px; }
+  .modal-close:hover { color: var(--text); }
+
+  .form-group { margin-bottom: 16px; }
+  .form-label { font-size: 12px; color: var(--text-sec); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 7px; display: block; }
+  .form-input, .form-select {
+    width: 100%; background: var(--navy3); border: 1px solid var(--border-light);
+    color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 14px;
+    padding: 10px 14px; border-radius: var(--radius-sm); outline: none; transition: border-color 0.2s;
+  }
+  .form-input:focus, .form-select:focus { border-color: var(--mint); }
+  .form-input::placeholder { color: var(--text-muted); }
+
+  .type-toggle { display: flex; gap: 8px; margin-bottom: 16px; }
+  .type-btn {
+    flex: 1; padding: 9px; border-radius: var(--radius-sm);
+    border: 1px solid var(--border-light); background: transparent; color: var(--text-sec);
+    font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.2s;
+  }
+  .type-btn.income.active { background: rgba(0,200,150,0.15); border-color: var(--mint); color: var(--mint); }
+  .type-btn.expense.active { background: rgba(255,92,92,0.15); border-color: var(--coral); color: var(--coral); }
+  .type-btn.invest.active { background: rgba(124,110,245,0.15); border-color: #7C6EF5; color: #7C6EF5; }
+
+  .modal-actions { display: flex; gap: 10px; margin-top: 22px; }
+  .modal-actions .btn-primary { flex: 1; justify-content: center; padding: 12px; }
+  .modal-actions .btn-ghost { flex: 1; justify-content: center; padding: 12px; }
+
+  /* REPORTS */
+  .report-kpis { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; margin-bottom: 22px; }
+  .report-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; text-align: center; }
+  .report-val { font-family: 'DM Serif Display', serif; font-size: 26px; margin: 4px 0; }
+  .report-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.7px; }
+
+  /* CATEGORIES */
+  .cat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 16px; }
+  .cat-item { background: var(--navy3); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; transition: border-color 0.2s; }
+  .cat-item:hover { border-color: var(--mint); }
+  .cat-emoji { font-size: 22px; margin-bottom: 6px; }
+  .cat-name { font-size: 12px; color: var(--text-sec); }
+  .cat-total { font-size: 13px; font-weight: 600; margin-top: 3px; }
+
+  /* ALERTS */
+  .alert { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-radius: var(--radius-sm); margin-bottom: 10px; font-size: 13px; }
+  .alert.warning { background: rgba(245,166,35,0.08); border: 1px solid rgba(245,166,35,0.2); color: #F5C842; }
+  .alert.success { background: rgba(0,200,150,0.08); border: 1px solid rgba(0,200,150,0.2); color: var(--mint); }
+  .alert.info { background: rgba(124,110,245,0.08); border: 1px solid rgba(124,110,245,0.2); color: #9B8EF8; }
+  .alert-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .alert-text { color: var(--text-sec); }
+  .alert-text strong { color: var(--text); }
+
+  /* TABS */
+  .tabs { display: flex; gap: 4px; background: var(--navy3); border-radius: 10px; padding: 4px; margin-bottom: 18px; }
+  .tab {
+    flex: 1; padding: 8px; border-radius: 8px;
+    border: none; background: transparent; color: var(--text-muted);
+    font-family: 'DM Sans', sans-serif; font-size: 13px; cursor: pointer; transition: all 0.2s;
+  }
+  .tab.active { background: var(--card); color: var(--text); font-weight: 500; }
+
+  /* EMPTY */
+  .empty { text-align: center; padding: 40px 20px; color: var(--text-muted); }
+  .empty-icon { font-size: 36px; margin-bottom: 10px; }
+
+  /* MOBILE NAV */
+  .mobile-nav {
+    display: none; position: fixed; bottom: 0; left: 0; right: 0;
+    background: var(--navy2); border-top: 1px solid var(--border);
+    z-index: 100; padding: 8px 0 12px;
+  }
+  .mobile-nav-items { display: flex; }
+  .mobile-nav-item {
+    flex: 1; display: flex; flex-direction: column; align-items: center; gap: 3px;
+    padding: 6px 4px; cursor: pointer; border: none; background: none;
+    color: var(--text-muted); font-family: 'DM Sans', sans-serif; font-size: 10px; transition: color 0.2s;
+  }
+  .mobile-nav-item .nav-icon { font-size: 20px; width: auto; }
+  .mobile-nav-item.active { color: var(--mint); }
+
+  @media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); }
+    .sidebar.open { transform: translateX(0); box-shadow: 10px 0 40px rgba(0,0,0,0.4); }
+    .main { margin-left: 0; }
+    .topbar { padding: 0 12px; height: auto; min-height: 64px; flex-wrap: wrap; gap: 8px; padding-top: 8px; padding-bottom: 8px; }
+    .topbar-left { flex-wrap: wrap; gap: 6px; }
+    .hamburger { display: block; }
+    .content { padding: 16px; padding-bottom: 80px; }
+    .kpi-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+    .charts-row { grid-template-columns: 1fr; }
+    .tx-grid { grid-template-columns: 1fr; }
+    .invest-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+    .report-kpis { grid-template-columns: 1fr; gap: 10px; }
+    .cat-grid { grid-template-columns: repeat(2,1fr); }
+    .mobile-nav { display: block; }
+    .kpi-value { font-size: 22px; }
+    .page-title { font-size: 18px; }
+    .sidebar-footer { display: none; }
+  }
+  @media (max-width: 480px) {
+    .kpi-grid { grid-template-columns: 1fr 1fr; }
+    .invest-grid { grid-template-columns: 1fr; }
+    .modal { padding: 20px; }
+  }
+
+  .sidebar-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 99; }
+  .sidebar-overlay.open { display: block; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .view.active { animation: fadeIn 0.25s ease; }
+  #txSearch {
+    transition: border-color 0.2s;
+  }
+  #txSearch:focus, #txSearch:hover {
+    border-color: var(--mint);
+  }
+</style>
+</head>
+<body>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<div class="app">
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="logo">
+      <div class="logo-mark">
+        <div class="logo-icon">🌿</div>
+        <div>
+          <div class="logo-text">Flow<span>Mint</span></div>
+        </div>
+      </div>
+      <div class="logo-sub" data-i18n="logo.sub">Tu dinero, en control</div>
+    </div>
+    <nav>
+      <div class="nav-section">
+        <div class="nav-label" data-i18n="nav.sec.main">Principal</div>
+        <button class="nav-item active" onclick="showView('dashboard')"><span class="nav-icon">📊</span> <span data-i18n="nav.dashboard">Dashboard</span></button>
+        <button class="nav-item" onclick="showView('transactions')"><span class="nav-icon">💳</span> <span data-i18n="nav.transactions">Transacciones</span></button>
+        <button class="nav-item" onclick="showView('investments')"><span class="nav-icon">📈</span> <span data-i18n="nav.investments">Inversiones</span></button>
+        <button class="nav-item" onclick="showView('goals')"><span class="nav-icon">🎯</span> <span data-i18n="nav.goals">Metas</span></button>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label" data-i18n="nav.sec.analysis">Análisis</div>
+        <button class="nav-item" onclick="showView('reports')"><span class="nav-icon">🔍</span> <span data-i18n="nav.reports">Reportes</span></button>
+        <button class="nav-item" onclick="showView('budget')"><span class="nav-icon">⚖️</span> <span data-i18n="nav.budget">Presupuesto</span></button>
+      </div>
+      <div class="nav-section">
+        <div class="nav-label" data-i18n="nav.sec.backup">Copia de Seguridad</div>
+        <button class="nav-item" onclick="openExportOptionsModal()"><span class="nav-icon">📥</span> <span data-i18n="nav.export">Exportar Datos</span></button>
+        <button class="nav-item" onclick="triggerImport()"><span class="nav-icon">📤</span> <span data-i18n="nav.import">Importar Datos</span></button>
+        <input type="file" id="importFile" style="display:none" onchange="importData(event)" accept=".json">
+      </div>
+    </nav>
+    <div class="sidebar-footer">
+      <div class="budget-bar-wrap">
+        <div class="budget-label">
+          <span data-i18n="sb.budget.lbl">Presupuesto mensual</span>
+          <span id="sb-pct">0%</span>
+        </div>
+        <div class="budget-bar"><div class="budget-fill" id="sb-fill" style="width:0%"></div></div>
+      </div>
+      <div id="sb-budget-details" style="font-size:11px;color:var(--text-muted)">Calculando...</div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="hamburger" onclick="toggleSidebar()">☰</button>
+        <h1 class="page-title" id="pageTitle">Dashboard</h1>
+
+        <!-- Period Picker -->
+        <div class="period-picker">
+          <select class="period-select" id="periodMonth" onchange="updatePeriod()">
+            <option value="0">Enero</option><option value="1">Febrero</option>
+            <option value="2">Marzo</option><option value="3">Abril</option>
+            <option value="4">Mayo</option><option value="5">Junio</option>
+            <option value="6">Julio</option><option value="7">Agosto</option>
+            <option value="8">Septiembre</option><option value="9">Octubre</option>
+            <option value="10">Noviembre</option><option value="11">Diciembre</option>
+          </select>
+          <input type="number" id="periodYear" value="2025" min="2000" max="2099"
+                 onchange="updatePeriod()" oninput="updatePeriod()" class="period-select" style="width:72px">
+          <button class="period-all-btn" id="btnAllYear" onclick="toggleAllYear(this)" data-i18n="btn.all_year">Todo el año</button>
+        </div>
+
+        <!-- Currency Selector -->
+        <div class="currency-wrap">
+          <select class="currency-select" id="currencySelect" onchange="updateCurrency()">
+            <optgroup id="currencyGroupLatam" label="Latinoamérica">
+              <option value="USD" data-sym="$" data-rate="1"    data-i18n-currency="currency.usd">USD ($) — Dólar EE.UU.</option>
+              <option value="MXN" data-sym="$" data-rate="17.1" data-i18n-currency="currency.mxn">MXN ($) — Peso Mexicano</option>
+              <option value="COP" data-sym="$" data-rate="4080" data-i18n-currency="currency.cop">COP ($) — Peso Colombiano</option>
+              <option value="ARS" data-sym="$" data-rate="890"  data-i18n-currency="currency.ars">ARS ($) — Peso Argentino</option>
+              <option value="CLP" data-sym="$" data-rate="920"  data-i18n-currency="currency.clp">CLP ($) — Peso Chileno</option>
+              <option value="PEN" data-sym="S/" data-rate="3.75" data-i18n-currency="currency.pen">PEN (S/) — Sol Peruano</option>
+              <option value="BRL" data-sym="R$" data-rate="5.1" data-i18n-currency="currency.brl">BRL (R$) — Real Brasileño</option>
+              <option value="EUR" data-sym="€" data-rate="0.92" data-i18n-currency="currency.eur">EUR (€) — Euro</option>
+              <option value="GBP" data-sym="£" data-rate="0.79" data-i18n-currency="currency.gbp">GBP (£) — Pound Sterling</option>
+            </optgroup>
+            <option value="CUSTOM" data-sym="" data-rate="1">✏ Moneda personalizada…</option>
+          </select>
+          <div class="currency-edit-row" id="currencyEditRow">
+            <input type="text" id="customCurrencyCode" placeholder="USD" maxlength="6" oninput="this.value=this.value.toUpperCase()">
+            <input type="text" id="customCurrencySymbol" placeholder="$" maxlength="4"
+                   style="width:54px;background:var(--card2);border:1px solid var(--mint);color:var(--text);font-family:DM Sans,sans-serif;font-size:13px;padding:6px 8px;border-radius:8px;outline:none;">
+            <input type="number" id="customCurrencyRate" placeholder="Tasa vs USD" data-i18n-placeholder="currency.rate_placeholder" step="0.001"
+                   style="width:120px;background:var(--card2);border:1px solid var(--mint);color:var(--text);font-family:DM Sans,sans-serif;font-size:13px;padding:6px 8px;border-radius:8px;outline:none;">
+            <button onclick="applyCustomCurrency()">✓</button>
+          </div>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="lang-switch">
+          <button class="lang-btn active" id="lang-btn-es" onclick="applyLanguage('es')">ES</button>
+          <button class="lang-btn" id="lang-btn-en" onclick="applyLanguage('en')">EN</button>
+        </div>
+        <button class="btn-primary" onclick="openModal()" data-i18n="btn.add_tx">+ Transacción</button>
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <div class="view active" id="view-dashboard">
+        <div class="kpi-grid">
+          <div class="kpi-card income"><div class="kpi-icon">💰</div><div class="kpi-label" data-i18n="kpi.income">Ingresos</div><div class="kpi-value income" id="kpi-income">$0</div><div class="kpi-change"><span class="up">↑ 12%</span> <span data-i18n="kpi.change.vs">vs mes anterior</span></div></div>
+          <div class="kpi-card expense"><div class="kpi-icon">💸</div><div class="kpi-label" data-i18n="kpi.expense">Gastos</div><div class="kpi-value expense" id="kpi-expense">$0</div><div class="kpi-change"><span class="down">↑ 4%</span> <span data-i18n="kpi.change.vs">vs mes anterior</span></div></div>
+          <div class="kpi-card balance"><div class="kpi-icon">⚖️</div><div class="kpi-label" data-i18n="kpi.balance">Balance Neto</div><div class="kpi-value balance" id="kpi-balance">$0</div><div class="kpi-change"><span class="up">↑ 8%</span> <span data-i18n="kpi.change.vs">vs mes anterior</span></div></div>
+          <div class="kpi-card invest"><div class="kpi-icon">📈</div><div class="kpi-label" data-i18n="kpi.invest">Inversiones</div><div class="kpi-value invest" id="kpi-invest">$0</div><div class="kpi-change"><span class="up">↑ 2.3%</span> <span data-i18n="kpi.change.this_month">este mes</span></div></div>
+        </div>
+
+        <div class="charts-row">
+          <div class="card">
+            <div class="card-header">
+              <div><div class="card-title" data-i18n="card.cash_flow">Flujo de Caja</div><div class="card-sub" data-i18n="card.cash_flow.sub">Ingresos vs Gastos — últimos 6 meses</div></div>
+              <div style="display:flex;gap:12px;align-items:center;font-size:12px;color:var(--text-muted)">
+                <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--mint);margin-right:5px"></span><span data-i18n="tx.filter.income">Ingresos</span></span>
+                <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--coral);margin-right:5px"></span><span data-i18n="tx.filter.expense">Gastos</span></span>
+              </div>
+            </div>
+            <div class="bar-chart" id="barChart"></div>
+          </div>
+          <div class="card">
+            <div class="card-header"><div><div class="card-title" data-i18n="card.cat_expense">Gastos por Categoría</div><div class="card-sub" data-i18n="card.cat_expense.sub">Distribución mensual</div></div></div>
+            <div class="donut-wrap">
+              <svg class="donut-svg" viewBox="0 0 140 140" width="140" height="140">
+                <g id="donutArcs"></g>
+                <text class="donut-center" x="70" y="64" font-size="11" fill="var(--text-muted)" font-family="DM Sans" data-i18n="kpi.expense">Gastos</text>
+                <text class="donut-center" x="70" y="80" font-size="16" fill="var(--text)" font-family="DM Serif Display" font-weight="bold" id="donutTotal">$0</text>
+              </svg>
+              <div class="donut-legend" id="donutLegend"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tx-grid">
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title" data-i18n="card.recent_tx">Transacciones Recientes</div>
+              <button class="btn-ghost" onclick="showView('transactions')" style="font-size:12px;padding:5px 10px" data-i18n="btn.view_all">Ver todas →</button>
+            </div>
+            <div class="tx-list" id="recentTxList"></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div class="card">
+              <div class="card-header">
+                <div class="card-title" data-i18n="card.upcoming">Próximos Pagos</div>
+                <span class="tag red" id="upcomingBadge"></span>
+              </div>
+              <div id="upcomingList"></div>
+              <div style="margin-top:10px">
+                <button class="btn-ghost" onclick="openModal()" style="width:100%;font-size:12px;padding:7px;text-align:center" data-i18n="btn.add_upcoming">+ Agregar pago futuro</button>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header"><div class="card-title" data-i18n="card.alerts">Alertas</div></div>
+              <div id="alertsContainer"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSACTIONS -->
+      <div class="view" id="view-transactions">
+        <div class="tx-filters" id="txFilters">
+          <button class="filter-btn active" onclick="filterTx('all',this)" data-i18n="tx.filter.all">Todos</button>
+          <button class="filter-btn" onclick="filterTx('income',this)" data-i18n="tx.filter.income">Ingresos</button>
+          <button class="filter-btn" onclick="filterTx('expense',this)" data-i18n="tx.filter.expense">Gastos</button>
+          <button class="filter-btn" onclick="filterTx('invest',this)" data-i18n="tx.filter.invest">Inversiones</button>
+          <button class="filter-btn" onclick="filterTx('food',this)">🍽 <span data-i18n="cat.food">Comida</span></button>
+          <button class="filter-btn" onclick="filterTx('transport',this)">🚗 <span data-i18n="cat.transport">Transporte</span></button>
+          <button class="filter-btn" onclick="filterTx('health',this)">🏥 <span data-i18n="cat.health">Salud</span></button>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <div><div class="card-title" data-i18n="tx.title">Todas las transacciones</div><div class="card-sub" id="txCount">0 registros</div></div>
+            <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:flex-end">
+              <input type="text" id="txSearch" placeholder="Buscar por desc., nota, cat..." data-i18n-placeholder="tx.search_placeholder" style="background:var(--navy3);border:1px solid var(--border-light);color:var(--text);font-family:'DM Sans',sans-serif;font-size:13px;padding:6px 12px;border-radius:8px;outline:none;width:180px;" oninput="searchTx(this.value)">
+              <button class="btn-primary" onclick="openModal()" data-i18n="btn.add">+ Agregar</button>
+            </div>
+          </div>
+          <div class="tx-list" id="allTxList" style="max-height:520px"></div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+          <div class="card"><div class="card-title" style="margin-bottom:14px" data-i18n="card.cat_expense">Gastos por Categoría</div><div class="cat-grid" id="catGrid"></div></div>
+          <div class="card"><div class="card-title" style="margin-bottom:14px" data-i18n="card.period_summary">Resumen del Período</div><div style="display:flex;flex-direction:column;gap:10px" id="txSummary"></div></div>
+        </div>
+      </div>
+
+      <!-- INVESTMENTS -->
+      <div class="view" id="view-investments">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div>
+            <h2 style="font-family:'DM Serif Display',serif;font-size:20px" data-i18n="invest.title">Mi Portafolio de Inversiones</h2>
+            <p style="font-size:13px;color:var(--text-muted);margin-top:4px" id="investPeriodSub" data-i18n="invest.sub">Activos registrados + movimientos del período</p>
+          </div>
+          <button class="btn-primary" onclick="openInvestModal()" data-i18n="invest.btn.add">+ Nuevo Activo</button>
+        </div>
+
+        <!-- KPIs -->
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:22px">
+          <div class="kpi-card invest"><div class="kpi-icon">💼</div><div class="kpi-label" data-i18n="invest.kpi.portfolio_total">Portafolio Total</div><div class="kpi-value invest" id="portfolio-total">$0</div><div class="kpi-change" id="portfolio-change" data-i18n="invest.kpi.portfolio_total.sub">Valor actual de activos</div></div>
+          <div class="kpi-card"><div class="kpi-icon">📊</div><div class="kpi-label" data-i18n="invest.kpi.return">Rentabilidad Total</div><div class="kpi-value" id="portfolio-return-pct" style="color:#7C6EF5">0%</div><div class="kpi-change" data-i18n="invest.kpi.return.sub">vs. monto invertido</div></div>
+          <div class="kpi-card income"><div class="kpi-icon">💵</div><div class="kpi-label" data-i18n="invest.kpi.dividends">Dividendos Este Año</div><div class="kpi-value income" id="portfolio-dividends">$0</div><div class="kpi-change" data-i18n="invest.kpi.dividends.sub">Ingresos tipo Acciones</div></div>
+        </div>
+
+        <!-- Sección 1: Activos del portafolio (añadidos con "+ Nuevo Activo") -->
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header">
+            <div>
+              <div class="card-title" data-i18n="invest.assets.title">📁 Activos en Portafolio</div>
+              <div class="card-sub" data-i18n="invest.assets.sub">Activos que sigues manualmente — añade con "+ Nuevo Activo"</div>
+            </div>
+          </div>
+          <div id="investCards" style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px"></div>
+        </div>
+
+        <!-- Sección 2: Movimientos de inversión del período -->
+        <div class="card" style="margin-bottom:20px">
+          <div class="card-header">
+            <div>
+              <div class="card-title" data-i18n="invest.tx_section.title">💳 Movimientos de Inversión</div>
+              <div class="card-sub" id="investTxPeriodLabel" data-i18n="invest.tx_section.sub">Transacciones tipo Inversión del período seleccionado</div>
+            </div>
+            <button class="btn-primary" style="font-size:12px;padding:7px 14px" onclick="setType('invest');openModal()" data-i18n="invest.btn.add_tx">+ Registrar movimiento</button>
+          </div>
+          <div class="tx-list" id="investTxList" style="max-height:320px"></div>
+        </div>
+
+        <!-- Gráficos -->
+        <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:16px">
+          <div class="card">
+            <div class="card-header"><div class="card-title" data-i18n="invest.evolution.title">Evolución del Portafolio</div><span class="tag purple" data-i18n="invest.evolution.tag">Activos registrados</span></div>
+            <svg id="lineChart" viewBox="0 0 400 120" width="100%" height="120" style="overflow:visible"></svg>
+          </div>
+          <div class="card">
+            <div class="card-header"><div class="card-title" data-i18n="invest.distribution.title">Distribución</div></div>
+            <svg viewBox="0 0 140 140" width="100%" height="140" style="max-width:200px;display:block;margin:0 auto">
+              <g id="investDonut"></g>
+              <text text-anchor="middle" x="70" y="65" font-size="10" fill="var(--text-muted)" font-family="DM Sans" data-i18n="invest.distribution.total">Total</text>
+              <text text-anchor="middle" x="70" y="80" font-size="15" fill="var(--text)" font-family="DM Serif Display" id="investDonutTotal">$0</text>
+            </svg>
+            <div id="investLegend" style="margin-top:8px"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- GOALS -->
+      <div class="view" id="view-goals">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div><h2 style="font-family:'DM Serif Display',serif;font-size:20px" data-i18n="goals.title">Mis Metas Financieras</h2><p style="font-size:13px;color:var(--text-muted);margin-top:4px" data-i18n="goals.sub">Sigue el progreso de tus objetivos</p></div>
+          <button class="btn-primary" onclick="openGoalModal()" data-i18n="goals.btn.add">+ Nueva Meta</button>
+        </div>
+        <div id="goalsList"></div>
+      </div>
+
+      <!-- REPORTS -->
+      <div class="view" id="view-reports">
+        <div class="tabs" id="reportTabs">
+          <button class="tab active" onclick="switchReportTab('monthly',this)" data-i18n="reports.tab.monthly">Mensual</button>
+          <button class="tab" onclick="switchReportTab('annual',this)" data-i18n="reports.tab.annual">Anual</button>
+          <button class="tab" onclick="switchReportTab('categories',this)" data-i18n="reports.tab.categories">Categorías</button>
+        </div>
+        <div id="reportContent"></div>
+      </div>
+
+      <!-- BUDGET -->
+      <div class="view" id="view-budget">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+          <div><h2 style="font-family:'DM Serif Display',serif;font-size:20px" data-i18n="budget.title">Presupuesto Mensual</h2><p style="font-size:13px;color:var(--text-muted);margin-top:4px" id="budget-view-subtitle">Calculando...</p></div>
+          <button class="btn-ghost" onclick="openBudgetModal()" data-i18n="budget.btn.edit">Editar límites</button>
+        </div>
+        <div id="budgetContent"></div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- MOBILE NAV -->
+<nav class="mobile-nav">
+  <div class="mobile-nav-items">
+    <button class="mobile-nav-item active" onclick="showView('dashboard');setMobileActive(this)"><span class="nav-icon">📊</span><span data-i18n="nav.home">Inicio</span></button>
+    <button class="mobile-nav-item" onclick="showView('transactions');setMobileActive(this)"><span class="nav-icon">💳</span><span data-i18n="nav.transactions">Movimientos</span></button>
+    <button class="mobile-nav-item" onclick="openModal()"><span class="nav-icon" style="font-size:26px;color:var(--mint)">⊕</span></button>
+    <button class="mobile-nav-item" onclick="showView('investments');setMobileActive(this)"><span class="nav-icon">📈</span><span data-i18n="nav.investments">Inversiones</span></button>
+    <button class="mobile-nav-item" onclick="showView('goals');setMobileActive(this)"><span class="nav-icon">🎯</span><span data-i18n="nav.goals">Metas</span></button>
+  </div>
+</nav>
+
+<!-- TRANSACTION MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="modalTitle" data-i18n="modal.tx.title.new">Nueva Transacción</h2>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="type-toggle">
+      <button class="type-btn income active" id="typeIncome" onclick="setType('income')">💰 <span data-i18n="modal.tx.btn.income">Ingreso</span></button>
+      <button class="type-btn expense" id="typeExpense" onclick="setType('expense')">💸 <span data-i18n="modal.tx.btn.expense">Gasto</span></button>
+      <button class="type-btn invest" id="typeInvest" onclick="setType('invest')">📈 <span data-i18n="modal.tx.btn.invest">Inversión</span></button>
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="modal.tx.label.desc">Descripción</label>
+      <input type="text" class="form-input" id="txDesc" placeholder="Ej: Salario, Netflix, Supermercado..." data-i18n-placeholder="modal.tx.ph.desc">
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label class="form-label" data-i18n="modal.tx.label.amount">Monto</label><input type="number" class="form-input" id="txAmount" placeholder="0.00"></div>
+      <div class="form-group"><label class="form-label" data-i18n="modal.tx.label.date">Fecha</label><input type="date" class="form-input" id="txDate"></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="modal.tx.label.cat">Categoría</label>
+      <select class="form-select" id="txCat"></select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="modal.tx.label.note">Nota (opcional)</label>
+      <input type="text" class="form-input" id="txNote" placeholder="Añade un detalle..." data-i18n-placeholder="modal.tx.ph.note">
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
+      <button class="btn-primary" onclick="saveTransaction()" data-i18n="modal.tx.btn.save">✓ Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" data-i18n="modal.detail.title">Detalle de Transacción</h2>
+      <button class="modal-close" onclick="closeDetailModal()">✕</button>
+    </div>
+    <div id="detailModalContent"></div>
+    <div class="modal-actions" style="margin-top:22px">
+      <button class="btn-ghost" onclick="editTransactionFromDetail()" style="border-color:var(--mint);color:var(--mint)"><span data-i18n="modal.detail.btn.edit">✏ Editar</span></button>
+      <button class="btn-ghost" id="btnDeleteFromDetail" style="border-color:var(--coral);color:var(--coral)"><span data-i18n="modal.detail.btn.delete">🗑 Eliminar</span></button>
+      <button class="btn-primary" onclick="closeDetailModal()" data-i18n="modal.detail.btn.close">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- GOAL MODAL -->
+<div class="modal-overlay" id="goalModalOverlay">
+  <div class="modal">
+    <div class="modal-header">
+      <h2 class="modal-title" id="goalModalTitle" data-i18n="modal.goal.title.new">Nueva Meta</h2>
+      <button class="modal-close" onclick="closeGoalModal()">✕</button>
+    </div>
+    <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.name">Nombre de la meta</label><input type="text" class="form-input" id="goalName" placeholder="Ej: Fondo de emergencia, Vacaciones..." data-i18n-placeholder="modal.goal.ph.name"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.target">Monto objetivo</label><input type="number" class="form-input" id="goalTarget" placeholder="10000"></div>
+      <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.current">Ahorrado hasta ahora</label><input type="number" class="form-input" id="goalCurrent" placeholder="0"></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.date">Fecha límite</label><input type="date" class="form-input" id="goalDate"></div>
+      <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.emoji">Emoji</label><input type="text" class="form-input" id="goalEmoji" placeholder="🎯" maxlength="2"></div>
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="modal.goal.label.freq">Frecuencia sugerida de ahorro</label>
+      <select class="form-select" id="goalFreq">
+        <option value="monthly" data-i18n="modal.goal.freq.monthly">Mensual</option>
+        <option value="weekly" data-i18n="modal.goal.freq.weekly">Semanal</option>
+        <option value="daily" data-i18n="modal.goal.freq.daily">Diario</option>
+        <option value="none" data-i18n="modal.goal.freq.none">Sin sugerencia</option>
+      </select>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeGoalModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
+      <button class="btn-primary" id="goalModalSubmitBtn" onclick="saveGoal()" data-i18n="modal.goal.btn.save">✓ Crear Meta</button>
+    </div>
+  </div>
+</div>
+
+<!-- BUDGET MODAL -->
+<div class="modal-overlay" id="budgetModalOverlay">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header"><h2 class="modal-title" data-i18n="modal.budget.title">Editar Límites de Presupuesto</h2><button class="modal-close" onclick="closeBudgetModal()">✕</button></div>
+    <div style="max-height:350px;overflow-y:auto;padding-right:8px" id="budgetFormFields"></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeBudgetModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
+      <button class="btn-primary" onclick="saveBudgets()" data-i18n="modal.budget.btn.save">✓ Guardar Límites</button>
+    </div>
+  </div>
+</div>
+
+<!-- INVESTMENT MODAL -->
+<div class="modal-overlay" id="investModalOverlay">
+  <div class="modal">
+    <div class="modal-header"><h2 class="modal-title" id="investModalTitle" data-i18n="modal.invest.title.new">Nueva Inversión</h2><button class="modal-close" onclick="closeInvestModal()">✕</button></div>
+    <div class="form-group"><label class="form-label" data-i18n="modal.invest.label.name">Nombre del Activo</label><input type="text" class="form-input" id="invName" placeholder="Ej: Apple Inc., Ethereum, S&P 500..." data-i18n-placeholder="modal.invest.ph.name"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label class="form-label" data-i18n="modal.invest.label.ticker">Ticker / Símbolo</label><input type="text" class="form-input" id="invTicker" placeholder="AAPL, ETH..." data-i18n-placeholder="modal.invest.ph.ticker"></div>
+      <div class="form-group"><label class="form-label" data-i18n="modal.invest.label.color">Color</label>
+        <select class="form-select" id="invColor">
+          <option value="#00C896" data-i18n="color.mint">Verde Menta</option><option value="#F5A623" data-i18n="color.gold">Oro</option>
+          <option value="#7C6EF5" data-i18n="color.purple">Púrpura</option><option value="#FF5C5C" data-i18n="color.coral">Coral</option>
+          <option value="#3A9EF5" data-i18n="color.blue">Azul</option><option value="#9AA8C4" data-i18n="color.gray">Gris</option>
+        </select>
+      </div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+      <div class="form-group"><label class="form-label" data-i18n="modal.invest.label.invested">Monto Invertido ($)</label><input type="number" class="form-input" id="invInvested" placeholder="1000"></div>
+      <div class="form-group"><label class="form-label" data-i18n="modal.invest.label.current">Valor Actual ($)</label><input type="number" class="form-input" id="invValue" placeholder="1200"></div>
+    </div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closeInvestModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
+      <button class="btn-primary" id="investModalSubmitBtn" onclick="saveInvestment()" data-i18n="modal.invest.btn.save">✓ Agregar Activo</button>
+    </div>
+  </div>
+</div>
+
+<!-- BACKUP MODAL -->
+<div class="modal-overlay" id="backupModalOverlay">
+  <div class="modal" style="max-width:550px">
+    <div class="modal-header">
+      <h2 class="modal-title" data-i18n="modal.backup.title">Copia de Seguridad</h2>
+      <button class="modal-close" onclick="closeBackupModal()">✕</button>
+    </div>
+    <p style="font-size:13px;color:var(--text-sec);margin-bottom:12px" data-i18n="modal.backup.desc">
+      Tu navegador debería haber iniciado la descarga del archivo automáticamente. Si el navegador lo bloqueó por seguridad local, puedes copiar el texto de abajo o pegar tu copia aquí para importar.
+    </p>
+    
+    <div class="form-group">
+      <label class="form-label" data-i18n="modal.backup.label">Datos de copia de seguridad (JSON)</label>
+      <textarea id="backupTextarea" class="form-input" style="height:150px;font-family:monospace;font-size:11px;background:var(--navy3);color:var(--text);resize:none" readonly onclick="this.select()"></textarea>
+    </div>
+
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="btn-ghost" style="flex:1;font-size:13px;padding:8px" onclick="copyBackupToClipboard()"><span data-i18n="modal.backup.btn.copy">📋 Copiar texto</span></button>
+      <button class="btn-ghost" style="flex:1;font-size:13px;padding:8px;border-color:var(--mint);color:var(--mint)" onclick="enableBackupPaste()"><span data-i18n="modal.backup.btn.paste">✍ Importar pegando texto</span></button>
+    </div>
+
+    <div id="importPasteArea" style="display:none;margin-top:12px;border-top:1px solid var(--border);padding-top:12px">
+      <p style="font-size:12px;color:var(--text-sec);margin-bottom:8px" data-i18n="modal.backup.paste.desc">Pega aquí el JSON de tu copia de seguridad anterior:</p>
+      <textarea id="importPasteTextarea" class="form-input" placeholder="Pega el texto JSON aquí..." data-i18n-placeholder="modal.backup.paste.ph" style="height:100px;font-family:monospace;font-size:11px;background:var(--navy3);color:var(--text);resize:none"></textarea>
+      <button class="btn-primary" style="width:100%;margin-top:8px;font-size:13px;padding:8px" onclick="importFromPastedText()" data-i18n="modal.backup.btn.confirm">✓ Confirmar Importación</button>
+    </div>
+
+    <div class="modal-actions" style="margin-top:16px">
+      <button class="btn-primary" onclick="closeBackupModal()" data-i18n="modal.detail.btn.close">Cerrar</button>
+    </div>
+  </div>
+</div>
+
+<!-- EXPORT OPTIONS MODAL -->
+<div class="modal-overlay" id="exportOptionsModalOverlay">
+  <div class="modal" style="max-width:450px;text-align:center">
+    <div class="modal-header" style="justify-content:center;position:relative">
+      <h2 class="modal-title" data-i18n="modal.export.title">Exportar Datos</h2>
+      <button class="modal-close" style="position:absolute;right:0;top:0" onclick="closeExportOptionsModal()">✕</button>
+    </div>
+
+    <!-- Panel inicial: elegir formato -->
+    <div id="exportChoicePanel">
+      <p style="font-size:13px;color:var(--text-sec);margin-bottom:24px" data-i18n="modal.export.sub">
+        ¿En qué formato deseas exportar tu información financiera?
+      </p>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        <button class="btn-primary" style="padding:16px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px" onclick="exportCSV()">
+          <span style="font-size:24px">📊</span> <span data-i18n="modal.export.btn.csv">Exportar a Excel (CSV)</span>
+        </button>
+        <button class="btn-ghost" style="padding:16px;font-size:15px;display:flex;align-items:center;justify-content:center;gap:10px;border-color:var(--border)" onclick="openBackupFromOptions()">
+          <span style="font-size:24px">💾</span> <span data-i18n="modal.export.btn.json">Copia de Seguridad de App (JSON)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Panel de éxito: se muestra tras la descarga -->
+    <div id="exportSuccessPanel" style="display:none">
+      <div style="font-size:56px;margin-bottom:16px">✅</div>
+      <h3 style="font-family:'DM Serif Display',serif;font-size:20px;margin-bottom:10px" data-i18n="modal.export.success.title">¡Guardado correctamente!</h3>
+      <p style="font-size:13px;color:var(--text-sec);margin-bottom:6px" id="exportSuccessText" data-i18n="modal.export.success.text">
+        El archivo <strong id="exportedFileName" style="color:var(--mint)"></strong> fue guardado en la ubicación que seleccionaste.
+      </p>
+      <p style="font-size:12px;color:var(--text-muted);margin-bottom:20px" data-i18n="modal.export.success.hint">
+        Ábrelo con Excel, LibreOffice o cualquier programa de hojas de cálculo.
+      </p>
+      <div style="display:flex;flex-direction:column;gap:10px">
+        <button class="btn-primary" style="padding:12px;font-size:14px;justify-content:center" onclick="closeExportOptionsModal()" data-i18n="modal.export.success.close">
+          ✓ Listo, cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// BILINGUAL TRANSLATIONS (ES / EN)
+// ══════════════════════════════════════════
+const translations = {
+  es: {
+    'logo.sub': 'Tu dinero, en control',
+    'nav.sec.main': 'Principal',
+    'nav.dashboard': 'Dashboard',
+    'nav.transactions': 'Transacciones',
+    'nav.investments': 'Inversiones',
+    'nav.goals': 'Metas',
+    'nav.sec.analysis': 'Análisis',
+    'nav.reports': 'Reportes',
+    'nav.budget': 'Presupuesto',
+    'nav.sec.backup': 'Copia de Seguridad',
+    'nav.export': 'Exportar Datos',
+    'nav.import': 'Importar Datos',
+    'nav.home': 'Inicio',
+
+    'btn.add_tx': '+ Transacción',
+    'btn.all_year': 'Todo el año',
+    'btn.add': '+ Agregar',
+
+    'month.0': 'Enero', 'month.1': 'Febrero', 'month.2': 'Marzo', 'month.3': 'Abril',
+    'month.4': 'Mayo', 'month.5': 'Junio', 'month.6': 'Julio', 'month.7': 'Agosto',
+    'month.8': 'Septiembre', 'month.9': 'Octubre', 'month.10': 'Noviembre', 'month.11': 'Diciembre',
+
+    'currency.custom': '✏ Moneda personalizada…',
+
+    'kpi.income': 'Ingresos',
+    'kpi.expense': 'Gastos',
+    'kpi.balance': 'Balance Neto',
+    'kpi.invest': 'Inversiones',
+    'kpi.change.vs': 'vs mes anterior',
+    'kpi.change.this_month': 'este mes',
+
+    'card.cash_flow': 'Flujo de Caja',
+    'card.cash_flow.sub': 'Ingresos vs Gastos — últimos 6 meses',
+    'card.cat_expense': 'Gastos por Categoría',
+    'card.cat_expense.sub': 'Distribución mensual',
+    'card.recent_tx': 'Transacciones Recientes',
+    'card.period_summary': 'Resumen del Período',
+    'btn.view_all': 'Ver todas →',
+    'card.upcoming': 'Próximos Pagos',
+    'btn.add_upcoming': '+ Agregar pago futuro',
+    'card.alerts': 'Alertas',
+
+    'alert.budget_exceeded': '⚠️ <strong>Límite superado</strong> en <strong>{cat}</strong> ({curr}/{limit})',
+    'alert.budget_warning': '⚠️ <strong>Cerca del límite</strong> en <strong>{cat}</strong> ({curr}/{limit})',
+    'alert.no_alerts': '🎉 Todo bajo control. No tienes alertas de presupuesto.',
+
+    'tx.title': 'Todas las transacciones',
+    'tx.filter.all': 'Todos',
+    'tx.filter.income': 'Ingresos',
+    'tx.filter.expense': 'Gastos',
+    'tx.filter.invest': 'Inversiones',
+    'tx.col.desc': 'Descripción',
+    'tx.col.cat': 'Categoría',
+    'tx.col.amount': 'Monto',
+    'tx.col.date': 'Fecha',
+    'tx.col.actions': 'Acciones',
+
+    'invest.title': 'Mi Portafolio de Inversiones',
+    'invest.sub': 'Activos registrados + movimientos del período',
+    'invest.btn.add': '+ Nuevo Activo',
+    'invest.btn.add_tx': '+ Registrar movimiento',
+    'invest.kpi.portfolio_total': 'Portafolio Total',
+    'invest.kpi.portfolio_total.sub': 'Valor actual de activos',
+    'invest.kpi.return': 'Rentabilidad Total',
+    'invest.kpi.return.sub': 'vs. monto invertido',
+    'invest.kpi.dividends': 'Dividendos Este Año',
+    'invest.kpi.dividends.sub': 'Ingresos tipo Acciones',
+    'invest.assets.title': '📁 Activos en Portafolio',
+    'invest.assets.sub': 'Activos que sigues manualmente — añade con "+ Nuevo Activo"',
+    'invest.tx_section.title': '💳 Movimientos de Inversión',
+    'invest.tx_section.sub': 'Transacciones tipo Inversión del período seleccionado',
+    'invest.evolution.title': 'Evolución del Portafolio',
+    'invest.evolution.tag': 'Activos registrados',
+    'invest.distribution.title': 'Distribución',
+    'invest.distribution.total': 'Total',
+    'invest.empty': 'Aún no tienes activos en tu portafolio.',
+    'invest.empty.desc': 'Registra tus acciones, ETFs, criptomonedas o fondos manuales para realizar el seguimiento de su rendimiento real.',
+    'invest.tx_title': 'Movimientos de Inversión del Período',
+    'invest.tx_empty': 'No hay movimientos de inversión registrados en este período.',
+    'invest.donut.empty': 'Sin distribución disponible',
+    'invest.donut.center': 'Inversión',
+
+    'goals.title': 'Mis Metas Financieras',
+    'goals.sub': 'Sigue el progreso de tus objetivos',
+    'goals.btn.add': '+ Nueva Meta',
+    'goals.empty': 'Aún no has configurado metas de ahorro.',
+    'goals.empty.desc': 'Define tus objetivos financieros para estimar el ahorro periódico requerido.',
+    'goals.date': 'Meta:',
+    'goals.suggested': 'Ahorra ~',
+    'goals.completed': '🎉 ¡Completada!',
+    
+    'budget.title': 'Presupuesto Mensual',
+    'budget.btn.edit': 'Editar límites',
+    'budget.spent': 'gastado',
+    'budget.limit': 'Límite',
+    'sb.budget.lbl': 'Presupuesto mensual',
+    'sb.budget.loading': 'Calculando...',
+    'sb.budget.details': '{spent} de {total} gastado',
+    'sb.budget.details.left': 'Quedan {remaining} de {total}',
+
+    'reports.tab.monthly': 'Mensual',
+    'reports.tab.annual': 'Anual',
+    'reports.tab.categories': 'Categorías',
+
+    'modal.tx.title.new': 'Nueva Transacción',
+    'modal.tx.title.edit': 'Editar Transacción',
+    'modal.tx.label.type': 'Tipo de Transacción',
+    'modal.tx.btn.income': 'Ingreso',
+    'modal.tx.btn.expense': 'Gasto',
+    'modal.tx.btn.invest': 'Inversión',
+    'modal.tx.label.desc': 'Descripción',
+    'modal.tx.ph.desc': 'Ej: Salario, Netflix, Supermercado...',
+    'modal.tx.label.cat': 'Categoría',
+    'modal.tx.label.amount': 'Monto',
+    'modal.tx.label.date': 'Fecha',
+    'modal.tx.label.note': 'Nota (opcional)',
+    'modal.tx.ph.note': 'Añade un detalle...',
+    'modal.tx.btn.cancel': 'Cancelar',
+    'modal.tx.btn.save': '✓ Guardar',
+
+    'modal.detail.title': 'Detalle de Transacción',
+    'modal.detail.btn.edit': '✏ Editar',
+    'modal.detail.btn.delete': '🗑 Eliminar',
+    'modal.detail.btn.close': 'Cerrar',
+
+    'modal.goal.title.new': 'Nueva Meta',
+    'modal.goal.title.edit': 'Editar Meta',
+    'modal.goal.label.name': 'Nombre de la meta',
+    'modal.goal.ph.name': 'Ej: Fondo de emergencia, Vacaciones...',
+    'modal.goal.label.target': 'Monto objetivo',
+    'modal.goal.label.current': 'Ahorrado hasta ahora',
+    'modal.goal.label.date': 'Fecha límite',
+    'modal.goal.label.emoji': 'Emoji',
+    'modal.goal.label.freq': 'Frecuencia sugerida de ahorro',
+    'modal.goal.freq.monthly': 'Mensual',
+    'modal.goal.freq.weekly': 'Semanal',
+    'modal.goal.freq.daily': 'Diario',
+    'modal.goal.freq.none': 'Sin sugerencia',
+    'modal.goal.btn.save': '✓ Crear Meta',
+    'modal.goal.btn.save.edit': '✓ Guardar Meta',
+
+    'modal.budget.title': 'Editar Límites de Presupuesto',
+    'modal.budget.btn.save': '✓ Guardar Límites',
+
+    'modal.invest.title.new': 'Nueva Inversión',
+    'modal.invest.title.edit': 'Editar Inversión',
+    'modal.invest.label.name': 'Nombre del Activo',
+    'modal.invest.ph.name': 'Ej: Apple Inc., Ethereum, S&P 500...',
+    'modal.invest.label.ticker': 'Ticker / Símbolo',
+    'modal.invest.ph.ticker': 'AAPL, ETH...',
+    'modal.invest.label.color': 'Color',
+    'modal.invest.label.invested': 'Monto Invertido ($)',
+    'modal.invest.label.current': 'Valor Actual ($)',
+    'modal.invest.btn.save': '✓ Agregar Activo',
+    'modal.invest.btn.save.edit': '✓ Guardar Cambios',
+
+    'modal.backup.title': 'Copia de Seguridad',
+    'modal.backup.desc': 'Tu navegador debería haber iniciado la descarga del archivo automáticamente. Si el navegador lo bloqueó por seguridad local, puedes copiar el texto de abajo o pegar tu copia aquí para importar.',
+    'modal.backup.label': 'Datos de copia de seguridad (JSON)',
+    'modal.backup.btn.copy': '📋 Copiar texto',
+    'modal.backup.btn.paste': '✍ Importar pegando texto',
+    'modal.backup.paste.desc': 'Pega aquí el JSON de tu copia de seguridad anterior:',
+    'modal.backup.paste.ph': 'Pega el texto JSON aquí...',
+    'modal.backup.btn.confirm': '✓ Confirmar Importación',
+
+    'modal.export.title': 'Exportar Datos',
+    'modal.export.sub': '¿En qué formato deseas exportar tu información financiera?',
+    'modal.export.btn.csv': '📊 Exportar a Excel (CSV)',
+    'modal.export.btn.json': '💾 Copia de Seguridad de App (JSON)',
+    'modal.export.success.title': '¡Guardado correctamente!',
+    'modal.export.success.hint': 'Ábrelo con Excel, LibreOffice o cualquier programa de hojas de cálculo.',
+    'modal.export.success.close': '✓ Listo, cerrar',
+
+    'cat.salary': 'Salario', 'cat.freelance': 'Freelance', 'cat.food': 'Comida', 'cat.transport': 'Transporte',
+    'cat.entertainment': 'Entretenimiento', 'cat.health': 'Salud', 'cat.home': 'Hogar', 'cat.education': 'Educación',
+    'cat.subscriptions': 'Suscripciones', 'cat.savings': 'Ahorros', 'cat.stocks': 'Acciones/ETFs', 'cat.crypto': 'Crypto',
+    'cat.other': 'Otro',
+
+    'unit.month': '/mes', 'unit.week': '/semana', 'unit.day': '/día',
+
+    'confirm.delete': '¿Estás seguro de que deseas eliminar este elemento?',
+    'confirm.import': '¿Estás seguro de importar estos datos? Reemplazará tu base de datos actual.',
+    'alert.import_success': '¡Datos importados con éxito!',
+    'alert.import_pasted_success': '¡Datos importados con éxito desde el texto pegado!',
+    'alert.invalid_format': 'Formato inválido',
+    'alert.fill_all': 'Por favor rellena todos los campos obligatorios.',
+    'alert.copy_success': '¡Copia de seguridad copiada al portapapeles con éxito!',
+    'alert.paste_please': 'Por favor, pega el JSON de copia de seguridad.',
+
+    'tx.count_label': 'registros',
+    'tx.summary.all_year': 'Todo {year}',
+    'tx.summary.period': 'Período',
+    'tx.summary.currency': 'Moneda activa',
+    'tx.summary.income': 'Total Ingresos',
+    'tx.summary.expense': 'Total Gastos',
+    'tx.summary.invest': 'Total Invertido',
+    'tx.summary.savings': 'Ahorro Neto',
+    'tx.summary.rate': 'Tasa de Ahorro',
+    'invest.vs_investment': 'vs inversión',
+
+    'tx.empty_period': 'Sin transacciones en este período',
+    'tx.empty_filter': 'Sin transacciones para este período / filtro',
+    'tx.showing': 'Mostrando',
+    'tx.no_notes': 'Sin notas.',
+    'upcoming.empty': 'Sin pagos futuros registrados.',
+    'upcoming.empty.hint': 'Agrega una transacción con fecha posterior a hoy para verla aquí.',
+    'alerts.empty': 'Todo bajo control. Sin alertas por ahora.',
+    'budget.empty': 'Sin gastos en este período',
+    'upcoming.tomorrow': 'mañana',
+    'upcoming.in_days': 'en {days} días',
+    'report.cashflow_6m': 'Flujo mes a mes (6 meses)',
+    'report.net_balance_month': 'Balance neto por mes',
+    'report.annual_proj': 'Proyección anual',
+    'report.based_on': 'Basado en',
+    'report.months_data': 'mes(es) con datos',
+    'report.proj_income': 'Ingreso proyectado',
+    'report.proj_expense': 'Gasto proyectado',
+    'report.proj_savings': 'Ahorro proyectado',
+    'report.exp_dist': 'Distribución de gastos',
+    'color.mint': 'Verde Menta', 'color.gold': 'Oro', 'color.purple': 'Púrpura',
+    'color.coral': 'Coral', 'color.blue': 'Azul', 'color.gray': 'Gris',
+    'budget.sidebar.left': 'Quedan {left} de {total}',
+    'budget.year': 'Año',
+    'budget.total': 'Presupuesto Total',
+    'budget.spent_lbl': 'Gastado',
+    'budget.available': 'Disponible',
+    'budget.limit': 'Límite',
+
+    'alert.spending_over': '<strong>Gastos superiores a ingresos</strong> este período: balance -{amount}',
+    'alert.savings_low': 'Tu tasa de ahorro es <strong>{rate}%</strong> — intenta reducir gastos variables para mejorarla.',
+    'alert.savings_great': '¡Excelente! Tasa de ahorro de <strong>{rate}%</strong> este período.',
+    'alert.subscriptions': 'Suscripciones: <strong>{amount}/mes</strong> ({pct}% de tus ingresos). Revisa si usas todos.',
+    'alert.no_tx': 'No hay transacciones en este período. Selecciona otro mes o agrega movimientos.',
+    'alert.goal_100': '<strong>{emoji} {name}</strong> ¡meta completada al 100%!',
+    'alert.goal_progress': '<strong>{emoji} {name}</strong> alcanzó el {pct}% — faltan {remaining}',
+    'btn.delete': 'Eliminar',
+    'btn.edit': 'Editar',
+    'goal.saved': 'ahorrado',
+    'goal.goal': 'Meta',
+    'goal.expires': 'Vence',
+    'goal.remaining': 'Faltan',
+    'currency.rate_placeholder': 'Tasa vs USD',
+    'modal.export.success.text': 'El archivo fue guardado en la ubicación que seleccionaste.',
+    'tx.search_placeholder': 'Buscar por desc., nota, cat...',
+    'currency.group_latam': 'Latinoamérica',
+    'currency.usd': 'USD ($) — Dólar EE.UU.',
+    'currency.mxn': 'MXN ($) — Peso Mexicano',
+    'currency.cop': 'COP ($) — Peso Colombiano',
+    'currency.ars': 'ARS ($) — Peso Argentino',
+    'currency.clp': 'CLP ($) — Peso Chileno',
+    'currency.pen': 'PEN (S/) — Sol Peruano',
+    'currency.brl': 'BRL (R$) — Real Brasileño',
+    'currency.eur': 'EUR (€) — Euro',
+    'currency.gbp': 'GBP (£) — Libra Esterlina'
+  },
+  en: {
+    'logo.sub': 'Your money, in control',
+    'nav.sec.main': 'Main',
+    'nav.dashboard': 'Dashboard',
+    'nav.transactions': 'Transactions',
+    'nav.investments': 'Investments',
+    'nav.goals': 'Goals',
+    'nav.sec.analysis': 'Analysis',
+    'nav.reports': 'Reports',
+    'nav.budget': 'Budget',
+    'nav.sec.backup': 'Backup & Restore',
+    'nav.export': 'Export Data',
+    'nav.import': 'Import Data',
+    'nav.home': 'Home',
+
+    'btn.add_tx': '+ Transaction',
+    'btn.all_year': 'All Year',
+    'btn.add': '+ Add',
+
+    'month.0': 'January', 'month.1': 'February', 'month.2': 'March', 'month.3': 'April',
+    'month.4': 'May', 'month.5': 'June', 'month.6': 'July', 'month.7': 'August',
+    'month.8': 'September', 'month.9': 'October', 'month.10': 'November', 'month.11': 'December',
+
+    'currency.custom': '✏ Custom Currency…',
+
+    'kpi.income': 'Income',
+    'kpi.expense': 'Expenses',
+    'kpi.balance': 'Net Balance',
+    'kpi.invest': 'Investments',
+    'kpi.change.vs': 'vs last month',
+    'kpi.change.this_month': 'this month',
+
+    'card.cash_flow': 'Cash Flow',
+    'card.cash_flow.sub': 'Income vs Expenses — last 6 months',
+    'card.cat_expense': 'Expenses by Category',
+    'card.cat_expense.sub': 'Monthly distribution',
+    'card.recent_tx': 'Recent Transactions',
+    'card.period_summary': 'Period Summary',
+    'btn.view_all': 'View All →',
+    'card.upcoming': 'Upcoming Payments',
+    'btn.add_upcoming': '+ Add future payment',
+    'card.alerts': 'Alerts',
+
+    'alert.budget_exceeded': '⚠️ <strong>Limit exceeded</strong> in <strong>{cat}</strong> ({curr}/{limit})',
+    'alert.budget_warning': '⚠️ <strong>Close to limit</strong> in <strong>{cat}</strong> ({curr}/{limit})',
+    'alert.no_alerts': '🎉 Everything under control. No budget alerts.',
+
+    'tx.title': 'All Transactions',
+    'tx.search_placeholder': 'Search by desc, note, cat...',
+    'tx.filter.all': 'All',
+    'tx.filter.income': 'Income',
+    'tx.filter.expense': 'Expenses',
+    'tx.filter.invest': 'Investments',
+    'tx.col.desc': 'Description',
+    'tx.col.cat': 'Category',
+    'tx.col.amount': 'Amount',
+    'tx.col.date': 'Date',
+    'tx.col.actions': 'Actions',
+
+    'invest.title': 'My Investment Portfolio',
+    'invest.sub': 'Registered assets + movements of the period',
+    'invest.btn.add': '+ New Asset',
+    'invest.btn.add_tx': '+ Add movement',
+    'invest.kpi.portfolio_total': 'Portfolio Total',
+    'invest.kpi.portfolio_total.sub': 'Current assets value',
+    'invest.kpi.return': 'Total Return',
+    'invest.kpi.return.sub': 'vs. amount invested',
+    'invest.kpi.dividends': 'Dividends This Year',
+    'invest.kpi.dividends.sub': 'Stock-type income',
+    'invest.assets.title': '📁 Assets in Portfolio',
+    'invest.assets.sub': 'Assets tracked manually — add with "+ New Asset"',
+    'invest.tx_section.title': '💳 Investment Movements',
+    'invest.tx_section.sub': 'Investment-type transactions of the selected period',
+    'invest.evolution.title': 'Portfolio Evolution',
+    'invest.evolution.tag': 'Registered assets',
+    'invest.distribution.title': 'Distribution',
+    'invest.distribution.total': 'Total',
+    'invest.empty': 'No assets in your portfolio yet.',
+    'invest.empty.desc': 'Register your stocks, ETFs, crypto or manual funds to track their real-time performance.',
+    'invest.tx_title': 'Investment Movements of the Period',
+    'invest.tx_empty': 'No investment transactions registered in this period.',
+    'invest.donut.empty': 'No distribution available',
+    'invest.donut.center': 'Investment',
+
+    'goals.title': 'My Financial Goals',
+    'goals.sub': 'Track your objectives progress',
+    'goals.btn.add': '+ New Goal',
+    'goals.empty': 'No savings goals configured yet.',
+    'goals.empty.desc': 'Define your financial goals to estimate required periodic savings.',
+    'goals.date': 'Goal:',
+    'goals.suggested': 'Save ~',
+    'goals.completed': '🎉 Completed!',
+    
+    'budget.title': 'Monthly Budget',
+    'budget.btn.edit': 'Edit limits',
+    'budget.spent': 'spent',
+    'budget.limit': 'Limit',
+    'sb.budget.lbl': 'Monthly budget',
+    'sb.budget.loading': 'Calculating...',
+    'sb.budget.details': '{spent} of {total} spent',
+    'sb.budget.details.left': '{remaining} remaining of {total}',
+
+    'reports.tab.monthly': 'Monthly',
+    'reports.tab.annual': 'Annual',
+    'reports.tab.categories': 'Categories',
+
+    'modal.tx.title.new': 'New Transaction',
+    'modal.tx.title.edit': 'Edit Transaction',
+    'modal.tx.label.type': 'Transaction Type',
+    'modal.tx.btn.income': 'Income',
+    'modal.tx.btn.expense': 'Expense',
+    'modal.tx.btn.invest': 'Investment',
+    'modal.tx.label.desc': 'Description',
+    'modal.tx.ph.desc': 'e.g. Salary, Netflix, Supermarket...',
+    'modal.tx.label.cat': 'Category',
+    'modal.tx.label.amount': 'Amount',
+    'modal.tx.label.date': 'Date',
+    'modal.tx.label.note': 'Note (optional)',
+    'modal.tx.ph.note': 'Add details...',
+    'modal.tx.btn.cancel': 'Cancel',
+    'modal.tx.btn.save': '✓ Save',
+
+    'modal.detail.title': 'Transaction Detail',
+    'modal.detail.btn.edit': '✏ Edit',
+    'modal.detail.btn.delete': '🗑 Delete',
+    'modal.detail.btn.close': 'Close',
+
+    'modal.goal.title.new': 'New Goal',
+    'modal.goal.title.edit': 'Edit Goal',
+    'modal.goal.label.name': 'Goal Name',
+    'modal.goal.ph.name': 'e.g. Emergency Fund, Vacation...',
+    'modal.goal.label.target': 'Target Amount',
+    'modal.goal.label.current': 'Saved Up to Now',
+    'modal.goal.label.date': 'Deadline',
+    'modal.goal.label.emoji': 'Emoji',
+    'modal.goal.label.freq': 'Suggested Saving Frequency',
+    'modal.goal.freq.monthly': 'Monthly',
+    'modal.goal.freq.weekly': 'Weekly',
+    'modal.goal.freq.daily': 'Daily',
+    'modal.goal.freq.none': 'No suggestion',
+    'modal.goal.btn.save': '✓ Create Goal',
+    'modal.goal.btn.save.edit': '✓ Save Goal',
+
+    'modal.budget.title': 'Edit Budget Limits',
+    'modal.budget.btn.save': '✓ Save Limits',
+
+    'modal.invest.title.new': 'New Investment',
+    'modal.invest.title.edit': 'Edit Investment',
+    'modal.invest.label.name': 'Asset Name',
+    'modal.invest.ph.name': 'e.g. Apple Inc., Ethereum, S&P 500...',
+    'modal.invest.label.ticker': 'Ticker / Symbol',
+    'modal.invest.ph.ticker': 'AAPL, ETH...',
+    'modal.invest.label.color': 'Color',
+    'modal.invest.label.invested': 'Amount Invested ($)',
+    'modal.invest.label.current': 'Current Value ($)',
+    'modal.invest.btn.save': '✓ Add Asset',
+    'modal.invest.btn.save.edit': '✓ Save Changes',
+
+    'modal.backup.title': 'Backup',
+    'modal.backup.desc': 'Your browser should have started downloading the file automatically. If it was blocked, you can copy the text below or paste your copy here to import.',
+    'modal.backup.label': 'Backup Data (JSON)',
+    'modal.backup.btn.copy': '📋 Copy text',
+    'modal.backup.btn.paste': '✍ Import by pasting text',
+    'modal.backup.paste.desc': 'Paste your previous backup JSON here:',
+    'modal.backup.paste.ph': 'Paste JSON text here...',
+    'modal.backup.btn.confirm': '✓ Confirm Import',
+
+    'modal.export.title': 'Export Data',
+    'modal.export.sub': 'In what format do you wish to export your financial info?',
+    'modal.export.btn.csv': '📊 Export to Excel (CSV)',
+    'modal.export.btn.json': '💾 App Backup (JSON)',
+    'modal.export.success.title': 'Saved correctly!',
+    'modal.export.success.hint': 'Open it with Excel, LibreOffice or any spreadsheet program.',
+    'modal.export.success.close': '✓ Done, close',
+
+    'cat.salary': 'Salary', 'cat.freelance': 'Freelance', 'cat.food': 'Food', 'cat.transport': 'Transport',
+    'cat.entertainment': 'Entertainment', 'cat.health': 'Health', 'cat.home': 'Home', 'cat.education': 'Education',
+    'cat.subscriptions': 'Subscriptions', 'cat.savings': 'Savings', 'cat.stocks': 'Stocks/ETFs', 'cat.crypto': 'Crypto',
+    'cat.other': 'Other',
+
+    'unit.month': '/month', 'unit.week': '/week', 'unit.day': '/day',
+
+    'confirm.delete': 'Are you sure you want to delete this item?',
+    'confirm.import': 'Are you sure you want to import this data? It will replace your current database.',
+    'alert.import_success': 'Data imported successfully!',
+    'alert.import_pasted_success': 'Data imported successfully from pasted text!',
+    'alert.invalid_format': 'Invalid format',
+    'alert.fill_all': 'Please fill all required fields.',
+    'alert.copy_success': 'Backup copied to clipboard successfully!',
+    'alert.paste_please': 'Please paste the backup JSON.',
+
+    'tx.count_label': 'records',
+    'tx.summary.all_year': 'All {year}',
+    'tx.summary.period': 'Period',
+    'tx.summary.currency': 'Active Currency',
+    'tx.summary.income': 'Total Income',
+    'tx.summary.expense': 'Total Expenses',
+    'tx.summary.invest': 'Total Invested',
+    'tx.summary.savings': 'Net Savings',
+    'tx.summary.rate': 'Savings Rate',
+    'invest.vs_investment': 'vs investment',
+
+    'tx.empty_period': 'No transactions in this period',
+    'tx.empty_filter': 'No transactions for this period / filter',
+    'tx.showing': 'Showing',
+    'tx.no_notes': 'No notes.',
+    'upcoming.empty': 'No upcoming payments.',
+    'upcoming.empty.hint': 'Add a transaction with a future date to see it here.',
+    'alerts.empty': 'All under control. No alerts for now.',
+    'budget.empty': 'No expenses in this period',
+    'upcoming.tomorrow': 'tomorrow',
+    'upcoming.in_days': 'in {days} days',
+    'report.cashflow_6m': 'Month-over-month Flow (6 months)',
+    'report.net_balance_month': 'Net balance per month',
+    'report.annual_proj': 'Annual projection',
+    'report.based_on': 'Based on',
+    'report.months_data': 'month(s) of data',
+    'report.proj_income': 'Projected income',
+    'report.proj_expense': 'Projected expense',
+    'report.proj_savings': 'Projected savings',
+    'report.exp_dist': 'Expense distribution',
+    'alert.spending_over': '<strong>Expenses exceed income</strong> this period: balance -{amount}',
+    'alert.savings_low': 'Your savings rate is <strong>{rate}%</strong> — try reducing variable expenses to improve it.',
+    'alert.savings_great': 'Excellent! Savings rate of <strong>{rate}%</strong> this period.',
+    'alert.subscriptions': 'Subscriptions: <strong>{amount}/mo</strong> ({pct}% of your income). Review if you use them all.',
+    'alert.no_tx': 'No transactions in this period. Select another month or add movements.',
+    'alert.goal_100': '<strong>{emoji} {name}</strong> goal completed at 100%!',
+    'alert.goal_progress': '<strong>{emoji} {name}</strong> reached {pct}% — {remaining} remaining',
+    'btn.delete': 'Delete',
+    'btn.edit': 'Edit',
+    'goal.saved': 'saved',
+    'goal.goal': 'Goal',
+    'goal.expires': 'Expires',
+    'goal.remaining': 'Remaining',
+    'currency.rate_placeholder': 'Rate vs USD',
+    'modal.export.success.text': 'The file was saved in the location you selected.',
+
+    'color.mint': 'Mint Green', 'color.gold': 'Gold', 'color.purple': 'Purple',
+    'color.coral': 'Coral', 'color.blue': 'Blue', 'color.gray': 'Gray',
+    'budget.sidebar.left': '{left} left of {total}',
+    'budget.year': 'Year',
+    'budget.total': 'Total Budget',
+    'budget.spent_lbl': 'Spent',
+    'budget.available': 'Available',
+    'budget.limit': 'Limit',
+    'currency.group_latam': 'Latin America',
+    'currency.usd': 'USD ($) — US Dollar',
+    'currency.mxn': 'MXN ($) — Mexican Peso',
+    'currency.cop': 'COP ($) — Colombian Peso',
+    'currency.ars': 'ARS ($) — Argentine Peso',
+    'currency.clp': 'CLP ($) — Chilean Peso',
+    'currency.pen': 'PEN (S/) — Peruvian Sol',
+    'currency.brl': 'BRL (R$) — Brazilian Real',
+    'currency.eur': 'EUR (€) — Euro',
+    'currency.gbp': 'GBP (£) — Pound Sterling'
+  }
+};
+
+let lang = localStorage.getItem('flowmint_lang') || 'es';
+
+function translate(key) {
+  return (translations[lang] && translations[lang][key]) || key;
+}
+
+function applyLanguage(newLang) {
+  lang = newLang;
+  localStorage.setItem('flowmint_lang', lang);
+  document.documentElement.lang = lang;
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    el.textContent = translate(key);
+  });
+
+  document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+    const key = el.getAttribute('data-i18n-placeholder');
+    el.placeholder = translate(key);
+  });
+
+  // Update currency dropdown option text
+  document.querySelectorAll('#currencySelect option[data-i18n-currency]').forEach(opt => {
+    const key = opt.getAttribute('data-i18n-currency');
+    opt.textContent = translate(key);
+  });
+  const customCurrencyOpt = document.querySelector('#currencySelect option[value="CUSTOM"]');
+  if(customCurrencyOpt) {
+    customCurrencyOpt.textContent = translate('currency.custom');
+  }
+  // Update optgroup label
+  const grpLatam = document.getElementById('currencyGroupLatam');
+  if(grpLatam) grpLatam.label = translate('currency.group_latam');
+
+  updateMonthOptions();
+  updateCatLabels();
+  
+  const btnEs = document.getElementById('lang-btn-es');
+  const btnEn = document.getElementById('lang-btn-en');
+  if(btnEs && btnEn) {
+    btnEs.classList.toggle('active', lang === 'es');
+    btnEn.classList.toggle('active', lang === 'en');
+  }
+
+  if (typeof renderAll === 'function') {
+    renderAll();
+  }
+}
+
+function updateMonthOptions() {
+  const sel = document.getElementById('periodMonth');
+  if(!sel) return;
+  const val = sel.value;
+  sel.innerHTML = Array.from({length: 12}, (_, i) => `<option value="${i}">${translate('month.' + i)}</option>`).join('');
+  sel.value = val;
+}
+
+function updateCatLabels() {
+  catLabels = {
+    salary: translate('cat.salary'),
+    freelance: translate('cat.freelance'),
+    food: translate('cat.food'),
+    transport: translate('cat.transport'),
+    entertainment: translate('cat.entertainment'),
+    health: translate('cat.health'),
+    home: translate('cat.home'),
+    education: translate('cat.education'),
+    subscriptions: translate('cat.subscriptions'),
+    savings: translate('cat.savings'),
+    stocks: translate('cat.stocks'),
+    crypto: translate('cat.crypto'),
+    other: translate('cat.other')
+  };
+}
+
+// ══════════════════════════════════════════
+// DATA DEFAULTS
+// ══════════════════════════════════════════
+const defaultTransactions = [];
+
+const defaultGoals = [];
+
+const defaultInvestments = [];
+
+const defaultBudgets = [
+  {cat:'food',          label:'Comida',           limit:600, emoji:'🍽'},
+  {cat:'transport',     label:'Transporte',        limit:300, emoji:'🚗'},
+  {cat:'subscriptions', label:'Suscripciones',     limit:80,  emoji:'📱'},
+  {cat:'health',        label:'Salud',             limit:200, emoji:'🏥'},
+  {cat:'home',          label:'Hogar',             limit:350, emoji:'🏠'},
+  {cat:'education',     label:'Educación',         limit:150, emoji:'📚'},
+  {cat:'entertainment', label:'Entretenimiento',   limit:200, emoji:'🎬'},
+  {cat:'other',         label:'Otros',             limit:300, emoji:'📌'},
+];
+
+// ── Load from localStorage or use defaults ──
+// Limpieza: si en localStorage había transacciones de demo, borrarlas
+(function cleanDemoTransactions() {
+  const stored = JSON.parse(localStorage.getItem('fm_transactions'));
+  const demoDescs = ['Salario Empresa','Proyecto Freelance','Dividendos','Venta artículo',
+    'Supermercado','Uber / Gasolina','Netflix + Spotify','Restaurante','Electricidad',
+    'Gimnasio','Amazon Prime','Doctor','Farmacia','Curso online','Internet','Ropa',
+    'Compra ETF SP500','Bitcoin','Fondo de índice','Peluquería','Gasolina extra','Ahorros vacaciones'];
+  if(stored && stored.some(t => demoDescs.includes(t.desc))) {
+    localStorage.removeItem('fm_transactions');
+  }
+})();
+let transactions = JSON.parse(localStorage.getItem('fm_transactions')) || defaultTransactions;
+let budgets      = JSON.parse(localStorage.getItem('fm_budgets'))      || defaultBudgets;
+
+// Limpieza: si en localStorage había metas del demo anterior, borrarlas
+(function cleanFakeGoals() {
+  const stored = JSON.parse(localStorage.getItem('fm_goals'));
+  const fakeNames = ['Fondo de Emergencia', 'Vacaciones Europa', 'MacBook Pro', 'Auto Nuevo'];
+  if(stored && stored.some(g => fakeNames.includes(g.name))) {
+    localStorage.removeItem('fm_goals');
+  }
+})();
+let goals = JSON.parse(localStorage.getItem('fm_goals')) || [];
+
+// Limpieza: si en localStorage había inversiones del demo anterior (con VOO/BTC/QQQ), borrarlas
+// para que el portafolio empiece limpio con datos reales del usuario.
+(function cleanFakeInvestments() {
+  const stored = JSON.parse(localStorage.getItem('fm_investments'));
+  const fakeKeys = ['VOO','BTC','QQQ','AAPL+MSFT','TLT','VWRL'];
+  if(stored && stored.some(i => fakeKeys.includes(i.ticker))) {
+    localStorage.removeItem('fm_investments');
+  }
+})();
+let investments = JSON.parse(localStorage.getItem('fm_investments')) || [];
+
+// ── Period state ──
+let currentPeriodMonth = new Date().getMonth();
+let currentPeriodYear  = new Date().getFullYear();
+let periodAllYear      = false;
+
+// ── Currency state ──
+let currency = JSON.parse(localStorage.getItem('fm_currency_obj')) || {code:'USD', symbol:'$', rate:1};
+
+// ── Helper: convert amount to current currency ──
+function fx(amount) { return amount * currency.rate; }
+
+function fmt(amount) {
+  const val = fx(amount);
+  if(val >= 1000000) return currency.symbol + (val/1000000).toFixed(1) + 'M';
+  if(val >= 10000)   return currency.symbol + Math.round(val).toLocaleString('es-ES');
+  return currency.symbol + val.toLocaleString('es-ES', {minimumFractionDigits:0, maximumFractionDigits:0});
+}
+
+// ── Filter transactions by current period ──
+function getTx() {
+  return transactions.filter(t => {
+    const d = new Date(t.date + 'T12:00:00');
+    if(periodAllYear) return d.getFullYear() === currentPeriodYear;
+    return d.getFullYear() === currentPeriodYear && d.getMonth() === currentPeriodMonth;
+  });
+}
+
+// ══════════════════════════════════════════
+// CATEGORY MAPS
+// ══════════════════════════════════════════
+const catColors = {
+  food:'#00C896', transport:'#F5A623', subscriptions:'#7C6EF5',
+  health:'#FF5C5C', home:'#3A9EF5', education:'#F5C842',
+  entertainment:'#E07EF5', other:'#9AA8C4', stocks:'#00C896',
+  crypto:'#F5A623', salary:'#00C896', freelance:'#7C6EF5', savings:'#3A9EF5'
+};
+
+const catEmojis = {
+  food:'🍽', transport:'🚗', subscriptions:'📱', health:'🏥',
+  home:'🏠', education:'📚', entertainment:'🎬', other:'📌',
+  stocks:'📊', crypto:'₿', salary:'💼', freelance:'💻', savings:'💎'
+};
+
+let catLabels = {
+  salary:'Salario', freelance:'Freelance', food:'Comida', transport:'Transporte',
+  entertainment:'Entretenimiento', health:'Salud', home:'Hogar', education:'Educación',
+  subscriptions:'Suscripciones', savings:'Ahorros', stocks:'Acciones', crypto:'Crypto', other:'Otro'
+};
+
+// ── Categories available PER TYPE (the key fix) ──
+const categoriesByType = {
+  income:  [{value:'salary',text:'💼 Salario'},{value:'freelance',text:'💻 Freelance'},{value:'stocks',text:'📊 Dividendos/Rentas'},{value:'other',text:'📌 Otro'}],
+  expense: [{value:'food',text:'🍽 Comida'},{value:'transport',text:'🚗 Transporte'},{value:'entertainment',text:'🎬 Entretenimiento'},{value:'health',text:'🏥 Salud'},{value:'home',text:'🏠 Hogar'},{value:'education',text:'📚 Educación'},{value:'subscriptions',text:'📱 Suscripciones'},{value:'other',text:'📌 Otro'}],
+  invest:  [{value:'savings',text:'💎 Ahorros'},{value:'stocks',text:'📊 Acciones/ETFs'},{value:'crypto',text:'₿ Crypto'},{value:'other',text:'📌 Otro'}]
+};
+
+// ── App state ──
+let currentType    = 'income';
+let currentFilter  = 'all';
+let currentTransactionQuery = '';
+let currentReportTab = 'monthly';
+let editingTxId    = null;
+let editingGoalId  = null;
+
+// ══════════════════════════════════════════
+// PERSIST
+// ══════════════════════════════════════════
+function saveToLocalStorage() {
+  localStorage.setItem('fm_transactions', JSON.stringify(transactions));
+  localStorage.setItem('fm_goals',        JSON.stringify(goals));
+  localStorage.setItem('fm_investments',  JSON.stringify(investments));
+  localStorage.setItem('fm_budgets',      JSON.stringify(budgets));
+  localStorage.setItem('fm_currency_obj', JSON.stringify(currency));
+}
+
+// ══════════════════════════════════════════
+// INIT
+// ══════════════════════════════════════════
+window.addEventListener('DOMContentLoaded', () => {
+  // Date defaults
+  document.getElementById('txDate').valueAsDate = new Date();
+  document.getElementById('goalDate').value = '2026-01-01';
+
+  // Period picker sync
+  document.getElementById('periodMonth').value = currentPeriodMonth.toString();
+  document.getElementById('periodYear').value  = currentPeriodYear.toString();
+
+  // Currency selector sync
+  const sel = document.getElementById('currencySelect');
+  let found = false;
+  for(let i=0; i<sel.options.length; i++) {
+    if(sel.options[i].value === currency.code) { sel.value = currency.code; found = true; break; }
+  }
+  if(!found) {
+    sel.value = 'CUSTOM';
+    sel.options[sel.options.length-1].text = `✏ ${currency.code} (${currency.symbol}) — ` + (lang === 'es' ? 'personalizado' : 'custom');
+  }
+
+  applyLanguage(lang);
+  setType('income');
+});
+
+function renderAll() {
+  updateKPIs();
+  renderBarChart();
+  renderDonut();
+  renderRecentTx();
+  renderUpcoming();
+  renderAlerts();
+  renderAllTx();
+  renderCatGrid();
+  renderTxSummary();
+  renderInvestments();
+  renderGoals();
+  renderReports();
+  renderBudget();
+  renderLineChart();
+  renderInvestDonut();
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function showView(id) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + id).classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => {
+    const onclickAttr = n.getAttribute('onclick');
+    if(onclickAttr && onclickAttr.includes(`showView('${id}')`)) n.classList.add('active');
+  });
+
+  const titles = {dashboard:'nav.dashboard',transactions:'nav.transactions',investments:'nav.investments',goals:'nav.goals',reports:'nav.reports',budget:'nav.budget'};
+  document.getElementById('pageTitle').textContent = translate(titles[id]) || 'FlowMint';
+  closeSidebar();
+  if(id==='reports') renderReports();
+  if(id==='budget')  renderBudget();
+}
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+  document.getElementById('sidebarOverlay').classList.toggle('open');
+}
+function closeSidebar() {
+  document.getElementById('sidebar').classList.remove('open');
+  document.getElementById('sidebarOverlay').classList.remove('open');
+}
+function setMobileActive(el) {
+  document.querySelectorAll('.mobile-nav-item').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ══════════════════════════════════════════
+// MODAL MANAGEMENT
+// ══════════════════════════════════════════
+function openModal(txId) {
+  if(txId != null) {
+    // Edit mode
+    editingTxId = txId;
+    const tx = transactions.find(t => t.id === txId);
+    if(!tx) return;
+    document.getElementById('modalTitle').textContent = translate('modal.tx.title.edit');
+    setType(tx.type, tx.cat);
+    document.getElementById('txDesc').value   = tx.desc;
+    document.getElementById('txAmount').value = tx.amount;
+    document.getElementById('txDate').value   = tx.date;
+    document.getElementById('txNote').value   = tx.note || '';
+  } else {
+    // New mode
+    editingTxId = null;
+    document.getElementById('modalTitle').textContent = translate('modal.tx.title.new');
+    document.getElementById('txDesc').value   = '';
+    document.getElementById('txAmount').value = '';
+    document.getElementById('txNote').value   = '';
+    document.getElementById('txDate').valueAsDate = new Date();
+    setType('income');
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+  document.getElementById('txDesc').focus();
+}
+function closeModal() { document.getElementById('modalOverlay').classList.remove('open'); }
+
+function openGoalModal(id) {
+  if(id != null) {
+    editingGoalId = id;
+    const goal = goals.find(g => g.id === id);
+    if(!goal) return;
+    document.getElementById('goalModalTitle').textContent = translate('modal.goal.title.edit');
+    document.getElementById('goalModalSubmitBtn').textContent = translate('modal.goal.btn.save.edit');
+    document.getElementById('goalName').value    = goal.name;
+    document.getElementById('goalTarget').value  = goal.target;
+    document.getElementById('goalCurrent').value = goal.current;
+    document.getElementById('goalDate').value    = goal.date;
+    document.getElementById('goalEmoji').value   = goal.emoji || '';
+    document.getElementById('goalFreq').value    = goal.freq || 'monthly';
+  } else {
+    editingGoalId = null;
+    document.getElementById('goalModalTitle').textContent = translate('modal.goal.title.new');
+    document.getElementById('goalModalSubmitBtn').textContent = translate('modal.goal.btn.save');
+    document.getElementById('goalName').value    = '';
+    document.getElementById('goalTarget').value  = '';
+    document.getElementById('goalCurrent').value = '';
+    
+    // Default date to 1 year from now
+    const nextYear = new Date();
+    nextYear.setFullYear(nextYear.getFullYear() + 1);
+    document.getElementById('goalDate').value    = nextYear.toISOString().split('T')[0];
+    document.getElementById('goalEmoji').value   = '🎯';
+    document.getElementById('goalFreq').value    = 'monthly';
+  }
+  document.getElementById('goalModalOverlay').classList.add('open');
+}
+function closeGoalModal() { document.getElementById('goalModalOverlay').classList.remove('open'); }
+
+function openBudgetModal() {
+  document.getElementById('budgetFormFields').innerHTML = budgets.map(b =>
+    `<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
+      <span style="font-size:14px;min-width:150px">${b.emoji} ${translate('cat.' + b.cat)}</span>
+      <input type="number" class="form-input" id="budget-limit-${b.cat}" value="${b.limit}" style="max-width:150px">
+    </div>`
+  ).join('');
+  document.getElementById('budgetModalOverlay').classList.add('open');
+}
+function closeBudgetModal() { document.getElementById('budgetModalOverlay').classList.remove('open'); }
+
+function openInvestModal() {
+  ['invName','invTicker','invInvested','invValue'].forEach(id => document.getElementById(id).value = '');
+  document.getElementById('investModalOverlay').classList.add('open');
+}
+function closeInvestModal() { document.getElementById('investModalOverlay').classList.remove('open'); }
+
+// ── SET TYPE — updates toggle buttons AND refreshes category dropdown ──
+function setType(type, selectedCat) {
+  currentType = type;
+  ['income','expense','invest'].forEach(x => {
+    const el = document.getElementById('type' + x.charAt(0).toUpperCase() + x.slice(1));
+    if(el) el.classList.toggle('active', x === type);
+  });
+
+  // Rebuild category options for this type (bilingual)
+  const catEl = document.getElementById('txCat');
+  if(!catEl) return;
+  const options = categoriesByType[type] || [];
+  catEl.innerHTML = options.map(o => {
+    const emoji = catEmojis[o.value] || '';
+    const text = translate('cat.' + o.value);
+    return `<option value="${o.value}">${emoji} ${text}</option>`;
+  }).join('');
+
+  // Pre-select category
+  if(selectedCat) {
+    catEl.value = selectedCat;
+  } else {
+    const defaults = {income:'salary', expense:'food', invest:'stocks'};
+    catEl.value = defaults[type] || options[0]?.value || '';
+  }
+}
+
+// ══════════════════════════════════════════
+// SAVE & DELETE
+// ══════════════════════════════════════════
+function saveTransaction() {
+  const desc   = document.getElementById('txDesc').value.trim();
+  const amount = parseFloat(document.getElementById('txAmount').value);
+  const date   = document.getElementById('txDate').value;
+  const cat    = document.getElementById('txCat').value;
+  const note   = document.getElementById('txNote').value.trim();
+
+  if(!desc || !amount || !date) {
+    const input = document.getElementById('txDesc');
+    input.style.borderColor = 'var(--coral)';
+    setTimeout(() => input.style.borderColor = '', 1500);
+    return;
+  }
+
+  if(editingTxId != null) {
+    const idx = transactions.findIndex(t => t.id === editingTxId);
+    if(idx !== -1) {
+      transactions[idx] = { ...transactions[idx], type: currentType, desc, cat, amount, date, note };
+    }
+  } else {
+    // NEW transaction — use currentType which is set by setType()
+    transactions.unshift({ id: Date.now(), type: currentType, desc, cat, amount, date, note });
+  }
+
+  closeModal();
+  saveToLocalStorage();
+  renderAll();
+}
+
+function deleteTransaction(id, event) {
+  if(event) event.stopPropagation();
+  if(confirm(translate('confirm.delete'))) {
+    transactions = transactions.filter(t => t.id !== id);
+    saveToLocalStorage();
+    renderAll();
+  }
+}
+
+function saveGoal() {
+  const name    = document.getElementById('goalName').value.trim();
+  const target  = parseFloat(document.getElementById('goalTarget').value) || 0;
+  const current = parseFloat(document.getElementById('goalCurrent').value) || 0;
+  const date    = document.getElementById('goalDate').value;
+  const emoji   = document.getElementById('goalEmoji').value || '🎯';
+  const freq    = document.getElementById('goalFreq').value || 'monthly';
+  if(!name || !target) { alert(translate('alert.fill_all')); return; }
+
+  if(editingGoalId != null) {
+    const idx = goals.findIndex(g => g.id === editingGoalId);
+    if(idx !== -1) {
+      goals[idx] = { ...goals[idx], name, target, current, date, emoji, freq };
+    }
+  } else {
+    goals.push({id: Date.now(), name, target, current, date, emoji, freq});
+  }
+
+  closeGoalModal();
+  saveToLocalStorage();
+  renderAll();
+}
+
+function deleteGoal(id, event) {
+  if(event) event.stopPropagation();
+  if(confirm(translate('confirm.delete'))) {
+    goals = goals.filter(g => g.id !== id);
+    saveToLocalStorage();
+    renderGoals();
+  }
+}
+
+function saveBudgets() {
+  budgets.forEach(b => {
+    const el = document.getElementById('budget-limit-' + b.cat);
+    if(el) b.limit = parseFloat(el.value) || 0;
+  });
+  saveToLocalStorage();
+  renderAll();
+  closeBudgetModal();
+}
+
+function saveInvestment() {
+  const name     = document.getElementById('invName').value.trim();
+  const ticker   = document.getElementById('invTicker').value.trim().toUpperCase();
+  const color    = document.getElementById('invColor').value;
+  const invested = parseFloat(document.getElementById('invInvested').value) || 0;
+  const value    = parseFloat(document.getElementById('invValue').value) || 0;
+  if(!name || !ticker || !invested || !value) { alert(translate('alert.fill_all')); return; }
+  const ret = parseFloat(((value - invested) / invested * 100).toFixed(1));
+  investments.push({name, ticker, value, invested, return: ret, color});
+
+  // Crear transacción correspondiente de tipo Inversión para registrar el flujo de caja
+  const todayStr = new Date().toISOString().split('T')[0];
+  transactions.push({
+    id: Date.now(),
+    desc: `Compra ${name} (${ticker})`,
+    amount: invested,
+    date: todayStr,
+    type: 'invest',
+    cat: 'stocks',
+    note: 'Registro automático de compra de activo'
+  });
+
+  saveToLocalStorage();
+  renderAll();
+  closeInvestModal();
+}
+
+function deleteInvestment(idx, event) {
+  if(event) event.stopPropagation();
+  if(confirm(translate('confirm.delete'))) {
+    investments.splice(idx, 1);
+    saveToLocalStorage();
+    renderAll();
+  }
+}
+
+// ══════════════════════════════════════════
+// KPI & CHARTS
+// ══════════════════════════════════════════
+function updateKPIs() {
+  const tx      = getTx();
+  const income  = tx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount, 0);
+  const expense = tx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount, 0);
+  const invest  = tx.filter(t=>t.type==='invest').reduce((s,t)=>s+t.amount, 0);
+  document.getElementById('kpi-income').textContent  = fmt(income);
+  document.getElementById('kpi-expense').textContent = fmt(expense);
+  document.getElementById('kpi-balance').textContent = fmt(income - expense - invest);
+  document.getElementById('kpi-invest').textContent  = fmt(invest);
+}
+
+function renderBarChart() {
+  const el = document.getElementById('barChart');
+  const monthLabels = Array.from({length: 12}, (_, i) => translate('month.' + i).slice(0, 3));
+  const months = [];
+  for(let i=5; i>=0; i--) {
+    let m = currentPeriodMonth - i, y = currentPeriodYear;
+    while(m < 0) { m += 12; y--; }
+    months.push({m, y, label: monthLabels[m]});
+  }
+  const sums = months.map(({m,y}) => {
+    const slice = transactions.filter(t => {
+      const d = new Date(t.date + 'T12:00:00');
+      return d.getFullYear()===y && d.getMonth()===m;
+    });
+    return {
+      income:  slice.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0),
+      expense: slice.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0)
+    };
+  });
+  const maxVal = Math.max(...sums.map(s=>Math.max(s.income,s.expense)),1);
+  el.innerHTML = months.map((m,i) => {
+    const ih = Math.round((sums[i].income/maxVal)*110);
+    const eh = Math.round((sums[i].expense/maxVal)*110);
+    return `<div class="bar-group">
+      <div class="bars">
+        <div class="bar income-bar" style="height:${Math.max(2,ih)}px" title="${translate('kpi.income')}: ${fmt(sums[i].income)}"></div>
+        <div class="bar expense-bar" style="height:${Math.max(2,eh)}px" title="${translate('kpi.expense')}: ${fmt(sums[i].expense)}"></div>
+      </div>
+      <div class="bar-label">${m.label}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderDonut() {
+  const expenses = getTx().filter(t=>t.type==='expense');
+  const byCat = {};
+  expenses.forEach(t => { byCat[t.cat] = (byCat[t.cat]||0) + t.amount; });
+  const total = Object.values(byCat).reduce((s,v)=>s+v,0);
+
+  if(!total) {
+    document.getElementById('donutArcs').innerHTML = `<circle cx="70" cy="70" r="41" fill="none" stroke="var(--border-light)" stroke-width="18"/>`;
+    document.getElementById('donutTotal').textContent = fmt(0);
+    document.getElementById('donutLegend').innerHTML = `<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:10px">${translate('budget.empty')}</div>`;
+    return;
+  }
+
+  const colors = ['#00C896','#F5A623','#7C6EF5','#FF5C5C','#3A9EF5','#F5C842'];
+  const cats = Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const cx=70,cy=70,r=50,inner=32;
+  let startAngle = -Math.PI/2, arcs='';
+
+  cats.forEach(([cat,val],i) => {
+    const angle = (val/total)*2*Math.PI;
+    const x1=cx+r*Math.cos(startAngle), y1=cy+r*Math.sin(startAngle);
+    const x2=cx+r*Math.cos(startAngle+angle), y2=cy+r*Math.sin(startAngle+angle);
+    const xi1=cx+inner*Math.cos(startAngle+angle), yi1=cy+inner*Math.sin(startAngle+angle);
+    const xi2=cx+inner*Math.cos(startAngle), yi2=cy+inner*Math.sin(startAngle);
+    const large=angle>Math.PI?1:0;
+    const color = catColors[cat]||colors[i%colors.length];
+    arcs += `<path d="M${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} L${xi1},${yi1} A${inner},${inner} 0 ${large},0 ${xi2},${yi2} Z" fill="${color}" stroke="var(--navy2)" stroke-width="2" title="${catLabels[cat]||cat}: ${fmt(val)}"/>`;
+    startAngle += angle;
+  });
+
+  document.getElementById('donutArcs').innerHTML = arcs;
+  document.getElementById('donutTotal').textContent = fmt(total);
+  document.getElementById('donutLegend').innerHTML = cats.map(([cat,val],i) =>
+    `<div class="legend-item">
+      <div class="legend-dot" style="background:${catColors[cat]||colors[i%colors.length]}"></div>
+      <span class="legend-label">${catEmojis[cat]||''} ${catLabels[cat]||cat}</span>
+      <span class="legend-pct">${Math.round(val/total*100)}%</span>
+      <span class="legend-amt">${fmt(val)}</span>
+    </div>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════
+// TRANSACTION RENDERING
+// ══════════════════════════════════════════
+function txIcon(tx) {
+  const bg = tx.type==='income'?'rgba(0,200,150,0.12)':tx.type==='invest'?'rgba(124,110,245,0.12)':'rgba(255,92,92,0.08)';
+  return `<div class="tx-icon" style="background:${bg}">${catEmojis[tx.cat]||'💰'}</div>`;
+}
+
+function txHTML(tx) {
+  const sign   = tx.type==='income' ? '+' : '-';
+  const cls    = tx.type==='income' ? 'pos' : tx.type==='invest' ? 'invest-cls' : 'neg';
+  const d      = new Date(tx.date + 'T12:00:00');
+  const dateStr = d.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'short'});
+  return `<div class="tx-item" onclick="txDetail(${tx.id})">
+    ${txIcon(tx)}
+    <div class="tx-info">
+      <div class="tx-name">${tx.desc}</div>
+      <div class="tx-cat">${catEmojis[tx.cat]||''} ${catLabels[tx.cat]||tx.cat}${tx.note?' · '+tx.note:''}</div>
+    </div>
+    <div class="tx-right">
+      <div style="text-align:right">
+        <div class="tx-amount ${cls}">${sign}${fmt(tx.amount)}</div>
+        <div class="tx-date">${dateStr}</div>
+      </div>
+      <button class="btn-delete" onclick="deleteTransaction(${tx.id}, event)" title="${translate('btn.delete')}">✕</button>
+    </div>
+  </div>`;
+}
+
+function renderRecentTx() {
+  const list = [...getTx()].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
+  document.getElementById('recentTxList').innerHTML = list.length
+    ? list.map(txHTML).join('')
+    : `<div class="empty"><div class="empty-icon">📭</div>${translate('tx.empty_period')}</div>`;
+}
+
+function renderAllTx() {
+  let list = [...getTx()].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  if(currentFilter !== 'all') {
+    list = list.filter(t => t.type===currentFilter || t.cat===currentFilter);
+  }
+  if(currentTransactionQuery) {
+    const q = currentTransactionQuery.toLowerCase().trim();
+    list = list.filter(t => {
+      const descMatch = (t.desc || '').toLowerCase().includes(q);
+      const noteMatch = (t.note || '').toLowerCase().includes(q);
+      const catTranslation = translate('cat.' + t.cat) || '';
+      const catMatch = (t.cat || '').toLowerCase().includes(q) || catTranslation.toLowerCase().includes(q);
+      return descMatch || noteMatch || catMatch;
+    });
+  }
+  document.getElementById('allTxList').innerHTML = list.length
+    ? list.map(txHTML).join('')
+    : `<div class="empty"><div class="empty-icon">📭</div>${translate('tx.empty_filter')}</div>`;
+  document.getElementById('txCount').textContent = `${translate('tx.showing')} ${list.length} ${translate('tx.count_label')}`;
+}
+
+function filterTx(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('#txFilters .filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderAllTx();
+}
+
+function searchTx(val) {
+  currentTransactionQuery = val;
+  renderAllTx();
+}
+
+// ══════════════════════════════════════════
+// DETAIL MODAL
+// ══════════════════════════════════════════
+function txDetail(id) {
+  const tx = transactions.find(t => t.id === id);
+  if(!tx) return;
+
+  const typeColors = {income:'var(--mint)', expense:'var(--coral)', invest:'#7C6EF5'};
+  const typeBg     = {income:'rgba(0,200,150,0.12)', expense:'rgba(255,92,92,0.08)', invest:'rgba(124,110,245,0.12)'};
+  const typeLabels = {income: translate('modal.tx.btn.income'), expense: translate('modal.tx.btn.expense'), invest: translate('modal.tx.btn.invest')};
+  const d = new Date(tx.date + 'T12:00:00');
+  const dateStr = d.toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'long', year:'numeric'});
+
+  document.getElementById('detailModalContent').innerHTML = `
+    <div style="display:flex;flex-direction:column;gap:16px;margin-top:8px">
+      <div style="display:flex;justify-content:space-between;align-items:center">
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase">${translate('modal.tx.label.type')}</span>
+        <span class="tag" style="background:${typeBg[tx.type]};color:${typeColors[tx.type]}">${typeLabels[tx.type]}</span>
+      </div>
+      <div>
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase;display:block;margin-bottom:4px">${translate('modal.tx.label.desc')}</span>
+        <span style="font-size:16px;font-weight:500">${tx.desc}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:baseline">
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase">${translate('modal.tx.label.amount')}</span>
+        <span style="font-size:26px;font-family:'DM Serif Display',serif;color:${typeColors[tx.type]}">
+          ${tx.type==='income'?'+':tx.type==='invest'?'↗':'-'}${fmt(tx.amount)}
+        </span>
+      </div>
+      <div style="display:flex;justify-content:space-between">
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase">${translate('modal.tx.label.date')}</span>
+        <span style="font-size:14px">${dateStr}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between">
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase">${translate('modal.tx.label.cat')}</span>
+        <span style="font-size:14px">${catEmojis[tx.cat]||'📌'} ${catLabels[tx.cat]||tx.cat}</span>
+      </div>
+      <div>
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase;display:block;margin-bottom:4px">${translate('modal.tx.label.note')}</span>
+        <span style="font-size:14px;color:${tx.note?'var(--text)':'var(--text-muted)'}">${tx.note||translate('tx.no_notes')}</span>
+      </div>
+    </div>`;
+
+  window._detailTxId = tx.id;
+  document.getElementById('btnDeleteFromDetail').onclick = function() {
+    closeDetailModal();
+    deleteTransaction(tx.id);
+  };
+  document.getElementById('detailModalOverlay').classList.add('open');
+}
+
+function closeDetailModal() { document.getElementById('detailModalOverlay').classList.remove('open'); }
+
+function editTransactionFromDetail() {
+  const id = window._detailTxId;
+  closeDetailModal();
+  openModal(id);
+}
+
+// ══════════════════════════════════════════
+// UPCOMING PAYMENTS
+// ══════════════════════════════════════════
+function renderUpcoming() {
+  // Muestra transacciones con fecha FUTURA (posteriores a hoy) como "próximos pagos"
+  const today = new Date();
+  today.setHours(0,0,0,0);
+
+  const future = transactions
+    .filter(t => {
+      const d = new Date(t.date + 'T12:00:00');
+      return d > today && (t.type === 'expense' || t.type === 'invest');
+    })
+    .sort((a,b) => new Date(a.date) - new Date(b.date))
+    .slice(0, 5);
+
+  const badge = document.getElementById('upcomingBadge');
+  if(badge) {
+    const pendingWord = lang === 'en' ? (future.length !== 1 ? 'pending' : 'pending') : (future.length !== 1 ? 'pendientes' : 'pendiente');
+    badge.textContent = future.length > 0 ? `${future.length} ${pendingWord}` : '';
+    badge.style.display = future.length > 0 ? '' : 'none';
+  }
+
+  if(!future.length) {
+    document.getElementById('upcomingList').innerHTML =
+      `<div class="empty" style="padding:20px 0">
+        <div class="empty-icon">📅</div>
+        <div style="font-size:13px">${translate('upcoming.empty')}<br>
+        <span style="font-size:11px;color:var(--text-muted)">${translate('upcoming.empty.hint')}</span></div>
+      </div>`;
+    return;
+  }
+
+  document.getElementById('upcomingList').innerHTML = future.map(t => {
+    const d = new Date(t.date + 'T12:00:00');
+    const dateStr = d.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'short', year:'numeric'});
+    const daysLeft = Math.ceil((d - today) / (1000*60*60*24));
+    const daysLabel = daysLeft === 1 ? translate('upcoming.tomorrow') : translate('upcoming.in_days').replace('{days}', daysLeft);
+    const color = daysLeft <= 3 ? 'var(--coral)' : daysLeft <= 7 ? 'var(--gold)' : 'var(--mint)';
+    return `<div class="upcoming-item">
+      <div class="upcoming-info">
+        <div class="upcoming-name">${t.desc}</div>
+        <div class="upcoming-date">📅 ${dateStr} · <span style="color:${color};font-weight:500">${daysLabel}</span></div>
+      </div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <div class="upcoming-amount">-${fmt(t.amount)}</div>
+        <button class="btn-delete" onclick="deleteTransaction(${t.id}, event)" title="${translate('btn.delete')}">✕</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════
+// ALERTS — Dinamicas basadas en datos reales
+// ══════════════════════════════════════════
+function renderAlerts() {
+  const container = document.getElementById('alertsContainer');
+  if(!container) return;
+
+  const alerts = [];
+  const tx = getTx();
+
+  // 1. Alertas de presupuesto: categorias que superan el 75% de su limite
+  const byCat = {};
+  tx.filter(t => t.type==='expense').forEach(t => { byCat[t.cat] = (byCat[t.cat]||0) + t.amount; });
+  budgets.forEach(b => {
+    const spent = byCat[b.cat] || 0;
+    if(b.limit > 0) {
+      const pct = Math.round(spent / b.limit * 100);
+      if(pct >= 100) {
+        alerts.push({type:'warning', icon:'⚠️',
+          text:`<strong>${b.emoji} ${b.label}</strong> ha superado su límite (${pct}% — ${fmt(spent)} de ${fmt(b.limit)})`});
+      } else if(pct >= 75) {
+        alerts.push({type:'warning', icon:'⚠️',
+          text:`<strong>${b.emoji} ${b.label}</strong> al ${pct}% del límite (${fmt(spent)} de ${fmt(b.limit)})`});
+      }
+    }
+  });
+
+  // 2. Alertas de metas: metas que han alcanzado hitos importantes
+  goals.forEach(g => {
+    const pct = g.target > 0 ? Math.round(g.current / g.target * 100) : 0;
+    if(pct >= 100) {
+      alerts.push({type:'success', icon:'🎉',
+        text: translate('alert.goal_100').replace('{emoji}',g.emoji).replace('{name}',g.name)});
+    } else if(pct >= 50 && pct < 100) {
+      alerts.push({type:'success', icon:'🎉',
+        text: translate('alert.goal_progress').replace('{emoji}',g.emoji).replace('{name}',g.name).replace('{pct}',pct).replace('{remaining}',fmt(g.target - g.current))});
+    }
+  });
+
+  // 3. Alerta de ahorro: si la tasa de ahorro es baja
+  const income  = tx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const expense = tx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const invest  = tx.filter(t=>t.type==='invest').reduce((s,t)=>s+t.amount,0);
+  if(income > 0) {
+    const rate = Math.round((income - expense - invest) / income * 100);
+    if(rate < 0) {
+      alerts.push({type:'warning', icon:'🚨',
+        text: translate('alert.spending_over').replace('{amount}', fmt(Math.abs(income-expense-invest)))});
+    } else if(rate < 10 && rate >= 0) {
+      alerts.push({type:'info', icon:'💡',
+        text: translate('alert.savings_low').replace('{rate}', rate)});
+    } else if(rate >= 20) {
+      alerts.push({type:'success', icon:'✅',
+        text: translate('alert.savings_great').replace('{rate}', rate)});
+    }
+  }
+
+  // 4. Alerta de suscripciones: si superan el 5% del ingreso
+  const subSpent = byCat['subscriptions'] || 0;
+  if(income > 0 && subSpent > 0) {
+    const subPct = Math.round(subSpent / income * 100);
+    if(subPct >= 5) {
+      alerts.push({type:'info', icon:'💡',
+        text: translate('alert.subscriptions').replace('{amount}', fmt(subSpent)).replace('{pct}', subPct)});
+    }
+  }
+
+  // 5. Alerta si no hay transacciones
+  if(tx.length === 0) {
+    alerts.push({type:'info', icon:'📅',
+      text: translate('alert.no_tx')});
+  }
+
+  if(!alerts.length) {
+    container.innerHTML = `<div style="text-align:center;padding:16px;color:var(--text-muted);font-size:13px">✅ ${translate('alerts.empty')}</div>`;
+    return;
+  }
+
+  container.innerHTML = alerts.map(a =>
+    `<div class="alert ${a.type}">
+      <span class="alert-icon">${a.icon}</span>
+      <div class="alert-text">${a.text}</div>
+    </div>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════
+// CATEGORY GRID & TX SUMMARY
+// ══════════════════════════════════════════
+function renderCatGrid() {
+  const byCat = {};
+  getTx().filter(t=>t.type==='expense').forEach(t => { byCat[t.cat] = (byCat[t.cat]||0) + t.amount; });
+  const top = Object.entries(byCat).sort((a,b)=>b[1]-a[1]).slice(0,8);
+  document.getElementById('catGrid').innerHTML = top.length
+    ? top.map(([cat,val]) =>
+      `<div class="cat-item">
+        <div class="cat-emoji">${catEmojis[cat]||'📌'}</div>
+        <div class="cat-name">${catLabels[cat]||cat}</div>
+        <div class="cat-total" style="color:${catColors[cat]||'var(--text)'}">${fmt(val)}</div>
+      </div>`
+    ).join('')
+    : `<div style="color:var(--text-muted);font-size:12px;grid-column:span 4;text-align:center;padding:16px">${translate('budget.empty')}</div>`;
+}
+
+function renderTxSummary() {
+  const tx      = getTx();
+  const income  = tx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const expense = tx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const invest  = tx.filter(t=>t.type==='invest').reduce((s,t)=>s+t.amount,0);
+  const savings = Math.max(0, income - expense - invest);
+  const rate    = income > 0 ? Math.round(savings/income*100) : 0;
+  const label   = periodAllYear ? translate('tx.summary.all_year').replace('{year}', currentPeriodYear) : `${translate('month.' + currentPeriodMonth).slice(0, 3)} ${currentPeriodYear}`;
+
+  const rows = [
+    {label:translate('tx.summary.period'),   value:label,                                     color:'var(--text-sec)'},
+    {label:translate('tx.summary.currency'), value:`${currency.code} (${currency.symbol})`,   color:'var(--text-sec)'},
+    {label:translate('tx.summary.income'),   value:fmt(income),                               color:'var(--mint)'},
+    {label:translate('tx.summary.expense'),  value:fmt(expense),                              color:'var(--coral)'},
+    {label:translate('tx.summary.invest'),   value:fmt(invest),                               color:'#7C6EF5'},
+    {label:translate('tx.summary.savings'),  value:fmt(savings),                              color:'var(--gold)'},
+    {label:translate('tx.summary.rate'),     value:rate+'%',                                  color:rate>=20?'var(--mint)':'var(--coral)'},
+  ];
+  document.getElementById('txSummary').innerHTML = rows.map(r =>
+    `<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border)">
+      <span style="color:var(--text-sec);font-size:14px">${r.label}</span>
+      <span style="font-weight:600;color:${r.color}">${r.value}</span>
+    </div>`
+  ).join('');
+}
+
+// ══════════════════════════════════════════
+// INVESTMENTS
+// ══════════════════════════════════════════
+function renderInvestments() {
+  const totalPortfolio = investments.reduce((s,i)=>s+i.value,0);
+  const totalInvested  = investments.reduce((s,i)=>s+i.invested,0);
+  const netReturn = totalPortfolio - totalInvested;
+  const pct = totalInvested > 0 ? parseFloat((netReturn/totalInvested*100).toFixed(1)) : 0;
+
+  document.getElementById('portfolio-total').textContent = fmt(totalPortfolio);
+  const sign = netReturn >= 0 ? '↑' : '↓';
+  document.getElementById('portfolio-change').innerHTML = totalInvested > 0
+    ? `<span class="${netReturn>=0?'up':'down'}">${sign} ${fmt(Math.abs(netReturn))} vs invertido</span>`
+    : 'Sin activos aún';
+  document.getElementById('portfolio-return-pct').textContent = (pct>=0?'+':'') + pct + '%';
+  document.getElementById('portfolio-return-pct').style.color = pct>=0 ? 'var(--mint)' : 'var(--coral)';
+
+  // Dividendos: ingresos con categoría 'stocks' que contengan 'dividend' o 'divid' en la descripción,
+  // o TODOS los ingresos tipo 'stocks' del año actual
+  const thisYear = new Date().getFullYear();
+  const dividends = transactions
+    .filter(t => {
+      const d = new Date(t.date + 'T12:00:00');
+      return t.type === 'income' && t.cat === 'stocks' && d.getFullYear() === thisYear;
+    })
+    .reduce((s,t) => s + t.amount, 0);
+  document.getElementById('portfolio-dividends').textContent = dividends > 0 ? fmt(dividends) : fmt(0);
+
+  // ── Sección 1: Activos del portafolio ──
+  if(!investments.length) {
+    document.getElementById('investCards').innerHTML =
+      `<div class="empty" style="grid-column:span 3;padding:32px 0">
+        <div class="empty-icon">📁</div>
+        <div style="font-size:14px;margin-bottom:8px">Sin activos en el portafolio</div>
+        <div style="font-size:12px;color:var(--text-muted)">Usa <strong style="color:var(--mint)">+ Nuevo Activo</strong> para añadir un activo que quieras seguir (acción, ETF, crypto, etc.) y actualizar su valor actual vs. lo que invertiste.</div>
+      </div>`;
+  } else {
+    document.getElementById('investCards').innerHTML = investments.map((inv,idx) =>
+      `<div class="invest-card">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start">
+          <div><div class="invest-name">${inv.name}</div><div class="invest-ticker">${inv.ticker}</div></div>
+          <div style="display:flex;gap:8px;align-items:center">
+            <span class="tag ${inv.return>0?'green':'red'}">${inv.return>0?'+':''}${inv.return}%</span>
+            <button class="btn-delete" onclick="deleteInvestment(${idx},event)" title="${translate('modal.detail.btn.delete')}">✕</button>
+          </div>
+        </div>
+        <div class="invest-value">${fmt(inv.value)}</div>
+        <div class="invest-return ${inv.return>0?'pos':'neg'}">${inv.return>0?'↑':'↓'} ${fmt(Math.abs(inv.value-inv.invested))} ${translate('invest.vs_investment')}</div>
+        <div style="height:4px;background:var(--border-light);border-radius:2px;margin-top:10px;overflow:hidden">
+          <div style="height:100%;width:${Math.min(100,Math.round(inv.value/inv.invested*100))}%;background:${inv.color};border-radius:2px;transition:width 0.6s"></div>
+        </div>
+      </div>`
+    ).join('');
+  }
+
+  // ── Sección 2: Movimientos de inversión del período ──
+  const periodLabel = periodAllYear ? translate('tx.summary.all_year').replace('{year}', currentPeriodYear) : `${translate('month.' + currentPeriodMonth).slice(0, 3)} ${currentPeriodYear}`;
+  const investTxPeriodEl = document.getElementById('investTxPeriodLabel');
+  if(investTxPeriodEl) investTxPeriodEl.textContent = `${translate('invest.tx_section.title')} — ${periodLabel}`;
+
+  const investTxList = document.getElementById('investTxList');
+  if(investTxList) {
+    const investTxs = getTx().filter(t => t.type==='invest').sort((a,b)=>new Date(b.date)-new Date(a.date));
+    if(!investTxs.length) {
+      investTxList.innerHTML =
+        `<div class="empty" style="padding:24px 0">
+          <div class="empty-icon">💳</div>
+          <div style="font-size:13px">${translate('invest.tx_empty')}</div>
+        </div>`;
+    } else {
+      investTxList.innerHTML = investTxs.map(txHTML).join('');
+    }
+  }
+}
+
+function renderLineChart() {
+  // Evolución histórica de inversiones acumuladas en los últimos 6 meses
+  const monthLabels = Array.from({length: 12}, (_, i) => translate('month.' + i).slice(0, 3));
+  const data = [];
+  const labels = [];
+
+  for(let i=5; i>=0; i--) {
+    let m = currentPeriodMonth - i, y = currentPeriodYear;
+    while(m < 0) { m += 12; y--; }
+    labels.push(monthLabels[m]);
+
+    // Sumar todas las inversiones registradas hasta el fin de este mes
+    const endOfMonth = new Date(y, m + 1, 0, 23, 59, 59, 999);
+    const sum = transactions
+      .filter(t => t.type === 'invest' && new Date(t.date + 'T12:00:00') <= endOfMonth)
+      .reduce((s,t) => s + t.amount, 0);
+    data.push(fx(sum));
+  }
+
+  const maxVal = Math.max(...data, 1000);
+  const minVal = 0; // Empezamos desde 0 para mostrar crecimiento real
+
+  const w=400,h=120,pad=30;
+  const pts = data.map((v,i) => {
+    const x = pad+(i/(data.length-1))*(w-2*pad);
+    const y = h-pad-((v-minVal)/(maxVal-minVal))*(h-2*pad);
+    return `${x},${y}`;
+  });
+  const path  = 'M'+pts.join(' L');
+  const areaX = pad+(data.length-1)/(data.length-1)*(w-2*pad);
+  const area  = 'M'+pts[0]+' L'+pts.join(' L')+` L${areaX},${h-pad} L${pad},${h-pad} Z`;
+  
+  document.getElementById('lineChart').innerHTML = `
+    <defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#7C6EF5" stop-opacity="0.25"/>
+      <stop offset="100%" stop-color="#7C6EF5" stop-opacity="0"/>
+    </linearGradient></defs>
+    <path d="${area}" fill="url(#lg)"/>
+    <path d="${path}" fill="none" stroke="#7C6EF5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+    ${data.map((v,i)=>{
+      const x=pad+(i/(data.length-1))*(w-2*pad);
+      const y=h-pad-((v-minVal)/(maxVal-minVal))*(h-2*pad);
+      return `<circle cx="${x}" cy="${y}" r="4" fill="#7C6EF5" stroke="var(--navy2)" stroke-width="2"/>
+              <text x="${x}" y="${h-4}" text-anchor="middle" font-size="9" fill="var(--text-muted)" font-family="DM Sans">${labels[i]}</text>`;
+    }).join('')}`;
+}
+
+function renderInvestDonut() {
+  const total = investments.reduce((s,i)=>s+i.value,0);
+  const cx=70,cy=70,r=50,inner=34;
+  let startAngle=-Math.PI/2, arcs='', legend='';
+
+  if(!total) {
+    // Círculo gris placeholder si no hay activos
+    arcs = `<circle cx="${cx}" cy="${cy}" r="${r-8}" fill="none" stroke="var(--border-light)" stroke-width="12"/>`;
+    legend = `<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:8px 0">${translate('invest.donut.empty')}</div>`;
+  } else {
+    investments.forEach(inv => {
+      const angle = (inv.value/total)*2*Math.PI;
+      const x1=cx+r*Math.cos(startAngle), y1=cy+r*Math.sin(startAngle);
+      const x2=cx+r*Math.cos(startAngle+angle), y2=cy+r*Math.sin(startAngle+angle);
+      const xi1=cx+inner*Math.cos(startAngle+angle), yi1=cy+inner*Math.sin(startAngle+angle);
+      const xi2=cx+inner*Math.cos(startAngle), yi2=cy+inner*Math.sin(startAngle);
+      const large=angle>Math.PI?1:0;
+      arcs+=`<path d="M${x1},${y1} A${r},${r} 0 ${large},1 ${x2},${y2} L${xi1},${yi1} A${inner},${inner} 0 ${large},0 ${xi2},${yi2} Z" fill="${inv.color}" stroke="var(--navy2)" stroke-width="2"/>`;
+      legend+=`<div class="legend-item"><div class="legend-dot" style="background:${inv.color}"></div><span class="legend-label" style="font-size:12px">${inv.name}</span><span style="font-size:12px;font-weight:500">${fmt(inv.value)}</span></div>`;
+      startAngle+=angle;
+    });
+  }
+
+  document.getElementById('investDonut').innerHTML = arcs;
+  document.getElementById('investLegend').innerHTML = legend;
+  const el = document.getElementById('investDonutTotal');
+  if(el) el.textContent = fmt(total);
+}
+
+// ══════════════════════════════════════════
+// GOALS
+// ══════════════════════════════════════════
+const goalColors = ['var(--mint)','var(--gold)','#7C6EF5','var(--coral)','#3A9EF5'];
+
+function daysBetween(a,b) {
+  const diff = b.getTime() - a.getTime();
+  return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24)));
+}
+
+function weeksBetween(a,b) {
+  const diff = b.getTime() - a.getTime();
+  return Math.max(1, Math.ceil(diff / (1000 * 60 * 60 * 24 * 7)));
+}
+
+function monthsBetween(a,b) {
+  return Math.max(1, (b.getFullYear()-a.getFullYear())*12 + (b.getMonth()-a.getMonth()));
+}
+
+function renderGoals() {
+  const container = document.getElementById('goalsList');
+  if(!goals.length) {
+    container.innerHTML = '<div class="empty"><div class="empty-icon">🎯</div>No has creado ninguna meta.</div>';
+    return;
+  }
+  container.innerHTML = goals.map((g,i) => {
+    const pct = g.target > 0 ? Math.min(100, Math.round(g.current/g.target*100)) : 0;
+    const remaining = Math.max(0, g.target - g.current);
+    const color = goalColors[i%goalColors.length];
+    const d = new Date(g.date + 'T12:00:00');
+    const dateStr = d.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'long', year:'numeric'});
+    
+    let suggestionHTML = '';
+    const freq = g.freq || 'monthly';
+    if(freq !== 'none') {
+      const today = new Date();
+      let val = 0;
+      let unit = '';
+      if(freq === 'monthly') {
+        const months = monthsBetween(today, d);
+        val = Math.ceil(remaining / months);
+        unit = '/mes';
+      } else if(freq === 'weekly') {
+        const weeks = weeksBetween(today, d);
+        val = Math.ceil(remaining / weeks);
+        unit = '/semana';
+      } else if(freq === 'daily') {
+        const days = daysBetween(today, d);
+        val = Math.ceil(remaining / days);
+        unit = '/día';
+      }
+      suggestionHTML = `<span>📆 Ahorra ~<strong style="color:${color}">${fmt(val)}${unit}</strong></span>`;
+    }
+
+    return `<div class="goal-item">
+      <div class="goal-header">
+        <div class="goal-name">${g.emoji} ${g.name}</div>
+        <div style="display:flex;gap:8px;align-items:center">
+          <span class="tag ${pct>=80?'green':pct>=50?'gold':'red'}">${pct}%</span>
+          <button class="btn-ghost" onclick="openGoalModal(${g.id})" style="padding:4px 8px;font-size:12px;border-color:var(--border)" title="${translate('btn.edit')}">✏</button>
+          <button class="btn-delete" onclick="deleteGoal(${g.id},event)" title="${translate('btn.delete')}">✕</button>
+        </div>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" style="width:${pct}%;background:${color}"></div></div>
+      <div class="progress-labels"><span>${fmt(g.current)} ${translate('goal.saved')}</span><span>${translate('goal.goal')}: ${fmt(g.target)}</span></div>
+      <div style="display:flex;gap:20px;flex-wrap:wrap;margin-top:10px;font-size:13px;color:var(--text-muted)">
+        <span>📅 ${translate('goal.expires')}: ${dateStr}</span>
+        <span>💰 ${translate('goal.remaining')}: <strong style="color:var(--text)">${fmt(remaining)}</strong></span>
+        ${suggestionHTML}
+      </div>
+    </div>`;
+  }).join('');
+}
+
+// ══════════════════════════════════════════
+// REPORTS
+// ══════════════════════════════════════════
+function switchReportTab(tab, el) {
+  currentReportTab = tab;
+  document.querySelectorAll('#reportTabs .tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  renderReports();
+}
+
+function renderReports() {
+  const tx      = getTx();
+  const income  = tx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+  const expense = tx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+  const savings = Math.max(0, income-expense);
+  const rate    = income > 0 ? Math.round(savings/income*100) : 0;
+  const mNames  = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const label   = periodAllYear ? `Todo ${currentPeriodYear}` : `${mNames[currentPeriodMonth]} ${currentPeriodYear}`;
+
+  const rolling = [];
+  for(let i=5; i>=0; i--) {
+    let m=currentPeriodMonth-i, y=currentPeriodYear;
+    while(m<0){m+=12;y--;}
+    const sl = transactions.filter(t=>{const d=new Date(t.date+'T12:00:00');return d.getFullYear()===y&&d.getMonth()===m;});
+    rolling.push({
+      label:mNames[m],
+      income: sl.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0),
+      expense:sl.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0)
+    });
+  }
+
+  if(currentReportTab==='monthly') {
+    const maxV=Math.max(...rolling.map(m=>Math.max(m.income,m.expense)),1);
+    document.getElementById('reportContent').innerHTML = `
+      <div class="report-kpis">
+        <div class="report-card"><div class="report-lbl">${translate('kpi.income')} — ${label}</div><div class="report-val" style="color:var(--mint)">${fmt(income)}</div></div>
+        <div class="report-card"><div class="report-lbl">${translate('kpi.expense')} — ${label}</div><div class="report-val" style="color:var(--coral)">${fmt(expense)}</div></div>
+        <div class="report-card"><div class="report-lbl">${translate('tx.summary.rate')}</div><div class="report-val" style="color:${rate>=20?'var(--mint)':'var(--coral)'}">${rate}%</div></div>
+      </div>
+      <div class="card" style="margin-bottom:16px">
+        <div class="card-title" style="margin-bottom:16px">${translate('report.cashflow_6m')}</div>
+        <div class="bar-chart">${rolling.map(m=>{const ih=Math.round((m.income/maxV)*110);const eh=Math.round((m.expense/maxV)*110);return `<div class="bar-group"><div class="bars"><div class="bar income-bar" style="height:${Math.max(2,ih)}px" title="${fmt(m.income)}"></div><div class="bar expense-bar" style="height:${Math.max(2,eh)}px" title="${fmt(m.expense)}"></div></div><div class="bar-label">${m.label}</div></div>`;}).join('')}</div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:14px">${translate('report.net_balance_month')}</div>
+        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px">
+          ${rolling.map(m=>{const net=m.income-m.expense;return `<div style="text-align:center;padding:10px;background:var(--navy3);border-radius:8px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">${m.label}</div><div style="font-weight:600;color:${net>=0?'var(--mint)':'var(--coral)'};font-size:12px">${net>=0?'+':''}${fmt(net)}</div></div>`;}).join('')}
+        </div>
+      </div>`;
+
+  } else if(currentReportTab==='annual') {
+    const yearTx   = transactions.filter(t=>new Date(t.date+'T12:00:00').getFullYear()===currentPeriodYear);
+    const yIn      = yearTx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
+    const yEx      = yearTx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+    const months   = new Set(yearTx.map(t=>new Date(t.date+'T12:00:00').getMonth())).size || 1;
+    document.getElementById('reportContent').innerHTML = `
+      <div class="report-kpis">
+        <div class="report-card"><div class="report-lbl">${translate('kpi.income')} ${currentPeriodYear}</div><div class="report-val" style="color:var(--mint)">${fmt(yIn)}</div></div>
+        <div class="report-card"><div class="report-lbl">${translate('kpi.expense')} ${currentPeriodYear}</div><div class="report-val" style="color:var(--coral)">${fmt(yEx)}</div></div>
+        <div class="report-card"><div class="report-lbl">${translate('tx.summary.savings')} ${currentPeriodYear}</div><div class="report-val" style="color:var(--gold)">${fmt(yIn-yEx)}</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="margin-bottom:14px">${translate('report.annual_proj')} ${currentPeriodYear}</div>
+        <p style="color:var(--text-muted);font-size:13px;margin-bottom:14px">${translate('report.based_on')} ${months} ${translate('report.months_data')}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
+          ${[{l:translate('report.proj_income'),v:fmt(Math.round(yIn/months*12)),c:'var(--mint)'},{l:translate('report.proj_expense'),v:fmt(Math.round(yEx/months*12)),c:'var(--coral)'},{l:translate('report.proj_savings'),v:fmt(Math.round((yIn-yEx)/months*12)),c:'var(--gold)'}].map(r=>`<div style="padding:14px;background:var(--navy3);border-radius:10px;text-align:center"><div style="font-size:11px;color:var(--text-muted);margin-bottom:6px">${r.l}</div><div style="font-size:18px;font-weight:600;color:${r.c}">${r.v}</div></div>`).join('')}
+        </div>
+      </div>`;
+
+  } else {
+    const byCat = {};
+    getTx().filter(t=>t.type==='expense').forEach(t=>{byCat[t.cat]=(byCat[t.cat]||0)+t.amount;});
+    const totalExp = Object.values(byCat).reduce((s,v)=>s+v,0);
+    const sorted = Object.entries(byCat).sort((a,b)=>b[1]-a[1]);
+    document.getElementById('reportContent').innerHTML = `
+      <div class="card">
+        <div class="card-title" style="margin-bottom:16px">${translate('report.exp_dist')} — ${label}</div>
+        ${sorted.length ? sorted.map(([cat,val])=>{
+          const pct=Math.round(val/totalExp*100);
+          return `<div style="margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font-size:13px;margin-bottom:5px">
+              <span>${catEmojis[cat]||'📌'} ${catLabels[cat]||cat}</span>
+              <span style="color:${catColors[cat]||'var(--text)'}"><strong>${fmt(val)}</strong> (${pct}%)</span>
+            </div>
+            <div style="height:6px;background:var(--border-light);border-radius:3px;overflow:hidden">
+              <div style="height:100%;width:${pct}%;background:${catColors[cat]||'var(--mint)'};border-radius:3px;transition:width 0.6s"></div>
+            </div>
+          </div>`;
+        }).join('') : `<div class="empty"><div class="empty-icon">📭</div>${translate('budget.empty')}</div>`}
+      </div>`;
+  }
+}
+
+// ══════════════════════════════════════════
+// BUDGET
+// ══════════════════════════════════════════
+function renderBudget() {
+  const byCat = {};
+  getTx().filter(t=>t.type==='expense').forEach(t=>{byCat[t.cat]=(byCat[t.cat]||0)+t.amount;});
+  const totalLimit = budgets.reduce((s,b)=>s+b.limit,0);
+  const totalSpent = Object.values(byCat).reduce((s,v)=>s+v,0);
+  const pct = totalLimit > 0 ? Math.round(totalSpent/totalLimit*100) : 0;
+
+  // Sidebar update
+  const sbPct   = document.getElementById('sb-pct');
+  const sbFill  = document.getElementById('sb-fill');
+  const sbDet   = document.getElementById('sb-budget-details');
+  if(sbPct)  sbPct.textContent  = pct + '%';
+  if(sbFill) sbFill.style.width = Math.min(100,pct) + '%';
+  if(sbDet)  sbDet.textContent  = translate('budget.sidebar.left').replace('{left}', fmt(Math.max(0, totalLimit-totalSpent))).replace('{total}', fmt(totalLimit));
+
+  // Budget view subtitle
+  const dMonth = new Date(currentPeriodYear, currentPeriodMonth, 1).toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {month:'long'});
+  const cMonth = dMonth.charAt(0).toUpperCase() + dMonth.slice(1);
+  const sub = document.getElementById('budget-view-subtitle');
+  if(sub) sub.textContent = `${periodAllYear? translate('budget.year') + ' '+currentPeriodYear:cMonth+' '+currentPeriodYear} — ${fmt(totalLimit)} total`;
+
+  // Budget content
+  const bc = document.getElementById('budgetContent');
+  if(bc) bc.innerHTML = `
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
+      <div class="report-card"><div class="report-lbl">${translate('budget.total')}</div><div class="report-val">${fmt(totalLimit)}</div></div>
+      <div class="report-card"><div class="report-lbl">${translate('budget.spent_lbl')}</div><div class="report-val" style="color:var(--coral)">${fmt(Math.round(totalSpent))}</div></div>
+      <div class="report-card"><div class="report-lbl">${translate('budget.available')}</div><div class="report-val" style="color:var(--mint)">${fmt(Math.max(0,totalLimit-Math.round(totalSpent)))}</div></div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
+      ${budgets.map(b=>{
+        const spent=byCat[b.cat]||0;
+        const p=b.limit>0?Math.min(100,Math.round(spent/b.limit*100)):0;
+        const over=spent>b.limit;
+        const color=p>90?'var(--coral)':p>70?'var(--gold)':'var(--mint)';
+        return `<div class="card" style="padding:16px">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px">
+            <span style="font-weight:500">${b.emoji} ${translate('cat.' + b.cat)}</span>
+            <span class="tag ${over?'red':p>70?'gold':'green'}">${p}%${over?' ⚠':''}</span>
+          </div>
+          <div class="progress-bar" style="height:8px;margin-bottom:6px"><div class="progress-fill" style="width:${p}%;background:${color}"></div></div>
+          <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)">
+            <span>${fmt(Math.round(spent))} ${translate('budget.spent')}</span><span>${translate('budget.limit')} ${fmt(b.limit)}</span>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+}
+
+// ══════════════════════════════════════════
+// PERIOD & CURRENCY
+// ══════════════════════════════════════════
+function updatePeriod() {
+  currentPeriodMonth = parseInt(document.getElementById('periodMonth').value);
+  currentPeriodYear  = parseInt(document.getElementById('periodYear').value) || new Date().getFullYear();
+  if(!periodAllYear) document.getElementById('btnAllYear').classList.remove('active');
+  renderAll();
+}
+
+function toggleAllYear(btn) {
+  periodAllYear = !periodAllYear;
+  btn.classList.toggle('active', periodAllYear);
+  const mEl = document.getElementById('periodMonth');
+  mEl.disabled = periodAllYear;
+  mEl.style.opacity = periodAllYear ? '0.4' : '1';
+  renderAll();
+}
+
+function updateCurrency() {
+  const sel = document.getElementById('currencySelect');
+  const opt = sel.options[sel.selectedIndex];
+  const editRow = document.getElementById('currencyEditRow');
+  if(opt.value === 'CUSTOM') { editRow.classList.add('open'); return; }
+  editRow.classList.remove('open');
+  currency = { code:opt.value, symbol:opt.getAttribute('data-sym')||'$', rate:parseFloat(opt.getAttribute('data-rate'))||1 };
+  saveToLocalStorage();
+  renderAll();
+}
+
+function applyCustomCurrency() {
+  const code   = document.getElementById('customCurrencyCode').value.trim().toUpperCase() || 'CUSTOM';
+  const symbol = document.getElementById('customCurrencySymbol').value.trim() || '$';
+  const rate   = parseFloat(document.getElementById('customCurrencyRate').value) || 1;
+  currency = {code, symbol, rate};
+  document.getElementById('currencyEditRow').classList.remove('open');
+  const sel = document.getElementById('currencySelect');
+  sel.options[sel.selectedIndex].text = `✏ ${code} (${symbol}) — personalizado`;
+  saveToLocalStorage();
+  renderAll();
+}
+
+// ══════════════════════════════════════════
+// BACKUP & EXPORT
+// ══════════════════════════════════════════
+function openExportOptionsModal() {
+  // Resetear al panel de elección cada vez que se abre
+  document.getElementById('exportChoicePanel').style.display = 'block';
+  document.getElementById('exportSuccessPanel').style.display = 'none';
+  document.getElementById('exportOptionsModalOverlay').classList.add('open');
+}
+
+function closeExportOptionsModal() {
+  document.getElementById('exportOptionsModalOverlay').classList.remove('open');
+}
+
+function openBackupFromOptions() {
+  closeExportOptionsModal();
+  exportData();
+}
+
+async function exportCSV() {
+  const filename = `flowmint_excel_${new Date().toISOString().slice(0,10)}.csv`;
+  let csv = '\uFEFF'; // BOM para Excel UTF-8
+  csv += 'ID,Fecha,Tipo,Categor\u00eda,Descripci\u00f3n,Monto,Nota\n';
+
+  transactions.forEach(t => {
+    const typeLabel = t.type === 'income' ? 'Ingreso' : (t.type === 'expense' ? 'Gasto' : 'Inversi\u00f3n');
+    const allCats = [...categoriesByType.income, ...categoriesByType.expense, ...categoriesByType.invest];
+    const catObj  = allCats.find(c => c.value === t.cat);
+    const catLabel = catObj ? catObj.text : t.cat;
+    const esc = (s) => `"${(s||'').toString().replace(/"/g,'""')}"`;
+    csv += `${t.id},${t.date},${esc(typeLabel)},${esc(catLabel)},${esc(t.desc)},${t.amount},${esc(t.note)}\n`;
+  });
+
+  const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+
+  // ── MÉTODO 1: di\u00e1logo nativo "Guardar como" (Chrome 86+) ──
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{ description: 'Archivo CSV (Excel)', accept: { 'text/csv': ['.csv'] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      // \u00c9xito: mostrar confirmaci\u00f3n
+      document.getElementById('exportChoicePanel').style.display = 'none';
+      document.getElementById('exportedFileName').textContent = filename;
+      document.getElementById('exportSuccessPanel').style.display = 'block';
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return; // Usuario cancel\u00f3
+      // Si falla, continuar con m\u00e9todo 2
+    }
+  }
+
+  // ── M\u00c9TODO 2: descarga cl\u00e1sica al directorio de Descargas ──
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  document.getElementById('exportChoicePanel').style.display = 'none';
+  document.getElementById('exportedFileName').textContent = filename;
+  document.getElementById('exportSuccessPanel').style.display = 'block';
+}
+
+
+async function exportData() {
+  const filename = `flowmint_backup_${new Date().toISOString().slice(0,10)}.json`;
+  const jsonStr = JSON.stringify({transactions, goals, investments, budgets, currency}, null, 2);
+  const blob = new Blob([jsonStr], {type: 'application/json'});
+
+  // ── M\u00c9TODO 1: di\u00e1logo nativo "Guardar como" ──
+  if (window.showSaveFilePicker) {
+    try {
+      const handle = await window.showSaveFilePicker({
+        suggestedName: filename,
+        types: [{ description: 'Copia de seguridad FlowMint (JSON)', accept: { 'application/json': ['.json'] } }]
+      });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      // Mostrar modal de texto como confirmaci\u00f3n/importaci\u00f3n alternativa
+      document.getElementById('backupTextarea').value = jsonStr;
+      document.getElementById('importPasteArea').style.display = 'none';
+      document.getElementById('importPasteTextarea').value = '';
+      document.getElementById('backupModalOverlay').classList.add('open');
+      return;
+    } catch (err) {
+      if (err.name === 'AbortError') return;
+    }
+  }
+
+  // ── M\u00c9TODO 2: descarga cl\u00e1sica ──
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+
+  // Mostrar modal de texto como confirmaci\u00f3n/importaci\u00f3n alternativa
+  document.getElementById('backupTextarea').value = jsonStr;
+  document.getElementById('importPasteArea').style.display = 'none';
+  document.getElementById('importPasteTextarea').value = '';
+  document.getElementById('backupModalOverlay').classList.add('open');
+}
+
+function closeBackupModal() {
+  document.getElementById('backupModalOverlay').classList.remove('open');
+}
+
+function copyBackupToClipboard() {
+  const textarea = document.getElementById('backupTextarea');
+  textarea.select();
+  try {
+    navigator.clipboard.writeText(textarea.value);
+    alert(translate('alert.copy_success'));
+  } catch (err) {
+    document.execCommand('copy');
+    alert(translate('alert.copy_success'));
+  }
+}
+
+function enableBackupPaste() {
+  const area = document.getElementById('importPasteArea');
+  area.style.display = area.style.display === 'none' ? 'block' : 'none';
+  if(area.style.display === 'block') {
+    document.getElementById('importPasteTextarea').focus();
+  }
+}
+
+function importFromPastedText() {
+  const text = document.getElementById('importPasteTextarea').value.trim();
+  if(!text) { alert(translate('alert.paste_please')); return; }
+  try {
+    const data = JSON.parse(text);
+    if(!data.transactions || !Array.isArray(data.transactions)) throw new Error('Formato inválido: Falta la lista de transacciones.');
+    
+    transactions = data.transactions;
+    if(data.goals)       goals       = data.goals;
+    if(data.investments) investments = data.investments;
+    if(data.budgets)     budgets     = data.budgets;
+    if(data.currency)    currency    = data.currency;
+
+    saveToLocalStorage();
+    renderAll();
+    closeBackupModal();
+    alert(translate('alert.import_pasted_success'));
+  } catch(err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+function triggerImport() { document.getElementById('importFile').click(); }
+
+function importData(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e) {
+    try {
+      const data = JSON.parse(e.target.result);
+      if(!data.transactions || !Array.isArray(data.transactions)) throw new Error('Formato inválido');
+      transactions = data.transactions;
+      if(data.goals)       goals       = data.goals;
+      if(data.investments) investments = data.investments;
+      if(data.budgets)     budgets     = data.budgets;
+      if(data.currency)    currency    = data.currency;
+      saveToLocalStorage();
+      renderAll();
+      alert(translate('alert.import_success'));
+    } catch(err) {
+      alert('Error: ' + err.message);
+    }
+  };
+  reader.readAsText(file);
+}
+</script>
+</body>
+</html>
