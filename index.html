@@ -1381,13 +1381,13 @@
 
       <div class="config-field">
         <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL Checkout Principal</label>
-        <input type="text" class="config-input" id="checkoutUrlInput" placeholder="https://checkout.kirvano.com/...">
+        <input type="text" class="config-input" id="checkoutUrlInput" placeholder="https://checkout.kirvhttps://pay.hotmart.com/S106873189Y?checkoutMode=10...">
       </div>
 
       <div class="config-field" style="margin-top: 10px;">
         <label for="resellerUrlInput" data-i18n="cfg-reseller-label">URL Licencia de Revendedor</label>
         <input type="text" class="config-input" id="resellerUrlInput"
-          placeholder="https://checkout.kirvano.com/reseller...">
+          placeholder="https://pay.hotmart.com/S106873189Y?checkoutMode=10...">
       </div>
 
       <button class="btn btn-primary" onclick="saveAllUrls()"
@@ -1650,8 +1650,8 @@
 
 
     // --- 3. CONFIGURACIÓN DINÁMICA DE ENLACES DE CHEKOUT ---
-    let checkoutUrl = localStorage.getItem('fm_landing_checkout_url') || 'https://checkout.kirvano.com/ejemplo';
-    let resellerUrl = localStorage.getItem('fm_landing_reseller_url') || 'https://checkout.kirvano.com/revendedor-ejemplo';
+    let checkoutUrl = localStorage.getItem('fm_landing_checkout_url') || 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
+    let resellerUrl = localStorage.getItem('fm_landing_reseller_url') || 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
 
     window.addEventListener('DOMContentLoaded', () => {
       // Iniciar inputs en el panel de control
