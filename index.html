@@ -970,13 +970,19 @@
     }
   </style>
   <style>
-  /* Ocultar el panel flotante de Checkout Settings y su boton de tuerca */
-  #checkout-settings-modal, 
-  #settings-toggle-btn, 
-  .checkout-settings,
-  button[title*="Settings"],
-  div[class*="settings"] {
+  /* Ocultar absolutamente todo panel flotante o tuerca en la esquina inferior derecha */
+  div[style*="fixed"],
+  div[style*="absolute"],
+  button[style*="fixed"],
+  button[style*="absolute"],
+  [class*="config"],
+  [class*="settings"],
+  [id*="config"],
+  [id*="settings"] {
     display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
   }
 </style>
 </head>
