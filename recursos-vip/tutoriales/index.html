@@ -1,1 +1,288 @@
-OlfLH4puHWg
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flowmint — Guía de Uso & Tutoriales</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #059669;
+      --accent: #10B981;
+      --bg-dark: #0F172A;
+      --card-bg: #1E293B;
+      --text-light: #F8FAFC;
+      --text-muted: #94A3B8;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --radius: 16px;
+      --font: 'Inter', system-ui, -apple-system, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    body {
+      font-family: var(--font);
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+      padding-bottom: 60px;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    /* CONTROL DE IDIOMAS */
+    .lang-en { display: none !important; }
+
+    body.lang-english .lang-es { display: none !important; }
+    body.lang-english .lang-en { display: inline !important; }
+    
+    body.lang-english div.lang-en,
+    body.lang-english p.lang-en,
+    body.lang-english h2.lang-en,
+    body.lang-english h3.lang-en,
+    body.lang-english h4.lang-en { display: block !important; }
+
+    /* NAVBAR */
+    nav {
+      position: sticky; top: 0; z-index: 50;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      padding: 16px 24px;
+    }
+    .nav-inner {
+      max-width: 1080px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .brand { display: flex; align-items: center; gap: 12px; }
+    .brand-badge {
+      width: 38px; height: 38px; border-radius: 10px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; color: #fff; font-size: 18px;
+    }
+    .brand-text h1 { font-size: 18px; font-weight: 800; }
+    .brand-text span { font-size: 12px; color: var(--text-muted); }
+
+    .lang-btn {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      color: var(--accent);
+      padding: 8px 16px; border-radius: 20px;
+      font-weight: 600; font-size: 13px; cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .lang-btn:hover { background: var(--accent); color: #fff; }
+
+    /* SECCIONES Y CONTENEDORES */
+    .container { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+    .hero { text-align: center; padding: 50px 24px 30px; }
+    .hero h2 { font-size: 2rem; font-weight: 800; margin-bottom: 10px; }
+    .hero p { color: var(--text-muted); max-width: 600px; margin: 0 auto; }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius);
+      padding: 24px; margin-bottom: 30px;
+    }
+
+    /* CONTENEDOR DE VIDEO RESPONSIVE 16:9 */
+    .video-box {
+      position: relative; width: 100%; aspect-ratio: 16/9;
+      background: #000; border-radius: 12px; overflow: hidden;
+      margin-bottom: 20px; border: 1px solid var(--border-color);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .video-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+
+    /* GRID DE MÓDULOS */
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .module-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius); overflow: hidden;
+    }
+    .module-body { padding: 20px; }
+    .module-tag { color: var(--accent); font-size: 12px; font-weight: 700; text-transform: uppercase; margin-bottom: 6px; }
+
+    /* PREGUNTAS FRECUENTES (FAQ) */
+    .faq-item {
+      background: var(--card-bg); border: 1px solid var(--border-color);
+      border-radius: 10px; margin-bottom: 12px; padding: 16px 20px;
+    }
+    .faq-item summary { font-weight: 600; cursor: pointer; outline: none; }
+    .faq-item p { margin-top: 10px; color: var(--text-muted); font-size: 14px; }
+
+    /* FOOTER */
+    footer { text-align: center; padding: 40px 24px; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 14px; }
+    footer a { color: var(--accent); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+  <!-- BARRA NAVEGACIÓN -->
+  <nav>
+    <div class="nav-inner">
+      <div class="brand">
+        <div class="brand-badge">🌱</div>
+        <div class="brand-text">
+          <h1>Flowmint</h1>
+          <span class="lang-es">Guía Oficial de Usuario</span>
+          <span class="lang-en">Official User Guide</span>
+        </div>
+      </div>
+      <button class="lang-btn" onclick="toggleLanguage()">
+        <span class="lang-es">EN | English 🌐</span>
+        <span class="lang-en">ES | Español 🌐</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO HEADER -->
+  <section class="hero container">
+    <h2 class="lang-es">Aprende a Dominar tus Finanzas</h2>
+    <h2 class="lang-en">Master Your Finances with Flowmint</h2>
+    <p class="lang-es">Mira este breve tutorial para configurar tu moneda, tus presupuestos y sacar el máximo provecho a tus bolsillos financieros.</p>
+    <p class="lang-en">Watch this short tutorial to set up your currency, budgets, and get the most out of your financial pockets.</p>
+  </section>
+
+  <!-- VIDEO PRINCIPAL -->
+  <main class="container">
+    <div class="card">
+      <div class="video-box">
+        <iframe 
+          src="https://www.youtube.com/embed/OlfLH4puHWg" 
+          title="Demo & Primeros Pasos"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+          referrerpolicy="strict-origin-when-cross-origin" 
+          allowfullscreen>
+        </iframe>
+      </div>
+      <h3 class="lang-es">Demo & Primeros Pasos</h3>
+      <h3 class="lang-en">Demo & First Steps</h3>
+      <p class="lang-es" style="color: var(--text-muted); font-size: 14px; margin-top: 6px;">
+        ⏱️ <strong>Duración:</strong> 3 Minutos. <br>
+        🎯 <strong>Lo que aprenderás:</strong> Registro de ingresos/gastos, configuración de la regla 50/30/20 y uso de bolsillos.
+      </p>
+      <p class="lang-en" style="color: var(--text-muted); font-size: 14px; margin-top: 6px;">
+        ⏱️ <strong>Duration:</strong> 3 Minutes. <br>
+        🎯 <strong>What you'll learn:</strong> Income/expense tracking, 50/30/20 rule setup, and managing pockets.
+      </p>
+    </div>
+  </main>
+
+  <!-- MÓDULOS TUTORIALES -->
+  <section class="container" style="margin-bottom: 40px;">
+    <h3 class="lang-es" style="margin-bottom: 20px;">Tutoriales Paso a Paso</h3>
+    <h3 class="lang-en" style="margin-bottom: 20px;">Step-by-Step Tutorials</h3>
+
+    <div class="grid">
+      <!-- MÓDULO 1 -->
+      <div class="module-card">
+        <div class="video-box" style="margin-bottom: 0;">
+          <iframe 
+            src="https://www.youtube.com/embed/OlfLH4puHWg" 
+            title="Módulo 1"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="module-body">
+          <div class="module-tag">Módulo 01</div>
+          <h4 class="lang-es">Configuración Inicial y Moneda</h4>
+          <h4 class="lang-en">Initial Setup & Currency</h4>
+          <p class="lang-es" style="color: var(--text-muted); font-size: 13px;">Cómo ajustar la divisa local y definir tu presupuesto mensual base.</p>
+          <p class="lang-en" style="color: var(--text-muted); font-size: 13px;">How to set your local currency and base monthly budget.</p>
+        </div>
+      </div>
+
+      <!-- MÓDULO 2 -->
+      <div class="module-card">
+        <div class="video-box" style="margin-bottom: 0;">
+          <iframe 
+            src="https://www.youtube.com/embed/OlfLH4puHWg" 
+            title="Módulo 2"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="module-body">
+          <div class="module-tag">Módulo 02</div>
+          <h4 class="lang-es">Distribución 50/30/20 y Bolsillos</h4>
+          <h4 class="lang-en">50/30/20 Rule & Pockets</h4>
+          <p class="lang-es" style="color: var(--text-muted); font-size: 13px;">Estrategias para categorizar tus gastos fijos, estilo de vida y ahorro.</p>
+          <p class="lang-en" style="color: var(--text-muted); font-size: 13px;">Strategies to categorize fixed expenses, lifestyle, and savings.</p>
+        </div>
+      </div>
+
+      <!-- MÓDULO 3 -->
+      <div class="module-card">
+        <div class="video-box" style="margin-bottom: 0;">
+          <iframe 
+            src="https://www.youtube.com/embed/OlfLH4puHWg" 
+            title="Módulo 3"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            referrerpolicy="strict-origin-when-cross-origin" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="module-body">
+          <div class="module-tag">Módulo 03</div>
+          <h4 class="lang-es">Instalar como App Móvil (PWA)</h4>
+          <h4 class="lang-en">Install as Mobile App (PWA)</h4>
+          <p class="lang-es" style="color: var(--text-muted); font-size: 13px;">Pasos sencillos para agregar Flowmint a la pantalla de inicio de tu iPhone o Android.</p>
+          <p class="lang-en" style="color: var(--text-muted); font-size: 13px;">Easy steps to add Flowmint to your iPhone or Android home screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="container">
+    <h3 class="lang-es" style="margin-bottom: 16px;">Preguntas Frecuentes</h3>
+    <h3 class="lang-en" style="margin-bottom: 16px;">Frequently Asked Questions</h3>
+
+    <details class="faq-item">
+      <summary>
+        <span class="lang-es">¿Mis datos financieros están seguros?</span>
+        <span class="lang-en">Are my financial data secure?</span>
+      </summary>
+      <p>
+        <span class="lang-es">Sí, tus datos se guardan de forma 100% privada y local en tu dispositivo.</span>
+        <span class="lang-en">Yes, your data is saved 100% privately and locally on your device.</span>
+      </p>
+    </details>
+
+    <details class="faq-item">
+      <summary>
+        <span class="lang-es">¿Puedo usar Flowmint sin conexión a internet?</span>
+        <span class="lang-en">Can I use Flowmint offline?</span>
+      </summary>
+      <p>
+        <span class="lang-es">Sí, mediante la tecnología PWA puedes acceder a la app sin depender de conexión activa.</span>
+        <span class="lang-en">Yes, using PWA technology you can access the app without an active connection.</span>
+      </p>
+    </details>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2026 Flowmint. <span class="lang-es">Guía Oficial de Usuario. Todos los derechos reservados.</span><span class="lang-en">Official User Guide. All rights reserved.</span></p>
+    <p style="margin-top: 10px;">
+      <a href="../index.html" class="lang-es">Ir a la App Flowmint ➔</a>
+      <a href="../index.html" class="lang-en">Go to Flowmint App ➔</a>
+    </p>
+  </footer>
+
+  <script>
+    function toggleLanguage() {
+      document.body.classList.toggle('lang-english');
+    }
+  </script>
+
+</body>
+</html>
