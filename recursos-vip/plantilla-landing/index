@@ -1,1 +1,1711 @@
+<!DOCTYPE html>
+<html lang="es">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowMint — Domina tus Finanzas con Control Absoluto</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --mint: #00C896;
+      --mint-light: #E6FBF4;
+      --mint-mid: #00A67A;
+      --mint-dark: #007A58;
+      --gold: #F5A623;
+      --coral: #FF5C5C;
+      --navy: #0F1B2D;
+      --navy2: #162236;
+      --navy3: #1E2F47;
+      --slate: #3A4E68;
+      --muted: #6B7F99;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-light: rgba(255, 255, 255, 0.12);
+      --card: rgba(22, 34, 54, 0.7);
+      --text: #F0F4FF;
+      --text-sec: #9AABC4;
+      --text-muted: #5E7090;
+      --radius: 24px;
+      --radius-sm: 12px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Decorative glows */
+    .glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .glow-1 {
+      top: -200px;
+      left: -100px;
+      background: var(--mint);
+    }
+
+    .glow-2 {
+      top: 600px;
+      right: -200px;
+      background: #7C6EF5;
+    }
+
+    .glow-3 {
+      bottom: -100px;
+      left: 10%;
+      background: var(--gold);
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+    }
+
+    /* ── LAYOUT & SECTIONS ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Navigation */
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--mint);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--mint);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-sec);
+      font-size: 14px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language Selector Styles */
+    .lang-switcher {
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .lang-switcher:hover {
+      border-color: var(--mint);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--mint);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: var(--mint-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 200, 150, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .btn-lg {
+      padding: 16px 36px;
+      font-size: 16px;
+      border-radius: 16px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(0, 200, 150, 0.08);
+      border: 1px solid rgba(0, 200, 150, 0.2);
+      color: var(--mint);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--mint), #7C6EF5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-sec);
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    /* Mockup App Showcase */
+    .mockup-wrap {
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(22, 34, 54, 0.9), rgba(30, 47, 71, 0.6));
+      border: 1px solid var(--border-light);
+      padding: 12px;
+      box-shadow: var(--shadow);
+      max-width: 960px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .mockup-wrap:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 200, 150, 0.3);
+    }
+
+    .mockup-header {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-left: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+
+    .mockup-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .mockup-dot.red {
+      background: #FF5959;
+    }
+
+    .mockup-dot.yellow {
+      background: #FFC02F;
+    }
+
+    .mockup-dot.green {
+      background: #2FCA42;
+    }
+
+    /* Interactive CSS Showcase of the App UI components (glassmorphism) */
+    .ui-showcase-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      text-align: left;
+      padding: 12px;
+    }
+
+    .ui-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .ui-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ui-kpi {
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 3px solid var(--mint);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .ui-kpi.expense {
+      border-left-color: var(--coral);
+    }
+
+    .ui-kpi.invest {
+      border-left-color: #7C6EF5;
+    }
+
+    .ui-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .ui-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      margin-top: 4px;
+    }
+
+    .ui-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ui-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 13px;
+    }
+
+    .ui-item .green {
+      color: var(--mint);
+      font-weight: 600;
+    }
+
+    .ui-item .red {
+      color: var(--coral);
+      font-weight: 600;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 100px 0;
+    }
+
+    .sec-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .sec-header h2 {
+      font-size: 44px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .sec-header p {
+      color: var(--text-sec);
+    }
+
+    /* Pain & Solution */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .pain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .pain-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .pain-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .pain-text h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .pain-text p {
+      color: var(--text-sec);
+      font-size: 14px;
+    }
+
+    /* Core Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 36px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 200, 150, 0.25);
+      background: var(--navy2);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 200, 150, 0.08);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+      color: var(--mint);
+    }
+
+    /* --- SECCIÓN UPSELL --- */
+    .upsell-section {
+      padding: 80px 20px;
+      background: radial-gradient(circle at center, rgba(147, 51, 234, 0.05) 0%, transparent 70%);
+      display: flex;
+      justify-content: center;
+    }
+
+    .upsell-container {
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .upsell-badge {
+      background: linear-gradient(135deg, #ef4444, #f59e0b);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    .upsell-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .upsell-title .text-gradient {
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .upsell-subtitle {
+      color: #9ca3af;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+    }
+
+    /* Tarjeta Glassmorphic Especial */
+    .upsell-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(147, 51, 234, 0.3);
+      border-radius: 24px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      text-align: left;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upsell-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .upsell-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .upsell-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      color: #e5e7eb;
+      font-size: 1.05rem;
+    }
+
+    .upsell-features svg {
+      color: #10b981;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Caja de Precios y Botón */
+    .upsell-pricing {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 40px;
+      text-align: center;
+    }
+
+    .price-box {
+      margin-bottom: 25px;
+    }
+
+    .old-price {
+      display: block;
+      color: #6b7280;
+      text-decoration: line-through;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .current-price {
+      display: block;
+      color: #fff;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .price-note {
+      color: #9ca3af;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    .upsell-btn {
+      width: 100%;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      font-weight: 700;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .upsell-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 30px 20px;
+      }
+
+      .upsell-pricing {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-left: 0;
+        padding-top: 30px;
+      }
+
+      .upsell-title {
+        font-size: 2rem;
+      }
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: var(--text-sec);
+      font-size: 14px;
+    }
+
+    /* Why Privacy matters block */
+    .privacy-banner {
+      background: linear-gradient(135deg, rgba(0, 200, 150, 0.1), rgba(124, 110, 245, 0.05));
+      border: 1px solid rgba(0, 200, 150, 0.2);
+      padding: 48px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin-top: 80px;
+    }
+
+    .privacy-info h3 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .privacy-info p {
+      color: var(--text-sec);
+      font-size: 15px;
+      max-width: 600px;
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: var(--radius);
+    }
+
+    .testi-stars {
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .testi-text {
+      font-style: italic;
+      color: var(--text-sec);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testi-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--navy3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--mint);
+      border: 1px solid var(--border-light);
+    }
+
+    .testi-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .testi-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Pricing */
+    .pricing-card {
+      background: linear-gradient(180deg, var(--navy2) 0%, rgba(22, 34, 54, 0.7) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 48px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--mint), #7C6EF5);
+    }
+
+    .price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 72px;
+      line-height: 1;
+      margin: 24px 0 12px;
+    }
+
+    .price span {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: line-through;
+      margin-right: 8px;
+    }
+
+    .pricing-features {
+      text-align: left;
+      list-style: none;
+      margin: 36px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-sec);
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--mint);
+      font-weight: bold;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-links {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Link configuration widget */
+    .config-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+    }
+
+    .config-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: var(--transition);
+    }
+
+    .config-btn:hover {
+      transform: rotate(45deg);
+      border-color: var(--mint);
+    }
+
+    .config-panel {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      width: 320px;
+      background: var(--navy2);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: none;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .config-panel.open {
+      display: block;
+    }
+
+    .config-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .config-field {
+      margin-bottom: 14px;
+    }
+
+    .config-field label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .config-input {
+      width: 100%;
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .config-input:focus {
+      border-color: var(--mint);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .ui-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ui-kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .privacy-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- ── HEADER ── -->
+  <div class="container">
+    <header>
+      <a href="#" class="logo">
+        <div class="logo-icon">🌿</div>
+        <div class="logo-text">Flow<span>Mint</span></div>
+      </a>
+      <nav>
+        <a href="#problema" class="nav-link" data-i18n="nav-problem">El Problema</a>
+        <a href="#caracteristicas" class="nav-link" data-i18n="nav-features">Características</a>
+        <a href="#privacidad" class="nav-link" data-i18n="nav-privacy">Privacidad</a>
+        <a href="#precios" class="nav-link" data-i18n="nav-pricing">Precios</a>
+      </nav>
+      <div class="header-actions">
+        <!-- Switch de Idioma Dropdown -->
+        <select class="lang-switcher" onchange="changeLanguage(this.value)" id="langSelect">
+          <option value="es">🇪🇸 ES</option>
+          <option value="en">🇺🇸 EN</option>
+        </select>
+        <a href="#precios" class="btn btn-primary" data-i18n="nav-getbtn">Obtener App</a>
+      </div>
+    </header>
+  </div>
+
+  <!-- ── HERO SECTION ── -->
+  <div class="container">
+    <section class="hero">
+      <span class="badge" data-i18n="hero-badge">🔥 Acceso de por vida · Pago único</span>
+      <h1 data-i18n="hero-title">Toma el Control Absoluto de tu <span>Dinero</span></h1>
+      <p class="hero-sub" data-i18n="hero-sub">
+        Una aplicación de finanzas personales diseñada para personas reales. Administra tus ingresos, gastos,
+        inversiones y metas en una interfaz visualmente impresionante y 100% privada.
+      </p>
+      <div class="hero-actions">
+        <a href="#precios" class="btn btn-primary btn-lg" data-i18n="hero-cta1">Comprar Acceso de por
+          Vida</a>
+        <a href="flowmint.html" target="_blank" class="btn btn-outline btn-lg" data-i18n="hero-cta2">Ver Demo
+          Interactiva →</a>
+      </div>
+
+      <!-- Interactive Mockup Showcase -->
+      <div class="mockup-wrap">
+        <div class="mockup-header">
+          <div class="mockup-dot red"></div>
+          <div class="mockup-dot yellow"></div>
+          <div class="mockup-dot green"></div>
+          <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">FlowMint Finance - Local App</span>
+        </div>
+        <div class="ui-showcase-grid">
+          <div class="ui-card">
+            <div class="ui-kpis">
+              <div class="ui-kpi">
+                <div class="ui-lbl" data-i18n="ui-income">Ingresos</div>
+                <div class="ui-val" style="color: var(--mint);">$6,240</div>
+              </div>
+              <div class="ui-kpi expense">
+                <div class="ui-lbl" data-i18n="ui-expenses">Gastos</div>
+                <div class="ui-val" style="color: var(--coral);">$1,482</div>
+              </div>
+              <div class="ui-kpi invest">
+                <div class="ui-lbl" data-i18n="ui-portfolio">Portafolio</div>
+                <div class="ui-val" style="color: #7C6EF5;">$18,540</div>
+              </div>
+            </div>
+            <div style="font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 12px;"
+              data-i18n="ui-recent">Transacciones Recientes</div>
+            <div class="ui-list">
+              <div class="ui-item">
+                <span data-i18n="ui-tx1">💼 Salario Empresa</span>
+                <span class="green">+$4,500</span>
+              </div>
+              <div class="ui-item">
+                <span data-i18n="ui-tx2">🍽 Supermercado</span>
+                <span class="red">-$380</span>
+              </div>
+              <div class="ui-item">
+                <span data-i18n="ui-tx3">📈 Compra ETF S&P 500</span>
+                <span style="color: #7C6EF5;">-$500</span>
+              </div>
+            </div>
+          </div>
+          <div class="ui-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 8px;"
+                data-i18n="ui-goals">Metas de Ahorro</div>
+              <div class="ui-list" style="gap: 12px;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                    <span data-i18n="ui-g1">🛡 Fondo de Emergencia</span>
+                    <span>68%</span>
+                  </div>
+                  <div style="height:6px; background: rgba(255,255,255,0.08); border-radius:3px; overflow:hidden;">
+                    <div style="width: 68%; height:100%; background: var(--mint);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                    <span data-i18n="ui-g2">✈️ Vacaciones Europa</span>
+                    <span>72%</span>
+                  </div>
+                  <div style="height:6px; background: rgba(255,255,255,0.08); border-radius:3px; overflow:hidden;">
+                    <div style="width: 72%; height:100%; background: var(--gold);"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="ui-alert-box"
+              style="padding: 10px; background: rgba(0, 200, 150, 0.05); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 8px; font-size: 11px; color: var(--mint); text-align: center; margin-top: 10px;"
+              data-i18n="ui-alert">
+              🎉 ¡Tasa de ahorro al 76% este mes!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── EL PROBLEMA ── -->
+  <div id="problema"
+    style="background: var(--navy2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <section>
+        <div class="problem-grid">
+          <div>
+            <h2 style="font-size: 40px; margin-bottom: 20px;" data-i18n="prob-title">Por qué la mayoría de las personas
+              fallan al organizar sus finanzas</h2>
+            <p style="color: var(--text-sec); margin-bottom: 24px;" data-i18n="prob-desc">
+              Las hojas de cálculo son confusas de mantener en el celular y las aplicaciones tradicionales te obligan a
+              pagar molestas suscripciones mensuales o, peor aún, te obligan a compartir tus contraseñas bancarias y
+              venden tus datos a anunciantes.
+            </p>
+            <a href="#precios" class="btn btn-primary" data-i18n="prob-cta">Quiero Controlar mis Finanzas</a>
+          </div>
+          <div class="pain-list">
+            <div class="pain-item">
+              <div class="pain-icon">❌</div>
+              <div class="pain-text">
+                <h3 data-i18n="pain1-t">Suscripciones Abusivas</h3>
+                <p data-i18n="pain1-d">Terminas pagando $5, $10 o más al mes por software que apenas usas.</p>
+              </div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-icon">😰</div>
+              <div class="pain-text">
+                <h3 data-i18n="pain2-t">Cero Privacidad</h3>
+                <p data-i18n="pain2-d">Tus cuentas bancarias y patrones de consumo son analizados por terceros.</p>
+              </div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-icon">🤯</div>
+              <div class="pain-text">
+                <h3 data-i18n="pain3-t">Hojas de Cálculo Complejas</h3>
+                <p data-i18n="pain3-d">Diseñar macros y fórmulas es aburrido y se rompen fácilmente en pantallas
+                  pequeñas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ── CARACTERÍSTICAS ── -->
+  <div id="caracteristicas" class="container">
+    <section>
+      <div class="sec-header">
+        <h2 data-i18n="feat-header-t">Todo lo que necesitas para tu libertad financiera</h2>
+        <p data-i18n="feat-header-d">FlowMint centraliza tu flujo de dinero, tus metas de ahorro y tu patrimonio neto en
+          un panel interactivo.</p>
+      </div>
+
+      <div class="features-grid">
+        <!-- Feature 1 -->
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 data-i18n="f1-t">Dashboard en Tiempo Real</h3>
+          <p data-i18n="f1-d">KPIs de ingresos, gastos, balance de caja y portafolio de inversiones que se actualizan de
+            forma instantánea al registrar cualquier movimiento.</p>
+        </div>
+        <!-- Feature 2 -->
+        <div class="feature-card">
+          <div class="feature-icon">⚖️</div>
+          <h3 data-i18n="f2-t">Control de Presupuestos</h3>
+          <p data-i18n="f2-d">Define límites de gastos mensuales por categorías. Recibe alertas visuales en colores
+            cuando te acerques al límite para evitar compras impulsivas.</p>
+        </div>
+        <!-- Feature 3 -->
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3 data-i18n="f3-t">Gestión de Inversiones</h3>
+          <p data-i18n="f3-d">Controla tus activos (Acciones, ETFs, Crypto). Registra compras, sigue el rendimiento de
+            tu portafolio y visualiza la distribución en gráficos dinámicos.</p>
+        </div>
+        <!-- Feature 4 -->
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 data-i18n="f4-t">Metas con Proyección</h3>
+          <p data-i18n="f4-d">Configura objetivos de ahorro. La app calcula automáticamente cuánto necesitas ahorrar mes
+            a mes para cumplir tu meta a tiempo.</p>
+        </div>
+        <!-- Feature 5 -->
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 data-i18n="f5-t">Buscador Inteligente</h3>
+          <p data-i18n="f5-d">Encuentra cualquier movimiento pasado al instante. Filtra tu historial por descripción,
+            notas o categorías en tiempo real, sin perderte en las filas infinitas y confusas de un Excel tradicional.
+          </p>
+        </div>
+        <!-- Feature 6 -->
+        <div class="feature-card">
+          <div class="feature-icon">📥</div>
+          <h3 data-i18n="f6-t">Copia de Seguridad Local</h3>
+          <p data-i18n="f6-d">Exporta tu historial completo en un archivo JSON en un solo clic e impórtalo cuando
+            quieras. Tus datos te pertenecen y los controlas tú.</p>
+        </div>
+      </div>
+
+      <!-- Privacy Feature Banner -->
+      <div id="privacidad" class="privacy-banner">
+        <div class="privacy-info">
+          <h3 data-i18n="priv-banner-t">🔒 Tus finanzas son privadas. De verdad.</h3>
+          <p data-i18n="priv-banner-d">
+            FlowMint funciona de forma 100% local en tu navegador utilizando el almacenamiento del sistema
+            (LocalStorage). Tus saldos, ingresos y deudas jamás tocan un servidor externo ni son visibles para nadie más
+            que para ti. Sin nubes, sin rastreadores.
+          </p>
+        </div>
+        <div style="font-size: 60px; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));">🛡️</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── TESTIMONIOS ── -->
+  <div style="background: var(--navy2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <section>
+        <div class="sec-header">
+          <h2 data-i18n="testi-header-t">Lo que dicen nuestros usuarios</h2>
+          <p data-i18n="testi-header-d">Más personas toman el control de sus finanzas locales sin suscripciones.</p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text" data-i18n="t1-text">
+              "Buscaba algo simple para controlar mis gastos diarios y cartera de acciones sin pagar suscripción.
+              FlowMint es visualmente hermoso, rápido y local. ¡Me encanta!"
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar">AM</div>
+              <div>
+                <div class="testi-name">Alejandro Medina</div>
+                <div class="testi-role" data-i18n="t1-role">Inversor Particular</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text" data-i18n="t2-text">
+              "La proyección de metas es lo que más uso. Configuré mi fondo para vacaciones y me dice exactamente cuánto
+              apartar al mes. El diseño es increíblemente premium."
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar">CP</div>
+              <div>
+                <div class="testi-name">Camila Pons</div>
+                <div class="testi-role" data-i18n="t2-role">Diseñadora UX / Freelancer</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text" data-i18n="t3-text">
+              "Me da tranquilidad mental saber que mis datos no están flotando en la nube de alguna startup financiera.
+              Hago una copia JSON semanal en mi disco duro y listo."
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar">RG</div>
+              <div>
+                <div class="testi-name">Roberto Gómez</div>
+                <div class="testi-role" data-i18n="t3-role">Desarrollador de Software</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ── PRECIOS ── -->
+  <div id="precios" class="container">
+    <section style="padding-bottom: 120px;">
+      <div class="sec-header">
+        <h2 data-i18n="price-header-t">Una pequeña inversión, control de por vida</h2>
+        <p data-i18n="price-header-d">Olvídate de las cuotas recurrentes. Obtén acceso completo para siempre por un
+          único pago único de lanzamiento.</p>
+      </div>
+
+      <div class="pricing-card">
+        <div class="badge"
+          style="background: rgba(245, 166, 35, 0.08); border-color: rgba(245, 166, 35, 0.2); color: var(--gold);"
+          data-i18n="price-badge">
+          Oferta Especial de Lanzamiento</div>
+        <h3 style="font-size: 28px; margin-top: 12px;" data-i18n="price-card-t">Acceso Completo de Por Vida</h3>
+        <p style="color: var(--text-sec); font-size: 14px; margin-top: 8px;" data-i18n="price-card-d">Software local sin
+          límites de registros</p>
+
+        <div class="price">
+          <span>$49</span>$19 <span
+            style="font-size: 24px; text-decoration: none; color: var(--mint); font-family: 'DM Sans', sans-serif;">USD</span>
+        </div>
+        <p style="color: var(--mint); font-size: 12px; font-weight: 600;" data-i18n="price-note">⚠️ Precio por única
+          vez. Sin mensualidades.</p>
+
+        <ul class="pricing-features" id="main-features-list">
+          <!-- Se renderizan dinámicamente según el idioma -->
+        </ul>
+
+        <a href="https://exacto-display-art.lovable.app" target="_blank"
+          class="btn btn-primary btn-lg buy-checkout-link" style="width: 100%;" data-i18n="price-btn">
+          Comprar y Descargar Ahora
+        </a>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 14px;" data-i18n="price-guarantee">Pago 100%
+          seguro. Garantía de reembolso de 7 días.</p>
+      </div>
+    </section>
+  </div>
+
+  <!-- SECCIÓN UPSELL: LICENCIA DE REVENDEDOR -->
+  <section class="upsell-section">
+    <div class="upsell-container">
+      <div class="upsell-badge" data-i18n="up-badge">🔥 MEJORA TU ORDEN (OPCIONAL)</div>
+      <h2 class="upsell-title"><span data-i18n="up-title-1">¡Multiplica tus ingresos con la</span> <span
+          class="text-gradient" data-i18n="up-title-2">Licencia de Revendedor</span>!</h2>
+      <p class="upsell-subtitle" data-i18n="up-subtitle">Obtén los derechos exclusivos para revender FlowMint, quedarte
+        con el 100% de las ganancias y usar todo nuestro material de marketing.</p>
+
+      <div class="upsell-card">
+        <div class="upsell-content">
+          <ul class="upsell-features" id="upsell-features-list">
+            <!-- Se renderizan dinámicamente según el idioma -->
+          </ul>
+        </div>
+
+        <div class="upsell-pricing">
+          <div class="price-box">
+            <span class="old-price">$299 USD</span>
+            <span class="current-price">$149 USD</span>
+            <p class="price-note" data-i18n="up-note">Pago único. Sin regalías ni mensualidades.</p>
+          </div>
+          <a href="javascript:void(0)" id="resellerCheckoutLink" class="btn btn-primary upsell-btn" onclick="openResellerUrl()">
+            <span data-i18n="up-btn">Adquirir Licencia de Revendedor</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-arrow-right">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div class="container">
+    <footer>
+      <div class="footer-links">
+        <a href="#problema" data-i18n="nav-problem">El Problema</a>
+        <a href="#caracteristicas" data-i18n="nav-features">Características</a>
+        <a href="#privacidad" data-i18n="nav-privacy">Privacidad</a>
+        <a href="flowmint.html" target="_blank" data-i18n="footer-demo">Probar Demo</a>
+      </div>
+      <p id="footer-copyright">© 2026 FlowMint. Todos los derechos reservados. Diseñado para tu bienestar financiero.
+      </p>
+    </footer>
+  </div>
+
+  <!-- ── CONFIGURATION PANEL WIDGET ── -->
+  <div class="config-widget">
+    <button class="config-btn" onclick="toggleConfigPanel()" title="Configurar Enlaces de Venta">⚙️</button>
+    <div class="config-panel" id="configPanel">
+      <div class="config-title" data-i18n="cfg-title">⚙️ Ajustes de Checkout</div>
+      <p style="font-size: 11px; color: var(--text-sec); margin-bottom: 14px;" data-i18n="cfg-desc">
+        Configura aquí tus URLs de cobro para actualizar todos los botones del sitio en vivo de forma local:
+      </p>
+
+      <div class="config-field">
+        <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL Checkout Principal</label>
+        <input type="text" class="config-input" id="checkoutUrlInput" placeholder="https://checkout.kirvano.com/...">
+      </div>
+
+      <div class="config-field" style="margin-top: 10px;">
+        <label for="resellerUrlInput" data-i18n="cfg-reseller-label">URL Licencia de Revendedor</label>
+        <input type="text" class="config-input" id="resellerUrlInput"
+          placeholder="https://checkout.kirvano.com/reseller...">
+      </div>
+
+      <button class="btn btn-primary" onclick="saveAllUrls()"
+        style="width: 100%; padding: 10px; font-size: 12px; border-radius: 8px; margin-top: 10px; font-weight:700;"
+        data-i18n="cfg-save-btn">
+        Guardar Todo
+      </button>
+    </div>
+  </div>
+
+  <!-- ── TRADUCCIONES Y LÓGICA DE NEGOCIO ── -->
+  <script>
+    // --- 1. DICCIONARIO DE TRADUCCIONES (I18N) ---
+    const translations = {
+      es: {
+        "nav-problem": "El Problema",
+        "nav-features": "Características",
+        "nav-privacy": "Privacidad",
+        "nav-pricing": "Precios",
+        "nav-getbtn": "Obtener App",
+        "hero-badge": "🔥 Acceso de por vida · Pago único",
+        "hero-title": "Toma el Control Absoluto de tu <span>Dinero</span>",
+        "hero-sub": "Una aplicación de finanzas personales diseñada para personas reales. Administra tus ingresos, gastos, inversiones y metas en una interfaz visualmente impresionante y 100% privada.",
+        "hero-cta1": "Comprar Acceso de por Vida",
+        "hero-cta2": "Ver Demo Interactiva →",
+        "ui-income": "Ingresos",
+        "ui-expenses": "Gastos",
+        "ui-portfolio": "Portafolio",
+        "ui-recent": "Transacciones Recientes",
+        "ui-tx1": "💼 Salario Empresa",
+        "ui-tx2": "🍽 Supermercado",
+        "ui-tx3": "📈 Compra ETF S&P 500",
+        "ui-goals": "Metas de Ahorro",
+        "ui-g1": "🛡 Fondo de Emergencia",
+        "ui-g2": "✈️ Vacaciones Europa",
+        "ui-alert": "🎉 ¡Tasa de ahorro al 76% este mes!",
+        "prob-title": "Por qué la mayoría de las personas fallan al organizar sus finanzas",
+        "prob-desc": "Las hojas de cálculo son confusas de mantener en el celular y las aplicaciones tradicionales te obligan a pagar molestas suscripciones mensuales o, peor aún, te obligan a compartir tus contraseñas bancarias y venden tus datos a anunciantes.",
+        "prob-cta": "Quiero Controlar mis Finanzas",
+        "pain1-t": "Suscripciones Abusivas",
+        "pain1-d": "Terminas pagando $5, $10 o más al mes por software que apenas usas.",
+        "pain2-t": "Cero Privacidad",
+        "pain2-d": "Tus cuentas bancarias y patrones de consumo son analizados por terceros.",
+        "pain3-t": "Hojas de Cálculo Complejas",
+        "pain3-d": "Diseñar macros y fórmulas es aburrido y se rompen fácilmente en pantallas pequeñas.",
+        "feat-header-t": "Todo lo que necesitas para tu libertad financiera",
+        "feat-header-d": "FlowMint centraliza tu flujo de dinero, tus metas de ahorro y tu patrimonio neto en un panel interactivo.",
+        "f1-t": "Dashboard en Tiempo Real",
+        "f1-d": "KPIs de ingresos, gastos, balance de caja y portafolio de inversiones que se actualizan de forma instantánea al registrar cualquier movimiento.",
+        "f2-t": "Control de Presupuestos",
+        "f2-d": "Define límites de gastos mensuales por categorías. Recibe alertas visuales en colores cuando te acerques al límite para evitar compras impulsivas.",
+        "f3-t": "Gestión de Inversiones",
+        "f3-d": "Controla tus activos (Acciones, ETFs, Crypto). Registra compras, sigue el rendimiento de tu portafolio y visualiza la distribución en gráficos dinámicos.",
+        "f4-t": "Metas con Proyección",
+        "f4-d": "Configura objetivos de ahorro. La app calcula automáticamente cuánto necesitas ahorrar mes a mes para cumplir tu meta a tiempo.",
+        "f5-t": "Buscador Inteligente",
+        "f5-d": "Encuentra cualquier movimiento pasado al instante. Filtra tu historial por descripción, notas o categorías en tiempo real, sin perderte en las filas infinitas y confusas de un Excel tradicional.",
+        "f6-t": "Copia de Seguridad Local",
+        "f6-d": "Exporta tu historial completo en un archivo JSON en un solo clic e impórtalo cuando quieras. Tus datos te pertenecen y los controlas tú.",
+        "priv-banner-t": "🔒 Tus finanzas son privadas. De verdad.",
+        "priv-banner-d": "FlowMint funciona de forma 100% local en tu navegador utilizando el almacenamiento del sistema (LocalStorage). Tus saldos, ingresos y deudas jamás tocan un servidor externo ni son visibles para nadie más que para ti. Sin nubes, sin rastreadores.",
+        "testi-header-t": "Lo que dicen nuestros usuarios",
+        "testi-header-d": "Más personas toman el control de sus finanzas locales sin suscripciones.",
+        "t1-text": '\"Buscaba algo simple para controlar mis gastos diarios y cartera de acciones sin pagar suscripción. FlowMint es visualmente hermoso, rápido y local. ¡Me encanta!\"',
+        "t1-role": "Inversor Particular",
+        "t2-text": '\"La proyección de metas es lo que más uso. Configuré mi fondo para vacaciones y me dice exactamente cuánto apartar al mes. El diseño es increíblemente premium.\"',
+        "t2-role": "Diseñadora UX / Freelancer",
+        "t3-text": '\"Me da tranquilidad mental saber que mis datos no están flotando en la nube de alguna startup financiera. Hago una copia JSON semanal en mi disco duro y listo.\"',
+        "t3-role": "Desarrollador de Software",
+        "price-header-t": "Una pequeña inversión, control de por vida",
+        "price-header-d": "Olvídate de las cuotas recurrentes. Obtén acceso completo para siempre por un único pago único de lanzamiento.",
+        "price-badge": "Oferta Especial de Lanzamiento",
+        "price-card-t": "Acceso Completo de Por Vida",
+        "price-card-d": "Software local sin límites de registros",
+        "price-note": "⚠️ Precio por única vez. Sin mensualidades.",
+        "price-btn": "Comprar y Descargar Ahora",
+        "price-guarantee": "Pago 100% seguro. Garantía de reembolso de 7 días.",
+        "up-badge": "🔥 MEJORA TU ORDEN (OPCIONAL)",
+        "up-title-1": "¡Multiplica tus ingresos con la",
+        "up-title-2": "Licencia de Revendedor",
+        "up-subtitle": "Obtén los derechos exclusivos para revender FlowMint, quedarte con el 100% de las ganancias y usar todo nuestro material de marketing.",
+        "up-note": "Pago único. Sin regalías ni mensualidades.",
+        "up-btn": "Adquirir Licencia de Revendedor",
+        "footer-demo": "Probar Demo",
+        "copyright": "© 2026 FlowMint. Todos los derechos reservados. Diseñado para tu bienestar financiero.",
+        "config-reseller-label": "URL Licencia de Revendedor",
+        "cfg-title": "⚙️ Ajustes de Checkout",
+        "cfg-desc": "Configura aquí tus URLs de cobro para actualizar todos los botones del sitio en vivo de forma local:",
+        "cfg-main-label": "URL Checkout Principal",
+        "cfg-reseller-label": "URL Licencia de Revendedor",
+        "cfg-save-btn": "Guardar Todo"
+      },
+      en: {
+        "nav-problem": "The Problem",
+        "nav-features": "Features",
+        "nav-privacy": "Privacy",
+        "nav-pricing": "Pricing",
+        "nav-getbtn": "Get App",
+        "hero-badge": "🔥 Lifetime access · One-time payment",
+        "hero-title": "Take Absolute Control of Your <span>Money</span>",
+        "hero-sub": "A personal finance app designed for real people. Manage your income, expenses, investments, and financial goals in a visually stunning and 100% private interface.",
+        "hero-cta1": "Buy Lifetime Access",
+        "hero-cta2": "View Interactive Demo →",
+        "ui-income": "Income",
+        "ui-expenses": "Expenses",
+        "ui-portfolio": "Portfolio",
+        "ui-recent": "Recent Transactions",
+        "ui-tx1": "💼 Company Salary",
+        "ui-tx2": "🍽 Grocery Store",
+        "ui-tx3": "📈 Bought S&P 500 ETF",
+        "ui-goals": "Savings Goals",
+        "ui-g1": "🛡 Emergency Fund",
+        "ui-g2": "✈️ Europe Vacation",
+        "ui-alert": "🎉 76% savings rate achieved this month!",
+        "prob-title": "Why most people fail to organize their finances",
+        "prob-desc": "Spreadsheets are clunky to maintain on a phone, and traditional apps lock you into annoying monthly fees or, worse, force you to share your bank credentials and sell your data to tracking advertisers.",
+        "prob-cta": "I Want to Control My Finances",
+        "pain1-t": "Abusive Subscriptions",
+        "pain1-d": "You end up paying $5, $10 or more every month for software you barely open.",
+        "pain2-t": "Zero Privacy",
+        "pain2-d": "Your bank balances and personal spending habits are analyzed by corporations.",
+        "pain3-t": "Complex Spreadsheets",
+        "pain3-d": "Building macros and writing formulas is tedious, and they break easily on mobile screens.",
+        "feat-header-t": "Everything you need for financial freedom",
+        "feat-header-d": "FlowMint centralizes your cash flow, savings targets, and net worth within an interactive local dashboard.",
+        "f1-t": "Real-Time Dashboard",
+        "f1-d": "Income, expenses, cash balance, and investment portfolio metrics update instantly the moment you log a entry.",
+        "f2-t": "Budget Enforcements",
+        "f2-d": "Set monthly spending limits across custom categories. Get color-coded warnings as you approach limits to stop impulse purchases.",
+        "f3-t": "Investment Management",
+        "f3-d": "Track your portfolio (Stocks, ETFs, Crypto). Register buys, evaluate returns, and visualize asset allocations with dynamic charts.",
+        "f4-t": "Target Projections",
+        "f4-d": "Establish long-term savings goals. The application automatically tracks how much you need to save monthly to reach deadlines.",
+        "f5-t": "Smart Explorer",
+        "f5-d": "Find any previous transaction instantly. Filter logs by description, notes, or tags in real-time, leaving messy Excel rows behind.",
+        "f6-t": "Local Backup Ecosystem",
+        "f6-d": "Export your entire financial history into a standard JSON file in one click. Your financial records belong solely to you.",
+        "priv-banner-t": "🔒 Your finances are private. Truly.",
+        "priv-banner-d": "FlowMint functions 100% locally on your computer storage via LocalStorage. Your cash flows and metrics never touch external clouds, and are hidden from everyone. No servers, no ad trackers.",
+        "testi-header-t": "Loved by real users",
+        "testi-header-d": "See how our community manages their local wealth without software subscriptions.",
+        "t1-text": '"I wanted a simple layout to control daily expenses and stock positions without overhead fees. FlowMint is visually elegant, fast, and local. I absolutely love it!"',
+        "t1-role": "Private Retail Investor",
+        "t2-text": '"The target projection module is stellar. I set up my vacation budget and it tells me exactly what to save. The interface feels premium."',
+        "t2-role": "UX Designer / Freelancer",
+        "t3-text": '"It grants me peace of mind knowing my financial logs aren\'t floating in a modern banking startup cloud. I download my weekly JSON and I\'m set."',
+        "t3-role": "Software Engineer",
+        "price-header-t": "A small investment, lifetime command",
+        "price-header-d": "Forget recurring statements. Secure unrestricted lifetime access for a single, small early launch fee.",
+        "price-badge": "Special Early Launch Value",
+        "price-card-t": "Full Lifetime Membership",
+        "price-card-d": "Local application framework with unlimited entries",
+        "price-note": "⚠️ One-time payment structure. No monthly invoices.",
+        "price-btn": "Buy and Download Now",
+        "price-guarantee": "100% secure checkout. 7-day hassle-free refund guarantee.",
+        "up-badge": "🔥 UPGRADE YOUR ORDER (OPTIONAL)",
+        "up-title-1": "Multiply your revenue with a",
+        "up-title-2": "Reseller License",
+        "up-subtitle": "Acquire exclusive operational distribution rights to resell FlowMint, keep 100% of all profits, and deploy our pre-built marketing funnels.",
+        "up-note": "Single payment framework. No royalties or recurring bills.",
+        "up-btn": "Acquire Reseller License",
+        "footer-demo": "Try Demo",
+        "copyright": "© 2026 FlowMint. All rights reserved. Built for your absolute financial peace of mind.",
+        "config-reseller-label": "URL Reseller License",
+        "cfg-title": "⚙️ Checkout Settings",
+        "cfg-desc": "Set your payment URLs here to update all site buttons live and locally:",
+        "cfg-main-label": "Main Checkout URL",
+        "cfg-reseller-label": "Reseller License URL",
+        "cfg-save-btn": "Save All"
+      }
+    };
+
+    const listFeaturesTranslations = {
+      es: [
+        "Dashboard financiero completo e interactivo",
+        "Presupuestos y límites mensuales editables",
+        "Controlador de portafolio de inversiones y dividendos",
+        "Metas de ahorro automáticas con proyecciones",
+        "Módulo de análisis, reportes y divisa variable",
+        "Copias de seguridad ilimitadas en formato JSON",
+        "Privacidad 100%: los datos nunca salen de tu PC",
+        "Actualizaciones gratis para siempre"
+      ],
+      en: [
+        "Comprehensive and fully interactive financial dashboard",
+        "Editable monthly budgets and custom thresholds",
+        "Robust investment portfolio and dividend tracker",
+        "Automated savings targets with timeline projections",
+        "Comprehensive analytics module and multi-currency support",
+        "Unlimited manual backups via secure JSON storage",
+        "100% Absolute Privacy: logs never leave your personal computer",
+        "Free application updates and refinements forever"
+      ]
+    };
+
+    const upsellFeaturesTranslations = {
+      es: [
+        "<strong>100% de Comisión:</strong> Cada venta que hagas va directo a tu cuenta.",
+        "<strong>Material de Marketing Incluido:</strong> Copys, imágenes y embudos listos para usar.",
+        "<strong>Soporte Técnico de por vida:</strong> Nosotros nos encargamos de tus clientes."
+      ],
+      en: [
+        "<strong>100% Profit Margins:</strong> Every customer sale processes directly into your payout processor.",
+        "<strong>Marketing Assets Included:</strong> Copywriting files, media banners, and optimized funnels.",
+        "<strong>Lifetime Client Assistance:</strong> Our core support team handles all technical client issues."
+      ]
+    };
+
+    // --- 2. GESTIÓN DE IDIOMA ---
+    let currentLang = localStorage.getItem('fm_landing_lang') || 'es';
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('fm_landing_lang', lang);
+      // Set the dropdown visually — iterate options to set selected reliably across all browsers
+      const langSel = document.getElementById('langSelect');
+      Array.from(langSel.options).forEach(opt => {
+        opt.selected = (opt.value === lang);
+      });
+      document.documentElement.lang = lang;
+
+      // Traducir atributos i18n estándar
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key] !== undefined) {
+          if (key === 'hero-title') {
+            // Hero title needs inner <span> preserved for gradient styling
+            elem.innerHTML = lang === 'es'
+              ? 'Toma el Control Absoluto de tu <span>Dinero</span>'
+              : 'Take Absolute Control of Your <span>Money</span>';
+          } else if (key === 'up-title-2') {
+            // Reseller license title — the <span> wrapping is in the parent h2,
+            // this element IS the span, so just set its textContent directly
+            elem.textContent = translations[lang][key];
+          } else {
+            elem.textContent = translations[lang][key];
+          }
+        }
+      });
+
+      // Traducir Listas Dinámicas
+      const mainList = document.getElementById('main-features-list');
+      if (mainList) {
+        mainList.innerHTML = listFeaturesTranslations[lang].map(item => `<li>${item}</li>`).join('');
+      }
+
+      const upsellList = document.getElementById('upsell-features-list');
+      if (upsellList) {
+        upsellList.innerHTML = upsellFeaturesTranslations[lang].map(item => `
+          <li>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+            <span>${item}</span>
+          </li>
+        `).join('');
+      }
+
+      // Traducir pie de página
+      document.getElementById('footer-copyright').textContent = translations[lang]['copyright'];
+    }
+
+
+    // --- 3. CONFIGURACIÓN DINÁMICA DE ENLACES DE CHEKOUT ---
+    let checkoutUrl = localStorage.getItem('fm_landing_checkout_url') || 'https://checkout.kirvano.com/ejemplo';
+    let resellerUrl = localStorage.getItem('fm_landing_reseller_url') || 'https://checkout.kirvano.com/revendedor-ejemplo';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      // Iniciar inputs en el panel de control
+      document.getElementById('checkoutUrlInput').value = checkoutUrl;
+      document.getElementById('resellerUrlInput').value = resellerUrl;
+
+      // Aplicar el idioma guardado
+      changeLanguage(currentLang);
+
+      // Aplicar las URLs
+      applyUrls();
+    });
+
+    function toggleConfigPanel() {
+      document.getElementById('configPanel').classList.toggle('open');
+    }
+
+    function saveAllUrls() {
+      const mainVal = document.getElementById('checkoutUrlInput').value.trim();
+      const resellerVal = document.getElementById('resellerUrlInput').value.trim();
+
+      if (mainVal && resellerVal) {
+        checkoutUrl = mainVal;
+        resellerUrl = resellerVal;
+
+        localStorage.setItem('fm_landing_checkout_url', checkoutUrl);
+        localStorage.setItem('fm_landing_reseller_url', resellerUrl);
+
+        applyUrls();
+        alert(currentLang === 'es' ? '¡Todos los enlaces de pago actualizados!' : 'All checkout links updated successfully!');
+        toggleConfigPanel();
+      } else {
+        alert(currentLang === 'es' ? 'Por favor, rellena ambos campos con URLs válidas.' : 'Please fill out both fields with valid URLs.');
+      }
+    }
+
+    function openResellerUrl() {
+      window.open(resellerUrl, '_blank');
+    }
+
+    function applyUrls() {
+      // Main checkout buttons — set both href AND onclick for maximum compatibility
+      const checkoutLinks = document.querySelectorAll('.buy-checkout-link');
+      checkoutLinks.forEach(link => {
+        link.href = checkoutUrl;
+        link.target = '_blank';
+        link.onclick = function(e) {
+          e.preventDefault();
+          window.open(checkoutUrl, '_blank');
+        };
+      });
+
+      // Reseller button — already uses openResellerUrl() onclick, just keep resellerUrl updated
+      // (the onclick="openResellerUrl()" in HTML reads the resellerUrl variable directly)
+    }
+
+    // Config panel closes when clicking outside — scoped only to non-interactive elements
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('configPanel');
+      const widget = document.querySelector('.config-widget');
+      // Only close if panel is open AND click was completely outside the widget
+      // Never interfere with buttons, links, or inputs
+      if (!panel || !panel.classList.contains('open')) return;
+      if (!widget) return;
+      if (widget.contains(e.target)) return;
+      // Don't interfere with any interactive element
+      if (e.target.closest('a, button, input, select, label')) return;
+      panel.classList.remove('open');
+    });
+  </script>
+</body>
+
+</html>
