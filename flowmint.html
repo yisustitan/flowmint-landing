@@ -59,24 +59,29 @@
 
   /* SIDEBAR */
   .sidebar {
-    width: 240px; min-height: 100vh;
+    width: 240px; height: 100vh; max-height: 100vh;
     background: var(--navy2);
     border-right: 1px solid var(--border);
     display: flex; flex-direction: column;
-    padding: 24px 0;
+    padding: 24px 0 16px;
     position: fixed; top: 0; left: 0; bottom: 0;
     z-index: 100;
     transition: transform 0.3s ease;
+    overflow: hidden;
   }
 
-  .logo { padding: 0 24px 28px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  .logo { padding: 0 24px 28px; border-bottom: 1px solid var(--border); margin-bottom: 16px; flex-shrink: 0; }
   .logo-mark { display: flex; align-items: center; gap: 10px; }
   .logo-icon { width: 36px; height: 36px; background: var(--mint); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; }
   .logo-text { font-family: 'DM Serif Display', serif; font-size: 20px; letter-spacing: -0.5px; }
   .logo-text span { color: var(--mint); }
   .logo-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; letter-spacing: 0.5px; text-transform: uppercase; }
 
-  nav { flex: 1; padding: 0 12px; }
+  nav { flex: 1; padding: 0 12px; overflow-y: auto; }
+  nav::-webkit-scrollbar { width: 4px; }
+  nav::-webkit-scrollbar-track { background: transparent; }
+  nav::-webkit-scrollbar-thumb { background: var(--border-light); border-radius: 2px; }
+
   .nav-section { margin-bottom: 24px; }
   .nav-label { font-size: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 12px; margin-bottom: 6px; }
 
@@ -91,7 +96,7 @@
   .nav-item.active { background: rgba(0,200,150,0.12); color: var(--mint); font-weight: 500; }
   .nav-icon { font-size: 18px; width: 20px; text-align: center; }
 
-  .sidebar-footer { padding: 16px 24px; border-top: 1px solid var(--border); }
+  .sidebar-footer { padding: 16px 24px; border-top: 1px solid var(--border); flex-shrink: 0; }
   .budget-bar-wrap { margin-bottom: 12px; }
   .budget-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--text-sec); margin-bottom: 6px; }
   .budget-bar { height: 4px; background: var(--border-light); border-radius: 2px; overflow: hidden; }
@@ -208,12 +213,25 @@
   .kpi-change { font-size: 12px; color: var(--text-muted); }
   .kpi-change .up { color: var(--mint); }
   .kpi-change .down { color: var(--coral); }
+  .kpi-change .neutral { color: var(--text-muted); }
   .kpi-icon { position: absolute; right: 16px; top: 16px; font-size: 28px; opacity: 0.15; }
+
+  /* POCKETS MODULE */
+  .pockets-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+  .pocket-card {
+    background: var(--navy3); border: 1px solid var(--border-light); border-radius: 12px;
+    padding: 16px; text-align: center; transition: transform 0.2s, border-color 0.2s;
+  }
+  .pocket-card:hover { transform: translateY(-2px); border-color: var(--mint); }
+  .pocket-icon { font-size: 22px; margin-bottom: 6px; }
+  .pocket-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+  .pocket-value { font-family: 'DM Serif Display', serif; font-size: 19px; color: var(--text); }
+  .pocket-value.neg { color: var(--coral); }
 
   /* CHARTS */
   .charts-row { display: grid; grid-template-columns: 2fr 1fr; gap: 16px; margin-bottom: 24px; }
 
-  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; min-width: 0; }
   .card-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; }
   .card-title { font-size: 15px; font-weight: 500; }
   .card-sub { font-size: 12px; color: var(--text-muted); }
@@ -295,6 +313,26 @@
   .upcoming-date { font-size: 12px; color: var(--text-muted); }
   .upcoming-amount { font-size: 14px; font-weight: 600; color: var(--coral); }
 
+  /* UPCOMING LIST — scroll interno */
+  #upcomingList {
+    max-height: 260px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  #upcomingList::-webkit-scrollbar {
+    width: 4px;
+  }
+  #upcomingList::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #upcomingList::-webkit-scrollbar-thumb {
+    background: var(--border-light, #2d3748);
+    border-radius: 2px;
+  }
+  #upcomingList::-webkit-scrollbar-thumb:hover {
+    background: var(--mint, #4fd1c5);
+  }
+
   /* INVESTMENTS */
   .invest-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 16px; margin-bottom: 24px; }
   .invest-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px; transition: transform 0.2s; cursor: pointer; }
@@ -325,9 +363,10 @@
   .modal {
     background: var(--navy2); border: 1px solid var(--border-light);
     border-radius: var(--radius); width: 100%; max-width: 460px;
-    padding: 28px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    padding: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    max-height: 88vh; overflow-y: auto; display: flex; flex-direction: column;
   }
-  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; }
+  .modal-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 22px; flex-shrink: 0; }
   .modal-title { font-family: 'DM Serif Display', serif; font-size: 20px; }
   .modal-close { background: none; border: none; color: var(--text-muted); font-size: 22px; cursor: pointer; padding: 0 4px; }
   .modal-close:hover { color: var(--text); }
@@ -352,7 +391,11 @@
   .type-btn.expense.active { background: rgba(255,92,92,0.15); border-color: var(--coral); color: var(--coral); }
   .type-btn.invest.active { background: rgba(124,110,245,0.15); border-color: #7C6EF5; color: #7C6EF5; }
 
-  .modal-actions { display: flex; gap: 10px; margin-top: 22px; }
+  .modal-actions {
+    display: flex; gap: 10px; margin-top: auto; padding-top: 14px;
+    position: sticky; bottom: -24px; background: var(--navy2);
+    z-index: 10; border-top: 1px solid rgba(255,255,255,0.05); margin-bottom: -10px;
+  }
   .modal-actions .btn-primary { flex: 1; justify-content: center; padding: 12px; }
   .modal-actions .btn-ghost { flex: 1; justify-content: center; padding: 12px; }
 
@@ -363,8 +406,8 @@
   .report-lbl { font-size: 12px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.7px; }
 
   /* CATEGORIES */
-  .cat-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; margin-top: 16px; }
-  .cat-item { background: var(--navy3); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; transition: border-color 0.2s; }
+  .cat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 10px; margin-top: 16px; }
+  .cat-item { background: var(--navy3); border: 1px solid var(--border); border-radius: 12px; padding: 14px 10px; text-align: center; cursor: pointer; transition: border-color 0.2s; min-width: 0; overflow: hidden; }
   .cat-item:hover { border-color: var(--mint); }
   .cat-emoji { font-size: 22px; margin-bottom: 6px; }
   .cat-name { font-size: 12px; color: var(--text-sec); }
@@ -416,6 +459,7 @@
     .hamburger { display: block; }
     .content { padding: 16px; padding-bottom: 80px; }
     .kpi-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
+    .pockets-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
     .charts-row { grid-template-columns: 1fr; }
     .tx-grid { grid-template-columns: 1fr; }
     .invest-grid { grid-template-columns: repeat(2,1fr); gap: 10px; }
@@ -480,6 +524,10 @@
         <button class="nav-item" onclick="triggerImport()"><span class="nav-icon">📤</span> <span data-i18n="nav.import">Importar Datos</span></button>
         <input type="file" id="importFile" style="display:none" onchange="importData(event)" accept=".json">
       </div>
+      <div class="nav-section">
+        <div class="nav-label" data-i18n="nav.sec.help">Ayuda</div>
+        <a class="nav-item" id="feedbackLink" href="feedback.html" target="_blank" rel="noopener noreferrer" style="text-decoration:none"><span class="nav-icon">💬</span> <span data-i18n="nav.feedback">Enviar Opinión</span></a>
+      </div>
     </nav>
     <div class="sidebar-footer">
       <div class="budget-bar-wrap">
@@ -510,7 +558,7 @@
             <option value="8">Septiembre</option><option value="9">Octubre</option>
             <option value="10">Noviembre</option><option value="11">Diciembre</option>
           </select>
-          <input type="number" id="periodYear" value="2025" min="2000" max="2099"
+          <input type="number" id="periodYear" min="2000" max="2099"
                  onchange="updatePeriod()" oninput="updatePeriod()" class="period-select" style="width:72px">
           <button class="period-all-btn" id="btnAllYear" onclick="toggleAllYear(this)" data-i18n="btn.all_year">Todo el año</button>
         </div>
@@ -555,10 +603,42 @@
       <!-- DASHBOARD -->
       <div class="view active" id="view-dashboard">
         <div class="kpi-grid">
-          <div class="kpi-card income"><div class="kpi-icon">💰</div><div class="kpi-label" data-i18n="kpi.income">Ingresos</div><div class="kpi-value income" id="kpi-income">$0</div><div class="kpi-change"><span class="up">↑ 12%</span> <span data-i18n="kpi.change.vs">vs mes anterior</span></div></div>
-          <div class="kpi-card expense"><div class="kpi-icon">💸</div><div class="kpi-label" data-i18n="kpi.expense">Gastos</div><div class="kpi-value expense" id="kpi-expense">$0</div><div class="kpi-change"><span class="down">↑ 4%</span> <span data-i18n="kpi.change.vs">vs mes anterior</span></div></div>
-          <div class="kpi-card balance"><div class="kpi-icon">⚖️</div><div class="kpi-label" data-i18n="kpi.balance">Balance Neto</div><div class="kpi-value balance" id="kpi-balance">$0</div><div class="kpi-change"><span class="up">↑ 8%</span> <span data-i18n="kpi.change.vs">vs mes anterior</span></div></div>
-          <div class="kpi-card invest"><div class="kpi-icon">📈</div><div class="kpi-label" data-i18n="kpi.invest">Inversiones</div><div class="kpi-value invest" id="kpi-invest">$0</div><div class="kpi-change"><span class="up">↑ 2.3%</span> <span data-i18n="kpi.change.this_month">este mes</span></div></div>
+          <div class="kpi-card income"><div class="kpi-icon">💰</div><div class="kpi-label" data-i18n="kpi.income">Ingresos</div><div class="kpi-value income" id="kpi-income">$0</div><div class="kpi-change" id="kpi-income-change"><span class="neutral">0%</span> <span>vs mes anterior</span></div></div>
+          <div class="kpi-card expense"><div class="kpi-icon">💸</div><div class="kpi-label" data-i18n="kpi.expense">Gastos</div><div class="kpi-value expense" id="kpi-expense">$0</div><div class="kpi-change" id="kpi-expense-change"><span class="neutral">0%</span> <span>vs mes anterior</span></div></div>
+          <div class="kpi-card balance"><div class="kpi-icon">⚖️</div><div class="kpi-label" data-i18n="kpi.balance">Balance Neto</div><div class="kpi-value balance" id="kpi-balance">$0</div><div class="kpi-change" id="kpi-balance-change"><span class="neutral">0%</span> <span>vs mes anterior</span></div></div>
+          <div class="kpi-card invest"><div class="kpi-icon">📈</div><div class="kpi-label" data-i18n="kpi.invest">Inversiones</div><div class="kpi-value invest" id="kpi-invest">$0</div><div class="kpi-change" id="kpi-invest-change"><span class="neutral">0%</span> <span>vs mes anterior</span></div></div>
+        </div>
+
+        <div class="card" style="margin-bottom:24px">
+          <div class="card-header">
+            <div>
+              <div class="card-title" data-i18n="pockets.title">🧩 Módulo de Bolsillos</div>
+              <div class="card-sub" data-i18n="pockets.sub">Saldo desglosado por cuenta — actualizado en tiempo real</div>
+            </div>
+            <button class="btn-ghost" onclick="openPocketModal()" style="font-size:12px;padding:6px 12px" data-i18n="pockets.btn.edit">✏ Editar bolsillos</button>
+          </div>
+          <div class="pockets-grid">
+            <div class="pocket-card">
+              <div class="pocket-icon">💵</div>
+              <div class="pocket-label" data-i18n="pockets.label.cash">Efectivo</div>
+              <div class="pocket-value" id="pocket-cash">$0</div>
+            </div>
+            <div class="pocket-card">
+              <div class="pocket-icon">🏦</div>
+              <div class="pocket-label" data-i18n="pockets.label.bankA">Banco A</div>
+              <div class="pocket-value" id="pocket-bankA">$0</div>
+            </div>
+            <div class="pocket-card">
+              <div class="pocket-icon">🏦</div>
+              <div class="pocket-label" data-i18n="pockets.label.bankB">Banco B</div>
+              <div class="pocket-value" id="pocket-bankB">$0</div>
+            </div>
+            <div class="pocket-card">
+              <div class="pocket-icon">💳</div>
+              <div class="pocket-label" data-i18n="pockets.label.card">Tarjeta de Crédito</div>
+              <div class="pocket-value" id="pocket-card">$0</div>
+            </div>
+          </div>
         </div>
 
         <div class="charts-row">
@@ -633,8 +713,9 @@
           </div>
           <div class="tx-list" id="allTxList" style="max-height:520px"></div>
         </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));gap:16px;margin-top:16px" id="txBottomGrid">
           <div class="card"><div class="card-title" style="margin-bottom:14px" data-i18n="card.cat_expense">Gastos por Categoría</div><div class="cat-grid" id="catGrid"></div></div>
+          <div class="card" id="recurringSummaryCard" style="display:none;"><div class="card-title" style="margin-bottom:14px" data-i18n="card.recurring_summary">Resumen de Recurrentes</div><div style="display:flex;flex-direction:column;gap:10px;max-height:220px;overflow-y:auto;" id="recurringSummaryList"></div></div>
           <div class="card"><div class="card-title" style="margin-bottom:14px" data-i18n="card.period_summary">Resumen del Período</div><div style="display:flex;flex-direction:column;gap:10px" id="txSummary"></div></div>
         </div>
       </div>
@@ -754,23 +835,54 @@
     </div>
     <div class="form-group">
       <label class="form-label" data-i18n="modal.tx.label.desc">Descripción</label>
-      <input type="text" class="form-input" id="txDesc" placeholder="Ej: Salario, Netflix, Supermercado..." data-i18n-placeholder="modal.tx.ph.desc">
+      <input type="text" class="form-input" id="txDesc" placeholder="Ej: Salario, Netflix, Supermercado..." data-i18n-placeholder="modal.tx.ph.desc" oninput="checkTxInputs()">
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
-      <div class="form-group"><label class="form-label" data-i18n="modal.tx.label.amount">Monto</label><input type="number" class="form-input" id="txAmount" placeholder="0.00"></div>
+      <div class="form-group"><label class="form-label" data-i18n="modal.tx.label.amount">Monto</label><input type="number" class="form-input" id="txAmount" placeholder="0.00" oninput="checkTxInputs()"></div>
       <div class="form-group"><label class="form-label" data-i18n="modal.tx.label.date">Fecha</label><input type="date" class="form-input" id="txDate"></div>
     </div>
     <div class="form-group">
       <label class="form-label" data-i18n="modal.tx.label.cat">Categoría</label>
-      <select class="form-select" id="txCat"></select>
+      <select class="form-select" id="txCat" onchange="checkTxInputs()"></select>
+    </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="modal.tx.label.account">Cuenta</label>
+      <select class="form-select" id="txAccount">
+        <option value="cash" data-i18n="account.cash">💵 Efectivo</option>
+        <option value="bankA" data-i18n="account.bankA">🏦 Banco A</option>
+        <option value="bankB" data-i18n="account.bankB">🏦 Banco B</option>
+        <option value="card" data-i18n="account.card">💳 Tarjeta de Crédito</option>
+      </select>
     </div>
     <div class="form-group">
       <label class="form-label" data-i18n="modal.tx.label.note">Nota (opcional)</label>
       <input type="text" class="form-input" id="txNote" placeholder="Añade un detalle..." data-i18n-placeholder="modal.tx.ph.note">
     </div>
+    <div class="form-group">
+      <label class="form-label" data-i18n="modal.tx.label.recurring">Recurrencia</label>
+      <select class="form-select" id="txRecurring" onchange="checkTxInputs()">
+        <option value="none"  data-i18n="modal.tx.recurring.none">No recurrente</option>
+        <option value="monthly" data-i18n="modal.tx.recurring.monthly">Mensual 🔄</option>
+        <option value="yearly"  data-i18n="modal.tx.recurring.yearly">Anual 🔄</option>
+      </select>
+    </div>
+    <div id="txDuplicateWarning" class="alert warning" style="display:none; margin-bottom:16px; flex-direction:column; gap:10px; align-items:stretch;">
+      <div style="display:flex; align-items:flex-start; gap:10px;">
+        <span class="alert-icon">⚠️</span>
+        <div style="flex:1">
+          <div class="alert-text" id="txDuplicateWarningText" style="font-size:12px; line-height:1.4; margin-bottom:8px;"></div>
+          <div style="font-size:12px; color:var(--text); font-weight:500;">¿Deseas reemplazar la recurrencia existente por esta nueva?</div>
+        </div>
+      </div>
+      <div style="display:flex; gap:8px; margin-left:28px; flex-wrap:wrap;">
+        <button onclick="cancelDuplicateAndClose()" style="background:transparent; border:1px solid var(--coral); color:var(--coral); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:6px 12px; border-radius:8px; cursor:pointer;">✕ Cancelar</button>
+        <button onclick="replaceExistingRecurring()" style="background:var(--gold); border:none; color:var(--navy); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:6px 14px; border-radius:8px; cursor:pointer;">🔄 Reemplazar existente</button>
+        <button onclick="saveAsNewRecurring()" style="background:var(--mint); border:none; color:var(--navy); font-family:'DM Sans',sans-serif; font-size:12px; font-weight:600; padding:6px 14px; border-radius:8px; cursor:pointer;">➕ Guardar como nueva</button>
+      </div>
+    </div>
     <div class="modal-actions">
       <button class="btn-ghost" onclick="closeModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
-      <button class="btn-primary" onclick="saveTransaction()" data-i18n="modal.tx.btn.save">✓ Guardar</button>
+      <button class="btn-primary" id="txSaveBtn" onclick="saveTransaction()" data-i18n="modal.tx.btn.save">✓ Guardar</button>
     </div>
   </div>
 </div>
@@ -826,11 +938,41 @@
 <!-- BUDGET MODAL -->
 <div class="modal-overlay" id="budgetModalOverlay">
   <div class="modal" style="max-width:500px">
-    <div class="modal-header"><h2 class="modal-title" data-i18n="modal.budget.title">Editar Límites de Presupuesto</h2><button class="modal-close" onclick="closeBudgetModal()">✕</button></div>
+    <div class="modal-header">
+      <h2 class="modal-title" id="budgetModalTitle" data-i18n="modal.budget.title">Editar Límites de Presupuesto</h2>
+      <button class="modal-close" onclick="closeBudgetModal()">✕</button>
+    </div>
+    
+    <!-- Period picker inside the budget modal -->
+    <div class="period-picker" style="margin-bottom: 20px; justify-content: flex-start; gap: 8px;">
+      <select class="period-select" id="budgetModalMonth" onchange="changeBudgetModalPeriod()">
+        <!-- Generated by JS -->
+      </select>
+      <input type="number" id="budgetModalYear" min="2000" max="2099"
+             onchange="changeBudgetModalPeriod()" class="period-select" style="width:76px">
+      <button class="period-all-btn" id="btnBudgetModalAllYear" onclick="toggleBudgetModalAllYear(this)" data-i18n="btn.all_year">Todo el año</button>
+    </div>
+
     <div style="max-height:350px;overflow-y:auto;padding-right:8px" id="budgetFormFields"></div>
     <div class="modal-actions">
       <button class="btn-ghost" onclick="closeBudgetModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
       <button class="btn-primary" onclick="saveBudgets()" data-i18n="modal.budget.btn.save">✓ Guardar Límites</button>
+    </div>
+  </div>
+</div>
+
+<!-- POCKET MODAL -->
+<div class="modal-overlay" id="pocketModalOverlay">
+  <div class="modal" style="max-width:460px">
+    <div class="modal-header"><h2 class="modal-title" data-i18n="modal.pockets.title">Editar Bolsillos</h2><button class="modal-close" onclick="closePocketModal()">✕</button></div>
+    <div class="card-sub" style="margin-bottom:16px" data-i18n="modal.pockets.sub">Define el saldo base de cada bolsillo. FlowMint sumará o restará automáticamente cada transacción que asignes a esa cuenta.</div>
+    <div class="form-group"><label class="form-label" data-i18n="account.cash">💵 Efectivo</label><input type="number" class="form-input" id="pocketBase-cash" placeholder="0.00"></div>
+    <div class="form-group"><label class="form-label" data-i18n="account.bankA">🏦 Banco A</label><input type="number" class="form-input" id="pocketBase-bankA" placeholder="0.00"></div>
+    <div class="form-group"><label class="form-label" data-i18n="account.bankB">🏦 Banco B</label><input type="number" class="form-input" id="pocketBase-bankB" placeholder="0.00"></div>
+    <div class="form-group"><label class="form-label" data-i18n="account.card">💳 Tarjeta de Crédito</label><input type="number" class="form-input" id="pocketBase-card" placeholder="0.00"></div>
+    <div class="modal-actions">
+      <button class="btn-ghost" onclick="closePocketModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
+      <button class="btn-primary" onclick="savePockets()" data-i18n="modal.pockets.btn.save">✓ Guardar Bolsillos</button>
     </div>
   </div>
 </div>
@@ -938,6 +1080,21 @@
 
 <script>
 // ══════════════════════════════════════════
+// SAFE LOCALSTORAGE WRAPPERS
+// Must be defined first — used by everything below.
+// file:// protocol blocks localStorage; these wrappers
+// swallow the SecurityError silently so the app never crashes.
+// ══════════════════════════════════════════
+function safeGetItem(key) {
+  try { return localStorage.getItem(key); } catch(e) { return null; }
+}
+function safeSetItem(key, val) {
+  try { localStorage.setItem(key, val); } catch(e) { /* silent on file:// */ }
+}
+function safeRemoveItem(key) {
+  try { localStorage.removeItem(key); } catch(e) { /* silent on file:// */ }
+}
+// ══════════════════════════════════════════
 // BILINGUAL TRANSLATIONS (ES / EN)
 // ══════════════════════════════════════════
 const translations = {
@@ -955,6 +1112,8 @@ const translations = {
     'nav.export': 'Exportar Datos',
     'nav.import': 'Importar Datos',
     'nav.home': 'Inicio',
+    'nav.sec.help': 'Ayuda',
+    'nav.feedback': 'Enviar Opinión',
 
     'btn.add_tx': '+ Transacción',
     'btn.all_year': 'Todo el año',
@@ -971,6 +1130,8 @@ const translations = {
     'kpi.balance': 'Balance Neto',
     'kpi.invest': 'Inversiones',
     'kpi.change.vs': 'vs mes anterior',
+    'kpi.change.vs_month': 'vs mes anterior',
+    'kpi.change.vs_year': 'vs año anterior',
     'kpi.change.this_month': 'este mes',
 
     'card.cash_flow': 'Flujo de Caja',
@@ -1057,8 +1218,15 @@ const translations = {
     'modal.tx.label.cat': 'Categoría',
     'modal.tx.label.amount': 'Monto',
     'modal.tx.label.date': 'Fecha',
+    'modal.tx.label.account': 'Cuenta',
     'modal.tx.label.note': 'Nota (opcional)',
     'modal.tx.ph.note': 'Añade un detalle...',
+    'modal.tx.label.recurring': 'Recurrencia',
+    'modal.tx.recurring.none': 'No recurrente',
+    'modal.tx.recurring.monthly': 'Mensual 🔄',
+    'modal.tx.recurring.yearly': 'Anual 🔄',
+    'modal.tx.detail.recurring': 'Recurrencia',
+    'modal.tx.autogenerated': 'Generada automáticamente por recurrencia',
     'modal.tx.btn.cancel': 'Cancelar',
     'modal.tx.btn.save': '✓ Guardar',
 
@@ -1085,6 +1253,23 @@ const translations = {
 
     'modal.budget.title': 'Editar Límites de Presupuesto',
     'modal.budget.btn.save': '✓ Guardar Límites',
+
+    'account.cash': '💵 Efectivo',
+    'account.bankA': '🏦 Banco A',
+    'account.bankB': '🏦 Banco B',
+    'account.card': '💳 Tarjeta de Crédito',
+
+    'pockets.title': '🧩 Módulo de Bolsillos',
+    'pockets.sub': 'Saldo desglosado por cuenta — actualizado en tiempo real',
+    'pockets.btn.edit': '✏ Editar bolsillos',
+    'pockets.label.cash': 'Efectivo',
+    'pockets.label.bankA': 'Banco A',
+    'pockets.label.bankB': 'Banco B',
+    'pockets.label.card': 'Tarjeta de Crédito',
+
+    'modal.pockets.title': 'Editar Bolsillos',
+    'modal.pockets.sub': 'Ajusta el saldo real de cada bolsillo. A partir de ahora, FlowMint sumará o restará automáticamente cada nueva transacción que asignes a esa cuenta.',
+    'modal.pockets.btn.save': '✓ Guardar Bolsillos',
 
     'modal.invest.title.new': 'Nueva Inversión',
     'modal.invest.title.edit': 'Editar Inversión',
@@ -1195,7 +1380,14 @@ const translations = {
     'currency.pen': 'PEN (S/) — Sol Peruano',
     'currency.brl': 'BRL (R$) — Real Brasileño',
     'currency.eur': 'EUR (€) — Euro',
-    'currency.gbp': 'GBP (£) — Libra Esterlina'
+    'currency.gbp': 'GBP (£) — Libra Esterlina',
+    'card.recurring_summary': 'Resumen de Recurrentes',
+    'tx.no_recurring_this_year': 'Sin recurrentes en este año',
+    'modal.tx.duplicate_warning': '⚠️ <strong>Posible duplicado:</strong> Ya existe un pago recurrente similar (\'{desc}\' por {amount}) en esta categoría.',
+    'modal.tx.bypass_duplicate': 'Crear de todas formas',
+    'modal.budget.title_annual': 'Editar Límites de Presupuesto Anual',
+    'alert.budget_exceeded': '<strong>Límite superado</strong> en <strong>{cat}</strong> ({curr}/{limit})',
+    'alert.budget_warning': '<strong>Cerca del límite</strong> en <strong>{cat}</strong> ({curr}/{limit})'
   },
   en: {
     'logo.sub': 'Your money, in control',
@@ -1211,6 +1403,8 @@ const translations = {
     'nav.export': 'Export Data',
     'nav.import': 'Import Data',
     'nav.home': 'Home',
+    'nav.sec.help': 'Help',
+    'nav.feedback': 'Send Feedback',
 
     'btn.add_tx': '+ Transaction',
     'btn.all_year': 'All Year',
@@ -1227,6 +1421,8 @@ const translations = {
     'kpi.balance': 'Net Balance',
     'kpi.invest': 'Investments',
     'kpi.change.vs': 'vs last month',
+    'kpi.change.vs_month': 'vs last month',
+    'kpi.change.vs_year': 'vs last year',
     'kpi.change.this_month': 'this month',
 
     'card.cash_flow': 'Cash Flow',
@@ -1314,8 +1510,15 @@ const translations = {
     'modal.tx.label.cat': 'Category',
     'modal.tx.label.amount': 'Amount',
     'modal.tx.label.date': 'Date',
+    'modal.tx.label.account': 'Account',
     'modal.tx.label.note': 'Note (optional)',
     'modal.tx.ph.note': 'Add details...',
+    'modal.tx.label.recurring': 'Recurrence',
+    'modal.tx.recurring.none': 'Not recurring',
+    'modal.tx.recurring.monthly': 'Monthly 🔄',
+    'modal.tx.recurring.yearly': 'Yearly 🔄',
+    'modal.tx.detail.recurring': 'Recurrence',
+    'modal.tx.autogenerated': 'Automatically generated by recurrence',
     'modal.tx.btn.cancel': 'Cancel',
     'modal.tx.btn.save': '✓ Save',
 
@@ -1342,6 +1545,23 @@ const translations = {
 
     'modal.budget.title': 'Edit Budget Limits',
     'modal.budget.btn.save': '✓ Save Limits',
+
+    'account.cash': '💵 Cash',
+    'account.bankA': '🏦 Bank A',
+    'account.bankB': '🏦 Bank B',
+    'account.card': '💳 Credit Card',
+
+    'pockets.title': '🧩 Pockets Module',
+    'pockets.sub': 'Balance broken down by account — updated in real time',
+    'pockets.btn.edit': '✏ Edit pockets',
+    'pockets.label.cash': 'Cash',
+    'pockets.label.bankA': 'Bank A',
+    'pockets.label.bankB': 'Bank B',
+    'pockets.label.card': 'Credit Card',
+
+    'modal.pockets.title': 'Edit Pockets',
+    'modal.pockets.sub': 'Adjust the real balance of each pocket. From now on, FlowMint will automatically add or subtract every new transaction you assign to that account.',
+    'modal.pockets.btn.save': '✓ Save Pockets',
 
     'modal.invest.title.new': 'New Investment',
     'modal.invest.title.edit': 'Edit Investment',
@@ -1451,11 +1671,18 @@ const translations = {
     'currency.pen': 'PEN (S/) — Peruvian Sol',
     'currency.brl': 'BRL (R$) — Brazilian Real',
     'currency.eur': 'EUR (€) — Euro',
-    'currency.gbp': 'GBP (£) — Pound Sterling'
+    'currency.gbp': 'GBP (£) — Pound Sterling',
+    'card.recurring_summary': 'Recurring Summary',
+    'tx.no_recurring_this_year': 'No recurring transactions this year',
+    'modal.tx.duplicate_warning': '⚠️ <strong>Existing recurrence:</strong> A recurring payment already exists in <strong>{cat}</strong> (\'{desc}\' for {amount}).',
+    'modal.tx.bypass_duplicate': 'Delete previous duplicate recurrence in this category upon saving',
+    'modal.budget.title_annual': 'Edit Annual Budget Limits',
+    'alert.budget_exceeded': '<strong>Limit exceeded</strong> in <strong>{cat}</strong> ({curr}/{limit})',
+    'alert.budget_warning': '<strong>Close to limit</strong> in <strong>{cat}</strong> ({curr}/{limit})'
   }
 };
 
-let lang = localStorage.getItem('flowmint_lang') || 'es';
+let lang = safeGetItem('flowmint_lang') || 'es';
 
 function translate(key) {
   return (translations[lang] && translations[lang][key]) || key;
@@ -1463,7 +1690,7 @@ function translate(key) {
 
 function applyLanguage(newLang) {
   lang = newLang;
-  localStorage.setItem('flowmint_lang', lang);
+  safeSetItem('flowmint_lang', lang);
   document.documentElement.lang = lang;
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
@@ -1507,9 +1734,13 @@ function applyLanguage(newLang) {
 function updateMonthOptions() {
   const sel = document.getElementById('periodMonth');
   if(!sel) return;
-  const val = sel.value;
+  // Save current value BEFORE wiping innerHTML
+  const savedVal = sel.value !== '' ? sel.value : currentPeriodMonth.toString();
   sel.innerHTML = Array.from({length: 12}, (_, i) => `<option value="${i}">${translate('month.' + i)}</option>`).join('');
-  sel.value = val;
+  // Restore the saved value so changing language never resets the period to month 0
+  sel.value = savedVal;
+  // Keep JS var in sync
+  currentPeriodMonth = parseInt(sel.value);
 }
 
 function updateCatLabels() {
@@ -1533,6 +1764,9 @@ function updateCatLabels() {
 // ══════════════════════════════════════════
 // DATA DEFAULTS
 // ══════════════════════════════════════════
+// ── Feedback external form URL — apunta al formulario local de FlowMint ──
+const FEEDBACK_FORM_URL = 'feedback.html';
+
 const defaultTransactions = [];
 
 const defaultGoals = [];
@@ -1553,38 +1787,99 @@ const defaultBudgets = [
 // ── Load from localStorage or use defaults ──
 // Limpieza: si en localStorage había transacciones de demo, borrarlas
 (function cleanDemoTransactions() {
-  const stored = JSON.parse(localStorage.getItem('fm_transactions'));
-  const demoDescs = ['Salario Empresa','Proyecto Freelance','Dividendos','Venta artículo',
-    'Supermercado','Uber / Gasolina','Netflix + Spotify','Restaurante','Electricidad',
-    'Gimnasio','Amazon Prime','Doctor','Farmacia','Curso online','Internet','Ropa',
-    'Compra ETF SP500','Bitcoin','Fondo de índice','Peluquería','Gasolina extra','Ahorros vacaciones'];
-  if(stored && stored.some(t => demoDescs.includes(t.desc))) {
-    localStorage.removeItem('fm_transactions');
-  }
+  try {
+    const stored = JSON.parse(safeGetItem('fm_transactions'));
+    const demoDescs = ['Salario Empresa','Proyecto Freelance','Dividendos','Venta artículo',
+      'Supermercado','Uber / Gasolina','Netflix + Spotify','Restaurante','Electricidad',
+      'Gimnasio','Amazon Prime','Doctor','Farmacia','Curso online','Internet','Ropa',
+      'Compra ETF SP500','Bitcoin','Fondo de índice','Peluquería','Gasolina extra','Ahorros vacaciones'];
+    if(stored && stored.some(t => demoDescs.includes(t.desc))) {
+      safeRemoveItem('fm_transactions');
+    }
+  } catch(e) { /* ignore */ }
 })();
-let transactions = JSON.parse(localStorage.getItem('fm_transactions')) || defaultTransactions;
-let budgets      = JSON.parse(localStorage.getItem('fm_budgets'))      || defaultBudgets;
+let transactions = (function(){ try { return JSON.parse(safeGetItem('fm_transactions')) || defaultTransactions; } catch(e){ return defaultTransactions; } })();
+
+// ──────────────────────────────────────────────────────────────────
+// LIMPIEZA AGRESIVA: elimina transacciones auto-generadas que estén
+// más allá de hoy + 35 días. Esto evita que las recurrencias futuras
+// distorsionen los saldos de los bolsillos al navegar entre meses.
+// Se ejecuta UNA SOLA VEZ al cargar la página.
+// ──────────────────────────────────────────────────────────────────
+(function cleanFutureAutoGeneratedTx() {
+  try {
+    const now = new Date();
+    const cutoff = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 35);
+    const before = transactions.length;
+    transactions = transactions.filter(t => {
+      if (!t.autoGenerated || !t.date) return true;
+      const td = new Date(t.date + 'T12:00:00');
+      return isNaN(td.getTime()) || td <= cutoff;
+    });
+    if (transactions.length !== before) {
+      try { localStorage.setItem('fm_transactions', JSON.stringify(transactions)); } catch(e2) {}
+    }
+  } catch(e) {}
+})();
+let budgets      = (function(){ try { return JSON.parse(safeGetItem('fm_budgets'))      || defaultBudgets;       } catch(e){ return defaultBudgets; }       })();
+let budgetsByPeriod = (function(){ try { return JSON.parse(safeGetItem('fm_budgets_by_period')) || {}; } catch(e){ return {}; } })();
+
+function getBudgetsForPeriod(year, month, isAnnual) {
+  const key = isAnnual
+    ? `${year}-annual`
+    : `${year}-${String(month + 1).padStart(2, '0')}`;
+
+  if (budgetsByPeriod[key]) {
+    return JSON.parse(JSON.stringify(budgetsByPeriod[key]));
+  }
+
+  if (isAnnual) {
+    const monthly = getBudgetsForPeriod(year, month, false);
+    return monthly.map(b => ({ ...b, limit: b.limit * 12 }));
+  }
+
+  return JSON.parse(JSON.stringify(budgets));
+}
 
 // Limpieza: si en localStorage había metas del demo anterior, borrarlas
 (function cleanFakeGoals() {
-  const stored = JSON.parse(localStorage.getItem('fm_goals'));
-  const fakeNames = ['Fondo de Emergencia', 'Vacaciones Europa', 'MacBook Pro', 'Auto Nuevo'];
-  if(stored && stored.some(g => fakeNames.includes(g.name))) {
-    localStorage.removeItem('fm_goals');
-  }
+  try {
+    const stored = JSON.parse(safeGetItem('fm_goals'));
+    const fakeNames = ['Fondo de Emergencia', 'Vacaciones Europa', 'MacBook Pro', 'Auto Nuevo'];
+    if(stored && stored.some(g => fakeNames.includes(g.name))) {
+      safeRemoveItem('fm_goals');
+    }
+  } catch(e) { /* ignore */ }
 })();
-let goals = JSON.parse(localStorage.getItem('fm_goals')) || [];
+let goals = (function(){ try { return JSON.parse(safeGetItem('fm_goals')) || []; } catch(e){ return []; } })();
 
 // Limpieza: si en localStorage había inversiones del demo anterior (con VOO/BTC/QQQ), borrarlas
-// para que el portafolio empiece limpio con datos reales del usuario.
 (function cleanFakeInvestments() {
-  const stored = JSON.parse(localStorage.getItem('fm_investments'));
-  const fakeKeys = ['VOO','BTC','QQQ','AAPL+MSFT','TLT','VWRL'];
-  if(stored && stored.some(i => fakeKeys.includes(i.ticker))) {
-    localStorage.removeItem('fm_investments');
-  }
+  try {
+    const stored = JSON.parse(safeGetItem('fm_investments'));
+    const fakeKeys = ['VOO','BTC','QQQ','AAPL+MSFT','TLT','VWRL'];
+    if(stored && stored.some(i => fakeKeys.includes(i.ticker))) {
+      safeRemoveItem('fm_investments');
+    }
+  } catch(e) { /* ignore */ }
 })();
-let investments = JSON.parse(localStorage.getItem('fm_investments')) || [];
+let investments = (function(){ try { return JSON.parse(safeGetItem('fm_investments')) || []; } catch(e){ return []; } })();
+
+// ── Pocket base balances (Módulo de Bolsillos) ──
+// Saldo inicial/manual por bolsillo. El saldo REAL mostrado en el Dashboard
+// es este valor base + la suma de todas las transacciones asignadas a esa cuenta.
+const defaultPocketBalances = {cash:0, bankA:0, bankB:0, card:0};
+let pocketBalances = (function(){
+  try {
+    const stored = JSON.parse(safeGetItem('fm_pocket_balances'));
+    // Si los valores almacenados son números razonables (saldos base directos), usarlos.
+    // Se abandona el sistema de "offset" de versiones anteriores.
+    if (stored && typeof stored === 'object') {
+      return Object.assign({}, defaultPocketBalances, stored);
+    }
+    return Object.assign({}, defaultPocketBalances);
+  } catch(e) { return Object.assign({}, defaultPocketBalances); }
+})();
 
 // ── Period state ──
 let currentPeriodMonth = new Date().getMonth();
@@ -1592,7 +1887,7 @@ let currentPeriodYear  = new Date().getFullYear();
 let periodAllYear      = false;
 
 // ── Currency state ──
-let currency = JSON.parse(localStorage.getItem('fm_currency_obj')) || {code:'USD', symbol:'$', rate:1};
+let currency = (function(){ try { return JSON.parse(safeGetItem('fm_currency_obj')) || {code:'USD', symbol:'$', rate:1}; } catch(e){ return {code:'USD', symbol:'$', rate:1}; } })();
 
 // ── Helper: convert amount to current currency ──
 function fx(amount) { return amount * currency.rate; }
@@ -1605,11 +1900,32 @@ function fmt(amount) {
 }
 
 // ── Filter transactions by current period ──
+// ALWAYS reads month/year directly from the DOM pickers to prevent
+// any variable ↔ DOM desync, which was the root cause of empty views.
 function getTx() {
+  // Read current values straight from DOM — single source of truth
+  const pmEl = document.getElementById('periodMonth');
+  const pyEl = document.getElementById('periodYear');
+  const m = pmEl ? parseInt(pmEl.value) : currentPeriodMonth;
+  const y = pyEl ? (parseInt(pyEl.value) || currentPeriodYear) : currentPeriodYear;
+  // Keep JS variables in sync as a side-effect
+  currentPeriodMonth = m;
+  currentPeriodYear  = y;
+
+  // ══ REGLA PRINCIPAL ══════════════════════════════════════════════════════
+  // Ninguna transacción con fecha > HOY puede computarse como realizada.
+  // Las fechas futuras pertenecen EXCLUSIVAMENTE a "Próximos Pagos".
+  const todayCutoff = new Date();
+  todayCutoff.setHours(23, 59, 59, 999);
+
   return transactions.filter(t => {
+    if(!t.date) return false;
     const d = new Date(t.date + 'T12:00:00');
-    if(periodAllYear) return d.getFullYear() === currentPeriodYear;
-    return d.getFullYear() === currentPeriodYear && d.getMonth() === currentPeriodMonth;
+    if(isNaN(d.getTime())) return false;
+    // Bloqueo estricto: nunca incluir transacciones futuras en cálculos pasados
+    if(d > todayCutoff) return false;
+    if(periodAllYear) return d.getFullYear() === y;
+    return d.getFullYear() === y && d.getMonth() === m;
   });
 }
 
@@ -1651,32 +1967,48 @@ let editingTxId    = null;
 let editingGoalId  = null;
 
 // ══════════════════════════════════════════
-// PERSIST
+// PERSIST — safe wrapper that never throws
 // ══════════════════════════════════════════
 function saveToLocalStorage() {
-  localStorage.setItem('fm_transactions', JSON.stringify(transactions));
-  localStorage.setItem('fm_goals',        JSON.stringify(goals));
-  localStorage.setItem('fm_investments',  JSON.stringify(investments));
-  localStorage.setItem('fm_budgets',      JSON.stringify(budgets));
-  localStorage.setItem('fm_currency_obj', JSON.stringify(currency));
+  try {
+    localStorage.setItem('fm_transactions', JSON.stringify(transactions));
+    localStorage.setItem('fm_goals',        JSON.stringify(goals));
+    localStorage.setItem('fm_investments',  JSON.stringify(investments));
+    localStorage.setItem('fm_budgets',      JSON.stringify(budgets));
+    localStorage.setItem('fm_currency_obj', JSON.stringify(currency));
+    localStorage.setItem('fm_pocket_balances', JSON.stringify(pocketBalances));
+    localStorage.setItem('fm_budgets_by_period', JSON.stringify(budgetsByPeriod));
+  } catch(e) {
+    console.warn('FlowMint: localStorage not available, data saved in memory only.', e.message);
+  }
 }
 
 // ══════════════════════════════════════════
 // INIT
 // ══════════════════════════════════════════
 window.addEventListener('DOMContentLoaded', () => {
-  // Date defaults
-  document.getElementById('txDate').valueAsDate = new Date();
-  document.getElementById('goalDate').value = '2026-01-01';
+  // ── Step 1: Set period DOM pickers to TODAY first, before anything else ──
+  const _now = new Date();
+  const _m   = _now.getMonth();
+  const _y   = _now.getFullYear();
 
-  // Period picker sync
-  document.getElementById('periodMonth').value = currentPeriodMonth.toString();
-  document.getElementById('periodYear').value  = currentPeriodYear.toString();
+  const pmEl = document.getElementById('periodMonth');
+  const pyEl = document.getElementById('periodYear');
+  if(pmEl) pmEl.value = _m.toString();
+  if(pyEl) pyEl.value = _y.toString();
 
-  // Currency selector sync
+  // Sync JS vars immediately
+  currentPeriodMonth = _m;
+  currentPeriodYear  = _y;
+
+  // ── Step 2: Set form date defaults ──
+  document.getElementById('txDate').valueAsDate = _now;
+  document.getElementById('goalDate').value = (_y + 1) + '-01-01';
+
+  // ── Step 3: Currency selector sync ──
   const sel = document.getElementById('currencySelect');
   let found = false;
-  for(let i=0; i<sel.options.length; i++) {
+  for(let i = 0; i < sel.options.length; i++) {
     if(sel.options[i].value === currency.code) { sel.value = currency.code; found = true; break; }
   }
   if(!found) {
@@ -1684,26 +2016,176 @@ window.addEventListener('DOMContentLoaded', () => {
     sel.options[sel.options.length-1].text = `✏ ${currency.code} (${currency.symbol}) — ` + (lang === 'es' ? 'personalizado' : 'custom');
   }
 
+  // ── Step 4: Apply language (may regenerate month <options> via updateMonthOptions) ──
   applyLanguage(lang);
   setType('income');
+
+  // ── Step 5: Re-apply period values AFTER applyLanguage in case it reset the select ──
+  if(pmEl) pmEl.value = _m.toString();
+  if(pyEl) pyEl.value = _y.toString();
+  currentPeriodMonth = _m;
+  currentPeriodYear  = _y;
+
+  // ── Step 6: Final render with guaranteed-correct period ──
+  renderAll();
 });
 
 function renderAll() {
-  updateKPIs();
-  renderBarChart();
-  renderDonut();
-  renderRecentTx();
-  renderUpcoming();
-  renderAlerts();
-  renderAllTx();
-  renderCatGrid();
-  renderTxSummary();
-  renderInvestments();
-  renderGoals();
-  renderReports();
-  renderBudget();
-  renderLineChart();
-  renderInvestDonut();
+  // Genera (si hace falta) las ocurrencias reales de transacciones recurrentes
+  // ANTES de calcular cualquier KPI, bolsillo o gráfico — así todo el resto de
+  // la app siempre trabaja sobre datos ya materializados y consistentes.
+  try { generateRecurringOccurrences(); } catch(e) { console.warn('FlowMint: error generando recurrencias:', e.message); }
+
+  const fns = [
+    updateKPIs, renderPockets, renderBarChart, renderDonut, renderRecentTx,
+    renderUpcoming, renderAlerts, renderAllTx, renderCatGrid,
+    renderTxSummary, renderRecurringSummary, renderInvestments, renderGoals,
+    renderReports, renderBudget, renderLineChart, renderInvestDonut
+  ];
+  fns.forEach(fn => {
+    try { fn(); }
+    catch(e) { console.warn('FlowMint: render error in ' + fn.name + '():', e.message); }
+  });
+}
+
+// ══════════════════════════════════════════
+// MOTOR DE RECURRENCIA (genera ocurrencias reales mes a mes / año a año)
+// ══════════════════════════════════════════
+// Una transacción "plantilla" es cualquier tx con recurring !== 'none' que
+// NO sea ella misma una ocurrencia generada (no tiene recurringParentId).
+// Por cada plantilla, se generan automáticamente los registros reales que
+// faltan desde su fecha original hasta el mes/año actualmente seleccionado
+// en los pickers (o hasta hoy, lo que sea más adelante), y quedan guardados
+// como transacciones normales — por eso sí impactan Ingresos/Gastos del mes,
+// los Bolsillos, Reportes y Presupuesto, no solo el recordatorio de "Próximos Pagos".
+function getRecurringCutoffDate() {
+  const now = new Date();
+  // Límite estricto: HOY.
+  // NO proyectamos transacciones futuras en el arreglo real para evitar saldos irreales.
+  // Las fechas futuras se calculan dinámicamente en renderUpcoming().
+  const lookahead = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  lookahead.setHours(23, 59, 59, 999);
+  return lookahead;
+}
+
+const hasExistingForPeriod = (occDate, tpl) => {
+  const oy = occDate.getFullYear();
+  const om = occDate.getMonth();
+  
+  return transactions.some(t => {
+    if (t.id === tpl.id) return false;
+    if (!t.date) return false;
+    
+    const td = new Date(t.date + 'T12:00:00');
+    if (td.getFullYear() !== oy || td.getMonth() !== om) return false;
+    if (t.type !== tpl.type || t.cat !== tpl.cat) return false;
+    
+    const isRec = (t.recurring && t.recurring !== 'none') || t.autoGenerated || t.recurringParentId;
+    if (!isRec) return false;
+    
+    const amtDiff = Math.abs(t.amount - tpl.amount) / Math.max(t.amount, tpl.amount, 1);
+    if (amtDiff > 0.1) return false;
+    
+    const clean = (s) => s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+    const d1 = clean(t.desc);
+    const d2 = clean(tpl.desc);
+    
+    if (d1 === d2 || d1.includes(d2) || d2.includes(d1)) return true;
+    
+    const genericTerms = [t.cat, 'pago', 'mensual', 'mes', 'recurrente', 'gasto', 'ingreso', 'cobro'];
+    const words1 = t.desc.toLowerCase().split(/\s+/);
+    const words2 = tpl.desc.toLowerCase().split(/\s+/);
+    
+    const isGeneric1 = words1.every(w => genericTerms.includes(w) || w.length < 3);
+    const isGeneric2 = words2.every(w => genericTerms.includes(w) || w.length < 3);
+    if (isGeneric1 || isGeneric2) return true;
+    
+    const sig1 = words1.filter(w => w.length >= 4 && !genericTerms.includes(w));
+    const sig2 = words2.filter(w => w.length >= 4 && !genericTerms.includes(w));
+    const sharesSig = sig1.some(w => sig2.includes(w));
+    if (sharesSig) return true;
+    
+    if (sig1.length > 0 && sig2.length > 0 && !sharesSig) {
+      return false;
+    }
+    
+    return true;
+  });
+};
+
+function cleanDuplicateRecurringTemplates() {
+  // Función desactivada: ya no eliminamos plantillas silenciosamente en segundo plano,
+  // dado que ahora permitimos múltiples recurrencias en la misma categoría (Guardar como nueva).
+}
+
+function generateRecurringOccurrences() {
+  cleanDuplicateRecurringTemplates();
+  const cutoff = getRecurringCutoffDate();
+  const templates = transactions.filter(t => t.recurring && t.recurring !== 'none' && !t.recurringParentId);
+  if (templates.length === 0) return false;
+
+  let created = false;
+
+  templates.forEach(tpl => {
+    if (!tpl.date) return;
+    const parts = tpl.date.split('T')[0].split('-').map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) return;
+    const [oy, om, od] = parts; // om = 1..12
+
+    const existingKeys = new Set(
+      transactions.filter(t => t.recurringParentId === tpl.id).map(t => t.recurringPeriodKey)
+    );
+    const skipped = new Set(tpl.recurringSkipped || []);
+
+    const pushOccurrence = (occDate, key) => {
+      if (existingKeys.has(key) || skipped.has(key)) return;
+      if (hasExistingForPeriod(occDate, tpl)) return;
+      transactions.push({
+        id: Date.now() + Math.floor(Math.random() * 1000000),
+        type: tpl.type,
+        desc: tpl.desc,
+        cat: tpl.cat,
+        account: tpl.account || 'cash',
+        amount: tpl.amount,
+        date: occDate.toISOString().slice(0, 10),
+        note: tpl.note || '',
+        recurring: 'none',
+        autoGenerated: true,
+        recurringParentId: tpl.id,
+        recurringPeriodKey: key
+      });
+      existingKeys.add(key);
+      created = true;
+    };
+
+    if (tpl.recurring === 'monthly') {
+      let year = oy, month = om - 1; // 0-based
+      const MAX_ITER = 1200; // tope de seguridad (100 años)
+      for (let i = 0; i < MAX_ITER; i++) {
+        month++;
+        if (month > 11) { month = 0; year++; }
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const occDate = new Date(year, month, Math.min(od, daysInMonth));
+        if (occDate > cutoff) break;
+        const key = year + '-' + String(month + 1).padStart(2, '0');
+        pushOccurrence(occDate, key);
+      }
+    } else if (tpl.recurring === 'yearly') {
+      let year = oy;
+      const MAX_ITER = 100;
+      for (let i = 0; i < MAX_ITER; i++) {
+        year++;
+        const daysInMonth = new Date(year, om, 0).getDate();
+        const occDate = new Date(year, om - 1, Math.min(od, daysInMonth));
+        if (occDate > cutoff) break;
+        const key = String(year);
+        pushOccurrence(occDate, key);
+      }
+    }
+  });
+
+  if (created) saveToLocalStorage();
+  return created;
 }
 
 // ══════════════════════════════════════════
@@ -1722,8 +2204,31 @@ function showView(id) {
   const titles = {dashboard:'nav.dashboard',transactions:'nav.transactions',investments:'nav.investments',goals:'nav.goals',reports:'nav.reports',budget:'nav.budget'};
   document.getElementById('pageTitle').textContent = translate(titles[id]) || 'FlowMint';
   closeSidebar();
-  if(id==='reports') renderReports();
-  if(id==='budget')  renderBudget();
+
+  // Always re-render the target view from scratch so data is fresh
+  // regardless of which view the user is switching to
+  if (id === 'dashboard') {
+    updateKPIs();
+    renderBarChart();
+    renderDonut();
+    renderRecentTx();
+    renderUpcoming();
+    renderAlerts();
+  } else if (id === 'transactions') {
+    renderAllTx();
+    renderCatGrid();
+    renderTxSummary();
+  } else if (id === 'investments') {
+    renderInvestments();
+    renderLineChart();
+    renderInvestDonut();
+  } else if (id === 'goals') {
+    renderGoals();
+  } else if (id === 'reports') {
+    renderReports();
+  } else if (id === 'budget') {
+    renderBudget();
+  }
 }
 
 function toggleSidebar() {
@@ -1743,6 +2248,11 @@ function setMobileActive(el) {
 // MODAL MANAGEMENT
 // ══════════════════════════════════════════
 function openModal(txId) {
+  const warn = document.getElementById('txDuplicateWarning');
+  if(warn) warn.style.display = 'none';
+  const bypass = document.getElementById('bypassDuplicateCheck');
+  if(bypass) bypass.checked = false;
+
   if(txId != null) {
     // Edit mode
     editingTxId = txId;
@@ -1750,20 +2260,25 @@ function openModal(txId) {
     if(!tx) return;
     document.getElementById('modalTitle').textContent = translate('modal.tx.title.edit');
     setType(tx.type, tx.cat);
-    document.getElementById('txDesc').value   = tx.desc;
-    document.getElementById('txAmount').value = tx.amount;
-    document.getElementById('txDate').value   = tx.date;
-    document.getElementById('txNote').value   = tx.note || '';
+    document.getElementById('txDesc').value      = tx.desc;
+    document.getElementById('txAmount').value    = tx.amount;
+    document.getElementById('txDate').value      = tx.date;
+    document.getElementById('txAccount').value   = tx.account || 'cash';
+    document.getElementById('txNote').value      = tx.note || '';
+    document.getElementById('txRecurring').value = tx.recurring || 'none';
   } else {
     // New mode
     editingTxId = null;
     document.getElementById('modalTitle').textContent = translate('modal.tx.title.new');
-    document.getElementById('txDesc').value   = '';
-    document.getElementById('txAmount').value = '';
-    document.getElementById('txNote').value   = '';
+    document.getElementById('txDesc').value      = '';
+    document.getElementById('txAmount').value    = '';
+    document.getElementById('txAccount').value   = 'cash';
+    document.getElementById('txNote').value      = '';
+    document.getElementById('txRecurring').value = 'none';
     document.getElementById('txDate').valueAsDate = new Date();
     setType('income');
   }
+  checkTxInputs();
   document.getElementById('modalOverlay').classList.add('open');
   document.getElementById('txDesc').focus();
 }
@@ -1801,16 +2316,186 @@ function openGoalModal(id) {
 }
 function closeGoalModal() { document.getElementById('goalModalOverlay').classList.remove('open'); }
 
+let budgetModalPeriodMonth = 0;
+let budgetModalPeriodYear = 2026;
+let budgetModalPeriodAllYear = false;
+
+function updateBudgetMonthOptions() {
+  const sel = document.getElementById('budgetModalMonth');
+  if(!sel) return;
+  const savedVal = sel.value !== '' ? sel.value : budgetModalPeriodMonth.toString();
+  sel.innerHTML = Array.from({length: 12}, (_, i) => `<option value="${i}">${translate('month.' + i)}</option>`).join('');
+  sel.value = savedVal;
+}
+
 function openBudgetModal() {
-  document.getElementById('budgetFormFields').innerHTML = budgets.map(b =>
+  budgetModalPeriodMonth = currentPeriodMonth;
+  budgetModalPeriodYear = currentPeriodYear;
+  budgetModalPeriodAllYear = periodAllYear;
+
+  const mEl = document.getElementById('budgetModalMonth');
+  const yEl = document.getElementById('budgetModalYear');
+  const btnAll = document.getElementById('btnBudgetModalAllYear');
+
+  if(yEl) yEl.value = budgetModalPeriodYear;
+  updateBudgetMonthOptions();
+  if(mEl) {
+    mEl.value = budgetModalPeriodMonth.toString();
+    mEl.disabled = budgetModalPeriodAllYear;
+    mEl.style.opacity = budgetModalPeriodAllYear ? '0.4' : '1';
+  }
+  if(btnAll) {
+    btnAll.classList.toggle('active', budgetModalPeriodAllYear);
+  }
+
+  loadBudgetModalFields();
+  document.getElementById('budgetModalOverlay').classList.add('open');
+}
+
+function changeBudgetModalPeriod() {
+  const mEl = document.getElementById('budgetModalMonth');
+  const yEl = document.getElementById('budgetModalYear');
+  
+  if (mEl) budgetModalPeriodMonth = parseInt(mEl.value);
+  if (yEl) budgetModalPeriodYear = parseInt(yEl.value) || new Date().getFullYear();
+
+  loadBudgetModalFields();
+}
+
+function toggleBudgetModalAllYear(btn) {
+  budgetModalPeriodAllYear = !budgetModalPeriodAllYear;
+  btn.classList.toggle('active', budgetModalPeriodAllYear);
+  
+  const mEl = document.getElementById('budgetModalMonth');
+  if(mEl) {
+    mEl.disabled = budgetModalPeriodAllYear;
+    mEl.style.opacity = budgetModalPeriodAllYear ? '0.4' : '1';
+  }
+  loadBudgetModalFields();
+}
+
+function loadBudgetModalFields() {
+  const activeBudgets = getBudgetsForPeriod(budgetModalPeriodYear, budgetModalPeriodMonth, budgetModalPeriodAllYear);
+  
+  const titleEl = document.getElementById('budgetModalTitle');
+  if(titleEl) {
+    titleEl.textContent = budgetModalPeriodAllYear
+      ? translate('modal.budget.title_annual')
+      : translate('modal.budget.title');
+  }
+
+  document.getElementById('budgetFormFields').innerHTML = activeBudgets.map(b =>
     `<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
       <span style="font-size:14px;min-width:150px">${b.emoji} ${translate('cat.' + b.cat)}</span>
       <input type="number" class="form-input" id="budget-limit-${b.cat}" value="${b.limit}" style="max-width:150px">
     </div>`
   ).join('');
-  document.getElementById('budgetModalOverlay').classList.add('open');
 }
+
 function closeBudgetModal() { document.getElementById('budgetModalOverlay').classList.remove('open'); }
+
+// ══════════════════════════════════════════
+// POCKETS MODULE (Módulo de Bolsillos)
+// ══════════════════════════════════════════
+// Saldo en tiempo real por bolsillo.
+// FIX: parseFloat estricto en todos los montos para evitar concatenación de strings.
+// FIX: soporte completo de tipos income / expense / invest / transfer.
+function getPocketTxTotals(cutoffDate) {
+  const totals = {cash:0, bankA:0, bankB:0, card:0};
+  const targetDate = cutoffDate || new Date();
+
+  transactions.forEach(t => {
+    if (!t.date) return;
+    const td = new Date(t.date + 'T12:00:00');
+    if (isNaN(td.getTime())) return;
+    if (td > targetDate) return;
+
+    // Casteo estricto a número para evitar concatenaciones tipo "0" + 200 = "0200"
+    const amt = parseFloat(t.amount);
+    if (isNaN(amt) || amt === 0) return;
+
+    if (t.type === 'transfer') {
+      // Transferencia entre bolsillos: descontar de origen, sumar a destino.
+      const fromAcc = t.fromAccount || t.account || 'cash';
+      const toAcc   = t.toAccount   || t.destination || null;
+      if (fromAcc in totals) totals[fromAcc] -= amt;
+      if (toAcc && toAcc in totals) totals[toAcc] += amt;
+      return;
+    }
+
+    const acc = t.account || 'cash';
+    if (!(acc in totals)) return;
+
+    if (t.type === 'income') {
+      totals[acc] += amt;
+    } else {
+      // expense / invest / cualquier otro tipo: descuenta del bolsillo
+      totals[acc] -= amt;
+    }
+  });
+  return totals;
+}
+
+// Saldo REAL por bolsillo = Saldo Base (parseFloat) + Transacciones acumuladas.
+function calculatePockets(cutoffDate) {
+  const totals = getPocketTxTotals(cutoffDate || new Date());
+  const result = {};
+  const accounts = ['cash','bankA','bankB','card'];
+  accounts.forEach(acc => {
+    const base = parseFloat(pocketBalances[acc]);
+    result[acc] = (isNaN(base) ? 0 : base) + (totals[acc] || 0);
+  });
+  return result;
+}
+
+function openPocketModal() {
+  ['cash','bankA','bankB','card'].forEach(acc => {
+    const el = document.getElementById('pocketBase-' + acc);
+    if(el) {
+      const baseVal = pocketBalances[acc];
+      el.value = (baseVal !== undefined && baseVal !== null && !isNaN(baseVal)) ? baseVal : '';
+    }
+  });
+  document.getElementById('pocketModalOverlay').classList.add('open');
+}
+function closePocketModal() { document.getElementById('pocketModalOverlay').classList.remove('open'); }
+
+function savePockets() {
+  ['cash','bankA','bankB','card'].forEach(acc => {
+    const el = document.getElementById('pocketBase-' + acc);
+    const entered = el ? parseFloat(el.value) : NaN;
+    pocketBalances[acc] = isNaN(entered) ? 0 : entered;
+  });
+  safeSetItem('fm_pocket_v2', 'true');
+  saveToLocalStorage();
+  closePocketModal();
+  renderAll();
+}
+
+function renderPockets() {
+  // ── CORRECCIÓN DE SALDO POR PERÍODO ──────────────────────────────────────
+  // Cutoff = MIN(fin del mes seleccionado, hoy)
+  // Ejemplo: Ver Mayo 2026 → cutoff = 31-May-2026 (no incluye Jun/Jul/Ago).
+  // Ver mes actual (Ago) → cutoff = hoy (sin días futuros de este mes).
+  // Modo "Todo el año" → cutoff = hoy siempre.
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+  let cutoff;
+  if (periodAllYear) {
+    cutoff = today;
+  } else {
+    // Último día del mes seleccionado
+    const endOfSelectedMonth = new Date(currentPeriodYear, currentPeriodMonth + 1, 0, 23, 59, 59, 999);
+    cutoff = (endOfSelectedMonth < today) ? endOfSelectedMonth : today;
+  }
+  const balances = calculatePockets(cutoff);
+  ['cash','bankA','bankB','card'].forEach(acc => {
+    const el = document.getElementById('pocket-' + acc);
+    if(!el) return;
+    el.textContent = fmt(balances[acc]);
+    el.classList.toggle('neg', balances[acc] < 0);
+  });
+}
 
 function openInvestModal() {
   ['invName','invTicker','invInvested','invValue'].forEach(id => document.getElementById(id).value = '');
@@ -1843,43 +2528,167 @@ function setType(type, selectedCat) {
     const defaults = {income:'salary', expense:'food', invest:'stocks'};
     catEl.value = defaults[type] || options[0]?.value || '';
   }
+  checkTxInputs();
 }
 
 // ══════════════════════════════════════════
 // SAVE & DELETE
 // ══════════════════════════════════════════
 function saveTransaction() {
-  const desc   = document.getElementById('txDesc').value.trim();
-  const amount = parseFloat(document.getElementById('txAmount').value);
-  const date   = document.getElementById('txDate').value;
-  const cat    = document.getElementById('txCat').value;
-  const note   = document.getElementById('txNote').value.trim();
+  // ── Step 1: Read all form fields safely ──
+  const descEl      = document.getElementById('txDesc');
+  const amountEl    = document.getElementById('txAmount');
+  const dateEl      = document.getElementById('txDate');
+  const catEl       = document.getElementById('txCat');
+  const accountEl   = document.getElementById('txAccount');
+  const noteEl      = document.getElementById('txNote');
+  const recurringEl = document.getElementById('txRecurring');
 
-  if(!desc || !amount || !date) {
-    const input = document.getElementById('txDesc');
-    input.style.borderColor = 'var(--coral)';
-    setTimeout(() => input.style.borderColor = '', 1500);
+  const desc      = descEl      ? descEl.value.trim()            : '';
+  const amount    = amountEl    ? parseFloat(amountEl.value)     : 0;
+  const date      = dateEl      ? dateEl.value                   : '';
+  const cat       = catEl       ? catEl.value                    : 'other';
+  const account   = accountEl   ? (accountEl.value || 'cash')    : 'cash';
+  const note      = noteEl      ? noteEl.value.trim()            : '';
+  const recurring = recurringEl ? (recurringEl.value || 'none')  : 'none';
+
+  // ── Step 2: Validate — only desc, amount, date are required ──
+  if (!desc) {
+    if (descEl) { descEl.style.borderColor = 'var(--coral)'; setTimeout(() => { descEl.style.borderColor = ''; }, 1500); }
+    return;
+  }
+  if (!amount || isNaN(amount) || amount <= 0) {
+    if (amountEl) { amountEl.style.borderColor = 'var(--coral)'; setTimeout(() => { amountEl.style.borderColor = ''; }, 1500); }
+    return;
+  }
+  if (!date) {
+    if (dateEl) { dateEl.style.borderColor = 'var(--coral)'; setTimeout(() => { dateEl.style.borderColor = ''; }, 1500); }
     return;
   }
 
-  if(editingTxId != null) {
-    const idx = transactions.findIndex(t => t.id === editingTxId);
-    if(idx !== -1) {
-      transactions[idx] = { ...transactions[idx], type: currentType, desc, cat, amount, date, note };
+  // ── Step 3: Build the transaction object ──
+  const txObj = {
+    id:        editingTxId != null ? editingTxId : Date.now(),
+    type:      currentType || 'expense',
+    desc:      desc,
+    cat:       cat,
+    account:   account,
+    amount:    amount,
+    date:      date,
+    note:      note,
+    recurring: recurring
+  };
+
+  // ── Step 4: Insert or update in the global array ──
+  // BLOQUEANTE: si hay duplicado recurrente y el usuario NO confirmó reemplazo → abortar.
+  if (recurring !== 'none' && !editingTxId && !window._bypassRecurringDupCheck) {
+    const dupExists = checkRecurringDuplicate(txObj.type, txObj.cat, txObj.amount, txObj.desc, txObj.id);
+    if (dupExists) {
+      // Asegurar que la alerta sea visible
+      const warnEl = document.getElementById('txDuplicateWarning');
+      if (warnEl) warnEl.style.display = 'flex';
+      return; // Bloquear: no guardar sin confirmación
     }
-  } else {
-    // NEW transaction — use currentType which is set by setType()
-    transactions.unshift({ id: Date.now(), type: currentType, desc, cat, amount, date, note });
+  }
+  // Si el usuario confirmó reemplazo: detener la recurrencia anterior en lugar de borrar su historia
+  if (window._bypassRecurringDupCheck && recurring !== 'none') {
+    if (!window._saveAsNewRecurringAction) {
+      const existingDups = transactions.filter(t =>
+        t.id !== txObj.id &&
+        t.recurring && t.recurring !== 'none' && !t.recurringParentId &&
+        t.type === txObj.type && t.cat === txObj.cat &&
+        parseFloat(t.amount) === parseFloat(txObj.amount)
+      );
+      
+      const now = new Date();
+      now.setHours(23, 59, 59, 999);
+
+      existingDups.forEach(dup => {
+        // Convertir la plantilla antigua en una transacción normal para no perder el registro base
+        dup.recurring = 'none';
+        
+        transactions = transactions.filter(t => {
+          // Si es una ocurrencia de esta plantilla antigua...
+          if (t.recurringParentId === dup.id) {
+            const d = new Date(t.date + 'T12:00:00');
+            // Si es futura, la eliminamos
+            if (d > now) return false;
+            // Si es pasada/hoy, la conservamos pero le quitamos el vínculo para que quede como historial
+            delete t.recurringParentId;
+            delete t.recurringPeriodKey;
+            t.recurring = 'none';
+          }
+          return true;
+        });
+      });
+    }
+    window._bypassRecurringDupCheck = false;
+    window._saveAsNewRecurringAction = false;
   }
 
-  closeModal();
+  if (editingTxId != null) {
+    const idx = transactions.findIndex(t => t.id === editingTxId);
+    if (idx !== -1) {
+      transactions[idx] = txObj;
+    } else {
+      transactions.unshift(txObj);
+    }
+    editingTxId = null;
+  } else {
+    transactions.unshift(txObj);
+  }
+
+  // ── Step 5: Persist (never throws — safeSetItem handles file://) ──
   saveToLocalStorage();
-  renderAll();
+
+  // ── Step 6: Sync period picker to the transaction date so it's visible ──
+  try {
+    const parts = date.split('-');
+    if (parts.length === 3) {
+      const txM = parseInt(parts[1]) - 1;
+      const txY = parseInt(parts[0]);
+      const pmEl = document.getElementById('periodMonth');
+      const pyEl = document.getElementById('periodYear');
+      const paEl = document.getElementById('btnAllYear');
+      if (pmEl) { pmEl.value = txM.toString(); pmEl.disabled = false; pmEl.style.opacity = '1'; }
+      if (pyEl) pyEl.value = txY.toString();
+      if (paEl) paEl.classList.remove('active');
+      currentPeriodMonth = txM;
+      currentPeriodYear  = txY;
+      periodAllYear      = false;
+    }
+  } catch(e) { /* period sync failure is non-fatal */ }
+
+  // ── Step 7: Close modal ──
+  try { closeModal(); } catch(e) { /* non-fatal */ }
+
+  // ── Step 8: Re-render EVERYTHING — always runs, no matter what failed above ──
+  try { renderAll(); } catch(e) {
+    console.error('FlowMint: renderAll() error after saving transaction:', e);
+    // Try individual renders as fallback
+    try { updateKPIs(); } catch(e2) {}
+    try { renderRecentTx(); } catch(e2) {}
+    try { renderAllTx(); } catch(e2) {}
+    try { renderUpcoming(); } catch(e2) {}
+  }
 }
 
 function deleteTransaction(id, event) {
   if(event) event.stopPropagation();
   if(confirm(translate('confirm.delete'))) {
+    const target = transactions.find(t => t.id === id);
+    // Si es una ocurrencia auto-generada de una recurrencia, marcamos ese mes/año
+    // como "omitido" en la plantilla para que el motor de recurrencia no la
+    // vuelva a crear automáticamente en el próximo render.
+    if (target && target.recurringParentId && target.recurringPeriodKey) {
+      const parent = transactions.find(t => t.id === target.recurringParentId);
+      if (parent) {
+        parent.recurringSkipped = parent.recurringSkipped || [];
+        if (!parent.recurringSkipped.includes(target.recurringPeriodKey)) {
+          parent.recurringSkipped.push(target.recurringPeriodKey);
+        }
+      }
+    }
     transactions = transactions.filter(t => t.id !== id);
     saveToLocalStorage();
     renderAll();
@@ -1919,10 +2728,25 @@ function deleteGoal(id, event) {
 }
 
 function saveBudgets() {
-  budgets.forEach(b => {
+  const activeBudgets = getBudgetsForPeriod(budgetModalPeriodYear, budgetModalPeriodMonth, budgetModalPeriodAllYear);
+  
+  activeBudgets.forEach(b => {
     const el = document.getElementById('budget-limit-' + b.cat);
     if(el) b.limit = parseFloat(el.value) || 0;
   });
+
+  const key = budgetModalPeriodAllYear
+    ? `${budgetModalPeriodYear}-annual`
+    : `${budgetModalPeriodYear}-${String(budgetModalPeriodMonth + 1).padStart(2, '0')}`;
+
+  budgetsByPeriod[key] = activeBudgets;
+
+  if (budgetModalPeriodAllYear === periodAllYear &&
+      budgetModalPeriodYear === currentPeriodYear &&
+      (budgetModalPeriodAllYear || budgetModalPeriodMonth === currentPeriodMonth)) {
+    budgets = activeBudgets;
+  }
+
   saveToLocalStorage();
   renderAll();
   closeBudgetModal();
@@ -1967,49 +2791,155 @@ function deleteInvestment(idx, event) {
 // ══════════════════════════════════════════
 // KPI & CHARTS
 // ══════════════════════════════════════════
+function getPrevTx() {
+  const pmEl = document.getElementById('periodMonth');
+  const pyEl = document.getElementById('periodYear');
+  const m = pmEl ? parseInt(pmEl.value) : currentPeriodMonth;
+  const y = pyEl ? (parseInt(pyEl.value) || currentPeriodYear) : currentPeriodYear;
+
+  if (typeof periodAllYear !== 'undefined' && periodAllYear) {
+    const prevY = y - 1;
+    return transactions.filter(t => {
+      if(!t.date) return false;
+      const d = new Date(t.date + 'T12:00:00');
+      if(isNaN(d.getTime())) return false;
+      return d.getFullYear() === prevY;
+    });
+  } else {
+    const prevM = m === 0 ? 11 : m - 1;
+    const prevY = m === 0 ? y - 1 : y;
+    return transactions.filter(t => {
+      if(!t.date) return false;
+      const d = new Date(t.date + 'T12:00:00');
+      if(isNaN(d.getTime())) return false;
+      return d.getFullYear() === prevY && d.getMonth() === prevM;
+    });
+  }
+}
+
+function calcKpiChange(curr, prev, isExpense = false) {
+  const isAllYear = typeof periodAllYear !== 'undefined' && periodAllYear;
+  const vsText = isAllYear ? translate('kpi.change.vs_year') : translate('kpi.change.vs_month');
+  
+  if (prev === 0 && curr === 0) {
+    return `<span class="neutral">0%</span> <span>${vsText}</span>`;
+  }
+  
+  if (prev === 0 && curr > 0) {
+    const cls = isExpense ? 'down' : 'up';
+    return `<span class="${cls}">↑ 100%</span> <span>${vsText}</span>`;
+  }
+  
+  if (prev === 0 && curr < 0) {
+    const cls = isExpense ? 'up' : 'down';
+    return `<span class="${cls}">↓ 100%</span> <span>${vsText}</span>`;
+  }
+  
+  const diff = curr - prev;
+  const pct = (diff / Math.abs(prev)) * 100;
+  const pctVal = Math.abs(pct);
+  const pctFormatted = (pctVal % 1 === 0) ? pctVal.toFixed(0) : pctVal.toFixed(1);
+  
+  if (diff > 0) {
+    const cls = isExpense ? 'down' : 'up';
+    return `<span class="${cls}">↑ ${pctFormatted}%</span> <span>${vsText}</span>`;
+  } else if (diff < 0) {
+    const cls = isExpense ? 'up' : 'down';
+    return `<span class="${cls}">↓ ${pctFormatted}%</span> <span>${vsText}</span>`;
+  } else {
+    return `<span class="neutral">0%</span> <span>${vsText}</span>`;
+  }
+}
+
 function updateKPIs() {
   const tx      = getTx();
   const income  = tx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount, 0);
   const expense = tx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount, 0);
   const invest  = tx.filter(t=>t.type==='invest').reduce((s,t)=>s+t.amount, 0);
+  const balance = income - expense - invest;
+
   document.getElementById('kpi-income').textContent  = fmt(income);
   document.getElementById('kpi-expense').textContent = fmt(expense);
-  document.getElementById('kpi-balance').textContent = fmt(income - expense - invest);
+  document.getElementById('kpi-balance').textContent = fmt(balance);
   document.getElementById('kpi-invest').textContent  = fmt(invest);
+
+  const prevTx      = getPrevTx();
+  const prevIncome  = prevTx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount, 0);
+  const prevExpense = prevTx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount, 0);
+  const prevInvest  = prevTx.filter(t=>t.type==='invest').reduce((s,t)=>s+t.amount, 0);
+  const prevBalance = prevIncome - prevExpense - prevInvest;
+
+  const incChangeEl = document.getElementById('kpi-income-change');
+  const expChangeEl = document.getElementById('kpi-expense-change');
+  const balChangeEl = document.getElementById('kpi-balance-change');
+  const invChangeEl = document.getElementById('kpi-invest-change');
+
+  if(incChangeEl) incChangeEl.innerHTML = calcKpiChange(income, prevIncome, false);
+  if(expChangeEl) expChangeEl.innerHTML = calcKpiChange(expense, prevExpense, true);
+  if(balChangeEl) balChangeEl.innerHTML = calcKpiChange(balance, prevBalance, false);
+  if(invChangeEl) invChangeEl.innerHTML = calcKpiChange(invest, prevInvest, false);
 }
 
 function renderBarChart() {
   const el = document.getElementById('barChart');
   const monthLabels = Array.from({length: 12}, (_, i) => translate('month.' + i).slice(0, 3));
   const months = [];
-  for(let i=5; i>=0; i--) {
-    let m = currentPeriodMonth - i, y = currentPeriodYear;
-    while(m < 0) { m += 12; y--; }
-    months.push({m, y, label: monthLabels[m]});
+
+  if (periodAllYear) {
+    // MODO "TODO EL AÑO": Enero hasta el mes actual real (o diciembre si el año ya pasó)
+    const realNow = new Date();
+    const realYear  = realNow.getFullYear();
+    const realMonth = realNow.getMonth(); // 0-based
+    const lastMonth = (currentPeriodYear < realYear) ? 11 : realMonth;
+
+    for (let m = 0; m <= lastMonth; m++) {
+      months.push({ m, y: currentPeriodYear, label: monthLabels[m] });
+    }
+  } else {
+    // MODO MENSUAL: ventana de 6 meses anclada al mes seleccionado
+    for (let i = 5; i >= 0; i--) {
+      let m = currentPeriodMonth - i, y = currentPeriodYear;
+      while (m < 0) { m += 12; y--; }
+      months.push({ m, y, label: monthLabels[m] });
+    }
   }
-  const sums = months.map(({m,y}) => {
+
+  const todayCutoff = new Date();
+  todayCutoff.setHours(23, 59, 59, 999);
+
+  const sums = months.map(({m, y}) => {
     const slice = transactions.filter(t => {
+      if (!t.date) return false;
       const d = new Date(t.date + 'T12:00:00');
-      return d.getFullYear()===y && d.getMonth()===m;
+      if (isNaN(d.getTime())) return false;
+      // Nunca incluir fechas futuras en la gráfica
+      if (d > todayCutoff) return false;
+      return d.getFullYear() === y && d.getMonth() === m;
     });
     return {
-      income:  slice.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0),
-      expense: slice.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0)
+      income:  slice.filter(t => t.type === 'income').reduce((s, t) => s + parseFloat(t.amount || 0), 0),
+      expense: slice.filter(t => t.type === 'expense').reduce((s, t) => s + parseFloat(t.amount || 0), 0)
     };
   });
-  const maxVal = Math.max(...sums.map(s=>Math.max(s.income,s.expense)),1);
-  el.innerHTML = months.map((m,i) => {
-    const ih = Math.round((sums[i].income/maxVal)*110);
-    const eh = Math.round((sums[i].expense/maxVal)*110);
+
+  const maxVal = Math.max(...sums.map(s => Math.max(s.income, s.expense)), 1);
+
+  // En modo anual, reducir la altura de barra para que quepan más columnas
+  const barMaxH = periodAllYear ? 80 : 110;
+
+  el.innerHTML = months.map((m, i) => {
+    const ih = Math.round((sums[i].income  / maxVal) * barMaxH);
+    const eh = Math.round((sums[i].expense / maxVal) * barMaxH);
     return `<div class="bar-group">
       <div class="bars">
-        <div class="bar income-bar" style="height:${Math.max(2,ih)}px" title="${translate('kpi.income')}: ${fmt(sums[i].income)}"></div>
-        <div class="bar expense-bar" style="height:${Math.max(2,eh)}px" title="${translate('kpi.expense')}: ${fmt(sums[i].expense)}"></div>
+        <div class="bar income-bar"  style="height:${Math.max(2, ih)}px" title="${translate('kpi.income')}: ${fmt(sums[i].income)}"></div>
+        <div class="bar expense-bar" style="height:${Math.max(2, eh)}px" title="${translate('kpi.expense')}: ${fmt(sums[i].expense)}"></div>
       </div>
       <div class="bar-label">${m.label}</div>
     </div>`;
   }).join('');
 }
+
 
 function renderDonut() {
   const expenses = getTx().filter(t=>t.type==='expense');
@@ -2062,14 +2992,30 @@ function txIcon(tx) {
 }
 
 function txHTML(tx) {
-  const sign   = tx.type==='income' ? '+' : '-';
-  const cls    = tx.type==='income' ? 'pos' : tx.type==='invest' ? 'invest-cls' : 'neg';
-  const d      = new Date(tx.date + 'T12:00:00');
-  const dateStr = d.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'short'});
+  const sign      = tx.type==='income' ? '+' : '-';
+  const cls       = tx.type==='income' ? 'pos' : tx.type==='invest' ? 'invest-cls' : 'neg';
+  const d         = new Date(tx.date + 'T12:00:00');
+  const recurBadge = tx.recurring && tx.recurring !== 'none'
+    ? `<span title="${translate('modal.tx.recurring.' + tx.recurring)}" style="font-size:11px;color:var(--mint);margin-left:4px">🔄</span>`
+    : '';
+  const autoBadge = tx.autoGenerated && !(tx._groupCount > 1)
+    ? `<span title="${translate('modal.tx.autogenerated')}" style="font-size:11px;color:var(--text-muted);margin-left:4px">⚙️</span>`
+    : '';
+
+  let dateStr, groupBadge;
+  if (tx._groupCount > 1) {
+    // RENGLÓN CONSOLIDADO: badge dorado (sin rango de fechas)
+    dateStr = d.toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'short'});
+    groupBadge = `<span style="font-size:11px;color:var(--gold);background:rgba(255,195,0,0.12);border:1px solid rgba(255,195,0,0.25);padding:1px 7px;border-radius:12px;margin-left:6px;font-weight:600;white-space:nowrap;">${tx._groupCount}x en el año</span>`;
+  } else {
+    dateStr = d.toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'short'});
+    groupBadge = '';
+  }
+
   return `<div class="tx-item" onclick="txDetail(${tx.id})">
     ${txIcon(tx)}
     <div class="tx-info">
-      <div class="tx-name">${tx.desc}</div>
+      <div class="tx-name">${tx.desc}${recurBadge}${autoBadge}${groupBadge}</div>
       <div class="tx-cat">${catEmojis[tx.cat]||''} ${catLabels[tx.cat]||tx.cat}${tx.note?' · '+tx.note:''}</div>
     </div>
     <div class="tx-right">
@@ -2083,14 +3029,70 @@ function txHTML(tx) {
 }
 
 function renderRecentTx() {
-  const list = [...getTx()].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,8);
+  const list = [...getTx()].sort((a,b)=>new Date(b.date)-new Date(a.date)).slice(0,5);
   document.getElementById('recentTxList').innerHTML = list.length
     ? list.map(txHTML).join('')
     : `<div class="empty"><div class="empty-icon">📭</div>${translate('tx.empty_period')}</div>`;
 }
 
 function renderAllTx() {
-  let list = [...getTx()].sort((a,b)=>new Date(b.date)-new Date(a.date));
+  const periodTx = [...getTx()];
+  let rawList;
+
+  if (periodAllYear) {
+    // ── PASO 1: SEPARACIÓN DE LISTAS ──
+    // ocasionales: no son recurrentes ni ocurrencias generadas de una recurrencia.
+    // recurrentes: son plantilla recurrente O una ocurrencia generada de una.
+    const ocasionales = [];
+    const recurrentes = [];
+    periodTx.forEach(t => {
+      const isRecurringTx = (t.recurring && t.recurring !== 'none') || !!t.recurringParentId || !!t.autoGenerated;
+      if (isRecurringTx) recurrentes.push(t);
+      else ocasionales.push(t);
+    });
+
+    // ── PASO 2: AGRUPACIÓN ESTRICTA DE RECURRENTES ──
+    // Clave ÚNICA: descripción + categoría normalizadas. Deliberadamente NO se
+    // usa recurringParentId como clave (aunque exista), porque cuando hay dos
+    // plantillas separadas para el mismo pago real (ej. "Celular 1" creada 2 o
+    // 3 veces, cada una con su propio recurringParentId/id), usar parentId como
+    // clave las deja en grupos DISTINTOS — que es exactamente el bug reportado
+    // (una fila suelta de $52 al lado de un grupo "2x" de $104). Agrupando
+    // siempre por desc+cat, todas las variantes del mismo pago se consolidan
+    // en un único renglón, sin importar cómo estén enlazadas internamente.
+    const groups = new Map();
+    recurrentes.forEach(t => {
+      const key = 'ds_' + (t.desc || '').trim().toLowerCase() + '_' + t.cat;
+
+      if (!groups.has(key)) {
+        groups.set(key, {
+          ...t,
+          amount: parseFloat(t.amount) || 0,
+          _groupCount: 1
+        });
+      } else {
+        const g = groups.get(key);
+        g.amount += (parseFloat(t.amount) || 0);
+        g._groupCount++;
+        // La fila consolidada siempre muestra la fecha (y el id, para Detalle/Borrar)
+        // de la ocurrencia MÁS RECIENTE del grupo.
+        if (new Date(t.date) > new Date(g.date)) {
+          g.date = t.date;
+          g.id   = t.id;
+        }
+      }
+    });
+    const recurrentesAgrupadas = Array.from(groups.values());
+
+    // ── PASO 3: UNIFICACIÓN ──
+    rawList = [...ocasionales, ...recurrentesAgrupadas];
+  } else {
+    // Fuera de "Todo el año" se muestra cada transacción individual, sin agrupar.
+    rawList = periodTx;
+  }
+
+  let list = rawList.sort((a,b)=>new Date(b.date)-new Date(a.date));
+
   if(currentFilter !== 'all') {
     list = list.filter(t => t.type===currentFilter || t.cat===currentFilter);
   }
@@ -2159,9 +3161,17 @@ function txDetail(id) {
         <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase">${translate('modal.tx.label.cat')}</span>
         <span style="font-size:14px">${catEmojis[tx.cat]||'📌'} ${catLabels[tx.cat]||tx.cat}</span>
       </div>
+      <div style="display:flex;justify-content:space-between">
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase">${translate('modal.tx.label.account')}</span>
+        <span style="font-size:14px">${translate('account.' + (tx.account || 'cash'))}</span>
+      </div>
       <div>
         <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase;display:block;margin-bottom:4px">${translate('modal.tx.label.note')}</span>
         <span style="font-size:14px;color:${tx.note?'var(--text)':'var(--text-muted)'}">${tx.note||translate('tx.no_notes')}</span>
+      </div>
+      <div style="display:flex;justify-content:space-between">
+        <span style="font-size:13px;color:var(--text-sec);text-transform:uppercase">${translate('modal.tx.detail.recurring')}</span>
+        <span style="font-size:14px">${(!tx.recurring || tx.recurring==='none') ? '—' : translate('modal.tx.recurring.' + tx.recurring)}</span>
       </div>
     </div>`;
 
@@ -2183,29 +3193,128 @@ function editTransactionFromDetail() {
 
 // ══════════════════════════════════════════
 // UPCOMING PAYMENTS
+// FIX: rango estricto hoy → hoy+30 días.
+// FIX: dedup por familia de recurrencia (recurringParentId) para mostrar
+//      solo la ocurrencia más cercana de cada pago recurrente.
 // ══════════════════════════════════════════
 function renderUpcoming() {
-  // Muestra transacciones con fecha FUTURA (posteriores a hoy) como "próximos pagos"
   const today = new Date();
-  today.setHours(0,0,0,0);
+  today.setHours(0, 0, 0, 0);
 
-  const future = transactions
-    .filter(t => {
-      const d = new Date(t.date + 'T12:00:00');
-      return d > today && (t.type === 'expense' || t.type === 'invest');
+  // Límite máximo: hoy + 30 días (estricto, no 35).
+  const maxDate = new Date(today);
+  maxDate.setDate(maxDate.getDate() + 30);
+
+  // Calcular la próxima fecha basada en la regla de recurrencia (para plantillas)
+  const getNextRecurringDate = (tx) => {
+    if (!tx || !tx.date) return null;
+    const parts = tx.date.split('T')[0].split('-').map(Number);
+    if (parts.length !== 3 || parts.some(isNaN)) return null;
+    const [y, m, d] = parts; // m es 1..12
+    let origDate = new Date(y, m - 1, d);
+    origDate.setHours(0, 0, 0, 0);
+
+    // Si no es plantilla recurrente (es tx normal o es una ocurrencia generada)
+    if (!tx.recurring || tx.recurring === 'none' || tx.recurringParentId) {
+      if (origDate > today && origDate <= maxDate) return origDate;
+      if (tx.status === 'pending' && origDate <= maxDate) return origDate;
+      return null;
+    }
+
+    // Es una plantilla recurrente: calcular la PRÓXIMA fecha posterior a HOY
+    let nextDate = new Date(origDate);
+    // Avanzamos iterativamente hasta encontrar la primera fecha > hoy
+    let iter = 0;
+    while (nextDate <= today && iter < 1200) {
+      if (tx.recurring === 'monthly') {
+        const currentMonth = nextDate.getMonth();
+        const currentYear = nextDate.getFullYear();
+        // Siguiente mes
+        const nextMonth = currentMonth + 1;
+        // Obtenemos los días del próximo mes para no pasarnos (ej: 31 de feb)
+        const daysInNextMonth = new Date(currentYear, nextMonth + 1, 0).getDate();
+        nextDate = new Date(currentYear, nextMonth, Math.min(d, daysInNextMonth));
+      } else if (tx.recurring === 'yearly') {
+        nextDate.setFullYear(nextDate.getFullYear() + 1);
+      } else if (tx.recurring === 'weekly') {
+        nextDate.setDate(nextDate.getDate() + 7);
+      } else {
+        break; // Fallback por si hay otro tipo no manejado
+      }
+      iter++;
+    }
+
+    if (nextDate > today && nextDate <= maxDate) return nextDate;
+    return null;
+  };
+
+  // Mapa para deduplicar por familia de recurrencia:
+  // Clave = recurringParentId (si existe) o id de la plantilla (recurring !== 'none').
+  // Solo nos quedamos con la ocurrencia de fecha más temprana de cada familia.
+  const familyEarliest = new Map(); // familyKey → {tx, nextDate}
+  const standaloneItems = []; // tx sin recurrencia
+
+  transactions
+    .filter(tx => tx && tx.type !== 'income') // "Próximos Pagos" es solo para gastos/deudas, nunca ingresos
+    .forEach(tx => {
+      // Calcular próxima fecha del evento (solo para gastos/inversiones dentro del rango)
+      const nextDate = getNextRecurringDate(tx);
+      if (!nextDate) return;
+
+      const isRecurringOccurrence = !!tx.recurringParentId;
+      const isRecurringTemplate   = tx.recurring && tx.recurring !== 'none' && !tx.recurringParentId;
+
+      if (isRecurringOccurrence) {
+        // Ocurrencia futura real generada (ya casi no habrá con el cutoff nuevo)
+        const key = String(tx.recurringParentId);
+        const existing = familyEarliest.get(key);
+        if (!existing || nextDate < existing.nextDate) {
+          familyEarliest.set(key, { tx, nextDate });
+        }
+      } else if (isRecurringTemplate) {
+        // Plantilla recurrente directa
+        const key = 'tpl_' + String(tx.id);
+        const existing = familyEarliest.get(key);
+        if (!existing || nextDate < existing.nextDate) {
+          familyEarliest.set(key, { tx, nextDate });
+        }
+      } else {
+        // Transacción normal futura (ej: ingresada a mano para mañana)
+        standaloneItems.push({ tx, nextDate });
+      }
+    });
+
+  // Unificar: ocurrencias/plantillas más cercanas + standalone
+  const allItems = [...Array.from(familyEarliest.values()), ...standaloneItems];
+
+  // Dedup extra por (cat + monto redondeado + fecha) para eliminar duplicados
+  // de datos importados con misma fecha y categoría
+  const seenExtra = new Set();
+  const upcomingTx = allItems
+    .filter(item => {
+      const dStr = item.nextDate.toISOString().slice(0, 10);
+      const key = `${item.tx.cat}_${Math.round(parseFloat(item.tx.amount))}_${dStr}`;
+      if (seenExtra.has(key)) return false;
+      seenExtra.add(key);
+      return true;
     })
-    .sort((a,b) => new Date(a.date) - new Date(b.date))
+    .sort((a, b) => a.nextDate - b.nextDate)
     .slice(0, 5);
 
   const badge = document.getElementById('upcomingBadge');
   if(badge) {
-    const pendingWord = lang === 'en' ? (future.length !== 1 ? 'pending' : 'pending') : (future.length !== 1 ? 'pendientes' : 'pendiente');
-    badge.textContent = future.length > 0 ? `${future.length} ${pendingWord}` : '';
-    badge.style.display = future.length > 0 ? '' : 'none';
+    const pendingWord = lang === 'en'
+      ? 'pending'
+      : (upcomingTx.length !== 1 ? 'pendientes' : 'pendiente');
+    badge.textContent = upcomingTx.length > 0 ? `${upcomingTx.length} ${pendingWord}` : '';
+    badge.style.display = upcomingTx.length > 0 ? '' : 'none';
   }
 
-  if(!future.length) {
-    document.getElementById('upcomingList').innerHTML =
+  const upcomingListEl = document.getElementById('upcomingList');
+  if(!upcomingListEl) return;
+
+  if(!upcomingTx.length) {
+    upcomingListEl.innerHTML =
       `<div class="empty" style="padding:20px 0">
         <div class="empty-icon">📅</div>
         <div style="font-size:13px">${translate('upcoming.empty')}<br>
@@ -2214,19 +3323,38 @@ function renderUpcoming() {
     return;
   }
 
-  document.getElementById('upcomingList').innerHTML = future.map(t => {
-    const d = new Date(t.date + 'T12:00:00');
-    const dateStr = d.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'short', year:'numeric'});
-    const daysLeft = Math.ceil((d - today) / (1000*60*60*24));
-    const daysLabel = daysLeft === 1 ? translate('upcoming.tomorrow') : translate('upcoming.in_days').replace('{days}', daysLeft);
-    const color = daysLeft <= 3 ? 'var(--coral)' : daysLeft <= 7 ? 'var(--gold)' : 'var(--mint)';
+  upcomingListEl.innerHTML = upcomingTx.map(({ tx: t, nextDate: txDate }) => {
+    const dateStr = txDate.toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'short', year:'numeric'});
+
+    const diffTime = txDate.getTime() - today.getTime();
+    const daysLeft = Math.round(diffTime / (1000 * 60 * 60 * 24));
+
+    let daysLabel;
+    if (daysLeft === 0) {
+      daysLabel = lang === 'en' ? 'today' : 'hoy';
+    } else if (daysLeft === 1) {
+      daysLabel = translate('upcoming.tomorrow') || (lang === 'en' ? 'tomorrow' : 'mañana');
+    } else {
+      daysLabel = translate('upcoming.in_days')
+        ? translate('upcoming.in_days').replace('{days}', daysLeft)
+        : (lang === 'en' ? `in ${daysLeft} days` : `en ${daysLeft} días`);
+    }
+
+    const color = daysLeft <= 1 ? 'var(--coral)' : daysLeft <= 7 ? 'var(--gold)' : 'var(--mint)';
+    const title = t.desc || t.title || t.name || '';
+    const amount = parseFloat(t.amount) || 0;
+    const isRec = (t.recurring && t.recurring !== 'none' && t.recurring !== 'no') || t.recurringParentId ? ' 🔄' : '';
+    // Signo para UI
+    const signUI = t.type === 'income' ? '+' : '-';
+    const amountClass = t.type === 'income' ? 'pos' : '';
+
     return `<div class="upcoming-item">
       <div class="upcoming-info">
-        <div class="upcoming-name">${t.desc}</div>
+        <div class="upcoming-name">${title}${isRec}</div>
         <div class="upcoming-date">📅 ${dateStr} · <span style="color:${color};font-weight:500">${daysLabel}</span></div>
       </div>
       <div style="display:flex;align-items:center;gap:8px">
-        <div class="upcoming-amount">-${fmt(t.amount)}</div>
+        <div class="upcoming-amount ${amountClass}">${signUI}${fmt(amount)}</div>
         <button class="btn-delete" onclick="deleteTransaction(${t.id}, event)" title="${translate('btn.delete')}">✕</button>
       </div>
     </div>`;
@@ -2246,16 +3374,26 @@ function renderAlerts() {
   // 1. Alertas de presupuesto: categorias que superan el 75% de su limite
   const byCat = {};
   tx.filter(t => t.type==='expense').forEach(t => { byCat[t.cat] = (byCat[t.cat]||0) + t.amount; });
-  budgets.forEach(b => {
+  
+  const activeBudgets = getBudgetsForPeriod(currentPeriodYear, currentPeriodMonth, periodAllYear);
+  activeBudgets.forEach(b => {
     const spent = byCat[b.cat] || 0;
     if(b.limit > 0) {
       const pct = Math.round(spent / b.limit * 100);
       if(pct >= 100) {
         alerts.push({type:'warning', icon:'⚠️',
-          text:`<strong>${b.emoji} ${b.label}</strong> ha superado su límite (${pct}% — ${fmt(spent)} de ${fmt(b.limit)})`});
+          text: translate('alert.budget_exceeded')
+            .replace('{cat}', `<strong>${b.emoji} ${translate('cat.' + b.cat)}</strong>`)
+            .replace('{curr}', fmt(spent))
+            .replace('{limit}', fmt(b.limit))
+        });
       } else if(pct >= 75) {
         alerts.push({type:'warning', icon:'⚠️',
-          text:`<strong>${b.emoji} ${b.label}</strong> al ${pct}% del límite (${fmt(spent)} de ${fmt(b.limit)})`});
+          text: translate('alert.budget_warning')
+            .replace('{cat}', `<strong>${b.emoji} ${translate('cat.' + b.cat)}</strong>`)
+            .replace('{curr}', fmt(spent))
+            .replace('{limit}', fmt(b.limit))
+        });
       }
     }
   });
@@ -2544,7 +3682,7 @@ function renderGoals() {
     const remaining = Math.max(0, g.target - g.current);
     const color = goalColors[i%goalColors.length];
     const d = new Date(g.date + 'T12:00:00');
-    const dateStr = d.toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'long', year:'numeric'});
+    const dateStr = d.toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', {day:'2-digit', month:'long', year:'numeric'});
     
     let suggestionHTML = '';
     const freq = g.freq || 'monthly';
@@ -2589,6 +3727,195 @@ function renderGoals() {
 }
 
 // ══════════════════════════════════════════
+// RECURRING SUMMARY & DUP CHECK
+// FIX: Cuando es "Todo el Año", solo acumula meses desde la fecha de
+// inicio de cada recurrencia hasta el mes actual en curso.
+// NO proyecta meses futuros, NO multiplica por 12.
+// ══════════════════════════════════════════
+function renderRecurringSummary() {
+  const card = document.getElementById('recurringSummaryCard');
+  const listEl = document.getElementById('recurringSummaryList');
+  if(!card || !listEl) return;
+
+  if(!periodAllYear) {
+    card.style.display = 'none';
+    return;
+  }
+
+  // Mes actual real (hoy), para no sumar meses futuros
+  const realNow = new Date();
+  const realNowYear  = realNow.getFullYear();
+  const realNowMonth = realNow.getMonth(); // 0-based
+
+  // Solo incluir transacciones del año seleccionado que:
+  //  a) Ya ocurrieron (mes/año <= mes actual real)
+  //  b) Son plantillas recurrentes o sus ocurrencias generadas
+  const yearTx = transactions.filter(t => {
+    if(!t.date) return false;
+    const d = new Date(t.date + 'T12:00:00');
+    if(isNaN(d.getTime())) return false;
+    if(d.getFullYear() !== currentPeriodYear) return false;
+
+    // No incluir si el mes de la transacción es posterior al mes actual real
+    // (esto evita que ocurrencias generadas futuras inflen el total)
+    if(d.getFullYear() > realNowYear) return false;
+    if(d.getFullYear() === realNowYear && d.getMonth() > realNowMonth) return false;
+
+    return true;
+  });
+
+  const groups = {};
+
+  yearTx.forEach(t => {
+    const isTemplate  = t.recurring && t.recurring !== 'none' && !t.recurringParentId;
+    const isOccurrence = !!t.recurringParentId;
+
+    if(!isTemplate && !isOccurrence) return;
+
+    const amt = parseFloat(t.amount);
+    if(isNaN(amt)) return;
+
+    const catName = catLabels[t.cat] || t.cat;
+    // Clave ÚNICA: descripción + categoría (ver nota extensa en renderAllTx).
+    // No se usa recurringParentId como clave porque plantillas duplicadas del
+    // mismo pago real tienen ids distintos y quedarían en grupos separados.
+    const key = `ds_${(t.desc || '').trim().toLowerCase()}_${t.cat}`;
+
+    if(!groups[key]) {
+      groups[key] = {
+        desc: t.desc || catName,
+        cat: t.cat,
+        type: t.type,
+        count: 0,
+        total: 0
+      };
+    }
+    groups[key].count++;
+    groups[key].total += amt;
+  });
+
+  const sortedGroups = Object.values(groups).sort((a,b) => b.total - a.total);
+
+  if(sortedGroups.length === 0) {
+    listEl.innerHTML = `<div style="color:var(--text-muted);font-size:12px;text-align:center;padding:16px;" data-i18n="tx.no_recurring_this_year">No hay transacciones recurrentes este año</div>`;
+    card.style.display = 'block';
+    const emptyEl = listEl.querySelector('[data-i18n]');
+    if(emptyEl) emptyEl.textContent = translate(emptyEl.getAttribute('data-i18n'));
+    return;
+  }
+
+  listEl.innerHTML = sortedGroups.map(g => {
+    const sign = g.type === 'income' ? '+' : '-';
+    const cls  = g.type === 'income' ? 'pos' : g.type === 'invest' ? 'invest-cls' : 'neg';
+    const emoji = catEmojis[g.cat] || '📌';
+
+    return `<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)">
+      <div style="display:flex;flex-direction:column;">
+        <span style="font-size:14px;font-weight:500;">${emoji} ${g.desc}</span>
+        <span style="font-size:11px;color:var(--text-muted);">${g.count}x (${translate('modal.tx.label.recurring')})</span>
+      </div>
+      <span class="tx-amount ${cls}" style="font-weight:600;">
+        ${sign}${fmt(g.total)}
+      </span>
+    </div>`;
+  }).join('');
+
+  card.style.display = 'block';
+}
+
+function checkRecurringDuplicate(type, cat, amount, desc, excludeId) {
+  if (!desc || !amount) return null;
+  
+  const isDuplicate = transactions.find(r => 
+    r.id !== excludeId &&
+    !(r.autoGenerated || r.recurringParentId || !r.recurring || r.recurring === 'none') &&
+    r.type === type &&
+    r.cat === cat &&
+    Number(r.amount) === Number(amount) &&
+    (r.desc || "").toLowerCase().trim() === desc.toLowerCase().trim()
+  );
+  
+  return isDuplicate;
+}
+
+function checkTxInputs() {
+  const recurringEl = document.getElementById('txRecurring');
+  const descEl = document.getElementById('txDesc');
+  const amountEl = document.getElementById('txAmount');
+  const catEl = document.getElementById('txCat');
+  const warnEl = document.getElementById('txDuplicateWarning');
+  const warnTextEl = document.getElementById('txDuplicateWarningText');
+  const saveBtn = document.getElementById('txSaveBtn');
+
+  if (!recurringEl || !descEl || !amountEl || !catEl || !warnEl || !saveBtn) return;
+
+  const recurring = recurringEl.value;
+  const desc = descEl.value.trim();
+  const amount = parseFloat(amountEl.value) || 0;
+  const cat = catEl.value;
+  const type = currentType;
+
+  if (recurring === 'none' || !desc || amount <= 0) {
+    warnEl.style.display = 'none';
+    // Habilitar botón guardar normalmente
+    saveBtn.disabled = false;
+    saveBtn.style.opacity = '1';
+    saveBtn.style.cursor = 'pointer';
+    return;
+  }
+
+  const duplicate = checkRecurringDuplicate(type, cat, amount, desc, editingTxId);
+
+  if (duplicate) {
+    warnEl.style.display = 'flex';
+    if (warnTextEl) {
+      const catLabel = translate('cat.' + cat) || cat;
+      const warnKey = translate('modal.tx.duplicate_warning');
+      warnTextEl.innerHTML = warnKey
+        ? warnKey.replace('{cat}', catLabel).replace('{desc}', duplicate.desc).replace('{amount}', fmt(duplicate.amount))
+        : `⚠️ Ya existe un pago recurrente similar (<strong>${duplicate.desc}</strong> por <strong>${fmt(duplicate.amount)}</strong>) en esta categoría.`;
+    }
+    // BLOQUEANTE: deshabilitar "Guardar" hasta que el usuario elija Reemplazar o Cancelar
+    saveBtn.disabled = true;
+    saveBtn.style.opacity = '0.4';
+    saveBtn.style.cursor = 'not-allowed';
+  } else {
+    warnEl.style.display = 'none';
+    saveBtn.disabled = false;
+    saveBtn.style.opacity = '1';
+    saveBtn.style.cursor = 'pointer';
+  }
+}
+
+// Reemplaza la recurrencia existente con la nueva (elimina antigua + todas sus ocurrencias)
+function replaceExistingRecurring() {
+  window._bypassRecurringDupCheck = true;
+  // Habilitar el botón antes de llamar a saveTransaction
+  const saveBtn = document.getElementById('txSaveBtn');
+  if (saveBtn) { saveBtn.disabled = false; saveBtn.style.opacity = '1'; saveBtn.style.cursor = 'pointer'; }
+  saveTransaction();
+}
+
+// Guarda la nueva recurrencia ignorando la advertencia, conservando también la anterior
+function saveAsNewRecurring() {
+  window._bypassRecurringDupCheck = true;
+  window._saveAsNewRecurringAction = true;
+  const saveBtn = document.getElementById('txSaveBtn');
+  if (saveBtn) { saveBtn.disabled = false; saveBtn.style.opacity = '1'; saveBtn.style.cursor = 'pointer'; }
+  saveTransaction();
+}
+
+// Cancela la operación y cierra el modal sin guardar
+function cancelDuplicateAndClose() {
+  window._bypassRecurringDupCheck = false;
+  closeModal();
+}
+
+
+
+
+
+// ══════════════════════════════════════════
 // REPORTS
 // ══════════════════════════════════════════
 function switchReportTab(tab, el) {
@@ -2607,20 +3934,49 @@ function renderReports() {
   const mNames  = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
   const label   = periodAllYear ? `Todo ${currentPeriodYear}` : `${mNames[currentPeriodMonth]} ${currentPeriodYear}`;
 
+  const todayCutoff = new Date();
+  todayCutoff.setHours(23, 59, 59, 999);
+
+  // Build the rolling array depending on view mode:
+  // - "Todo el año" → Enero hasta el mes real de hoy (todos con datos reales)
+  // - Vista mensual  → ventana de 6 meses terminando en el mes seleccionado
   const rolling = [];
-  for(let i=5; i>=0; i--) {
-    let m=currentPeriodMonth-i, y=currentPeriodYear;
-    while(m<0){m+=12;y--;}
-    const sl = transactions.filter(t=>{const d=new Date(t.date+'T12:00:00');return d.getFullYear()===y&&d.getMonth()===m;});
-    rolling.push({
-      label:mNames[m],
-      income: sl.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0),
-      expense:sl.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0)
-    });
+  if (periodAllYear) {
+    const realNow   = new Date();
+    const realYear  = realNow.getFullYear();
+    const realMonth = realNow.getMonth(); // 0-based
+    const lastMonth = (currentPeriodYear < realYear) ? 11 : realMonth;
+    for (let m = 0; m <= lastMonth; m++) {
+      const sl = transactions.filter(t => {
+        if (!t.date) return false;
+        const d = new Date(t.date + 'T12:00:00');
+        return d.getFullYear() === currentPeriodYear && d.getMonth() === m && d <= todayCutoff;
+      });
+      rolling.push({
+        label: mNames[m],
+        income:  sl.filter(t => t.type === 'income').reduce((s,t)  => s + t.amount, 0),
+        expense: sl.filter(t => t.type === 'expense').reduce((s,t) => s + t.amount, 0)
+      });
+    }
+  } else {
+    for (let i = 5; i >= 0; i--) {
+      let m = currentPeriodMonth - i, y = currentPeriodYear;
+      while (m < 0) { m += 12; y--; }
+      const sl = transactions.filter(t => { const d = new Date(t.date+'T12:00:00'); return d.getFullYear()===y && d.getMonth()===m; });
+      rolling.push({
+        label: mNames[m],
+        income:  sl.filter(t => t.type === 'income').reduce((s,t)  => s + t.amount, 0),
+        expense: sl.filter(t => t.type === 'expense').reduce((s,t) => s + t.amount, 0)
+      });
+    }
   }
 
   if(currentReportTab==='monthly') {
-    const maxV=Math.max(...rolling.map(m=>Math.max(m.income,m.expense)),1);
+    const cols = rolling.length;
+    const maxV = Math.max(...rolling.map(m => Math.max(m.income, m.expense)), 1);
+    const chartTitle = periodAllYear
+      ? `Flujo mes a mes — Todo ${currentPeriodYear}`
+      : translate('report.cashflow_6m');
     document.getElementById('reportContent').innerHTML = `
       <div class="report-kpis">
         <div class="report-card"><div class="report-lbl">${translate('kpi.income')} — ${label}</div><div class="report-val" style="color:var(--mint)">${fmt(income)}</div></div>
@@ -2628,20 +3984,30 @@ function renderReports() {
         <div class="report-card"><div class="report-lbl">${translate('tx.summary.rate')}</div><div class="report-val" style="color:${rate>=20?'var(--mint)':'var(--coral)'}">${rate}%</div></div>
       </div>
       <div class="card" style="margin-bottom:16px">
-        <div class="card-title" style="margin-bottom:16px">${translate('report.cashflow_6m')}</div>
+        <div class="card-title" style="margin-bottom:16px">${chartTitle}</div>
         <div class="bar-chart">${rolling.map(m=>{const ih=Math.round((m.income/maxV)*110);const eh=Math.round((m.expense/maxV)*110);return `<div class="bar-group"><div class="bars"><div class="bar income-bar" style="height:${Math.max(2,ih)}px" title="${fmt(m.income)}"></div><div class="bar expense-bar" style="height:${Math.max(2,eh)}px" title="${fmt(m.expense)}"></div></div><div class="bar-label">${m.label}</div></div>`;}).join('')}</div>
       </div>
       <div class="card">
         <div class="card-title" style="margin-bottom:14px">${translate('report.net_balance_month')}</div>
-        <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:8px">
+        <div style="display:grid;grid-template-columns:repeat(${cols},1fr);gap:8px">
           ${rolling.map(m=>{const net=m.income-m.expense;return `<div style="text-align:center;padding:10px;background:var(--navy3);border-radius:8px"><div style="font-size:11px;color:var(--text-muted);margin-bottom:4px">${m.label}</div><div style="font-weight:600;color:${net>=0?'var(--mint)':'var(--coral)'};font-size:12px">${net>=0?'+':''}${fmt(net)}</div></div>`;}).join('')}
         </div>
       </div>`;
 
+
   } else if(currentReportTab==='annual') {
-    const yearTx   = transactions.filter(t=>new Date(t.date+'T12:00:00').getFullYear()===currentPeriodYear);
-    const yIn      = yearTx.filter(t=>t.type==='income').reduce((s,t)=>s+t.amount,0);
-    const yEx      = yearTx.filter(t=>t.type==='expense').reduce((s,t)=>s+t.amount,0);
+    const todayCutoff = new Date();
+    todayCutoff.setHours(23, 59, 59, 999);
+    
+    const yearTx = transactions.filter(t => {
+      if(!t.date) return false;
+      const d = new Date(t.date+'T12:00:00');
+      if (isNaN(d.getTime())) return false;
+      if (d > todayCutoff) return false;
+      return d.getFullYear() === currentPeriodYear;
+    });
+    const yIn      = yearTx.filter(t=>t.type==='income').reduce((s,t)=>s+parseFloat(t.amount||0),0);
+    const yEx      = yearTx.filter(t=>t.type==='expense').reduce((s,t)=>s+parseFloat(t.amount||0),0);
     const months   = new Set(yearTx.map(t=>new Date(t.date+'T12:00:00').getMonth())).size || 1;
     document.getElementById('reportContent').innerHTML = `
       <div class="report-kpis">
@@ -2687,7 +4053,9 @@ function renderReports() {
 function renderBudget() {
   const byCat = {};
   getTx().filter(t=>t.type==='expense').forEach(t=>{byCat[t.cat]=(byCat[t.cat]||0)+t.amount;});
-  const totalLimit = budgets.reduce((s,b)=>s+b.limit,0);
+  
+  const activeBudgets = getBudgetsForPeriod(currentPeriodYear, currentPeriodMonth, periodAllYear);
+  const totalLimit = activeBudgets.reduce((s,b)=>s+b.limit,0);
   const totalSpent = Object.values(byCat).reduce((s,v)=>s+v,0);
   const pct = totalLimit > 0 ? Math.round(totalSpent/totalLimit*100) : 0;
 
@@ -2700,7 +4068,7 @@ function renderBudget() {
   if(sbDet)  sbDet.textContent  = translate('budget.sidebar.left').replace('{left}', fmt(Math.max(0, totalLimit-totalSpent))).replace('{total}', fmt(totalLimit));
 
   // Budget view subtitle
-  const dMonth = new Date(currentPeriodYear, currentPeriodMonth, 1).toLocaleDateString(currentLang === 'en' ? 'en-US' : 'es-ES', {month:'long'});
+  const dMonth = new Date(currentPeriodYear, currentPeriodMonth, 1).toLocaleDateString(lang === 'en' ? 'en-US' : 'es-ES', {month:'long'});
   const cMonth = dMonth.charAt(0).toUpperCase() + dMonth.slice(1);
   const sub = document.getElementById('budget-view-subtitle');
   if(sub) sub.textContent = `${periodAllYear? translate('budget.year') + ' '+currentPeriodYear:cMonth+' '+currentPeriodYear} — ${fmt(totalLimit)} total`;
@@ -2714,7 +4082,7 @@ function renderBudget() {
       <div class="report-card"><div class="report-lbl">${translate('budget.available')}</div><div class="report-val" style="color:var(--mint)">${fmt(Math.max(0,totalLimit-Math.round(totalSpent)))}</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
-      ${budgets.map(b=>{
+      ${activeBudgets.map(b=>{
         const spent=byCat[b.cat]||0;
         const p=b.limit>0?Math.min(100,Math.round(spent/b.limit*100)):0;
         const over=spent>b.limit;
@@ -2847,10 +4215,10 @@ async function exportCSV() {
 
 async function exportData() {
   const filename = `flowmint_backup_${new Date().toISOString().slice(0,10)}.json`;
-  const jsonStr = JSON.stringify({transactions, goals, investments, budgets, currency}, null, 2);
+  const jsonStr = JSON.stringify({transactions, goals, investments, budgets, currency, budgets_by_period: budgetsByPeriod}, null, 2);
   const blob = new Blob([jsonStr], {type: 'application/json'});
 
-  // ── M\u00c9TODO 1: di\u00e1logo nativo "Guardar como" ──
+  // ── MÉTODO 1: diálogo nativo "Guardar como" ──
   if (window.showSaveFilePicker) {
     try {
       const handle = await window.showSaveFilePicker({
@@ -2860,7 +4228,7 @@ async function exportData() {
       const writable = await handle.createWritable();
       await writable.write(blob);
       await writable.close();
-      // Mostrar modal de texto como confirmaci\u00f3n/importaci\u00f3n alternativa
+      // Mostrar modal de texto como confirmación/importación alternativa
       document.getElementById('backupTextarea').value = jsonStr;
       document.getElementById('importPasteArea').style.display = 'none';
       document.getElementById('importPasteTextarea').value = '';
@@ -2871,7 +4239,7 @@ async function exportData() {
     }
   }
 
-  // ── M\u00c9TODO 2: descarga cl\u00e1sica ──
+  // ── MÉTODO 2: descarga clásica ──
   const a = document.createElement('a');
   a.href = URL.createObjectURL(blob);
   a.download = filename;
@@ -2879,7 +4247,7 @@ async function exportData() {
   a.click();
   document.body.removeChild(a);
 
-  // Mostrar modal de texto como confirmaci\u00f3n/importaci\u00f3n alternativa
+  // Mostrar modal de texto como confirmación/importación alternativa
   document.getElementById('backupTextarea').value = jsonStr;
   document.getElementById('importPasteArea').style.display = 'none';
   document.getElementById('importPasteTextarea').value = '';
@@ -2922,6 +4290,7 @@ function importFromPastedText() {
     if(data.investments) investments = data.investments;
     if(data.budgets)     budgets     = data.budgets;
     if(data.currency)    currency    = data.currency;
+    budgetsByPeriod = data.budgets_by_period || {};
 
     saveToLocalStorage();
     renderAll();
@@ -2947,6 +4316,7 @@ function importData(event) {
       if(data.investments) investments = data.investments;
       if(data.budgets)     budgets     = data.budgets;
       if(data.currency)    currency    = data.currency;
+      budgetsByPeriod = data.budgets_by_period || {};
       saveToLocalStorage();
       renderAll();
       alert(translate('alert.import_success'));
