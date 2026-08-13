@@ -141,16 +141,80 @@
   .period-all-btn:hover, .period-all-btn.active { border-color: var(--mint); color: var(--mint); background: rgba(0,200,150,0.08); }
 
   .currency-wrap { display: flex; align-items: center; gap: 4px; }
-  .currency-edit-row { display: none; align-items: center; gap: 6px; }
+  /* ── Custom Currency edit row ── */
+  .currency-edit-row {
+    display: none; align-items: center; gap: 6px;
+    flex-wrap: wrap;
+    animation: currRowIn 0.2s ease;
+  }
   .currency-edit-row.open { display: flex; }
+  @keyframes currRowIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
   .currency-edit-row input {
     background: var(--card2); border: 1px solid var(--mint);
     color: var(--text); font-family: 'DM Sans', sans-serif; font-size: 13px;
-    padding: 6px 10px; border-radius: 8px; outline: none; width: 90px; text-transform: uppercase;
+    padding: 6px 10px; border-radius: 8px; outline: none;
+    transition: border-color 0.2s;
   }
-  .currency-edit-row button {
+  .currency-edit-row input:focus { border-color: #81e6d9; box-shadow: 0 0 0 2px rgba(79,209,197,.18); }
+  #customCurrencyCode   { width: 70px;  text-transform: uppercase; }
+  #customCurrencySymbol { width: 62px; }
+  #customCurrencyRate   { width: 110px; }
+  .currency-edit-row button.curr-confirm-btn {
     background: var(--mint); border: none; color: var(--navy);
-    font-size: 12px; font-weight: 600; padding: 6px 10px; border-radius: 8px; cursor: pointer;
+    font-size: 15px; font-weight: 700; padding: 5px 11px;
+    border-radius: 8px; cursor: pointer; line-height: 1;
+    transition: background 0.18s, transform 0.12s;
+  }
+  .currency-edit-row button.curr-confirm-btn:hover {
+    background: #81e6d9; transform: scale(1.07);
+  }
+  /* ── Tooltip wrapper ── */
+  .curr-field-wrap {
+    position: relative; display: inline-flex; flex-direction: column;
+    align-items: flex-start; gap: 2px;
+  }
+  .curr-field-wrap .curr-tip-icon {
+    position: absolute; top: 50%; right: 6px; transform: translateY(-50%);
+    width: 14px; height: 14px; border-radius: 50%;
+    background: rgba(79,209,197,.22); color: var(--mint);
+    font-size: 9px; font-weight: 800; line-height: 14px; text-align: center;
+    cursor: default; user-select: none; pointer-events: auto;
+    transition: background 0.15s;
+  }
+  .curr-field-wrap:hover .curr-tip-icon,
+  .curr-field-wrap .curr-tip-icon:focus { background: var(--mint); color: var(--navy); }
+  .curr-field-wrap .curr-tooltip {
+    display: none;
+    position: absolute; top: calc(100% + 8px); left: 0; z-index: 9999;
+    width: 220px;
+    background: #1a2535;
+    border: 1px solid var(--mint);
+    border-radius: 10px;
+    padding: 9px 11px;
+    font-size: 11.5px; line-height: 1.5;
+    color: var(--text);
+    box-shadow: 0 6px 24px rgba(0,0,0,.45);
+    pointer-events: none;
+  }
+  .curr-field-wrap .curr-tooltip::before {
+    content: '';
+    position: absolute; top: -6px; left: 14px;
+    border: 6px solid transparent;
+    border-bottom-color: var(--mint);
+    border-top: none; width: 0; height: 0;
+  }
+  .curr-field-wrap:hover .curr-tooltip,
+  .curr-field-wrap:focus-within .curr-tooltip { display: block; animation: tipIn 0.15s ease; }
+  @keyframes tipIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .curr-tooltip strong { color: var(--mint); }
+  @media (max-width: 600px) {
+    .curr-field-wrap .curr-tooltip { width: 180px; font-size: 11px; }
   }
 
   .lang-switch {
@@ -580,12 +644,53 @@
             <option value="CUSTOM" data-sym="" data-rate="1">✏ Moneda personalizada…</option>
           </select>
           <div class="currency-edit-row" id="currencyEditRow">
-            <input type="text" id="customCurrencyCode" placeholder="USD" maxlength="6" oninput="this.value=this.value.toUpperCase()">
-            <input type="text" id="customCurrencySymbol" placeholder="$" maxlength="4"
-                   style="width:54px;background:var(--card2);border:1px solid var(--mint);color:var(--text);font-family:DM Sans,sans-serif;font-size:13px;padding:6px 8px;border-radius:8px;outline:none;">
-            <input type="number" id="customCurrencyRate" placeholder="Tasa vs USD" data-i18n-placeholder="currency.rate_placeholder" step="0.001"
-                   style="width:120px;background:var(--card2);border:1px solid var(--mint);color:var(--text);font-family:DM Sans,sans-serif;font-size:13px;padding:6px 8px;border-radius:8px;outline:none;">
-            <button onclick="applyCustomCurrency()">✓</button>
+            <!-- Campo 1: Código -->
+            <div class="curr-field-wrap">
+              <input type="text" id="customCurrencyCode"
+                     placeholder="ej. NZD" maxlength="6"
+                     data-placeholder-es="ej. NZD" data-placeholder-en="e.g. NZD"
+                     oninput="this.value=this.value.toUpperCase()">
+              <span class="curr-tip-icon" aria-label="ayuda">?</span>
+              <div class="curr-tooltip" id="currTooltipCode">
+                <strong>Código</strong><br>
+                Código oficial de 3 letras (ej. <strong>NZD</strong>, <strong>CHF</strong>, <strong>EUR</strong>).
+              </div>
+            </div>
+            <!-- Campo 2: Símbolo -->
+            <div class="curr-field-wrap">
+              <input type="text" id="customCurrencySymbol"
+                     placeholder="ej. NZ$" maxlength="4"
+                     data-placeholder-es="ej. NZ$" data-placeholder-en="e.g. NZ$">
+              <span class="curr-tip-icon" aria-label="ayuda">?</span>
+              <div class="curr-tooltip" id="currTooltipSymbol">
+                <strong>Símbolo</strong><br>
+                Símbolo que aparecerá en los montos (ej. <strong>NZ$</strong>, <strong>€</strong>, <strong>Fr.</strong>, <strong>£</strong>).
+              </div>
+            </div>
+            <!-- Campo 3: Nombre -->
+            <div class="curr-field-wrap">
+              <input type="text" id="customCurrencyName"
+                     placeholder="ej. Franco Suizo" maxlength="32"
+                     data-placeholder-es="ej. Franco Suizo" data-placeholder-en="e.g. Swiss Franc"
+                     style="width:130px;">
+              <span class="curr-tip-icon" aria-label="ayuda">?</span>
+              <div class="curr-tooltip" id="currTooltipName">
+                <strong>Nombre</strong><br>
+                Nombre de la moneda (ej. <strong>Franco Suizo</strong>, <strong>Dólar Neozelandés</strong>).
+              </div>
+            </div>
+            <!-- Campo 4: Tasa -->
+            <div class="curr-field-wrap">
+              <input type="number" id="customCurrencyRate"
+                     placeholder="ej. 1.65" step="0.001"
+                     data-placeholder-es="ej. 1.65" data-placeholder-en="e.g. 1.65">
+              <span class="curr-tip-icon" aria-label="ayuda">?</span>
+              <div class="curr-tooltip" id="currTooltipRate">
+                <strong>¿Cómo saber la tasa?</strong><br>
+                Busca en Google: <em>'1 USD a [Tu Moneda]'</em>. Escribe el número que te dé. Si es tu moneda base, pon <strong>1</strong>.
+              </div>
+            </div>
+            <button class="curr-confirm-btn" onclick="applyCustomCurrency()" title="Guardar moneda">✓</button>
           </div>
         </div>
       </div>
@@ -1368,7 +1473,15 @@ const translations = {
     'goal.goal': 'Meta',
     'goal.expires': 'Vence',
     'goal.remaining': 'Faltan',
-    'currency.rate_placeholder': 'Tasa vs USD',
+    'currency.rate_placeholder': 'ej. 1.65',
+    'currency.code_placeholder': 'ej. NZD',
+    'currency.sym_placeholder':  'ej. NZ$',
+    'currency.name_placeholder': 'ej. Franco Suizo',
+    'currency.tooltip_code': 'Código oficial de 3 letras de la moneda (ej. NZD para Dólar Neozelandés, CHF para Franco Suizo, EUR para Euro).',
+    'currency.tooltip_symbol': 'Símbolo que se mostrará junto a los montos en la App (ej. NZ$, €, Fr., £).',
+    'currency.tooltip_name': 'Nombre de la moneda (ej. Franco Suizo, Dólar Neozelandés).',
+    'currency.tooltip_rate': '¿Cómo saber la Tasa? Busca en Google: \'1 USD a [Tu Moneda]\' (ej. 1 USD a Franco Suizo). Coloca el número que te dé Google. Si es tu moneda base, pon 1.',
+    'currency.name_fallback': 'Personalizada',
     'modal.export.success.text': 'El archivo fue guardado en la ubicación que seleccionaste.',
     'tx.search_placeholder': 'Buscar por desc., nota, cat...',
     'currency.group_latam': 'Latinoamérica',
@@ -1651,7 +1764,15 @@ const translations = {
     'goal.goal': 'Goal',
     'goal.expires': 'Expires',
     'goal.remaining': 'Remaining',
-    'currency.rate_placeholder': 'Rate vs USD',
+    'currency.rate_placeholder': 'e.g. 1.65',
+    'currency.code_placeholder': 'e.g. NZD',
+    'currency.sym_placeholder':  'e.g. NZ$',
+    'currency.name_placeholder': 'e.g. Swiss Franc',
+    'currency.tooltip_code': 'Official 3-letter currency code (e.g., NZD for New Zealand Dollar, CHF for Swiss Franc, EUR for Euro).',
+    'currency.tooltip_symbol': 'Symbol displayed next to amounts in the app (e.g., NZ$, €, Fr., £).',
+    'currency.tooltip_name': 'Currency name (e.g., Swiss Franc, New Zealand Dollar).',
+    'currency.tooltip_rate': 'How to find the Rate? Search on Google: \'1 USD to [Your Currency]\' (e.g., 1 USD to Swiss Franc). Enter the number from Google. If it\'s your base currency, enter 1.',
+    'currency.name_fallback': 'Custom',
     'modal.export.success.text': 'The file was saved in the location you selected.',
 
     'color.mint': 'Mint Green', 'color.gold': 'Gold', 'color.purple': 'Purple',
@@ -1715,6 +1836,24 @@ function applyLanguage(newLang) {
   // Update optgroup label
   const grpLatam = document.getElementById('currencyGroupLatam');
   if(grpLatam) grpLatam.label = translate('currency.group_latam');
+
+  // ── Update custom currency input placeholders & tooltips ──
+  const codeIn = document.getElementById('customCurrencyCode');
+  const symIn  = document.getElementById('customCurrencySymbol');
+  const nameIn = document.getElementById('customCurrencyName');
+  const rateIn = document.getElementById('customCurrencyRate');
+  if(codeIn) codeIn.placeholder = translate('currency.code_placeholder') || (lang==='es'?'ej. NZD':'e.g. NZD');
+  if(symIn)  symIn.placeholder  = translate('currency.sym_placeholder')  || (lang==='es'?'ej. NZ$':'e.g. NZ$');
+  if(nameIn) nameIn.placeholder = translate('currency.name_placeholder') || (lang==='es'?'ej. Franco Suizo':'e.g. Swiss Franc');
+  if(rateIn) rateIn.placeholder = translate('currency.rate_placeholder') || (lang==='es'?'ej. 1.65':'e.g. 1.65');
+  const tipCode = document.getElementById('currTooltipCode');
+  const tipSym  = document.getElementById('currTooltipSymbol');
+  const tipName = document.getElementById('currTooltipName');
+  const tipRate = document.getElementById('currTooltipRate');
+  if(tipCode) tipCode.innerHTML = `<strong>${lang==='es'?'Código':'Code'}</strong><br>${translate('currency.tooltip_code')}`;
+  if(tipSym)  tipSym.innerHTML  = `<strong>${lang==='es'?'Símbolo':'Symbol'}</strong><br>${translate('currency.tooltip_symbol')}`;
+  if(tipName) tipName.innerHTML = `<strong>${lang==='es'?'Nombre':'Name'}</strong><br>${translate('currency.tooltip_name')}`;
+  if(tipRate) tipRate.innerHTML = `<strong>${lang==='es'?'¿Cómo saber la tasa?':'How to find the Rate?'}</strong><br>${translate('currency.tooltip_rate')}`;
 
   updateMonthOptions();
   updateCatLabels();
@@ -2005,15 +2144,41 @@ window.addEventListener('DOMContentLoaded', () => {
   document.getElementById('txDate').valueAsDate = _now;
   document.getElementById('goalDate').value = (_y + 1) + '-01-01';
 
-  // ── Step 3: Currency selector sync ──
+  // ── Step 3: Currency selector sync + restore saved custom currencies ──
   const sel = document.getElementById('currencySelect');
+
+  // Restore persisted custom currencies from localStorage
+  try {
+    const savedCustomList = JSON.parse(localStorage.getItem('fm_custom_currencies') || '[]');
+    const customSentinel  = document.querySelector('#currencySelect option[value="CUSTOM"]');
+    savedCustomList.forEach(function(c) {
+      // Only add if not already present
+      let alreadyIn = false;
+      for (let j = 0; j < sel.options.length; j++) {
+        if (sel.options[j].value === c.code) { alreadyIn = true; break; }
+      }
+      if (!alreadyIn) {
+        const opt = document.createElement('option');
+        opt.value = c.code;
+        // Use stored name if available, otherwise use language fallback
+        const restoredName = c.name || (lang === 'es' ? 'Personalizada' : 'Custom');
+        opt.text  = `${c.code} (${c.symbol}) — ${restoredName}`;
+        opt.setAttribute('data-sym',    c.symbol);
+        opt.setAttribute('data-rate',   c.rate);
+        opt.setAttribute('data-custom', 'true');
+        sel.insertBefore(opt, customSentinel);
+      }
+    });
+  } catch(e) {}
+
   let found = false;
   for(let i = 0; i < sel.options.length; i++) {
     if(sel.options[i].value === currency.code) { sel.value = currency.code; found = true; break; }
   }
   if(!found) {
+    // Fallback: show under CUSTOM sentinel (legacy behaviour)
     sel.value = 'CUSTOM';
-    sel.options[sel.options.length-1].text = `✏ ${currency.code} (${currency.symbol}) — ` + (lang === 'es' ? 'personalizado' : 'custom');
+    sel.querySelector('option[value="CUSTOM"]').text = `✏ ${currency.code} (${currency.symbol}) — ` + (lang === 'es' ? 'personalizado' : 'custom');
   }
 
   // ── Step 4: Apply language (may regenerate month <options> via updateMonthOptions) ──
@@ -4121,24 +4286,95 @@ function toggleAllYear(btn) {
 }
 
 function updateCurrency() {
-  const sel = document.getElementById('currencySelect');
-  const opt = sel.options[sel.selectedIndex];
+  const sel     = document.getElementById('currencySelect');
+  const opt     = sel.options[sel.selectedIndex];
   const editRow = document.getElementById('currencyEditRow');
-  if(opt.value === 'CUSTOM') { editRow.classList.add('open'); return; }
+  if (opt.value === 'CUSTOM') {
+    // Reset fields and open form
+    document.getElementById('customCurrencyCode').value   = '';
+    document.getElementById('customCurrencySymbol').value = '';
+    document.getElementById('customCurrencyName').value   = '';
+    document.getElementById('customCurrencyRate').value   = '';
+    editRow.classList.add('open');
+    document.getElementById('customCurrencyCode').focus();
+    return;
+  }
   editRow.classList.remove('open');
-  currency = { code:opt.value, symbol:opt.getAttribute('data-sym')||'$', rate:parseFloat(opt.getAttribute('data-rate'))||1 };
+  currency = { code: opt.value, symbol: opt.getAttribute('data-sym') || '$', rate: parseFloat(opt.getAttribute('data-rate')) || 1 };
   saveToLocalStorage();
   renderAll();
 }
 
 function applyCustomCurrency() {
-  const code   = document.getElementById('customCurrencyCode').value.trim().toUpperCase() || 'CUSTOM';
-  const symbol = document.getElementById('customCurrencySymbol').value.trim() || '$';
-  const rate   = parseFloat(document.getElementById('customCurrencyRate').value) || 1;
-  currency = {code, symbol, rate};
-  document.getElementById('currencyEditRow').classList.remove('open');
+  const code   = document.getElementById('customCurrencyCode').value.trim().toUpperCase();
+  const symbol = document.getElementById('customCurrencySymbol').value.trim();
+  const nameFld = document.getElementById('customCurrencyName').value.trim();
+  const rate   = parseFloat(document.getElementById('customCurrencyRate').value);
+
+  // Basic validation (name is optional)
+  if (!code || !symbol || isNaN(rate) || rate <= 0) {
+    const msg = (typeof lang !== 'undefined' && lang === 'en')
+      ? 'Please fill in Code, Symbol and Rate with valid values.'
+      : 'Por favor completa Código, Símbolo y Tasa con valores válidos.';
+    alert(msg);
+    return;
+  }
+
+  // Name fallback
+  const fallback = (typeof lang !== 'undefined' && lang === 'en')
+    ? (translate('currency.name_fallback') || 'Custom')
+    : (translate('currency.name_fallback') || 'Personalizada');
+  const name = nameFld || fallback;
+
+  currency = { code, symbol, rate };
+
+  // ── Build label matching native format: CODE (SYM) — Name ──
+  const label = `${code} (${symbol}) — ${name}`;
+
+  // ── Add / update option in select ──
   const sel = document.getElementById('currencySelect');
-  sel.options[sel.selectedIndex].text = `✏ ${code} (${symbol}) — personalizado`;
+  let existingOpt = null;
+  for (let i = 0; i < sel.options.length; i++) {
+    if (sel.options[i].getAttribute('data-custom') === 'true' && sel.options[i].value === code) {
+      existingOpt = sel.options[i];
+      break;
+    }
+  }
+  if (existingOpt) {
+    existingOpt.text = label;
+    existingOpt.setAttribute('data-sym',  symbol);
+    existingOpt.setAttribute('data-rate', rate);
+    existingOpt.setAttribute('data-name', name);
+    sel.value = code;
+  } else {
+    const newOpt = document.createElement('option');
+    newOpt.value = code;
+    newOpt.text  = label;
+    newOpt.setAttribute('data-sym',    symbol);
+    newOpt.setAttribute('data-rate',   rate);
+    newOpt.setAttribute('data-name',   name);
+    newOpt.setAttribute('data-custom', 'true');
+    // Insert before the CUSTOM sentinel option
+    const customSentinel = document.querySelector('#currencySelect option[value="CUSTOM"]');
+    sel.insertBefore(newOpt, customSentinel);
+    sel.value = code;
+  }
+
+  // ── Persist list of custom currencies (with name) ──
+  try {
+    let customList = JSON.parse(localStorage.getItem('fm_custom_currencies') || '[]');
+    customList = customList.filter(c => c.code !== code); // dedupe
+    customList.push({ code, symbol, rate, name });
+    localStorage.setItem('fm_custom_currencies', JSON.stringify(customList));
+  } catch(e) {}
+
+  // ── Close & reset form ──
+  document.getElementById('currencyEditRow').classList.remove('open');
+  document.getElementById('customCurrencyCode').value   = '';
+  document.getElementById('customCurrencySymbol').value = '';
+  document.getElementById('customCurrencyName').value   = '';
+  document.getElementById('customCurrencyRate').value   = '';
+
   saveToLocalStorage();
   renderAll();
 }
