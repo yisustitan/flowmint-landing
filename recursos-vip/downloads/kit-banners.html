@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n data-es="Kit de Banners y Material Gráfico — Flowmint Reseller VIP" data-en="Banner & Graphic Kit — Flowmint Reseller VIP">Kit de Banners y Material Gráfico — Flowmint Reseller VIP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #00C896;
+    --mint-glow: rgba(0, 200, 150, 0.25);
+    --gold: #F5A623;
+    --navy: #0F1B2D;
+    --navy2: #162236;
+    --navy3: #1E2F47;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.15);
+    --card: rgba(22, 34, 54, 0.95);
+    --text: #F0F4FF;
+    --text-sec: #9AABC4;
+    --radius: 16px;
+    --font-display: 'DM Serif Display', serif;
+    --font-sans: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 27, 45, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .brand-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #00ff88, var(--mint));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px var(--mint-glow);
+  }
+  .brand-logo svg { width: 20px; height: 20px; stroke: #06231a; }
+  .brand-titles { display: flex; flex-direction: column; }
+  .brand-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .brand-subtitle {
+    font-size: 11px;
+    color: var(--mint);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .btn-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--navy2);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s ease;
+  }
+  .btn-lang:hover {
+    border-color: var(--mint);
+    color: var(--mint);
+    background: var(--navy3);
+    box-shadow: 0 0 12px rgba(0, 200, 150, 0.2);
+  }
+  .btn-back { color: var(--text-sec); font-size: 13px; text-decoration: none; }
+  .btn-back:hover { color: #fff; }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-box { text-align: center; margin-bottom: 36px; }
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--mint);
+    background: rgba(0, 200, 150, 0.1);
+    border: 1px solid rgba(0, 200, 150, 0.25);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  p.subtitle { color: var(--text-sec); font-size: 15px; }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 20px;
+  }
+  .banner-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform .2s, border-color .2s;
+  }
+  .banner-card:hover {
+    transform: translateY(-3px);
+    border-color: var(--border-light);
+  }
+  .banner-card h3 {
+    font-family: var(--font-display);
+    font-size: 18px;
+    color: var(--mint);
+    margin-bottom: 8px;
+  }
+  .banner-card p {
+    color: var(--text-sec);
+    font-size: 14px;
+    margin-bottom: 20px;
+    flex-grow: 1;
+  }
+  .btn-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: var(--mint);
+    color: #06231a;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13.5px;
+    transition: transform .2s, box-shadow .2s;
+    text-decoration: none;
+  }
+  .btn-action:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 16px rgba(0, 200, 150, 0.4);
+  }
+</style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="brand-container">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <span class="brand-name">Flowmint</span>
+        <span class="brand-subtitle" data-i18n data-es="Kit de Banners VIP" data-en="VIP Banner Kit">Kit de Banners VIP</span>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
+      <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()" aria-label="Cambiar idioma">
+        <span id="langBtnText">EN | English</span>
+        <span>🌐</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="header-box">
+      <span class="badge" data-i18n data-es="RECURSOS GRÁFICOS Y MARKETING" data-en="MARKETING & GRAPHIC ASSETS">RECURSOS GRÁFICOS Y MARKETING</span>
+      <h1 data-i18n data-es="Kit de Banners y Material Gráfico" data-en="Banners & Graphic Material Kit">Kit de Banners y Material Gráfico</h1>
+      <p class="subtitle" data-i18n
+        data-es="Plantillas listas para Canva y mockups sin marca para tus campañas de captación de clientes."
+        data-en="Ready-to-use Canva templates and unbranded device mockups for your client acquisition campaigns.">
+        Plantillas listas para Canva y mockups sin marca para tus campañas de captación de clientes.
+      </p>
+    </div>
+
+    <div class="grid">
+      <div class="banner-card">
+        <div>
+          <h3 data-i18n data-es="1. Posts Cuadrados (1080x1080)" data-en="1. Square Posts (1080x1080)">1. Posts Cuadrados (1080x1080)</h3>
+          <p data-i18n
+            data-es="Plantillas editables en Canva: testimonios, características clave y llamado a la acción."
+            data-en="Editable Canva templates: client testimonials, key features, and high-converting calls to action.">
+            Plantillas editables en Canva: testimonios, características clave y llamado a la acción.
+          </p>
+        </div>
+        <a href="#" class="btn-action" onclick="alert(currentLang === 'es' ? 'Abriendo plantilla Canva...' : 'Opening Canva template...'); return false;">
+          <span data-i18n data-es="🎨 Abrir en Canva" data-en="🎨 Open in Canva">🎨 Abrir en Canva</span>
+        </a>
+      </div>
+
+      <div class="banner-card">
+        <div>
+          <h3 data-i18n data-es="2. Stories & Reels (1080x1920)" data-en="2. Stories & Reels (1080x1920)">2. Stories & Reels (1080x1920)</h3>
+          <p data-i18n
+            data-es="Formato vertical para estados de WhatsApp, Instagram Stories y videos cortos de captación."
+            data-en="Vertical 9:16 layout for WhatsApp Status, Instagram Stories, and short video acquisition hooks.">
+            Formato vertical para estados de WhatsApp, Instagram Stories y videos cortos de captación.
+          </p>
+        </div>
+        <a href="#" class="btn-action" onclick="alert(currentLang === 'es' ? 'Abriendo plantilla Canva...' : 'Opening Canva template...'); return false;">
+          <span data-i18n data-es="🎨 Abrir en Canva" data-en="🎨 Open in Canva">🎨 Abrir en Canva</span>
+        </a>
+      </div>
+
+      <div class="banner-card">
+        <div>
+          <h3 data-i18n data-es="3. Mockups de Dispositivos" data-en="3. Unbranded Device Mockups">3. Mockups de Dispositivos</h3>
+          <p data-i18n
+            data-es="Imágenes en alta resolución mostrando la web app en laptops y smartphones neutros."
+            data-en="High-res transparent PNGs showcasing the web app on modern laptops and smartphones.">
+            Imágenes en alta resolución mostrando la web app en laptops y smartphones neutros.
+          </p>
+        </div>
+        <a href="#" class="btn-action" onclick="alert(currentLang === 'es' ? 'Descargando pack de mockups...' : 'Downloading mockups pack...'); return false;">
+          <span data-i18n data-es="📥 Descargar Mockups" data-en="📥 Download Mockups">📥 Descargar Mockups</span>
+        </a>
+      </div>
+    </div>
+  </main>
+
+<script>
+let currentLang = localStorage.getItem('flowmint_lang') || 'es';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('flowmint_lang', lang);
+  document.documentElement.lang = lang;
+
+  const btnText = document.getElementById('langBtnText');
+  if (btnText) {
+    btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
+  }
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+}
+
+function toggleLanguage() {
+  setLanguage(currentLang === 'es' ? 'en' : 'es');
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(currentLang);
+});
+</script>
+
+</body>
+</html>

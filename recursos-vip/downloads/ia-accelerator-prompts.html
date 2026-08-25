@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n data-es="IA Accelerator Suite — Pack de Prompts" data-en="AI Accelerator Suite — Prompt Pack">IA Accelerator Suite — Pack de Prompts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #00C896;
+    --mint-glow: rgba(0, 200, 150, 0.25);
+    --gold: #F5A623;
+    --navy: #0F1B2D;
+    --navy2: #162236;
+    --navy3: #1E2F47;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.15);
+    --card: rgba(22, 34, 54, 0.95);
+    --text: #F0F4FF;
+    --text-sec: #9AABC4;
+    --radius: 16px;
+    --font-display: 'DM Serif Display', serif;
+    --font-sans: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 27, 45, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .brand-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #00ff88, var(--mint));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px var(--mint-glow);
+  }
+  .brand-logo svg { width: 20px; height: 20px; stroke: #06231a; }
+  .brand-titles { display: flex; flex-direction: column; }
+  .brand-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .brand-subtitle {
+    font-size: 11px;
+    color: var(--gold);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .btn-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--navy2);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s ease;
+  }
+  .btn-lang:hover {
+    border-color: var(--mint);
+    color: var(--mint);
+    background: var(--navy3);
+    box-shadow: 0 0 12px rgba(0, 200, 150, 0.2);
+  }
+  .btn-back { color: var(--text-sec); font-size: 13px; text-decoration: none; }
+  .btn-back:hover { color: #fff; }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-box { text-align: center; margin-bottom: 36px; }
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--gold);
+    background: rgba(245, 166, 35, 0.1);
+    border: 1px solid rgba(245, 166, 35, 0.3);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  p.subtitle { color: var(--text-sec); font-size: 15px; }
+
+  .prompt-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-bottom: 20px;
+    transition: transform .2s, border-color .2s;
+  }
+  .prompt-card:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-light);
+  }
+  .prompt-card h2 {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: var(--gold);
+    margin-bottom: 12px;
+  }
+  .prompt-content {
+    background: #08101a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    color: var(--text);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    white-space: pre-line;
+  }
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: linear-gradient(135deg, #ffd175, var(--gold));
+    color: #06231a;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13.5px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .copy-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 16px rgba(245, 166, 35, 0.4);
+  }
+</style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="brand-container">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <span class="brand-name">Flowmint</span>
+        <span class="brand-subtitle" data-i18n data-es="IA Prompts Suite" data-en="AI Prompts Suite">IA Prompts Suite</span>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
+      <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()" aria-label="Cambiar idioma">
+        <span id="langBtnText">EN | English</span>
+        <span>🌐</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="header-box">
+      <span class="badge" data-i18n data-es="PACK DE PROMPTS EXCLUSIVO" data-en="EXCLUSIVE PROMPT PACK">PACK DE PROMPTS EXCLUSIVO</span>
+      <h1 data-i18n data-es="IA Accelerator Suite (Prompts)" data-en="AI Accelerator Suite (Prompts)">IA Accelerator Suite (Prompts)</h1>
+      <p class="subtitle" data-i18n
+        data-es="Comandos optimizados para ChatGPT, Gemini y Claude: investigación de nichos, guiones para YouTube y generación de demanda."
+        data-en="Optimized prompts for ChatGPT, Gemini, and Claude: niche research, YouTube scripts, and client acquisition funnels.">
+        Comandos optimizados para ChatGPT, Gemini y Claude: investigación de nichos, guiones para YouTube y generación de demanda.
+      </p>
+    </div>
+
+    <!-- PROMPT 1 -->
+    <div class="prompt-card">
+      <h2 data-i18n data-es="1. Estudio de Mercado y Nichos Rentables" data-en="1. Market Research & Profitable Niches">1. Estudio de Mercado y Nichos Rentables</h2>
+      <div class="prompt-content" id="p1" data-i18n
+        data-es="Actúa como un investigador de mercados especializado en productos digitales. Analiza tendencias de búsqueda y dime: 5 nichos rentables donde las personas estén buscando soluciones de organización operativa y financiera de forma constante. Dentro de cada nicho, dame 5 problemas específicos y reales que la gente quiera resolver. Para cada problema, dime qué tipo de persona lo sufre y qué resultado concreto quiere lograr. Indícame cuáles de esos problemas son ideales para solucionar con una web app simple como FlowMint."
+        data-en="Act as a market researcher specializing in digital products. Analyze search trends and give me: 5 profitable niches where users actively search for simple financial and operational organization tools. In each niche, detail 5 urgent pain points, the target audience profile, and how an unbranded lightweight web app solves them with zero friction.">
+        Actúa como un investigador de mercados especializado en productos digitales. Analiza tendencias de búsqueda y dime: 5 nichos rentables donde las personas estén buscando soluciones de organización operativa y financiera de forma constante. Dentro de cada nicho, dame 5 problemas específicos y reales que la gente quiera resolver. Para cada problema, dime qué tipo de persona lo sufre y qué resultado concreto quiere lograr. Indícame cuáles de esos problemas son ideales para solucionar con una web app simple como FlowMint.
+      </div>
+      <button class="copy-btn" onclick="copyPrompt('p1')">
+        <span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span>
+      </button>
+    </div>
+
+    <!-- PROMPT 2 -->
+    <div class="prompt-card">
+      <h2 data-i18n data-es="2. Estrategia de Contenido Faceless para YouTube" data-en="2. Faceless YouTube Content Strategy">2. Estrategia de Contenido Faceless para YouTube</h2>
+      <div class="prompt-content" id="p2" data-i18n
+        data-es="Quiero construir un negocio digital usando YouTube como fuente automática de tráfico, sin mostrar mi rostro ni grabar mi voz. Dime qué tipo de videos de 5 a 10 minutos podría crear para atraer a freelancers y profesionales que dicen 'no sé en qué se me va el dinero'. Dame 5 títulos con alto CTR y la estructura del guion para conectar el contenido con mi herramienta web."
+        data-en="I want to build an organic traffic funnel on YouTube without showing my face or recording my voice. Suggest 5 high-CTR video topics (5-10 min) targeting freelancers and busy professionals who struggle with expense tracking, plus the exact script outline to drive traffic to my software tool.">
+        Quiero construir un negocio digital usando YouTube como fuente automática de tráfico, sin mostrar mi rostro ni grabar mi voz. Dime qué tipo de videos de 5 a 10 minutos podría crear para atraer a freelancers y profesionales que dicen 'no sé en qué se me va el dinero'. Dame 5 títulos con alto CTR y la estructura del guion para conectar el contenido con mi herramienta web.
+      </div>
+      <button class="copy-btn" onclick="copyPrompt('p2')">
+        <span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span>
+      </button>
+    </div>
+
+    <!-- PROMPT 3 -->
+    <div class="prompt-card">
+      <h2 data-i18n data-es="3. Guion Viral para Shorts / TikTok / Reels (60s)" data-en="3. Viral Short-Form Video Script (60s)">3. Guion Viral para Shorts / TikTok / Reels (60s)</h2>
+      <div class="prompt-content" id="p3" data-i18n
+        data-es="Crea un guion completo para un video vertical (Short/Reel) de 60 segundos titulado: 'Por qué dejé de usar Excel para mis finanzas'. El guion debe romper el scroll en los primeros 3 segundos, explicar 3 beneficios de una app moderna local, y cerrar con un llamado a la acción directo para probar la versión demo."
+        data-en="Write a high-retention 60-second vertical video script (Shorts/Reels/TikTok) titled: 'Why I stopped using Excel for my finances'. Include a 3-second pattern-interrupt hook, 3 clear benefits of a local browser web app, and a punchy call to action to test the demo link.">
+        Crea un guion completo para un video vertical (Short/Reel) de 60 segundos titulado: 'Por qué dejé de usar Excel para mis finanzas'. El guion debe romper el scroll en los primeros 3 segundos, explicar 3 beneficios de una app moderna local, y cerrar con un llamado a la acción directo para probar la versión demo.
+      </div>
+      <button class="copy-btn" onclick="copyPrompt('p3')">
+        <span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span>
+      </button>
+    </div>
+  </main>
+
+<script>
+let currentLang = localStorage.getItem('flowmint_lang') || 'es';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('flowmint_lang', lang);
+  document.documentElement.lang = lang;
+
+  const btnText = document.getElementById('langBtnText');
+  if (btnText) {
+    btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
+  }
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+}
+
+function toggleLanguage() {
+  setLanguage(currentLang === 'es' ? 'en' : 'es');
+}
+
+function copyPrompt(elementId) {
+  const text = document.getElementById(elementId)?.innerText || '';
+  navigator.clipboard.writeText(text).then(() => {
+    alert(currentLang === 'es' ? '¡Prompt copiado al portapapeles con éxito!' : 'Prompt copied to clipboard successfully!');
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(currentLang);
+});
+</script>
+
+</body>
+</html>

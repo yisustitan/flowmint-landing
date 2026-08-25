@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title data-i18n data-es="Guiones de Venta y Promoción — Flowmint Reseller VIP" data-en="Sales & Promotion Scripts — Flowmint Reseller VIP">Guiones de Venta y Promoción — Flowmint Reseller VIP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint: #00C896;
+    --mint-glow: rgba(0, 200, 150, 0.25);
+    --gold: #F5A623;
+    --navy: #0F1B2D;
+    --navy2: #162236;
+    --navy3: #1E2F47;
+    --border: rgba(255, 255, 255, 0.08);
+    --border-light: rgba(255, 255, 255, 0.15);
+    --card: rgba(22, 34, 54, 0.95);
+    --text: #F0F4FF;
+    --text-sec: #9AABC4;
+    --radius: 16px;
+    --font-display: 'DM Serif Display', serif;
+    --font-sans: 'DM Sans', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--navy);
+    color: var(--text);
+    font-family: var(--font-sans);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(15, 27, 45, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 28px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .brand-container {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    text-decoration: none;
+  }
+  .brand-logo {
+    width: 38px;
+    height: 38px;
+    background: linear-gradient(135deg, #00ff88, var(--mint));
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 0 16px var(--mint-glow);
+  }
+  .brand-logo svg { width: 20px; height: 20px; stroke: #06231a; }
+  .brand-titles { display: flex; flex-direction: column; }
+  .brand-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+  }
+  .brand-subtitle {
+    font-size: 11px;
+    color: var(--mint);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .nav-actions { display: flex; align-items: center; gap: 12px; }
+  .btn-lang {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--navy2);
+    border: 1px solid var(--border-light);
+    color: var(--text);
+    font-size: 12.5px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 100px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all .2s ease;
+  }
+  .btn-lang:hover {
+    border-color: var(--mint);
+    color: var(--mint);
+    background: var(--navy3);
+    box-shadow: 0 0 12px rgba(0, 200, 150, 0.2);
+  }
+  .btn-back {
+    color: var(--text-sec);
+    font-size: 13px;
+    text-decoration: none;
+  }
+  .btn-back:hover { color: #fff; }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 40px 24px 80px;
+    position: relative;
+    z-index: 1;
+  }
+  .header-box { text-align: center; margin-bottom: 36px; }
+  .badge {
+    display: inline-block;
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--mint);
+    background: rgba(0, 200, 150, 0.1);
+    border: 1px solid rgba(0, 200, 150, 0.25);
+    padding: 4px 12px;
+    border-radius: 100px;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-family: var(--font-display);
+    font-size: clamp(1.9rem, 4vw, 2.5rem);
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  p.subtitle { color: var(--text-sec); font-size: 15px; }
+
+  .script-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 26px;
+    margin-bottom: 20px;
+    transition: border-color .2s, transform .2s;
+  }
+  .script-card:hover {
+    border-color: var(--border-light);
+    transform: translateY(-2px);
+  }
+  .script-card h2 {
+    font-family: var(--font-display);
+    font-size: 19px;
+    color: var(--mint);
+    margin-bottom: 12px;
+  }
+  .script-content {
+    background: #08101a;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 16px;
+    color: var(--text);
+    font-size: 14.5px;
+    line-height: 1.6;
+    margin-bottom: 14px;
+    white-space: pre-line;
+  }
+  .copy-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--mint);
+    color: #06231a;
+    border: none;
+    padding: 10px 18px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 13.5px;
+    transition: transform .2s, box-shadow .2s;
+  }
+  .copy-btn:hover {
+    transform: scale(1.03);
+    box-shadow: 0 0 16px rgba(0, 200, 150, 0.4);
+  }
+</style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="brand-container">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <span class="brand-name">Flowmint</span>
+        <span class="brand-subtitle" data-i18n data-es="Guiones Reseller VIP" data-en="VIP Reseller Scripts">Guiones Reseller VIP</span>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
+      <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()" aria-label="Cambiar idioma">
+        <span id="langBtnText">EN | English</span>
+        <span>🌐</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="container">
+    <div class="header-box">
+      <span class="badge" data-i18n data-es="SCRIPTS DE CONVERSIÓN RÁPIDA" data-en="HIGH CONVERTING SALES SCRIPTS">SCRIPTS DE CONVERSIÓN RÁPIDA</span>
+      <h1 data-i18n data-es="Guiones de Venta y Promoción" data-en="Sales & Promotion Scripts">Guiones de Venta y Promoción</h1>
+      <p class="subtitle" data-i18n
+        data-es="Copia y pega estos mensajes en WhatsApp, Instagram DM o emails para prospectar y cerrar con confianza."
+        data-en="Copy and paste these proven scripts into WhatsApp, Instagram DM, or emails to prospect and close clients confidently.">
+        Copia y pega estos mensajes en WhatsApp, Instagram DM o emails para prospectar y cerrar con confianza.
+      </p>
+    </div>
+
+    <!-- SCRIPT 1 -->
+    <div class="script-card">
+      <h2 data-i18n data-es="1. Prospecto en Frío (WhatsApp / Redes Sociales)" data-en="1. Cold Outreach (WhatsApp / Social Media)">1. Prospecto en Frío (WhatsApp / Redes Sociales)</h2>
+      <div class="script-content" id="script1" data-i18n
+        data-es="Hola [Nombre], vi que estás usando [Herramienta actual/Excel] para tu control operativo. Estamos abriendo accesos de prueba a una nueva plataforma que automatiza esto sin pagar mensualidades. ¿Te interesa que te envíe un demo corto? Mírala 3 minutos y me cuentas si se adapta a lo que necesitas hoy."
+        data-en="Hi [Name], I noticed you use [Current Tool/Excel] to manage your daily expenses and operations. We are opening test access to a new web app that simplifies this with zero monthly fees. Would you like me to send you a quick 3-minute demo link to check it out?">
+        Hola [Nombre], vi que estás usando [Herramienta actual/Excel] para tu control operativo. Estamos abriendo accesos de prueba a una nueva plataforma que automatiza esto sin pagar mensualidades. ¿Te interesa que te envíe un demo corto? Mírala 3 minutos y me cuentas si se adapta a lo que necesitas hoy.
+      </div>
+      <button class="copy-btn" onclick="copyScript('script1')">
+        <span data-i18n data-es="📋 Copiar Guion" data-en="📋 Copy Script">📋 Copiar Guion</span>
+      </button>
+    </div>
+
+    <!-- SCRIPT 2 -->
+    <div class="script-card">
+      <h2 data-i18n data-es="2. Cierre y Presentación de Oferta" data-en="2. Offer Presentation & Closing">2. Cierre y Presentación de Oferta</h2>
+      <div class="script-content" id="script2" data-i18n
+        data-es="La versión que te muestro incluye acceso completo a las funciones principales, soporte directo y garantía de uso para 2 dispositivos simultáneos. El precio normal de herramientas similares es de $29/mes, pero por lanzamiento te la entrego con acceso vitalicio por un único pago de $XX. ¿Te envío el link de pago para activártela de una vez?"
+        data-en="The version I shared includes full lifetime access to all main features, direct support, and simultaneous use on up to 2 devices. Similar tools charge $29/month, but during launch you can grab lifetime access for a single payment of $XX. Shall I send you the payment link to activate it right now?">
+        La versión que te muestro incluye acceso completo a las funciones principales, soporte directo y garantía de uso para 2 dispositivos simultáneos. El precio normal de herramientas similares es de $29/mes, pero por lanzamiento te la entrego con acceso vitalicio por un único pago de $XX. ¿Te envío el link de pago para activártela de una vez?
+      </div>
+      <button class="copy-btn" onclick="copyScript('script2')">
+        <span data-i18n data-es="📋 Copiar Guion" data-en="📋 Copy Script">📋 Copiar Guion</span>
+      </button>
+    </div>
+
+    <!-- SCRIPT 3 -->
+    <div class="script-card">
+      <h2 data-i18n data-es="3. Pitch Rápido (30 Segundos / Elevator Pitch)" data-en="3. Fast Elevator Pitch (30 Seconds)">3. Pitch Rápido (30 Segundos / Elevator Pitch)</h2>
+      <div class="script-content" id="script3" data-i18n
+        data-es="Ayudo a emprendedores y profesionales a digitalizar su control operativo con una web app rápida, privada y sin pagar mensualidades recurrentes. Configuras tu flujo en 1 minuto y trabajas desde cualquier navegador. Te envío el acceso de prueba ahora mismo y lo revisas."
+        data-en="I help entrepreneurs and independent professionals streamline their daily finances and operations with a clean web app—100% private and zero recurring subscriptions. You can set it up in 60 seconds from any browser. I can send you instant test access right now.">
+        Ayudo a emprendedores y profesionales a digitalizar su control operativo con una web app rápida, privada y sin pagar mensualidades recurrentes. Configuras tu flujo en 1 minuto y trabajas desde cualquier navegador. Te envío el acceso de prueba ahora mismo y lo revisas.
+      </div>
+      <button class="copy-btn" onclick="copyScript('script3')">
+        <span data-i18n data-es="📋 Copiar Guion" data-en="📋 Copy Script">📋 Copiar Guion</span>
+      </button>
+    </div>
+
+    <!-- SCRIPT 4: OBJECIONES -->
+    <div class="script-card">
+      <h2 data-i18n data-es="4. Manejo de Objeciones Frecuentes" data-en="4. Common Objection Handling">4. Manejo de Objeciones Frecuentes</h2>
+
+      <p style="color:var(--gold); font-weight:600; margin-bottom:6px;" data-i18n data-es='Objeción: "¿Por qué no usar Excel o Google Sheets?"' data-en='Objection: "Why not just use Excel or Google Sheets?"'>Objeción: "¿Por qué no usar Excel o Google Sheets?"</p>
+      <div class="script-content" id="obj1" data-i18n
+        data-es="Excel es genial en la PC, pero en el móvil es incómodo y lento. FlowMint tiene la agilidad de una app moderna con la privacidad de una hoja de cálculo local."
+        data-en="Excel is fine on a desktop, but slow and clunky on a smartphone. FlowMint combines the sleek speed of a modern app with the full offline privacy of a local spreadsheet.">
+        Excel es genial en la PC, pero en el móvil es incómodo y lento. FlowMint tiene la agilidad de una app moderna con la privacidad de una hoja de cálculo local.
+      </div>
+      <button class="copy-btn" style="margin-bottom:18px;" onclick="copyScript('obj1')">
+        <span data-i18n data-es="📋 Copiar Respuesta" data-en="📋 Copy Answer">📋 Copiar Respuesta</span>
+      </button>
+
+      <p style="color:var(--gold); font-weight:600; margin-bottom:6px;" data-i18n data-es='Objeción: "¿Mis datos están seguros?"' data-en='Objection: "Are my financial records secure?"'>Objeción: "¿Mis datos están seguros?"</p>
+      <div class="script-content" id="obj2" data-i18n
+        data-es="100%. FlowMint no envía tus saldos ni tus datos a ningún servidor externo. Todo se guarda directamente en la memoria de tu navegador/dispositivo."
+        data-en="100%. FlowMint never uploads your balances or numbers to any external cloud server. Everything stays stored securely inside your browser local memory.">
+        100%. FlowMint no envía tus saldos ni tus datos a ningún servidor externo. Todo se guarda directamente en la memoria de tu navegador/dispositivo.
+      </div>
+      <button class="copy-btn" style="margin-bottom:18px;" onclick="copyScript('obj2')">
+        <span data-i18n data-es="📋 Copiar Respuesta" data-en="📋 Copy Answer">📋 Copiar Respuesta</span>
+      </button>
+
+      <p style="color:var(--gold); font-weight:600; margin-bottom:6px;" data-i18n data-es='Objeción: "No sé usar herramientas complejas."' data-en='Objection: "I am not tech-savvy."'>Objeción: "No sé usar herramientas complejas."</p>
+      <div class="script-content" id="obj3" data-i18n
+        data-es="Es 100% intuitiva. No requiere instalar nada en tu computadora ni configurar servidores. Abres el enlace en tu navegador y empiezas a usarla en menos de 60 segundos."
+        data-en="It is 100% intuitive. No software to install and no servers to configure. You just click the link in your browser and you are up and running in under 60 seconds.">
+        Es 100% intuitiva. No requiere instalar nada en tu computadora ni configurar servidores. Abres el enlace en tu navegador y empiezas a usarla en menos de 60 segundos.
+      </div>
+      <button class="copy-btn" onclick="copyScript('obj3')">
+        <span data-i18n data-es="📋 Copiar Respuesta" data-en="📋 Copy Answer">📋 Copiar Respuesta</span>
+      </button>
+    </div>
+  </main>
+
+<script>
+let currentLang = localStorage.getItem('flowmint_lang') || 'es';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('flowmint_lang', lang);
+  document.documentElement.lang = lang;
+
+  const btnText = document.getElementById('langBtnText');
+  if (btnText) {
+    btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
+  }
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+}
+
+function toggleLanguage() {
+  setLanguage(currentLang === 'es' ? 'en' : 'es');
+}
+
+function copyScript(elementId) {
+  const text = document.getElementById(elementId)?.innerText || '';
+  navigator.clipboard.writeText(text).then(() => {
+    alert(currentLang === 'es' ? '¡Guion copiado al portapapeles con éxito!' : 'Script copied to clipboard successfully!');
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(currentLang);
+});
+</script>
+
+</body>
+</html>
