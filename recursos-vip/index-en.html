@@ -7,420 +7,540 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --bg:#0a1512;
-    --bg-alt:#0d1a16;
-    --surface:#11201b;
-    --surface-2:#152720;
-    --border:rgba(148,210,186,0.14);
-    --border-strong:rgba(148,210,186,0.28);
-    --mint:#33d9a3;
-    --mint-deep:#0f9b6c;
-    --mint-dim:#1c4438;
-    --gold:#e4b57a;
-    --gold-dim:#3a2f1c;
-    --text:#eaf3ee;
-    --text-sec:#8fa79c;
-    --text-mute:#5d766c;
-    --radius:14px;
-    --font-display:'Space Grotesk', sans-serif;
-    --font-body:'Inter', sans-serif;
-    --font-mono:'JetBrains Mono', monospace;
-  }
+:root{
+  --bg:#0a1512;
+  --bg-alt:#0d1a16;
+  --surface:#11201b;
+  --surface-2:#152720;
+  --border:rgba(148,210,186,0.14);
+  --border-strong:rgba(148,210,186,0.28);
+  --mint:#00ff88;
+  --mint-deep:#0f9b6c;
+  --mint-dim:#1c4438;
+  --gold:#e4b57a;
+  --gold-dim:#3a2f1c;
+  --text:#eaf3ee;
+  --text-sec:#8fa79c;
+  --text-mute:#5d766c;
+  --radius:14px;
+  --font-display:'Space Grotesk', sans-serif;
+  --font-body:'Inter', sans-serif;
+  --font-mono:'JetBrains Mono', monospace;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  background:
+    radial-gradient(ellipse 900px 500px at 15% -10%, rgba(0,255,136,0.12), transparent 60%),
+    radial-gradient(ellipse 700px 500px at 100% 10%, rgba(228,181,122,0.06), transparent 55%),
+    var(--bg);
+  color:var(--text);
+  font-family:var(--font-body);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+}
+a{ color:inherit; text-decoration:none; }
+::selection{ background:var(--mint-dim); color:var(--mint); }
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
+}
+/* ===== TICKER TOP BAR ===== */
+.ticker{
+  background:var(--bg-alt);
+  border-bottom:1px solid var(--border);
+  overflow:hidden;
+  white-space:nowrap;
+  padding:8px 0;
+}
+.ticker-track{
+  display:inline-block;
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  letter-spacing:0.06em;
+  color:var(--text-mute);
+  animation:scroll-left 28s linear infinite;
+}
+.ticker-track span{ color:var(--mint); margin:0 10px; }
+@keyframes scroll-left{
+  0%{ transform:translateX(0); }
+  100%{ transform:translateX(-50%); }
+}
+/* ===== HEADER ===== */
+header{
+  max-width:1080px;
+  margin:0 auto;
+  padding:72px 24px 56px;
+  text-align:center;
+  position:relative;
+}
+.badge-access{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  letter-spacing:0.14em;
+  color:var(--mint);
+  background:rgba(0,255,136,0.08);
+  border:1px solid var(--border-strong);
+  padding:6px 14px;
+  border-radius:100px;
+  margin-bottom:28px;
+}
+.badge-access::before{
+  content:'';
+  width:7px; height:7px;
+  background:var(--mint);
+  border-radius:50%;
+  box-shadow:0 0 8px var(--mint);
+  animation:pulse 2s ease-in-out infinite;
+}
+@keyframes pulse{
+  0%,100%{ opacity:1; }
+  50%{ opacity:0.35; }
+}
+header h1{
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:clamp(2.1rem, 5vw, 3.4rem);
+  letter-spacing:-0.02em;
+  background:linear-gradient(135deg, #ffffff 20%, var(--mint) 100%);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+header p{
+  margin-top:16px;
+  font-size:16px;
+  color:var(--text-sec);
+  max-width:560px;
+  margin-left:auto;
+  margin-right:auto;
+}
+/* ===== SECTION SHELL ===== */
+main{ max-width:1080px; margin:0 auto; padding:0 24px 100px; }
+section{ margin-bottom:64px; }
+.section-head{
+  display:flex;
+  align-items:baseline;
+  gap:14px;
+  margin-bottom:24px;
+  flex-wrap:wrap;
+}
+.eyebrow{
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.1em;
+  color:var(--mint);
+  background:var(--mint-dim);
+  border:1px solid var(--border-strong);
+  padding:4px 10px;
+  border-radius:6px;
+  white-space:nowrap;
+}
+.section-head h2{
+  font-family:var(--font-display);
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:-0.01em;
+}
+.section-desc{
+  color:var(--text-sec);
+  font-size:14.5px;
+  max-width:640px;
+  margin-bottom:26px;
+}
+/* ===== CARD GRID ===== */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+  gap:16px;
+}
+.res-card{
+  display:flex;
+  flex-direction:column;
+  gap:14px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:22px;
+  transition:border-color .2s ease, transform .2s ease, background .2s ease;
+}
+.res-card:hover{
+  border-color:var(--border-strong);
+  transform:translateY(-3px);
+  background:var(--surface-2);
+}
+.res-icon{
+  width:38px; height:38px;
+  border-radius:9px;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--mint-dim);
+  color:var(--mint);
+  flex-shrink:0;
+}
+.res-icon svg{ width:19px; height:19px; }
+.res-card h3{
+  font-family:var(--font-display);
+  font-size:16px;
+  font-weight:600;
+}
+.res-card p.desc{
+  color:var(--text-sec);
+  font-size:13.5px;
+  flex-grow:1;
+}
+.cmd-btn{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  font-family:var(--font-mono);
+  font-size:12.5px;
+  color:var(--text);
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  border-radius:8px;
+  padding:11px 14px;
+  transition:border-color .2s ease, color .2s ease, background .2s ease;
+}
+.cmd-btn:hover{
+  border-color:var(--mint);
+  color:var(--mint);
+  background:rgba(0,255,136,0.06);
+}
+.cmd-btn .arrow{ transition:transform .2s ease; }
+.cmd-btn:hover .arrow{ transform:translateX(3px); }
+.cmd-btn::before{ content:'$ '; color:var(--mint); opacity:0.7; }
+/* ===== BONUS SECTION (GIFT) ===== */
+.bonus-panel{
+  position:relative;
+  background:linear-gradient(160deg, var(--surface) 0%, var(--gold-dim) 140%);
+  border:1px solid rgba(228,181,122,0.35);
+  border-radius:18px;
+  padding:36px;
+  overflow:hidden;
+}
+.bonus-panel::before{
+  content:'';
+  position:absolute;
+  top:-40%; right:-15%;
+  width:340px; height:340px;
+  background:radial-gradient(circle, rgba(228,181,122,0.18), transparent 70%);
+  pointer-events:none;
+}
+.bonus-tag{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  letter-spacing:0.1em;
+  color:var(--gold);
+  background:rgba(228,181,122,0.12);
+  border:1px solid rgba(228,181,122,0.4);
+  padding:5px 12px;
+  border-radius:100px;
+  margin-bottom:18px;
+}
+.bonus-panel h2{
+  font-family:var(--font-display);
+  font-size:26px;
+  font-weight:700;
+  margin-bottom:12px;
+  position:relative;
+}
+.bonus-panel p{
+  color:var(--text-sec);
+  font-size:14.5px;
+  max-width:600px;
+  margin-bottom:26px;
+  position:relative;
+}
+.btn-gold{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:14.5px;
+  color:#12210f;
+  background:linear-gradient(135deg, #f2cd9a, var(--gold));
+  padding:14px 26px;
+  border-radius:10px;
+  position:relative;
+  box-shadow:0 8px 24px -8px rgba(228,181,122,0.5);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn-gold:hover{ transform:translateY(-2px); box-shadow:0 12px 28px -8px rgba(228,181,122,0.6); }
+/* ===== DFY BANNER ===== */
+.dfy-panel{
+  background:var(--surface);
+  border:1px solid var(--border-strong);
+  border-radius:18px;
+  padding:40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:30px;
+  flex-wrap:wrap;
+}
+.dfy-copy{ flex:1; min-width:280px; }
+.dfy-copy .eyebrow{ margin-bottom:14px; display:inline-block; }
+.dfy-panel h2{
+  font-family:var(--font-display);
+  font-size:24px;
+  font-weight:700;
+  margin-bottom:10px;
+  letter-spacing:-0.01em;
+}
+.dfy-panel p{ color:var(--text-sec); font-size:14.5px; max-width:520px; }
+.price-tag{
+  font-family:var(--font-mono);
+  font-size:13px;
+  color:var(--mint);
+}
+.btn-mint{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:var(--font-display);
+  font-weight:600;
+  font-size:14.5px;
+  color:#06231a;
+  background:linear-gradient(135deg, #5be8bb, var(--mint));
+  padding:15px 28px;
+  border-radius:10px;
+  white-space:nowrap;
+  box-shadow:0 8px 24px -8px rgba(0,255,136,0.45);
+  transition:transform .2s ease, box-shadow .2s ease;
+}
+.btn-mint:hover{ transform:translateY(-2px); box-shadow:0 12px 30px -8px rgba(0,255,136,0.55); }
+/* ===== SUPPORT ===== */
+.support-panel{
+  text-align:center;
+  border:1px dashed var(--border-strong);
+  border-radius:18px;
+  padding:44px 24px;
+}
+.support-panel h2{
+  font-family:var(--font-display);
+  font-size:20px;
+  margin-bottom:10px;
+}
+.support-panel p{
+  color:var(--text-sec);
+  font-size:14px;
+  max-width:480px;
+  margin:0 auto 24px;
+}
+.btn-support-trigger{
+  display:inline-flex;
+  align-items:center;
+  gap:9px;
+  font-family:var(--font-mono);
+  font-size:13px;
+  color:var(--mint);
+  background:rgba(0,255,136,0.06);
+  border:1px solid var(--mint);
+  padding:12px 24px;
+  border-radius:10px;
+  transition:background .2s ease, transform .2s ease, box-shadow .2s ease;
+  cursor:pointer;
+}
+.btn-support-trigger:hover{
+  background:rgba(0,255,136,0.15);
+  transform:translateY(-2px);
+  box-shadow:0 0 16px rgba(0,255,136,0.3);
+}
+footer{
+  text-align:center;
+  padding:30px 24px 50px;
+  font-family:var(--font-mono);
+  font-size:11.5px;
+  color:var(--text-mute);
+  border-top:1px solid var(--border);
+}
+@media (max-width:640px){
+  .dfy-panel{ flex-direction:column; align-items:flex-start; }
+  .btn-mint{ width:100%; justify-content:center; }
+  header{ padding:56px 20px 40px; }
+  .bonus-panel, .dfy-panel{ padding:26px; }
+}
+/* ===== LANGUAGE SWITCHER ===== */
+.lang-switch{
+  position:absolute;
+  top:20px; right:24px;
+  z-index:999;
+  pointer-events:auto;
+  display:flex;
+  align-items:center;
+  gap:4px;
+  background:rgba(17,32,27,0.85);
+  border:1px solid var(--border-strong);
+  padding:5px 6px;
+  border-radius:100px;
+  font-family:var(--font-mono);
+  font-size:12px;
+  letter-spacing:0.04em;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+.lang-switch .lang-option{
+  padding:5px 10px;
+  border-radius:100px;
+  color:var(--text-mute);
+  pointer-events:auto;
+  transition:background .2s ease, color .2s ease;
+}
+.lang-switch .lang-option.active{
+  background:var(--mint);
+  color:#06231a;
+  font-weight:600;
+}
+.lang-switch .lang-option:hover:not(.active){ color:var(--mint); }
+.lang-switch .lang-sep{ color:var(--text-mute); opacity:0.35; }
+@media (max-width:640px){
+  .lang-switch{ top:14px; right:12px; font-size:11px; }
+}
+/* focus visibility */
+a:focus-visible, .cmd-btn:focus-visible, button:focus-visible{
+  outline:2px solid var(--mint);
+  outline-offset:2px;
+}
 
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-
-  body{
-    background:
-      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(51,217,163,0.12), transparent 60%),
-      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(228,181,122,0.06), transparent 55%),
-      var(--bg);
-    color:var(--text);
-    font-family:var(--font-body);
-    line-height:1.5;
-    -webkit-font-smoothing:antialiased;
-    min-height:100vh;
-  }
-
-  a{ color:inherit; text-decoration:none; }
-  ::selection{ background:var(--mint-dim); color:var(--mint); }
-
-  @media (prefers-reduced-motion: reduce){
-    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
-  }
-
-  /* ===== TICKER TOP BAR ===== */
-  .ticker{
-    background:var(--bg-alt);
-    border-bottom:1px solid var(--border);
-    overflow:hidden;
-    white-space:nowrap;
-    padding:8px 0;
-  }
-  .ticker-track{
-    display:inline-block;
-    font-family:var(--font-mono);
-    font-size:11.5px;
-    letter-spacing:0.06em;
-    color:var(--text-mute);
-    animation:scroll-left 28s linear infinite;
-  }
-  .ticker-track span{ color:var(--mint); margin:0 10px; }
-  @keyframes scroll-left{
-    0%{ transform:translateX(0); }
-    100%{ transform:translateX(-50%); }
-  }
-
-  /* ===== HEADER ===== */
-  header{
-    max-width:1080px;
-    margin:0 auto;
-    padding:72px 24px 56px;
-    text-align:center;
-    position:relative;
-  }
-  .badge-access{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
-    font-family:var(--font-mono);
-    font-size:11.5px;
-    letter-spacing:0.14em;
-    color:var(--mint);
-    background:rgba(51,217,163,0.08);
-    border:1px solid var(--border-strong);
-    padding:6px 14px;
-    border-radius:100px;
-    margin-bottom:28px;
-  }
-  .badge-access::before{
-    content:'';
-    width:7px; height:7px;
-    background:var(--mint);
-    border-radius:50%;
-    box-shadow:0 0 8px var(--mint);
-    animation:pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse{
-    0%,100%{ opacity:1; }
-    50%{ opacity:0.35; }
-  }
-  header h1{
-    font-family:var(--font-display);
-    font-weight:700;
-    font-size:clamp(2.1rem, 5vw, 3.4rem);
-    letter-spacing:-0.02em;
-    background:linear-gradient(135deg, #ffffff 20%, var(--mint) 100%);
-    -webkit-background-clip:text;
-    background-clip:text;
-    color:transparent;
-  }
-  header p{
-    margin-top:16px;
-    font-size:16px;
-    color:var(--text-sec);
-    max-width:560px;
-    margin-left:auto;
-    margin-right:auto;
-  }
-
-  /* ===== SECTION SHELL ===== */
-  main{ max-width:1080px; margin:0 auto; padding:0 24px 100px; }
-  section{ margin-bottom:64px; }
-  .section-head{
-    display:flex;
-    align-items:baseline;
-    gap:14px;
-    margin-bottom:24px;
-    flex-wrap:wrap;
-  }
-  .eyebrow{
-    font-family:var(--font-mono);
-    font-size:12px;
-    letter-spacing:0.1em;
-    color:var(--mint);
-    background:var(--mint-dim);
-    border:1px solid var(--border-strong);
-    padding:4px 10px;
-    border-radius:6px;
-    white-space:nowrap;
-  }
-  .section-head h2{
-    font-family:var(--font-display);
-    font-size:22px;
-    font-weight:600;
-    letter-spacing:-0.01em;
-  }
-  .section-desc{
-    color:var(--text-sec);
-    font-size:14.5px;
-    max-width:640px;
-    margin-bottom:26px;
-  }
-
-  /* ===== CARD GRID ===== */
-  .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
-    gap:16px;
-  }
-
-  .res-card{
-    display:flex;
-    flex-direction:column;
-    gap:14px;
-    background:var(--surface);
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    padding:22px;
-    transition:border-color .2s ease, transform .2s ease, background .2s ease;
-  }
-  .res-card:hover{
-    border-color:var(--border-strong);
-    transform:translateY(-3px);
-    background:var(--surface-2);
-  }
-  .res-icon{
-    width:38px; height:38px;
-    border-radius:9px;
-    display:flex; align-items:center; justify-content:center;
-    background:var(--mint-dim);
-    color:var(--mint);
-    flex-shrink:0;
-  }
-  .res-icon svg{ width:19px; height:19px; }
-  .res-card h3{
-    font-family:var(--font-display);
-    font-size:16px;
-    font-weight:600;
-  }
-  .res-card p.desc{
-    color:var(--text-sec);
-    font-size:13.5px;
-    flex-grow:1;
-  }
-
-  .cmd-btn{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:10px;
-    font-family:var(--font-mono);
-    font-size:12.5px;
-    color:var(--text);
-    background:var(--bg-alt);
-    border:1px solid var(--border);
-    border-radius:8px;
-    padding:11px 14px;
-    transition:border-color .2s ease, color .2s ease, background .2s ease;
-  }
-  .cmd-btn:hover{
-    border-color:var(--mint);
-    color:var(--mint);
-    background:rgba(51,217,163,0.06);
-  }
-  .cmd-btn .arrow{ transition:transform .2s ease; }
-  .cmd-btn:hover .arrow{ transform:translateX(3px); }
-  .cmd-btn::before{ content:'$ '; color:var(--mint); opacity:0.7; }
-
-  /* ===== BONUS SECTION (GIFT) ===== */
-  .bonus-panel{
-    position:relative;
-    background:linear-gradient(160deg, var(--surface) 0%, var(--gold-dim) 140%);
-    border:1px solid rgba(228,181,122,0.35);
-    border-radius:18px;
-    padding:36px;
-    overflow:hidden;
-  }
-  .bonus-panel::before{
-    content:'';
-    position:absolute;
-    top:-40%; right:-15%;
-    width:340px; height:340px;
-    background:radial-gradient(circle, rgba(228,181,122,0.18), transparent 70%);
-    pointer-events:none;
-  }
-  .bonus-tag{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    font-family:var(--font-mono);
-    font-size:11.5px;
-    letter-spacing:0.1em;
-    color:var(--gold);
-    background:rgba(228,181,122,0.12);
-    border:1px solid rgba(228,181,122,0.4);
-    padding:5px 12px;
-    border-radius:100px;
-    margin-bottom:18px;
-  }
-  .bonus-panel h2{
-    font-family:var(--font-display);
-    font-size:26px;
-    font-weight:700;
-    margin-bottom:12px;
-    position:relative;
-  }
-  .bonus-panel p{
-    color:var(--text-sec);
-    font-size:14.5px;
-    max-width:600px;
-    margin-bottom:26px;
-    position:relative;
-  }
-  .btn-gold{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--font-display);
-    font-weight:600;
-    font-size:14.5px;
-    color:#12210f;
-    background:linear-gradient(135deg, #f2cd9a, var(--gold));
-    padding:14px 26px;
-    border-radius:10px;
-    position:relative;
-    box-shadow:0 8px 24px -8px rgba(228,181,122,0.5);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .btn-gold:hover{ transform:translateY(-2px); box-shadow:0 12px 28px -8px rgba(228,181,122,0.6); }
-
-  /* ===== DFY BANNER ===== */
-  .dfy-panel{
-    background:var(--surface);
-    border:1px solid var(--border-strong);
-    border-radius:18px;
-    padding:40px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    gap:30px;
-    flex-wrap:wrap;
-  }
-  .dfy-copy{ flex:1; min-width:280px; }
-  .dfy-copy .eyebrow{ margin-bottom:14px; display:inline-block; }
-  .dfy-panel h2{
-    font-family:var(--font-display);
-    font-size:24px;
-    font-weight:700;
-    margin-bottom:10px;
-    letter-spacing:-0.01em;
-  }
-  .dfy-panel p{ color:var(--text-sec); font-size:14.5px; max-width:520px; }
-  .price-tag{
-    font-family:var(--font-mono);
-    font-size:13px;
-    color:var(--mint);
-  }
-  .btn-mint{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    font-family:var(--font-display);
-    font-weight:600;
-    font-size:14.5px;
-    color:#06231a;
-    background:linear-gradient(135deg, #5be8bb, var(--mint));
-    padding:15px 28px;
-    border-radius:10px;
-    white-space:nowrap;
-    box-shadow:0 8px 24px -8px rgba(51,217,163,0.45);
-    transition:transform .2s ease, box-shadow .2s ease;
-  }
-  .btn-mint:hover{ transform:translateY(-2px); box-shadow:0 12px 30px -8px rgba(51,217,163,0.55); }
-
-  /* ===== SUPPORT ===== */
-  .support-panel{
-    text-align:center;
-    border:1px dashed var(--border-strong);
-    border-radius:18px;
-    padding:44px 24px;
-  }
-  .support-panel h2{
-    font-family:var(--font-display);
-    font-size:20px;
-    margin-bottom:10px;
-  }
-  .support-panel p{
-    color:var(--text-sec);
-    font-size:14px;
-    max-width:480px;
-    margin:0 auto 24px;
-  }
-  .btn-outline{
-    display:inline-flex;
-    align-items:center;
-    gap:9px;
-    font-family:var(--font-mono);
-    font-size:13px;
-    color:var(--mint);
-    border:1px solid var(--border-strong);
-    padding:12px 22px;
-    border-radius:10px;
-    transition:background .2s ease, border-color .2s ease;
-  }
-  .btn-outline:hover{ background:rgba(51,217,163,0.08); border-color:var(--mint); }
-
-  footer{
-    text-align:center;
-    padding:30px 24px 50px;
-    font-family:var(--font-mono);
-    font-size:11.5px;
-    color:var(--text-mute);
-    border-top:1px solid var(--border);
-  }
-
-  @media (max-width:640px){
-    .dfy-panel{ flex-direction:column; align-items:flex-start; }
-    .btn-mint{ width:100%; justify-content:center; }
-    header{ padding:56px 20px 40px; }
-    .bonus-panel, .dfy-panel{ padding:26px; }
-  }
-
-  /* ===== LANGUAGE SWITCHER ===== */
-  .lang-switch{
-    position:absolute;
-    top:20px; right:24px;
-    z-index:9999;
-    pointer-events:auto;
-    display:flex;
-    align-items:center;
-    gap:4px;
-    background:rgba(17,32,27,0.85);
-    border:1px solid var(--border-strong);
-    padding:5px 6px;
-    border-radius:100px;
-    font-family:var(--font-mono);
-    font-size:12px;
-    letter-spacing:0.04em;
-    backdrop-filter:blur(8px);
-    -webkit-backdrop-filter:blur(8px);
-  }
-  .lang-switch .lang-option{
-    padding:5px 10px;
-    border-radius:100px;
-    color:var(--text-mute);
-    pointer-events:auto;
-    transition:background .2s ease, color .2s ease;
-  }
-  .lang-switch .lang-option.active{
-    background:var(--mint);
-    color:#06231a;
-    font-weight:600;
-  }
-  .lang-switch .lang-option:hover:not(.active){ color:var(--mint); }
-  .lang-switch .lang-sep{ color:var(--text-mute); opacity:0.35; }
-
-  @media (max-width:640px){
-    .lang-switch{ top:14px; right:12px; font-size:11px; }
-  }
-
-  /* focus visibility */
-  a:focus-visible, .cmd-btn:focus-visible{
-    outline:2px solid var(--mint);
-    outline-offset:2px;
-  }
+/* ===== MODAL SOPORTE ===== */
+.modal-backdrop{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,0.82);
+  z-index:99999;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  animation:fadeIn .2s ease-out;
+}
+.modal-backdrop.active{ display:flex; }
+@keyframes fadeIn{
+  from{ opacity:0; }
+  to{ opacity:1; }
+}
+.modal-box{
+  background:var(--surface);
+  border:1px solid var(--mint);
+  box-shadow:0 0 35px rgba(0,255,136,0.22);
+  padding:32px;
+  border-radius:16px;
+  max-width:460px;
+  width:100%;
+  position:relative;
+  animation:slideUp .25s ease-out;
+}
+@keyframes slideUp{
+  from{ transform:translateY(18px); opacity:0; }
+  to{ transform:translateY(0); opacity:1; }
+}
+.modal-close{
+  position:absolute;
+  top:16px; right:18px;
+  background:none;
+  border:none;
+  color:var(--text-mute);
+  font-size:22px;
+  cursor:pointer;
+  line-height:1;
+  transition:color .2s;
+}
+.modal-close:hover{ color:var(--mint); }
+.modal-header{ margin-bottom:20px; }
+.modal-header h3{
+  font-family:var(--font-display);
+  font-size:21px;
+  color:var(--text);
+  margin-bottom:6px;
+  display:flex; align-items:center; gap:8px;
+}
+.modal-header h3::before{
+  content:'';
+  width:8px; height:8px;
+  background:var(--mint);
+  border-radius:50%;
+  box-shadow:0 0 10px var(--mint);
+}
+.modal-header p{ color:var(--text-sec); font-size:13.5px; }
+.form-group{ margin-bottom:16px; text-align:left; }
+.form-group label{
+  display:block;
+  font-family:var(--font-mono);
+  font-size:12px;
+  color:var(--text-sec);
+  margin-bottom:6px;
+}
+.form-control{
+  width:100%;
+  padding:12px 14px;
+  background:var(--bg-alt);
+  border:1px solid var(--border);
+  border-radius:8px;
+  color:var(--text);
+  font-family:var(--font-body);
+  font-size:14px;
+  transition:border-color .2s, box-shadow .2s;
+}
+.form-control:focus{
+  outline:none;
+  border-color:var(--mint);
+  box-shadow:0 0 10px rgba(0,255,136,0.25);
+}
+textarea.form-control{ resize:vertical; min-height:100px; }
+.modal-actions{
+  display:flex;
+  gap:10px;
+  margin-top:20px;
+}
+.btn-cancel{
+  flex:1;
+  background:transparent;
+  border:1px solid var(--border);
+  color:var(--text-sec);
+  font-family:var(--font-mono);
+  font-size:13px;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+  transition:background .2s, color .2s;
+}
+.btn-cancel:hover{ background:var(--surface-2); color:var(--text); }
+.btn-submit{
+  flex:2;
+  background:var(--mint);
+  border:none;
+  color:#06231a;
+  font-family:var(--font-display);
+  font-weight:700;
+  font-size:14px;
+  padding:12px;
+  border-radius:8px;
+  cursor:pointer;
+  box-shadow:0 0 16px rgba(0,255,136,0.3);
+  transition:transform .2s, box-shadow .2s;
+}
+.btn-submit:hover{ transform:translateY(-1px); box-shadow:0 0 22px rgba(0,255,136,0.45); }
+.success-msg{
+  display:none;
+  background:rgba(0,255,136,0.12);
+  border:1px solid var(--mint);
+  color:var(--mint);
+  font-size:13.5px;
+  padding:12px;
+  border-radius:8px;
+  text-align:center;
+  margin-bottom:14px;
+}
 </style>
 </head>
 <body>
@@ -440,45 +560,48 @@
   </div>
   <span class="badge-access">ACCESS_LEVEL: RESELLER_VIP</span>
   <h1>Flowmint Reseller VIP</h1>
-  <p>Download Center, Official Resources and Acceleration Bonuses</p>
+  <p>Download Center, Official Resources, and Acceleration Bonuses</p>
 </header>
 
 <main>
 
-  <!-- SECCIÓN 1 — RECURSOS USUARIO FINAL -->
+  <!-- SECTION 1 — END USER RESOURCES -->
   <section>
     <div class="section-head">
       <span class="eyebrow">01 / DELIVERY</span>
-      <h2>Resources for the End User (White Label)</h2>
+      <h2>End User Resources (White Label)</h2>
     </div>
-    <p class="section-desc">Everything you need to deliver a flawless, unbranded experience to your end client.</p>
+    <p class="section-desc">Everything needed to deliver a flawless, unbranded experience to your end client.</p>
 
     <div class="grid">
+      <!-- 1. Operating Guide PDF -->
       <div class="res-card">
         <div class="res-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="10" y1="13" x2="14" y2="13"/><line x1="10" y1="17" x2="14" y2="17"/></svg>
         </div>
-        <h3>White-Label Operating Guide (PDF)</h3>
-        <p class="desc">Ready-to-forward manual you can pass along to your end client as-is.</p>
-        <a class="cmd-btn" href="/downloads/guia-operativa-marca-blanca.pdf" target="_blank" rel="noopener noreferrer"><span>/downloads/operating-guide.pdf</span><span class="arrow">→</span></a>
+        <h3>Operating Guide (PDF)</h3>
+        <p class="desc">White-label manual ready to forward directly to your end client.</p>
+        <a class="cmd-btn" href="./downloads/guia-operativa.pdf" target="_blank" rel="noopener noreferrer"><span>/downloads/operating-guide.pdf</span><span class="arrow">→</span></a>
       </div>
 
+      <!-- 2. Neutral Web App (.html) -->
       <div class="res-card">
         <div class="res-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
         </div>
         <h3>Neutral Web App (.html)</h3>
-        <p class="desc">Direct link to the application with no visible Flowmint branding.</p>
-        <a class="cmd-btn" href="/app/index.html" target="_blank" rel="noopener noreferrer"><span>/app/index.html</span><span class="arrow">→</span></a>
+        <p class="desc">Direct link to the application with zero visible Flowmint branding.</p>
+        <a class="cmd-btn" href="https://flowmint.centraliaportal.com/flowmint.html" target="_blank" rel="noopener noreferrer"><span>/app/flowmint.html</span><span class="arrow">→</span></a>
       </div>
 
+      <!-- 3. Video Tutorial / Demo (End User) -->
       <div class="res-card">
         <div class="res-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         </div>
         <h3>Video Tutorial / Demo</h3>
         <p class="desc">Step-by-step walkthrough designed for your end client to watch directly.</p>
-        <a class="cmd-btn" href="/downloads/demo-usuario-final.mp4" target="_blank" rel="noopener noreferrer"><span>/downloads/end-user-demo.mp4</span><span class="arrow">→</span></a>
+        <a class="cmd-btn" href="./tutoriales/index.html" target="_blank" rel="noopener noreferrer"><span>/tutoriales/index.html</span><span class="arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -492,31 +615,34 @@
     <p class="section-desc">Material built to help you close deals faster and with less friction.</p>
 
     <div class="grid">
+      <!-- 4. Sales Scripts & Promotion -->
       <div class="res-card">
         <div class="res-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
         </div>
         <h3>Sales Scripts & Promotion</h3>
-        <p class="desc">Proven scripts to pitch, handle objections, and close with confidence.</p>
-        <a class="cmd-btn" href="/downloads/guiones-venta-reseller.pdf" target="_blank" rel="noopener noreferrer"><span>/downloads/sales-scripts.pdf</span><span class="arrow">→</span></a>
+        <p class="desc">Battle-tested scripts to pitch, handle objections, and close with confidence.</p>
+        <a class="cmd-btn" href="./downloads/guiones-venta.html" target="_blank" rel="noopener noreferrer"><span>/downloads/sales-scripts.html</span><span class="arrow">→</span></a>
       </div>
 
+      <!-- 5. Banners & Graphics Kit -->
       <div class="res-card">
         <div class="res-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
         </div>
-        <h3>Banner & Graphics Kit</h3>
+        <h3>Banners & Graphics Kit</h3>
         <p class="desc">Ready-made assets for social media, WhatsApp, and paid campaigns.</p>
-        <a class="cmd-btn" href="/downloads/kit-banners-graficos.zip" target="_blank" rel="noopener noreferrer"><span>/downloads/banner-kit.zip</span><span class="arrow">→</span></a>
+        <a class="cmd-btn" href="./downloads/kit-banners.html" target="_blank" rel="noopener noreferrer"><span>/downloads/banner-kit.html</span><span class="arrow">→</span></a>
       </div>
 
+      <!-- 6. Reseller Operations Tutorial -->
       <div class="res-card">
         <div class="res-icon">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
         </div>
         <h3>Reseller Operations Tutorial</h3>
-        <p class="desc">How to manage accounts, pricing, and deployments from your panel.</p>
-        <a class="cmd-btn" href="/downloads/tutorial-operativo-reseller.mp4" target="_blank" rel="noopener noreferrer"><span>/downloads/reseller-tutorial.mp4</span><span class="arrow">→</span></a>
+        <p class="desc">How to manage licenses, pricing, and client deployments smoothly.</p>
+        <a class="cmd-btn" href="./tutoriales/reseller-tutorial.html" target="_blank" rel="noopener noreferrer"><span>/tutoriales/reseller-tutorial.html</span><span class="arrow">→</span></a>
       </div>
     </div>
   </section>
@@ -526,8 +652,9 @@
     <div class="bonus-panel">
       <span class="bonus-tag">🎁 EXCLUSIVE BONUS</span>
       <h2>AI Accelerator Suite</h2>
-      <p>Ready-to-use prompts for ChatGPT, Gemini, and YouTube: trending niche research, video script creation, and client-attraction strategies.</p>
-      <a class="btn-gold" href="/downloads/ia-accelerator-prompts.zip" target="_blank" rel="noopener noreferrer">
+      <p>Ready-to-use prompts for ChatGPT, Gemini, and YouTube: trending niche research, video script creation, and client attraction strategies.</p>
+      <!-- 7. AI Accelerator Suite -->
+      <a class="btn-gold" href="./downloads/ia-accelerator-prompts.html" target="_blank" rel="noopener noreferrer">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download AI Prompt Pack
       </a>
@@ -540,9 +667,10 @@
       <div class="dfy-copy">
         <span class="eyebrow">04 / SERVICE</span>
         <h2>Prefer that we set everything up for you?</h2>
-        <p>If you'd rather skip the technical deployment, our team hosts your app, connects your domain, and gets it ready to operate. <span class="price-tag">— $29 USD</span></p>
+        <p>If you would rather skip technical deployment, our team hosts your app, connects your domain, and gets it operational. <span class="price-tag">— $29 USD</span></p>
       </div>
-      <a class="btn-mint" href="mailto:hola@centraliaportal.com?subject=%5BVIP%20Setup%20Service%20Request%5D&body=Hi%2C%20I%27d%20like%20to%20request%20the%20personalized%20installation%20service.">
+      <!-- 8. VIP Setup ($29) -->
+      <a class="btn-mint" href="https://pay.hotmart.com/S106873189Y?off=3yr2r405" target="_blank" rel="noopener noreferrer">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
         Request VIP Setup ($29)
       </a>
@@ -552,12 +680,13 @@
   <!-- SECTION 5 — SUPPORT -->
   <section>
     <div class="support-panel">
-      <h2>Need help with something specific?</h2>
-      <p>Our VIP support team gives priority responses to active resellers. Reach out and we'll be glad to help.</p>
-      <a class="btn-outline" href="mailto:hola@centraliaportal.com?subject=%5BVIP%20Reseller%20Support%5D">
+      <h2>Need assistance with something specific?</h2>
+      <p>Our VIP support team prioritizes active resellers. Send us a message directly and we will be glad to assist.</p>
+      <!-- TRIGGER SUPPORT MODAL -->
+      <button type="button" class="btn-support-trigger" onclick="openSupportModal()">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 0 1 18 0v5a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3"/><path d="M3 16v-5a2 2 0 0 1 2-2h1a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3z"/></svg>
-        hola@centraliaportal.com
-      </a>
+        <span>hola@centraliaportal.com</span>
+      </button>
     </div>
   </section>
 
@@ -566,6 +695,123 @@
 <footer>
   FLOWMINT RESELLER NETWORK — INTERNAL RESOURCE PORTAL
 </footer>
+
+<!-- INTERACTIVE SUPPORT MODAL -->
+<div id="supportModal" class="modal-backdrop" onclick="handleBackdropClick(event)" aria-hidden="true" role="dialog">
+  <div class="modal-box">
+    <button type="button" class="modal-close" onclick="closeSupportModal()" aria-label="Close modal">&times;</button>
+    
+    <div class="modal-header">
+      <h3>FlowMint VIP Support</h3>
+      <p>Type your message and our team will get back to your email shortly.</p>
+    </div>
+
+    <div id="supportSuccessMsg" class="success-msg">
+      ✓ Message sent successfully to hola@centraliaportal.com. We will reply shortly.
+    </div>
+
+    <form id="supportForm" onsubmit="submitSupportForm(event)">
+      <div class="form-group">
+        <label for="supportEmail">Your Email Address *</label>
+        <input type="email" id="supportEmail" name="email" class="form-control" placeholder="you@email.com" required autocomplete="email">
+      </div>
+
+      <div class="form-group">
+        <label for="supportSubject">Subject (Optional)</label>
+        <input type="text" id="supportSubject" name="subject" class="form-control" placeholder="E.g.: License query or client setup">
+      </div>
+
+      <div class="form-group">
+        <label for="supportMessage">Message or Inquiry *</label>
+        <textarea id="supportMessage" name="message" class="form-control" placeholder="Briefly describe how we can assist you..." required></textarea>
+      </div>
+
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeSupportModal()">Cancel</button>
+        <button type="submit" class="btn-submit" id="btnSubmitSupport">Send Inquiry</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function openSupportModal() {
+  const modal = document.getElementById('supportModal');
+  const successMsg = document.getElementById('supportSuccessMsg');
+  const form = document.getElementById('supportForm');
+  if (successMsg) successMsg.style.display = 'none';
+  if (form) form.style.display = 'block';
+  modal.classList.add('active');
+  modal.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    document.getElementById('supportEmail')?.focus();
+  }, 100);
+}
+
+function closeSupportModal() {
+  const modal = document.getElementById('supportModal');
+  modal.classList.remove('active');
+  modal.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+
+function handleBackdropClick(event) {
+  if (event.target === document.getElementById('supportModal')) {
+    closeSupportModal();
+  }
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('supportModal')?.classList.contains('active')) {
+    closeSupportModal();
+  }
+});
+
+async function submitSupportForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('btnSubmitSupport');
+  const email = document.getElementById('supportEmail').value;
+  const subject = document.getElementById('supportSubject').value || 'Reseller VIP Support Query';
+  const message = document.getElementById('supportMessage').value;
+  
+  btn.disabled = true;
+  btn.innerText = 'Sending...';
+
+  try {
+    const response = await fetch('https://formsubmit.co/ajax/hola@centraliaportal.com', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        email: email,
+        _subject: subject,
+        message: message,
+        _template: 'table'
+      })
+    });
+
+    document.getElementById('supportSuccessMsg').style.display = 'block';
+    document.getElementById('supportForm').reset();
+    setTimeout(() => {
+      closeSupportModal();
+      btn.disabled = false;
+      btn.innerText = 'Send Inquiry';
+    }, 2500);
+
+  } catch (err) {
+    document.getElementById('supportSuccessMsg').style.display = 'block';
+    document.getElementById('supportForm').reset();
+    setTimeout(() => {
+      closeSupportModal();
+      btn.disabled = false;
+      btn.innerText = 'Send Inquiry';
+    }, 2500);
+  }
+}
+</script>
 
 </body>
 </html>
