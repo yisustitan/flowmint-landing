@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title data-i18n data-es="FlowMint — Video Tutorial Operativo (Reseller VIP)" data-en="FlowMint — Reseller Operations Video Tutorial">FlowMint — Video Tutorial Operativo (Reseller VIP)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --mint: #00C896;
+      --mint-glow: rgba(0, 200, 150, 0.25);
+      --gold: #F5A623;
+      --navy: #0F1B2D;
+      --navy2: #162236;
+      --navy3: #1E2F47;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(255, 255, 255, 0.15);
+      --card: rgba(22, 34, 54, 0.95);
+      --text: #F0F4FF;
+      --text-sec: #9AABC4;
+      --radius: 16px;
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+      --font-display: 'DM Serif Display', serif;
+      --font-sans: 'DM Sans', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font-sans);
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(15, 27, 45, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 40px;
+      height: 40px;
+      background: linear-gradient(135deg, #00ff88, var(--mint));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px var(--mint-glow);
+    }
+
+    .brand-logo svg { width: 22px; height: 22px; stroke: #06231a; }
+    .brand-titles { display: flex; flex-direction: column; }
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      letter-spacing: -0.5px;
+      line-height: 1.1;
+    }
+
+    .brand-subtitle {
+      font-family: var(--font-sans);
+      font-size: 11.5px;
+      color: var(--gold);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .nav-actions { display: flex; align-items: center; gap: 12px; }
+
+    .btn-lang {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--navy2);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 7px 14px;
+      border-radius: 100px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .2s ease;
+    }
+
+    .btn-lang:hover {
+      border-color: var(--mint);
+      color: var(--mint);
+      background: var(--navy3);
+      box-shadow: 0 0 12px rgba(0, 200, 150, 0.2);
+    }
+
+    .btn-back-portal {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--text-sec);
+      font-size: 13px;
+      text-decoration: none;
+      padding: 7px 12px;
+    }
+    .btn-back-portal:hover { color: #ffffff; }
+
+    .main-container {
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-header { text-align: center; margin-bottom: 40px; }
+    .hero-badge {
+      display: inline-block;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      color: var(--gold);
+      background: rgba(245, 166, 35, 0.1);
+      border: 1px solid rgba(245, 166, 35, 0.3);
+      padding: 5px 14px;
+      border-radius: 100px;
+      margin-bottom: 16px;
+      letter-spacing: 0.08em;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      color: #ffffff;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-desc {
+      color: var(--text-sec);
+      font-size: 15.5px;
+      max-width: 620px;
+      margin: 0 auto;
+    }
+
+    /* ===== VIDEO PLAYER CONTAINER ===== */
+    .video-card {
+      background: var(--card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: var(--shadow);
+      margin-bottom: 48px;
+    }
+
+    .video-screen {
+      width: 100%;
+      aspect-ratio: 16/9;
+      background: #08101a;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .real-video-player {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      display: block;
+      background: #000;
+    }
+
+    .video-status-bar {
+      margin-top: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      color: var(--text-sec);
+    }
+    .video-lang-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--gold);
+    }
+    .video-lang-indicator::before {
+      content: '';
+      width: 8px; height: 8px;
+      background: var(--gold);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--gold);
+    }
+
+    .section-subtitle {
+      font-family: var(--font-display);
+      font-size: 24px;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .modules-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 40px;
+    }
+
+    .module-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      transition: border-color .2s, transform .2s;
+    }
+    .module-item:hover {
+      border-color: var(--border-light);
+      transform: translateY(-2px);
+    }
+
+    .module-info h3 { font-size: 17px; font-weight: 600; color: #ffffff; margin-bottom: 4px; }
+    .module-info p { color: var(--text-sec); font-size: 14px; }
+
+    .module-tag {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--gold);
+      background: rgba(245, 166, 35, 0.12);
+      border: 1px solid rgba(245, 166, 35, 0.25);
+      padding: 5px 12px;
+      border-radius: 6px;
+      white-space: nowrap;
+    }
+
+    footer {
+      text-align: center;
+      padding: 30px 24px;
+      color: var(--text-sec);
+      font-size: 12px;
+      font-family: var(--font-mono);
+      border-top: 1px solid var(--border);
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="top-nav">
+    <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="brand-container">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <span class="brand-name">Flowmint</span>
+        <span class="brand-subtitle" data-i18n data-es="Panel de Operaciones Reseller" data-en="Reseller Operations Panel">Panel de Operaciones Reseller</span>
+      </div>
+    </a>
+
+    <div class="nav-actions">
+      <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back-portal" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
+      <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()" aria-label="Cambiar idioma">
+        <span id="langBtnText">EN | English</span>
+        <span>🌐</span>
+      </button>
+    </div>
+  </nav>
+
+  <main class="main-container">
+    <div class="hero-header">
+      <span class="hero-badge" data-i18n data-es="TUTORIAL OPERATIVO EXCLUSIVO" data-en="EXCLUSIVE OPERATIONS TUTORIAL">TUTORIAL OPERATIVO EXCLUSIVO</span>
+      <h1 class="hero-title" data-i18n data-es="Operación y Despliegue Reseller" data-en="Reseller Deployment & Operations">Operación y Despliegue Reseller</h1>
+      <p class="hero-desc" data-i18n
+        data-es="Domina la entrega de licencias, fijación de precios, entrega con marca blanca y atención a clientes."
+        data-en="Master license fulfillment, pricing structure, white-label client handoff, and customer onboarding.">
+        Domina la entrega de licencias, fijación de precios, entrega con marca blanca y atención a clientes.
+      </p>
+    </div>
+
+    <!-- REPRODUCTOR DE VIDEO REAL CON CONMUTACIÓN DINÁMICA -->
+    <div class="video-card">
+      <div class="video-screen">
+        <video id="resellerVideoPlayer" class="real-video-player" controls preload="metadata"
+          data-video-es="https://flowmint.centraliaportal.com/recursos-vip/downloads/tutorial-operativo-reseller.mp4"
+          data-video-en="https://flowmint.centraliaportal.com/recursos-vip/downloads/tutorial-operativo-reseller-en.mp4"
+          poster="https://flowmint.centraliaportal.com/recursos-vip/downloads/poster-reseller.jpg">
+          <source id="resellerVideoSource" src="https://flowmint.centraliaportal.com/recursos-vip/downloads/tutorial-operativo-reseller.mp4" type="video/mp4">
+          Tu navegador no soporta reproducción directa de video HTML5.
+        </video>
+      </div>
+      <div class="video-status-bar">
+        <span class="video-lang-indicator" id="resellerLangIndicator">Audio & Subtítulos: Español (ES)</span>
+        <span>1080p HD Masterclass</span>
+      </div>
+    </div>
+
+    <h2 class="section-subtitle" data-i18n data-es="Temario del Entrenamiento" data-en="Training Syllabus">Temario del Entrenamiento</h2>
+    <div class="modules-list">
+      <div class="module-item">
+        <div class="module-info">
+          <h3 data-i18n data-es="Módulo 1: Entrega de Licencias y Enlace Neutro" data-en="Module 1: License Delivery & Neutral Link">Módulo 1: Entrega de Licencias y Enlace Neutro</h3>
+          <p data-i18n
+            data-es="Cómo suministrar el acceso limpio a tu cliente final sin logos ni intermediarios."
+            data-en="How to provide clean web app access to your end client with zero logos or friction.">
+            Cómo suministrar el acceso limpio a tu cliente final sin logos ni intermediarios.
+          </p>
+        </div>
+        <span class="module-tag">05:20 min</span>
+      </div>
+
+      <div class="module-item">
+        <div class="module-info">
+          <h3 data-i18n data-es="Módulo 2: Estructura de Precios y Cobro Único" data-en="Module 2: Pricing Strategy & One-Time Fee">Módulo 2: Estructura de Precios y Cobro Único</h3>
+          <p data-i18n
+            data-es="Estrategias probadas de precio ($17 - $47 USD) para maximizar conversiones y ventas inmediatas."
+            data-en="Proven pricing tiers ($17 - $47 USD) to maximize checkout conversions and upfront revenue.">
+            Estrategias probadas de precio ($17 - $47 USD) para maximizar conversiones y ventas inmediatas.
+          </p>
+        </div>
+        <span class="module-tag">08:45 min</span>
+      </div>
+
+      <div class="module-item">
+        <div class="module-info">
+          <h3 data-i18n data-es="Módulo 3: Servicio Done-For-You y Soporte" data-en="Module 3: Done-For-You Setup & Support">Módulo 3: Servicio Done-For-You y Soporte</h3>
+          <p data-i18n
+            data-es="Cómo coordinar instalaciones personalizadas o resolver dudas frecuentes con tu soporte VIP."
+            data-en="How to coordinate custom deployments or handle common end-user questions with VIP support.">
+            Cómo coordinar instalaciones personalizadas o resolver dudas frecuentes con tu soporte VIP.
+          </p>
+        </div>
+        <span class="module-tag">06:15 min</span>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <span data-i18n data-es="FLOWMINT RESELLER NETWORK — PORTAL DE RECURSOS INTERNO" data-en="FLOWMINT RESELLER NETWORK — INTERNAL RESOURCE PORTAL">FLOWMINT RESELLER NETWORK — PORTAL DE RECURSOS INTERNO</span>
+  </footer>
+
+<script>
+let currentLang = localStorage.getItem('flowmint_lang') || 'es';
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem('flowmint_lang', lang);
+  document.documentElement.lang = lang;
+
+  const btnText = document.getElementById('langBtnText');
+  if (btnText) {
+    btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
+  }
+
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text) el.innerHTML = text;
+  });
+
+  // Conmutación real de la fuente del video
+  updateResellerVideoPlayer(lang);
+}
+
+function toggleLanguage() {
+  setLanguage(currentLang === 'es' ? 'en' : 'es');
+}
+
+function updateResellerVideoPlayer(lang) {
+  const video = document.getElementById('resellerVideoPlayer');
+  const source = document.getElementById('resellerVideoSource');
+  const indicator = document.getElementById('resellerLangIndicator');
+  if (!video) return;
+
+  const targetSrc = video.getAttribute('data-video-' + lang);
+  if (targetSrc && video.src !== targetSrc) {
+    const wasPlaying = !video.paused;
+    const currentTime = video.currentTime;
+    
+    video.src = targetSrc;
+    if (source) source.src = targetSrc;
+    video.load();
+
+    if (currentTime > 0) {
+      video.currentTime = currentTime;
+    }
+    if (wasPlaying) {
+      video.play().catch(() => {});
+    }
+  }
+
+  if (indicator) {
+    indicator.innerText = (lang === 'es') ? 'Audio & Subtítulos: Español (ES)' : 'Audio & Captions: English (EN)';
+  }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  setLanguage(currentLang);
+});
+</script>
+
+</body>
+</html>
