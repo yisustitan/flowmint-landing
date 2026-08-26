@@ -3,192 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n data-es="IA Accelerator Suite — Pack de Prompts" data-en="AI Accelerator Suite — Prompt Pack">IA Accelerator Suite — Pack de Prompts</title>
+<title data-i18n data-es="IA Accelerator Suite — Librería de Prompts" data-en="AI Accelerator Suite — Prompt Library">IA Accelerator Suite — Librería de Prompts</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --mint: #00C896;
-    --mint-glow: rgba(0, 200, 150, 0.25);
-    --gold: #F5A623;
-    --navy: #0F1B2D;
-    --navy2: #162236;
-    --navy3: #1E2F47;
-    --border: rgba(255, 255, 255, 0.08);
-    --border-light: rgba(255, 255, 255, 0.15);
-    --card: rgba(22, 34, 54, 0.95);
-    --text: #F0F4FF;
-    --text-sec: #9AABC4;
+    --mint: #00C896; --mint-glow: rgba(0,200,150,0.25); --gold: #F5A623;
+    --navy: #0F1B2D; --navy2: #162236; --navy3: #1E2F47;
+    --border: rgba(255,255,255,0.08); --border-light: rgba(255,255,255,0.15);
+    --card: rgba(22,34,54,0.95); --text: #F0F4FF; --text-sec: #9AABC4;
     --radius: 16px;
     --font-display: 'DM Serif Display', serif;
     --font-sans: 'DM Sans', sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--navy);
-    color: var(--text);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
+  body { background: var(--navy); color: var(--text); font-family: var(--font-sans); line-height: 1.6; min-height: 100vh; }
   body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
+    content: ''; position: fixed; inset: 0;
+    background: radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0,200,150,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245,166,35,0.08) 0%, transparent 50%);
+    pointer-events: none; z-index: 0;
   }
-
   .top-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(15, 27, 45, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
+    position: sticky; top: 0; z-index: 100;
+    background: rgba(15,27,45,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border); padding: 16px 28px;
+    display: flex; align-items: center; justify-content: space-between; gap: 20px;
   }
-  .brand-container {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    text-decoration: none;
-  }
-  .brand-logo {
-    width: 38px;
-    height: 38px;
-    background: linear-gradient(135deg, #00ff88, var(--mint));
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 16px var(--mint-glow);
-  }
+  .brand-container { display: flex; align-items: center; gap: 14px; text-decoration: none; }
+  .brand-logo { width: 38px; height: 38px; background: linear-gradient(135deg,#00ff88,var(--mint)); border-radius: 10px; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 16px var(--mint-glow); }
   .brand-logo svg { width: 20px; height: 20px; stroke: #06231a; }
   .brand-titles { display: flex; flex-direction: column; }
-  .brand-name {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-  }
-  .brand-subtitle {
-    font-size: 11px;
-    color: var(--gold);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
+  .brand-name { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: #fff; letter-spacing: -0.5px; line-height: 1.1; }
+  .brand-subtitle { font-size: 11px; color: var(--gold); letter-spacing: 0.05em; text-transform: uppercase; font-weight: 600; }
   .nav-actions { display: flex; align-items: center; gap: 12px; }
-  .btn-lang {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--navy2);
-    border: 1px solid var(--border-light);
-    color: var(--text);
-    font-size: 12.5px;
-    font-weight: 600;
-    padding: 7px 14px;
-    border-radius: 100px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all .2s ease;
-  }
-  .btn-lang:hover {
-    border-color: var(--mint);
-    color: var(--mint);
-    background: var(--navy3);
-    box-shadow: 0 0 12px rgba(0, 200, 150, 0.2);
-  }
+  .btn-lang { display: inline-flex; align-items: center; gap: 6px; background: var(--navy2); border: 1px solid var(--border-light); color: var(--text); font-size: 12.5px; font-weight: 600; padding: 7px 14px; border-radius: 100px; cursor: pointer; transition: all .2s ease; }
+  .btn-lang:hover { border-color: var(--mint); color: var(--mint); background: var(--navy3); box-shadow: 0 0 12px rgba(0,200,150,0.2); }
   .btn-back { color: var(--text-sec); font-size: 13px; text-decoration: none; }
   .btn-back:hover { color: #fff; }
 
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-    position: relative;
-    z-index: 1;
-  }
-  .header-box { text-align: center; margin-bottom: 36px; }
-  .badge {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--gold);
-    background: rgba(245, 166, 35, 0.1);
-    border: 1px solid rgba(245, 166, 35, 0.3);
-    padding: 4px 12px;
-    border-radius: 100px;
-    margin-bottom: 12px;
-  }
-  h1 {
-    font-family: var(--font-display);
-    font-size: clamp(1.9rem, 4vw, 2.5rem);
-    color: #fff;
-    margin-bottom: 8px;
-  }
-  p.subtitle { color: var(--text-sec); font-size: 15px; }
+  .container { max-width: 960px; margin: 0 auto; padding: 40px 24px 80px; position: relative; z-index: 1; }
+  .header-box { text-align: center; margin-bottom: 40px; }
+  .badge { display: inline-block; font-family: var(--font-mono); font-size: 11.5px; color: var(--gold); background: rgba(245,166,35,0.1); border: 1px solid rgba(245,166,35,0.3); padding: 4px 12px; border-radius: 100px; margin-bottom: 12px; }
+  h1 { font-family: var(--font-display); font-size: clamp(1.9rem,4vw,2.6rem); color: #fff; margin-bottom: 8px; }
+  p.subtitle { color: var(--text-sec); font-size: 15px; max-width: 640px; margin: 0 auto; }
 
-  .prompt-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 26px;
-    margin-bottom: 20px;
-    transition: transform .2s, border-color .2s;
+  .cat-section { margin-bottom: 44px; }
+  .cat-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 20px;
+    padding-bottom: 12px; border-bottom: 1px solid var(--border-light);
   }
-  .prompt-card:hover {
-    transform: translateY(-2px);
-    border-color: var(--border-light);
-  }
-  .prompt-card h2 {
-    font-family: var(--font-display);
-    font-size: 19px;
-    color: var(--gold);
-    margin-bottom: 12px;
-  }
-  .prompt-content {
-    background: #08101a;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 16px;
-    color: var(--text);
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 14px;
-    white-space: pre-line;
-  }
-  .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: linear-gradient(135deg, #ffd175, var(--gold));
-    color: #06231a;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 13.5px;
-    transition: transform .2s, box-shadow .2s;
-  }
-  .copy-btn:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 16px rgba(245, 166, 35, 0.4);
-  }
+  .cat-icon { font-size: 22px; }
+  .cat-header h2 { font-family: var(--font-display); font-size: 21px; color: var(--gold); }
+
+  .prompt-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; margin-bottom: 16px; transition: border-color .2s, transform .2s; }
+  .prompt-card:hover { border-color: var(--border-light); transform: translateY(-2px); }
+  .prompt-card h3 { font-family: var(--font-display); font-size: 17px; color: var(--mint); margin-bottom: 10px; }
+  .prompt-content { background: #08101a; border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; color: var(--text); font-size: 14px; line-height: 1.65; margin-bottom: 12px; white-space: pre-line; }
+  .copy-btn { display: inline-flex; align-items: center; gap: 8px; background: linear-gradient(135deg,#ffd175,var(--gold)); color: #06231a; border: none; padding: 9px 16px; border-radius: 8px; cursor: pointer; font-weight: 700; font-size: 13px; transition: transform .2s, box-shadow .2s; }
+  .copy-btn:hover { transform: scale(1.03); box-shadow: 0 0 14px rgba(245,166,35,0.4); }
 </style>
 </head>
 <body>
@@ -205,65 +79,147 @@
         <span class="brand-subtitle" data-i18n data-es="IA Prompts Suite" data-en="AI Prompts Suite">IA Prompts Suite</span>
       </div>
     </a>
-
     <div class="nav-actions">
       <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
       <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()" aria-label="Cambiar idioma">
-        <span id="langBtnText">EN | English</span>
-        <span>🌐</span>
+        <span id="langBtnText">EN | English</span><span>🌐</span>
       </button>
     </div>
   </nav>
 
   <main class="container">
     <div class="header-box">
-      <span class="badge" data-i18n data-es="PACK DE PROMPTS EXCLUSIVO" data-en="EXCLUSIVE PROMPT PACK">PACK DE PROMPTS EXCLUSIVO</span>
-      <h1 data-i18n data-es="IA Accelerator Suite (Prompts)" data-en="AI Accelerator Suite (Prompts)">IA Accelerator Suite (Prompts)</h1>
+      <span class="badge" data-i18n data-es="LIBRERÍA COMPLETA DE PROMPTS" data-en="COMPLETE PROMPT LIBRARY">LIBRERÍA COMPLETA DE PROMPTS</span>
+      <h1 data-i18n data-es="IA Accelerator Suite" data-en="AI Accelerator Suite">IA Accelerator Suite</h1>
       <p class="subtitle" data-i18n
-        data-es="Comandos optimizados para ChatGPT, Gemini y Claude: investigación de nichos, guiones para YouTube y generación de demanda."
-        data-en="Optimized prompts for ChatGPT, Gemini, and Claude: niche research, YouTube scripts, and client acquisition funnels.">
-        Comandos optimizados para ChatGPT, Gemini y Claude: investigación de nichos, guiones para YouTube y generación de demanda.
+        data-es="Prompts avanzados para ChatGPT, Gemini, Claude y herramientas visuales IA. Organizados en 4 categorías de producción digital."
+        data-en="Advanced prompts for ChatGPT, Gemini, Claude, and AI visual tools. Organized in 4 digital production categories.">
+        Prompts avanzados para ChatGPT, Gemini, Claude y herramientas visuales IA. Organizados en 4 categorías de producción digital.
       </p>
     </div>
 
-    <!-- PROMPT 1 -->
-    <div class="prompt-card">
-      <h2 data-i18n data-es="1. Estudio de Mercado y Nichos Rentables" data-en="1. Market Research & Profitable Niches">1. Estudio de Mercado y Nichos Rentables</h2>
-      <div class="prompt-content" id="p1" data-i18n
-        data-es="Actúa como un investigador de mercados especializado en productos digitales. Analiza tendencias de búsqueda y dime: 5 nichos rentables donde las personas estén buscando soluciones de organización operativa y financiera de forma constante. Dentro de cada nicho, dame 5 problemas específicos y reales que la gente quiera resolver. Para cada problema, dime qué tipo de persona lo sufre y qué resultado concreto quiere lograr. Indícame cuáles de esos problemas son ideales para solucionar con una web app simple como FlowMint."
-        data-en="Act as a market researcher specializing in digital products. Analyze search trends and give me: 5 profitable niches where users actively search for simple financial and operational organization tools. In each niche, detail 5 urgent pain points, the target audience profile, and how an unbranded lightweight web app solves them with zero friction.">
-        Actúa como un investigador de mercados especializado en productos digitales. Analiza tendencias de búsqueda y dime: 5 nichos rentables donde las personas estén buscando soluciones de organización operativa y financiera de forma constante. Dentro de cada nicho, dame 5 problemas específicos y reales que la gente quiera resolver. Para cada problema, dime qué tipo de persona lo sufre y qué resultado concreto quiere lograr. Indícame cuáles de esos problemas son ideales para solucionar con una web app simple como FlowMint.
+    <!-- CATEGORÍA 1: GUIONES DE VIDEO -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">🎬</span>
+        <h2 data-i18n data-es="Categoría 1: Guiones de Video (YouTube / Shorts / Reels)" data-en="Category 1: Video Scripts (YouTube / Shorts / Reels)">Categoría 1: Guiones de Video</h2>
       </div>
-      <button class="copy-btn" onclick="copyPrompt('p1')">
-        <span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span>
-      </button>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Guión Narrativo Largo (2,500 palabras — Storytelling)" data-en="Long Narrative Script (2,500 words — Storytelling)">Guión Narrativo Largo (2,500 palabras)</h3>
+        <div class="prompt-content" id="p1a" data-i18n
+          data-es="Actúa como guionista profesional especializado en contenido de finanzas personales y tecnología para YouTube. Escribe un guión narrativo completo de 2,500 palabras para un video titulado: '[TÍTULO]'. El guión debe tener: 1) Un gancho emocional de 30 segundos que conecte con el dolor del espectador. 2) Una historia de transformación en 3 actos. 3) Explicación paso a paso de la solución con analogías simples. 4) Datos y estadísticas creíbles intercalados. 5) Un cierre con llamado a la acción claro. Escribe en un tono conversacional, como si hablaras directamente con un amigo."
+          data-en="Act as a professional scriptwriter specialized in personal finance and technology content for YouTube. Write a complete 2,500-word narrative script for a video titled: '[TITLE]'. The script must include: 1) A 30-second emotional hook connecting with the viewer's pain. 2) A transformation story in 3 acts. 3) Step-by-step explanation of the solution with simple analogies. 4) Credible statistics and data woven throughout. 5) A closing with a clear call to action. Write in a conversational tone, as if speaking directly to a friend.">
+          Actúa como guionista profesional especializado en contenido de finanzas personales y tecnología para YouTube. Escribe un guión narrativo completo de 2,500 palabras para un video titulado: '[TÍTULO]'. El guión debe tener: 1) Un gancho emocional de 30 segundos que conecte con el dolor del espectador. 2) Una historia de transformación en 3 actos. 3) Explicación paso a paso de la solución con analogías simples. 4) Datos y estadísticas creíbles intercalados. 5) Un cierre con llamado a la acción claro. Escribe en un tono conversacional, como si hablaras directamente con un amigo.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p1a')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Extracción de Escenas Visuales Segundo a Segundo" data-en="Second-by-Second Visual Scene Extraction">Escenas Visuales Segundo a Segundo</h3>
+        <div class="prompt-content" id="p1b" data-i18n
+          data-es="Tengo este guión de video: [PEGA EL GUIÓN]. Por favor, extrae y describe cada escena visual que debería aparecer en pantalla, segundo a segundo. Para cada escena indica: tiempo exacto (00:00-00:05), descripción visual detallada (qué mostrar en pantalla: texto, imágenes, gráficos, capturas de pantalla, B-roll sugerido), y la emoción o impacto que debe transmitir esa escena. Formatea el resultado como una tabla de producción lista para edición."
+          data-en="I have this video script: [PASTE SCRIPT]. Please extract and describe every visual scene that should appear on screen, second by second. For each scene include: exact time (00:00-00:05), detailed visual description (what to show: text, images, graphics, screenshots, suggested B-roll), and the emotion or impact that scene should convey. Format the result as a production table ready for video editing.">
+          Tengo este guión de video: [PEGA EL GUIÓN]. Por favor, extrae y describe cada escena visual que debería aparecer en pantalla, segundo a segundo. Para cada escena indica: tiempo exacto (00:00-00:05), descripción visual detallada (qué mostrar en pantalla: texto, imágenes, gráficos, capturas de pantalla, B-roll sugerido), y la emoción o impacto que debe transmitir esa escena. Formatea el resultado como una tabla de producción lista para edición.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p1b')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Guión Viral de Shorts/Reels (60 seg.) basado en Competencia" data-en="Viral Shorts/Reels Script (60 sec.) Based on Competitor">Guión Viral de 60 Segundos Basado en Competencia</h3>
+        <div class="prompt-content" id="p1c" data-i18n
+          data-es="Analiza el siguiente video de YouTube de la competencia: [URL o descripción del video]. Identifica: su estructura de gancho, el tipo de edición implícita, los puntos de retención clave y el llamado a la acción final. Luego crea un guión de 60 segundos para Shorts/Reels sobre el tema '[TEMA]' que use la misma estructura de alta retención pero con contenido 100% original y diferente. Incluye los textos exactos que aparecerían en pantalla (B-roll de texto) y las instrucciones de edición para el creador."
+          data-en="Analyze the following competitor YouTube video: [URL or video description]. Identify: hook structure, implied editing style, key retention points, and final call to action. Then create a 60-second Shorts/Reels script on the topic '[TOPIC]' using the same high-retention structure but with 100% original and differentiated content. Include exact on-screen text (text B-roll) and editing instructions for the creator.">
+          Analiza el siguiente video de YouTube de la competencia: [URL o descripción del video]. Identifica: su estructura de gancho, el tipo de edición implícita, los puntos de retención clave y el llamado a la acción final. Luego crea un guión de 60 segundos para Shorts/Reels sobre el tema '[TEMA]' que use la misma estructura de alta retención pero con contenido 100% original y diferente. Incluye los textos exactos que aparecerían en pantalla (B-roll de texto) y las instrucciones de edición para el creador.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p1c')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
     </div>
 
-    <!-- PROMPT 2 -->
-    <div class="prompt-card">
-      <h2 data-i18n data-es="2. Estrategia de Contenido Faceless para YouTube" data-en="2. Faceless YouTube Content Strategy">2. Estrategia de Contenido Faceless para YouTube</h2>
-      <div class="prompt-content" id="p2" data-i18n
-        data-es="Quiero construir un negocio digital usando YouTube como fuente automática de tráfico, sin mostrar mi rostro ni grabar mi voz. Dime qué tipo de videos de 5 a 10 minutos podría crear para atraer a freelancers y profesionales que dicen 'no sé en qué se me va el dinero'. Dame 5 títulos con alto CTR y la estructura del guion para conectar el contenido con mi herramienta web."
-        data-en="I want to build an organic traffic funnel on YouTube without showing my face or recording my voice. Suggest 5 high-CTR video topics (5-10 min) targeting freelancers and busy professionals who struggle with expense tracking, plus the exact script outline to drive traffic to my software tool.">
-        Quiero construir un negocio digital usando YouTube como fuente automática de tráfico, sin mostrar mi rostro ni grabar mi voz. Dime qué tipo de videos de 5 a 10 minutos podría crear para atraer a freelancers y profesionales que dicen 'no sé en qué se me va el dinero'. Dame 5 títulos con alto CTR y la estructura del guion para conectar el contenido con mi herramienta web.
+    <!-- CATEGORÍA 2: EBOOKS Y GUÍAS DIGITALES -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">📘</span>
+        <h2 data-i18n data-es="Categoría 2: Ebooks y Guías Digitales (Gamma AI & ChatGPT)" data-en="Category 2: Ebooks & Digital Guides (Gamma AI & ChatGPT)">Categoría 2: Ebooks y Guías Digitales</h2>
       </div>
-      <button class="copy-btn" onclick="copyPrompt('p2')">
-        <span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span>
-      </button>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Guía PDF Interactiva de 10-12 Capítulos para Gamma AI" data-en="10-12 Chapter Interactive PDF Guide for Gamma AI">Guía PDF de 10-12 Capítulos (Gamma AI)</h3>
+        <div class="prompt-content" id="p2a" data-i18n
+          data-es="Actúa como diseñador instruccional y experto en marketing digital. Voy a crear una guía educativa en Gamma AI sobre el tema: '[TEMA]'. Genera el esquema completo de 10-12 capítulos con: título de cada capítulo, subtítulo descriptivo, 3-5 puntos clave que se cubrirán, un ejercicio práctico o plantilla descargable por capítulo, y una frase de apertura impactante para cada sección. El estilo debe ser dinámico, directo y apto para profesionales hispanohablantes. Incluye una portada, introducción motivacional y página de cierre con próximos pasos."
+          data-en="Act as an instructional designer and digital marketing expert. I am creating an educational guide in Gamma AI on the topic: '[TOPIC]'. Generate the complete 10-12 chapter outline with: chapter title, descriptive subtitle, 3-5 key points to be covered, a practical exercise or downloadable template per chapter, and an impactful opening line for each section. The style should be dynamic, direct, and suitable for English-speaking professionals. Include a cover, motivational introduction, and closing page with next steps.">
+          Actúa como diseñador instruccional y experto en marketing digital. Voy a crear una guía educativa en Gamma AI sobre el tema: '[TEMA]'. Genera el esquema completo de 10-12 capítulos con: título de cada capítulo, subtítulo descriptivo, 3-5 puntos clave que se cubrirán, un ejercicio práctico o plantilla descargable por capítulo, y una frase de apertura impactante para cada sección. El estilo debe ser dinámico, directo y apto para profesionales hispanohablantes. Incluye una portada, introducción motivacional y página de cierre con próximos pasos.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p2a')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Ebook Listo para Venta y Conversión a Audiolibro" data-en="Sales-Ready Ebook & Audiobook Conversion">Ebook Listo para Venta + Audiolibro</h3>
+        <div class="prompt-content" id="p2b" data-i18n
+          data-es="Necesito crear un ebook completo de 80-100 páginas sobre '[TEMA]' que esté listo para vender en Gumroad, Hotmart o Amazon KDP y que también pueda convertirse en audiolibro. Escribe los primeros 3 capítulos completos del ebook (con introducción, desarrollo y conclusión parcial por capítulo). Usa un tono narrativo-educativo, con historias reales o compuestas, metáforas visuales, listas de acción y recuadros de tips destacados. Al final de cada capítulo agrega un resumen breve de 5 puntos en viñetas apto para narración de audiolibro."
+          data-en="I need to create a complete 80-100 page ebook on '[TOPIC]' ready to sell on Gumroad, Hotmart, or Amazon KDP, with the option to convert it into an audiobook. Write the first 3 complete chapters (with introduction, body, and partial conclusion per chapter). Use a narrative-educational tone with real or composite stories, visual metaphors, action lists, and highlighted tip boxes. At the end of each chapter add a brief 5-bullet summary suitable for audiobook narration.">
+          Necesito crear un ebook completo de 80-100 páginas sobre '[TEMA]' que esté listo para vender en Gumroad, Hotmart o Amazon KDP y que también pueda convertirse en audiolibro. Escribe los primeros 3 capítulos completos del ebook (con introducción, desarrollo y conclusión parcial por capítulo). Usa un tono narrativo-educativo, con historias reales o compuestas, metáforas visuales, listas de acción y recuadros de tips destacados. Al final de cada capítulo agrega un resumen breve de 5 puntos en viñetas apto para narración de audiolibro.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p2b')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
     </div>
 
-    <!-- PROMPT 3 -->
-    <div class="prompt-card">
-      <h2 data-i18n data-es="3. Guion Viral para Shorts / TikTok / Reels (60s)" data-en="3. Viral Short-Form Video Script (60s)">3. Guion Viral para Shorts / TikTok / Reels (60s)</h2>
-      <div class="prompt-content" id="p3" data-i18n
-        data-es="Crea un guion completo para un video vertical (Short/Reel) de 60 segundos titulado: 'Por qué dejé de usar Excel para mis finanzas'. El guion debe romper el scroll en los primeros 3 segundos, explicar 3 beneficios de una app moderna local, y cerrar con un llamado a la acción directo para probar la versión demo."
-        data-en="Write a high-retention 60-second vertical video script (Shorts/Reels/TikTok) titled: 'Why I stopped using Excel for my finances'. Include a 3-second pattern-interrupt hook, 3 clear benefits of a local browser web app, and a punchy call to action to test the demo link.">
-        Crea un guion completo para un video vertical (Short/Reel) de 60 segundos titulado: 'Por qué dejé de usar Excel para mis finanzas'. El guion debe romper el scroll en los primeros 3 segundos, explicar 3 beneficios de una app moderna local, y cerrar con un llamado a la acción directo para probar la versión demo.
+    <!-- CATEGORÍA 3: MINIATURAS Y PROMPTS VISUALES IA -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">🖼️</span>
+        <h2 data-i18n data-es="Categoría 3: Miniaturas y Prompts Visuales con IA" data-en="Category 3: Thumbnails & AI Visual Prompts">Categoría 3: Miniaturas y Prompts Visuales</h2>
       </div>
-      <button class="copy-btn" onclick="copyPrompt('p3')">
-        <span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span>
-      </button>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Miniatura de Alto CTR para YouTube (Midjourney / Nano Banana)" data-en="High-CTR YouTube Thumbnail (Midjourney / Nano Banana)">Miniatura de Alto CTR (Midjourney / Nano Banana)</h3>
+        <div class="prompt-content" id="p3a" data-i18n
+          data-es="Professional YouTube thumbnail, ultra-detailed, hyper-realistic, cinematic lighting. Subject: [DESCRIBE EL SUJETO/PERSONA]. Background: dark gradient from deep navy blue to black, with subtle green tech glow. Bold text overlay in the upper third: '[TEXTO DE MINIATURA]' — font: Impact or Anton, white with yellow stroke, drop shadow. Emotion: shocked / amazed expression. Style: high contrast, 4K, YouTube viral thumbnail aesthetic. Aspect ratio 16:9. Nano Banana style with text legibility priority."
+          data-en="Professional YouTube thumbnail, ultra-detailed, hyper-realistic, cinematic lighting. Subject: [DESCRIBE SUBJECT/PERSON]. Background: dark gradient from deep navy blue to black, with subtle green tech glow. Bold text overlay in the upper third: '[THUMBNAIL TEXT]' — font: Impact or Anton, white with yellow stroke, drop shadow. Emotion: shocked / amazed expression. Style: high contrast, 4K, YouTube viral thumbnail aesthetic. Aspect ratio 16:9. Nano Banana style with text legibility priority.">
+          Professional YouTube thumbnail, ultra-detailed, hyper-realistic, cinematic lighting. Subject: [DESCRIBE EL SUJETO/PERSONA]. Background: dark gradient from deep navy blue to black, with subtle green tech glow. Bold text overlay in the upper third: '[TEXTO DE MINIATURA]' — font: Impact or Anton, white with yellow stroke, drop shadow. Emotion: shocked / amazed expression. Style: high contrast, 4K, YouTube viral thumbnail aesthetic. Aspect ratio 16:9. Nano Banana style with text legibility priority.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p3a')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Imágenes Cinematográficas Consistentes por Escenas (Batch)" data-en="Consistent Cinematic Scene Images (Batch)">Imágenes Cinematográficas por Escenas (Batch)</h3>
+        <div class="prompt-content" id="p3b" data-i18n
+          data-es="Necesito generar una serie de 5 imágenes cinematográficas consistentes para el video '[TEMA]'. Cada imagen debe mantener: mismo personaje principal (hombre/mujer, apariencia: [DESCRIPCIÓN]), misma paleta de colores (azul marino oscuro, destellos verdes neón y dorado), mismo estilo de iluminación cinematográfica (Rembrandt lighting). Genera un prompt individual para cada escena: Escena 1: [Personaje mirando su teléfono sorprendido en una cafetería moderna]. Escena 2: [Personaje celebrando frente a una pantalla con gráficos de crecimiento]. Escena 3: [Primer plano de la app FlowMint en pantalla]. Escena 4: [Personaje entregando un sobre/contrato a un cliente]. Escena 5: [Personaje en una oficina minimalista sonriendo con libertad]. Formato: --ar 16:9 --style raw --q 2"
+          data-en="I need to generate a series of 5 consistent cinematic images for the video '[TOPIC]'. Each image must maintain: same main character (man/woman, appearance: [DESCRIPTION]), same color palette (dark navy blue, neon green highlights and gold), same cinematic lighting style (Rembrandt lighting). Generate an individual prompt for each scene: Scene 1: [Character looking at their phone surprised in a modern café]. Scene 2: [Character celebrating in front of a screen showing growth graphs]. Scene 3: [Close-up of the FlowMint app on screen]. Scene 4: [Character handing an envelope/contract to a client]. Scene 5: [Character in a minimalist office smiling with freedom]. Format: --ar 16:9 --style raw --q 2">
+          Necesito generar una serie de 5 imágenes cinematográficas consistentes para el video '[TEMA]'. Cada imagen debe mantener: mismo personaje principal (hombre/mujer, apariencia: [DESCRIPCIÓN]), misma paleta de colores (azul marino oscuro, destellos verdes neón y dorado), mismo estilo de iluminación cinematográfica (Rembrandt lighting). Genera un prompt individual para cada escena: Escena 1-5 como se indica arriba. Formato: --ar 16:9 --style raw --q 2
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p3b')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
     </div>
+
+    <!-- CATEGORÍA 4: INVESTIGACIÓN DE MERCADO -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">📊</span>
+        <h2 data-i18n data-es="Categoría 4: Investigación de Mercado y Herramientas" data-en="Category 4: Market Research & Tools">Categoría 4: Investigación de Mercado</h2>
+      </div>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Investigador de Mercados — Nichos Rentables de Productos Digitales" data-en="Market Researcher — Profitable Digital Product Niches">Investigador de Mercados — Nichos Rentables</h3>
+        <div class="prompt-content" id="p4a" data-i18n
+          data-es="Actúa como un investigador de mercados especializado en productos digitales con 10 años de experiencia en Latinoamérica y España. Analiza tendencias de búsqueda, foros de Reddit, grupos de Facebook y plataformas como Hotmart, Gumroad y Udemy para identificar: 5 nichos rentables donde las personas estén buscando soluciones de organización operativa y financiera de forma constante. Para cada nicho dame: nombre del nicho, tamaño estimado del mercado hispanohablante, 5 problemas urgentes y reales que la gente quiere resolver, el tipo de persona que lo sufre (avatar de cliente), el precio promedio que pagarían por una solución digital, y cuáles son los mejores canales de distribución (YouTube, WhatsApp, Instagram, email). Finalmente, ordénalos del más al menos rentable con justificación."
+          data-en="Act as a market researcher specialized in digital products with 10 years of experience in Latin America and Spain. Analyze search trends, Reddit forums, Facebook groups, and platforms like Hotmart, Gumroad, and Udemy to identify: 5 profitable niches where people are constantly searching for operational and financial organization solutions. For each niche provide: niche name, estimated English-speaking market size, 5 urgent real problems people want to solve, the type of person who experiences them (customer avatar), the average price they would pay for a digital solution, and the best distribution channels (YouTube, WhatsApp, Instagram, email). Finally, rank them from most to least profitable with justification.">
+          Actúa como un investigador de mercados especializado en productos digitales con 10 años de experiencia en Latinoamérica y España. Analiza tendencias de búsqueda, foros de Reddit, grupos de Facebook y plataformas como Hotmart, Gumroad y Udemy para identificar: 5 nichos rentables donde las personas estén buscando soluciones de organización operativa y financiera de forma constante. Para cada nicho dame: nombre del nicho, tamaño estimado del mercado, 5 problemas urgentes y reales, avatar de cliente, precio promedio dispuesto a pagar, y mejores canales de distribución. Ordénalos del más al menos rentable con justificación.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p4a')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
+
+      <div class="prompt-card">
+        <h3 data-i18n data-es="Análisis de Competencia y Diferenciación de Producto" data-en="Competitor Analysis & Product Differentiation">Análisis de Competencia y Diferenciación</h3>
+        <div class="prompt-content" id="p4b" data-i18n
+          data-es="Investiga los 5 productos digitales más vendidos en [PLATAFORMA: Hotmart/Gumroad/Udemy] en la categoría de [CATEGORÍA]. Para cada uno extrae: nombre del producto, precio de venta, propuesta de valor principal, puntos débiles o críticas en reseñas de usuarios, y qué vacío de mercado deja sin cubrir. Con esa información, diseña la propuesta de diferenciación de mi producto: [DESCRIPCIÓN DE TU PRODUCTO]. Dame un párrafo de posicionamiento de 50 palabras, 3 puntos únicos de venta (USP) y el argumento que usaría para justificar un precio premium frente a la competencia."
+          data-en="Research the 5 best-selling digital products on [PLATFORM: Hotmart/Gumroad/Udemy] in the [CATEGORY] category. For each, extract: product name, selling price, main value proposition, weaknesses or user review criticisms, and what market gap it leaves uncovered. Using that information, design the differentiation strategy for my product: [YOUR PRODUCT DESCRIPTION]. Give me a 50-word positioning paragraph, 3 unique selling points (USPs), and the argument I would use to justify a premium price against the competition.">
+          Investiga los 5 productos digitales más vendidos en [PLATAFORMA] en la categoría [CATEGORÍA]. Para cada uno extrae: nombre, precio, propuesta de valor, puntos débiles y vacío de mercado sin cubrir. Con esa información diseña mi propuesta de diferenciación para: [DESCRIPCIÓN DE TU PRODUCTO]. Entrega: párrafo de posicionamiento (50 palabras), 3 USPs únicos, y argumento de precio premium frente a la competencia.
+        </div>
+        <button class="copy-btn" onclick="copyPrompt('p4b')"><span data-i18n data-es="📋 Copiar Prompt" data-en="📋 Copy Prompt">📋 Copiar Prompt</span></button>
+      </div>
+    </div>
+
   </main>
 
 <script>
@@ -273,32 +229,25 @@ function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('flowmint_lang', lang);
   document.documentElement.lang = lang;
-
   const btnText = document.getElementById('langBtnText');
-  if (btnText) {
-    btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
-  }
-
+  if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const text = el.getAttribute('data-' + lang);
     if (text) el.innerHTML = text;
+    const href = el.getAttribute('data-' + lang + '-href');
+    if (href) el.setAttribute('href', href);
+    const src = el.getAttribute('data-' + lang + '-src');
+    if (src) el.setAttribute('src', src);
   });
 }
-
-function toggleLanguage() {
-  setLanguage(currentLang === 'es' ? 'en' : 'es');
-}
-
-function copyPrompt(elementId) {
-  const text = document.getElementById(elementId)?.innerText || '';
+function toggleLanguage() { setLanguage(currentLang === 'es' ? 'en' : 'es'); }
+function copyPrompt(id) {
+  const text = document.getElementById(id)?.innerText || '';
   navigator.clipboard.writeText(text).then(() => {
-    alert(currentLang === 'es' ? '¡Prompt copiado al portapapeles con éxito!' : 'Prompt copied to clipboard successfully!');
+    alert(currentLang === 'es' ? '¡Prompt copiado al portapapeles!' : 'Prompt copied to clipboard!');
   });
 }
-
-document.addEventListener('DOMContentLoaded', () => {
-  setLanguage(currentLang);
-});
+document.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
 </script>
 
 </body>

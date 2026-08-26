@@ -1,198 +1,115 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title data-i18n data-es="Kit de Banners y Material Gráfico — Flowmint Reseller VIP" data-en="Banner & Graphic Kit — Flowmint Reseller VIP">Kit de Banners y Material Gráfico — Flowmint Reseller VIP</title>
+<title data-i18n data-es="Kit de Banners y Material Gráfico — Flowmint Reseller VIP" data-en="Banner & Graphic Kit — Flowmint Reseller VIP">Kit de Banners — Flowmint Reseller VIP</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --mint: #00C896;
-    --mint-glow: rgba(0, 200, 150, 0.25);
-    --gold: #F5A623;
-    --navy: #0F1B2D;
-    --navy2: #162236;
-    --navy3: #1E2F47;
-    --border: rgba(255, 255, 255, 0.08);
-    --border-light: rgba(255, 255, 255, 0.15);
-    --card: rgba(22, 34, 54, 0.95);
-    --text: #F0F4FF;
-    --text-sec: #9AABC4;
-    --radius: 16px;
-    --font-display: 'DM Serif Display', serif;
-    --font-sans: 'DM Sans', sans-serif;
-    --font-mono: 'JetBrains Mono', monospace;
+    --mint:#00C896; --mint-glow:rgba(0,200,150,0.25); --gold:#F5A623;
+    --navy:#0F1B2D; --navy2:#162236; --navy3:#1E2F47;
+    --border:rgba(255,255,255,0.08); --border-light:rgba(255,255,255,0.15);
+    --card:rgba(22,34,54,0.95); --text:#F0F4FF; --text-sec:#9AABC4;
+    --radius:16px;
+    --font-display:'DM Serif Display',serif; --font-sans:'DM Sans',sans-serif; --font-mono:'JetBrains Mono',monospace;
   }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--navy);
-    color: var(--text);
-    font-family: var(--font-sans);
-    line-height: 1.6;
-    min-height: 100vh;
-  }
-  body::before {
-    content: '';
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
-    pointer-events: none;
-    z-index: 0;
-  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--navy);color:var(--text);font-family:var(--font-sans);line-height:1.6;min-height:100vh;}
+  body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(0,200,150,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 90% 110%,rgba(245,166,35,0.08) 0%,transparent 50%);pointer-events:none;z-index:0;}
 
-  .top-nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: rgba(15, 27, 45, 0.85);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 20px;
-  }
-  .brand-container {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    text-decoration: none;
-  }
-  .brand-logo {
-    width: 38px;
-    height: 38px;
-    background: linear-gradient(135deg, #00ff88, var(--mint));
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    box-shadow: 0 0 16px var(--mint-glow);
-  }
-  .brand-logo svg { width: 20px; height: 20px; stroke: #06231a; }
-  .brand-titles { display: flex; flex-direction: column; }
-  .brand-name {
-    font-family: var(--font-display);
-    font-size: 20px;
-    font-weight: 700;
-    color: #ffffff;
-    letter-spacing: -0.5px;
-    line-height: 1.1;
-  }
-  .brand-subtitle {
-    font-size: 11px;
-    color: var(--mint);
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-weight: 600;
-  }
-  .nav-actions { display: flex; align-items: center; gap: 12px; }
-  .btn-lang {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: var(--navy2);
-    border: 1px solid var(--border-light);
-    color: var(--text);
-    font-size: 12.5px;
-    font-weight: 600;
-    padding: 7px 14px;
-    border-radius: 100px;
-    cursor: pointer;
-    text-decoration: none;
-    transition: all .2s ease;
-  }
-  .btn-lang:hover {
-    border-color: var(--mint);
-    color: var(--mint);
-    background: var(--navy3);
-    box-shadow: 0 0 12px rgba(0, 200, 150, 0.2);
-  }
-  .btn-back { color: var(--text-sec); font-size: 13px; text-decoration: none; }
-  .btn-back:hover { color: #fff; }
+  .top-nav{position:sticky;top:0;z-index:100;background:rgba(15,27,45,0.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:16px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+  .brand-container{display:flex;align-items:center;gap:14px;text-decoration:none;}
+  .brand-logo{width:38px;height:38px;background:linear-gradient(135deg,#00ff88,var(--mint));border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px var(--mint-glow);}
+  .brand-logo svg{width:20px;height:20px;stroke:#06231a;}
+  .brand-titles{display:flex;flex-direction:column;}
+  .brand-name{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.5px;line-height:1.1;}
+  .brand-subtitle{font-size:11px;color:var(--mint);letter-spacing:0.05em;text-transform:uppercase;font-weight:600;}
+  .nav-actions{display:flex;align-items:center;gap:12px;}
+  .btn-lang{display:inline-flex;align-items:center;gap:6px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text);font-size:12.5px;font-weight:600;padding:7px 14px;border-radius:100px;cursor:pointer;transition:all .2s ease;}
+  .btn-lang:hover{border-color:var(--mint);color:var(--mint);background:var(--navy3);box-shadow:0 0 12px rgba(0,200,150,0.2);}
+  .btn-back{color:var(--text-sec);font-size:13px;text-decoration:none;}
+  .btn-back:hover{color:#fff;}
 
-  .container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 40px 24px 80px;
-    position: relative;
-    z-index: 1;
-  }
-  .header-box { text-align: center; margin-bottom: 36px; }
-  .badge {
-    display: inline-block;
-    font-family: var(--font-mono);
-    font-size: 11.5px;
-    color: var(--mint);
-    background: rgba(0, 200, 150, 0.1);
-    border: 1px solid rgba(0, 200, 150, 0.25);
-    padding: 4px 12px;
-    border-radius: 100px;
-    margin-bottom: 12px;
-  }
-  h1 {
-    font-family: var(--font-display);
-    font-size: clamp(1.9rem, 4vw, 2.5rem);
-    color: #fff;
-    margin-bottom: 8px;
-  }
-  p.subtitle { color: var(--text-sec); font-size: 15px; }
+  .container{max-width:1020px;margin:0 auto;padding:40px 24px 80px;position:relative;z-index:1;}
+  .header-box{text-align:center;margin-bottom:32px;}
+  .badge{display:inline-block;font-family:var(--font-mono);font-size:11.5px;color:var(--mint);background:rgba(0,200,150,0.1);border:1px solid rgba(0,200,150,0.25);padding:4px 12px;border-radius:100px;margin-bottom:12px;}
+  h1{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.5rem);color:#fff;margin-bottom:8px;}
+  p.subtitle{color:var(--text-sec);font-size:15px;max-width:620px;margin:0 auto 28px;}
 
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 20px;
+  /* PACK DOWNLOAD - Hero button */
+  .pack-download-bar{
+    display:flex;align-items:center;justify-content:center;gap:16px;
+    background:linear-gradient(135deg,rgba(0,200,150,0.12),rgba(0,200,150,0.04));
+    border:1px solid rgba(0,200,150,0.35);
+    border-radius:14px;padding:20px 28px;margin-bottom:36px;flex-wrap:wrap;
   }
-  .banner-card {
-    background: var(--card);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: transform .2s, border-color .2s;
+  .pack-info{text-align:left;}
+  .pack-info h3{font-family:var(--font-display);font-size:18px;color:#fff;margin-bottom:4px;}
+  .pack-info p{color:var(--text-sec);font-size:13.5px;}
+  .btn-pack-dl{
+    display:inline-flex;align-items:center;gap:10px;
+    background:linear-gradient(135deg,#5be8bb,var(--mint));color:#06231a;
+    font-family:var(--font-display);font-weight:700;font-size:14px;
+    padding:13px 24px;border-radius:10px;text-decoration:none;white-space:nowrap;
+    box-shadow:0 6px 20px -6px rgba(0,200,150,0.5);transition:transform .2s,box-shadow .2s;
   }
-  .banner-card:hover {
-    transform: translateY(-3px);
-    border-color: var(--border-light);
+  .btn-pack-dl:hover{transform:translateY(-2px);box-shadow:0 10px 26px -6px rgba(0,200,150,0.55);}
+
+  /* CATEGORY SECTIONS */
+  .cat-section{margin-bottom:44px;}
+  .cat-header{display:flex;align-items:center;gap:10px;margin-bottom:20px;padding-bottom:10px;border-bottom:1px solid var(--border-light);}
+  .cat-icon{font-size:20px;}
+  .cat-header h2{font-family:var(--font-display);font-size:20px;color:var(--mint);}
+
+  /* BANNER GRID */
+  .banner-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px;}
+  .banner-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;transition:transform .2s,border-color .2s;}
+  .banner-card:hover{transform:translateY(-3px);border-color:var(--border-light);}
+
+  /* Banner preview area */
+  .banner-preview{
+    width:100%;aspect-ratio:1/1;background:#08101a;
+    display:flex;align-items:center;justify-content:center;
+    position:relative;overflow:hidden;
   }
-  .banner-card h3 {
-    font-family: var(--font-display);
-    font-size: 18px;
-    color: var(--mint);
-    margin-bottom: 8px;
+  .banner-preview.stories{aspect-ratio:9/16;max-height:260px;}
+  .banner-preview.mockup{aspect-ratio:16/9;}
+  .banner-preview img{width:100%;height:100%;object-fit:cover;display:block;}
+  .banner-preview-placeholder{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    gap:10px;color:var(--text-sec);font-family:var(--font-mono);font-size:12px;
+    width:100%;height:100%;
+    background:linear-gradient(135deg,#0d1a24,#111f2e);
   }
-  .banner-card p {
-    color: var(--text-sec);
-    font-size: 14px;
-    margin-bottom: 20px;
-    flex-grow: 1;
+  .banner-preview-placeholder .dim{font-size:22px;color:var(--mint);font-weight:700;font-family:var(--font-display);}
+  .banner-preview-placeholder .label{font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--text-sec);}
+
+  .banner-body{padding:16px;}
+  .banner-body h3{font-family:var(--font-display);font-size:16px;color:#fff;margin-bottom:6px;}
+  .copy-text-box{
+    background:#08101a;border:1px solid var(--border);border-radius:8px;
+    padding:10px 12px;color:var(--text-sec);font-size:13px;line-height:1.5;
+    margin-bottom:10px;
   }
-  .btn-action {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    background: var(--mint);
-    color: #06231a;
-    border: none;
-    padding: 10px 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 13.5px;
-    transition: transform .2s, box-shadow .2s;
-    text-decoration: none;
+  .btn-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .btn-dl{
+    display:inline-flex;align-items:center;gap:6px;
+    background:var(--mint);color:#06231a;border:none;
+    padding:8px 14px;border-radius:8px;cursor:pointer;
+    font-weight:700;font-size:12.5px;text-decoration:none;transition:transform .2s,box-shadow .2s;
   }
-  .btn-action:hover {
-    transform: scale(1.03);
-    box-shadow: 0 0 16px rgba(0, 200, 150, 0.4);
+  .btn-dl:hover{transform:scale(1.03);box-shadow:0 0 14px rgba(0,200,150,0.4);}
+  .btn-copy-caption{
+    display:inline-flex;align-items:center;gap:6px;
+    background:transparent;border:1px solid var(--border-light);color:var(--text-sec);
+    padding:8px 13px;border-radius:8px;cursor:pointer;
+    font-size:12.5px;font-weight:600;transition:all .2s;
   }
+  .btn-copy-caption:hover{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.06);}
+
+  footer{text-align:center;padding:28px 24px;color:var(--text-sec);font-size:12px;font-family:var(--font-mono);border-top:1px solid var(--border);}
 </style>
 </head>
 <body>
@@ -209,71 +126,291 @@
         <span class="brand-subtitle" data-i18n data-es="Kit de Banners VIP" data-en="VIP Banner Kit">Kit de Banners VIP</span>
       </div>
     </a>
-
     <div class="nav-actions">
       <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
       <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()" aria-label="Cambiar idioma">
-        <span id="langBtnText">EN | English</span>
-        <span>🌐</span>
+        <span id="langBtnText">EN | English</span><span>🌐</span>
       </button>
     </div>
   </nav>
 
   <main class="container">
+
     <div class="header-box">
-      <span class="badge" data-i18n data-es="RECURSOS GRÁFICOS Y MARKETING" data-en="MARKETING & GRAPHIC ASSETS">RECURSOS GRÁFICOS Y MARKETING</span>
-      <h1 data-i18n data-es="Kit de Banners y Material Gráfico" data-en="Banners & Graphic Material Kit">Kit de Banners y Material Gráfico</h1>
+      <span class="badge" data-i18n data-es="GALERÍA INTERNA DE MATERIAL GRÁFICO" data-en="INTERNAL GRAPHIC ASSET GALLERY">GALERÍA INTERNA DE MATERIAL GRÁFICO</span>
+      <h1 data-i18n data-es="Kit de Banners y Material Publicitario" data-en="Banner & Advertising Material Kit">Kit de Banners y Material Publicitario</h1>
       <p class="subtitle" data-i18n
-        data-es="Plantillas listas para Canva y mockups sin marca para tus campañas de captación de clientes."
-        data-en="Ready-to-use Canva templates and unbranded device mockups for your client acquisition campaigns.">
-        Plantillas listas para Canva y mockups sin marca para tus campañas de captación de clientes.
+        data-es="Descarga los artes gráficos individuales o el pack completo en un clic. Incluye copy publicitario listo para usar en redes sociales."
+        data-en="Download individual graphic assets or the full kit in one click. Includes ready-to-post advertising copy for social media.">
+        Descarga los artes gráficos individuales o el pack completo en un clic. Incluye copy publicitario listo para usar en redes sociales.
       </p>
     </div>
 
-    <div class="grid">
-      <div class="banner-card">
-        <div>
-          <h3 data-i18n data-es="1. Posts Cuadrados (1080x1080)" data-en="1. Square Posts (1080x1080)">1. Posts Cuadrados (1080x1080)</h3>
-          <p data-i18n
-            data-es="Plantillas editables en Canva: testimonios, características clave y llamado a la acción."
-            data-en="Editable Canva templates: client testimonials, key features, and high-converting calls to action.">
-            Plantillas editables en Canva: testimonios, características clave y llamado a la acción.
-          </p>
-        </div>
-        <a href="#" class="btn-action" onclick="alert(currentLang === 'es' ? 'Abriendo plantilla Canva...' : 'Opening Canva template...'); return false;">
-          <span data-i18n data-es="🎨 Abrir en Canva" data-en="🎨 Open in Canva">🎨 Abrir en Canva</span>
-        </a>
+    <!-- BOTÓN PACK COMPLETO -->
+    <div class="pack-download-bar">
+      <div class="pack-info">
+        <h3 data-i18n data-es="Pack Completo — Kit de Banners Flowmint" data-en="Full Pack — Flowmint Banner Kit">Pack Completo — Kit de Banners Flowmint</h3>
+        <p data-i18n data-es="Posts, Stories, Reels y Mockups en alta resolución. Listo para Canva y publicación directa." data-en="Posts, Stories, Reels and Mockups in high resolution. Ready for Canva and direct publishing.">Posts, Stories, Reels y Mockups en alta resolución. Listo para Canva y publicación directa.</p>
       </div>
+      <a class="btn-pack-dl"
+         href="https://flowmint.centraliaportal.com/recursos-vip/downloads/kit-banners-flowmint.rar"
+         download
+         data-i18n
+         data-es="📦 Descargar Pack Completo"
+         data-en="📦 Download Full Pack"
+         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/downloads/kit-banners-flowmint.rar"
+         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/downloads/kit-banners-flowmint.rar">
+        📦 Descargar Pack Completo
+      </a>
+    </div>
 
-      <div class="banner-card">
-        <div>
-          <h3 data-i18n data-es="2. Stories & Reels (1080x1920)" data-en="2. Stories & Reels (1080x1920)">2. Stories & Reels (1080x1920)</h3>
-          <p data-i18n
-            data-es="Formato vertical para estados de WhatsApp, Instagram Stories y videos cortos de captación."
-            data-en="Vertical 9:16 layout for WhatsApp Status, Instagram Stories, and short video acquisition hooks.">
-            Formato vertical para estados de WhatsApp, Instagram Stories y videos cortos de captación.
-          </p>
-        </div>
-        <a href="#" class="btn-action" onclick="alert(currentLang === 'es' ? 'Abriendo plantilla Canva...' : 'Opening Canva template...'); return false;">
-          <span data-i18n data-es="🎨 Abrir en Canva" data-en="🎨 Open in Canva">🎨 Abrir en Canva</span>
-        </a>
+    <!-- CATEGORÍA 1: POSTS CUADRADOS -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">🟦</span>
+        <h2 data-i18n data-es="Posts Cuadrados (1080 × 1080 px)" data-en="Square Posts (1080 × 1080 px)">Posts Cuadrados (1080 × 1080 px)</h2>
       </div>
+      <div class="banner-grid">
 
-      <div class="banner-card">
-        <div>
-          <h3 data-i18n data-es="3. Mockups de Dispositivos" data-en="3. Unbranded Device Mockups">3. Mockups de Dispositivos</h3>
-          <p data-i18n
-            data-es="Imágenes en alta resolución mostrando la web app en laptops y smartphones neutros."
-            data-en="High-res transparent PNGs showcasing the web app on modern laptops and smartphones.">
-            Imágenes en alta resolución mostrando la web app en laptops y smartphones neutros.
-          </p>
+        <div class="banner-card">
+          <div class="banner-preview">
+            <img src="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/post-01.png"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                 alt="Post 01 — Flowmint">
+            <div class="banner-preview-placeholder" style="display:none;">
+              <span class="dim">1080×1080</span>
+              <span class="label" data-i18n data-es="Post 01 — Lanzamiento" data-en="Post 01 — Launch">Post 01 — Lanzamiento</span>
+            </div>
+          </div>
+          <div class="banner-body">
+            <h3 data-i18n data-es="Post 01 — Anuncio de Lanzamiento" data-en="Post 01 — Launch Announcement">Post 01 — Anuncio de Lanzamiento</h3>
+            <div class="copy-text-box" id="copy_post01" data-i18n
+              data-es="¿Sigues usando Excel para llevar tus finanzas? Existe una forma más inteligente. FlowMint te da el control total de tus ingresos y gastos en segundos, sin suscripciones y sin complicaciones. Acceso vitalicio por un único pago. 🟢 Link en bio."
+              data-en="Still using Excel to track your finances? There's a smarter way. FlowMint gives you full control of your income and expenses in seconds — no subscriptions, no complexity. Lifetime access, one single payment. 🟢 Link in bio.">
+              ¿Sigues usando Excel para llevar tus finanzas? Existe una forma más inteligente. FlowMint te da el control total de tus ingresos y gastos en segundos, sin suscripciones y sin complicaciones. Acceso vitalicio por un único pago. 🟢 Link en bio.
+            </div>
+            <div class="btn-row">
+              <a class="btn-dl"
+                 href="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/post-01.png"
+                 download="post-01-flowmint.png"
+                 data-i18n data-es="📥 Descargar Imagen" data-en="📥 Download Image">
+                📥 Descargar Imagen
+              </a>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_post01')">
+                <span data-i18n data-es="📋 Copiar Copy" data-en="📋 Copy Caption">📋 Copiar Copy</span>
+              </button>
+            </div>
+          </div>
         </div>
-        <a href="#" class="btn-action" onclick="alert(currentLang === 'es' ? 'Descargando pack de mockups...' : 'Downloading mockups pack...'); return false;">
-          <span data-i18n data-es="📥 Descargar Mockups" data-en="📥 Download Mockups">📥 Descargar Mockups</span>
-        </a>
+
+        <div class="banner-card">
+          <div class="banner-preview">
+            <img src="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/post-02.png"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                 alt="Post 02 — Flowmint">
+            <div class="banner-preview-placeholder" style="display:none;">
+              <span class="dim">1080×1080</span>
+              <span class="label" data-i18n data-es="Post 02 — Testimonio" data-en="Post 02 — Testimonial">Post 02 — Testimonio</span>
+            </div>
+          </div>
+          <div class="banner-body">
+            <h3 data-i18n data-es="Post 02 — Testimonio de Cliente" data-en="Post 02 — Client Testimonial">Post 02 — Testimonio de Cliente</h3>
+            <div class="copy-text-box" id="copy_post02" data-i18n
+              data-es='"Antes no sabía a dónde iba mi dinero. Con FlowMint llevo solo 3 semanas usándola y ya identifiqué más de $180 dólares de gastos que no necesitaba." — Usuario verificado. ¿Quieres el mismo resultado? Obtén tu acceso hoy. 👇'
+              data-en='"Before FlowMint, I had no idea where my money was going. In just 3 weeks, I identified over $180 in unnecessary expenses." — Verified user. Want the same result? Get your access today. 👇'>
+              "Antes no sabía a dónde iba mi dinero. Con FlowMint llevo solo 3 semanas usándola y ya identifiqué más de $180 dólares de gastos que no necesitaba." — Usuario verificado. ¿Quieres el mismo resultado? Obtén tu acceso hoy. 👇
+            </div>
+            <div class="btn-row">
+              <a class="btn-dl"
+                 href="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/post-02.png"
+                 download="post-02-flowmint.png"
+                 data-i18n data-es="📥 Descargar Imagen" data-en="📥 Download Image">
+                📥 Descargar Imagen
+              </a>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_post02')">
+                <span data-i18n data-es="📋 Copiar Copy" data-en="📋 Copy Caption">📋 Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="banner-card">
+          <div class="banner-preview">
+            <img src="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/post-03.png"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                 alt="Post 03 — Flowmint">
+            <div class="banner-preview-placeholder" style="display:none;">
+              <span class="dim">1080×1080</span>
+              <span class="label" data-i18n data-es="Post 03 — Beneficios" data-en="Post 03 — Benefits">Post 03 — Beneficios</span>
+            </div>
+          </div>
+          <div class="banner-body">
+            <h3 data-i18n data-es="Post 03 — Lista de Beneficios" data-en="Post 03 — Benefits Checklist">Post 03 — Lista de Beneficios</h3>
+            <div class="copy-text-box" id="copy_post03" data-i18n
+              data-es="Por qué más de 500 emprendedores eligieron FlowMint: ✅ Sin suscripciones mensuales. ✅ Funciona en cualquier dispositivo. ✅ Tus datos nunca salen de tu teléfono. ✅ Configúralo en menos de 60 segundos. ✅ Pago único, acceso vitalicio. ¿Cuándo empiezas? 🟢"
+              data-en="Why 500+ entrepreneurs chose FlowMint: ✅ No monthly subscriptions. ✅ Works on any device. ✅ Your data never leaves your phone. ✅ Set it up in under 60 seconds. ✅ One payment, lifetime access. When do you start? 🟢">
+              Por qué más de 500 emprendedores eligieron FlowMint: ✅ Sin suscripciones mensuales. ✅ Funciona en cualquier dispositivo. ✅ Tus datos nunca salen de tu teléfono. ✅ Configúralo en menos de 60 segundos. ✅ Pago único, acceso vitalicio. ¿Cuándo empiezas? 🟢
+            </div>
+            <div class="btn-row">
+              <a class="btn-dl"
+                 href="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/post-03.png"
+                 download="post-03-flowmint.png"
+                 data-i18n data-es="📥 Descargar Imagen" data-en="📥 Download Image">
+                📥 Descargar Imagen
+              </a>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_post03')">
+                <span data-i18n data-es="📋 Copiar Copy" data-en="📋 Copy Caption">📋 Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
+
+    <!-- CATEGORÍA 2: STORIES & REELS -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">📱</span>
+        <h2 data-i18n data-es="Stories & Reels (1080 × 1920 px)" data-en="Stories & Reels (1080 × 1920 px)">Stories & Reels (1080 × 1920 px)</h2>
+      </div>
+      <div class="banner-grid">
+
+        <div class="banner-card">
+          <div class="banner-preview stories">
+            <img src="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/story-01.png"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                 alt="Story 01">
+            <div class="banner-preview-placeholder" style="display:none;">
+              <span class="dim">1080×1920</span>
+              <span class="label" data-i18n data-es="Story 01 — Oferta" data-en="Story 01 — Offer">Story 01 — Oferta</span>
+            </div>
+          </div>
+          <div class="banner-body">
+            <h3 data-i18n data-es="Story 01 — Oferta Especial" data-en="Story 01 — Special Offer">Story 01 — Oferta Especial</h3>
+            <div class="copy-text-box" id="copy_story01" data-i18n
+              data-es="¡Solo por hoy! Acceso vitalicio a FlowMint por un único pago. Sin letra pequeña, sin renovaciones. Desliza arriba y empieza a controlar tus finanzas hoy. ⬆️"
+              data-en="Today only! Lifetime access to FlowMint for a single payment. No fine print, no renewals. Swipe up and start controlling your finances today. ⬆️">
+              ¡Solo por hoy! Acceso vitalicio a FlowMint por un único pago. Sin letra pequeña, sin renovaciones. Desliza arriba y empieza a controlar tus finanzas hoy. ⬆️
+            </div>
+            <div class="btn-row">
+              <a class="btn-dl"
+                 href="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/story-01.png"
+                 download="story-01-flowmint.png"
+                 data-i18n data-es="📥 Descargar" data-en="📥 Download">📥 Descargar</a>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_story01')">
+                <span data-i18n data-es="📋 Copiar Copy" data-en="📋 Copy Caption">📋 Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="banner-card">
+          <div class="banner-preview stories">
+            <img src="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/story-02.png"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                 alt="Story 02">
+            <div class="banner-preview-placeholder" style="display:none;">
+              <span class="dim">1080×1920</span>
+              <span class="label" data-i18n data-es="Story 02 — Demo" data-en="Story 02 — Demo">Story 02 — Demo</span>
+            </div>
+          </div>
+          <div class="banner-body">
+            <h3 data-i18n data-es="Story 02 — Demo en 60 Segundos" data-en="Story 02 — 60-Second Demo">Story 02 — Demo en 60 Segundos</h3>
+            <div class="copy-text-box" id="copy_story02" data-i18n
+              data-es="Mira cómo funciona FlowMint en menos de 60 segundos. Sin complicaciones, sin instalaciones. Todo desde tu navegador. Pregúntame cómo obtener tu acceso. 💬"
+              data-en="See how FlowMint works in under 60 seconds. No complications, no installations. All from your browser. Ask me how to get your access. 💬">
+              Mira cómo funciona FlowMint en menos de 60 segundos. Sin complicaciones, sin instalaciones. Todo desde tu navegador. Pregúntame cómo obtener tu acceso. 💬
+            </div>
+            <div class="btn-row">
+              <a class="btn-dl"
+                 href="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/story-02.png"
+                 download="story-02-flowmint.png"
+                 data-i18n data-es="📥 Descargar" data-en="📥 Download">📥 Descargar</a>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_story02')">
+                <span data-i18n data-es="📋 Copiar Copy" data-en="📋 Copy Caption">📋 Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- CATEGORÍA 3: MOCKUPS DE DISPOSITIVOS -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">💻</span>
+        <h2 data-i18n data-es="Mockups de Dispositivos (PNG sin marca)" data-en="Device Mockups (Unbranded PNG)">Mockups de Dispositivos (PNG sin marca)</h2>
+      </div>
+      <div class="banner-grid">
+
+        <div class="banner-card">
+          <div class="banner-preview mockup">
+            <img src="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/mockup-laptop.png"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                 alt="Mockup Laptop">
+            <div class="banner-preview-placeholder" style="display:none;">
+              <span class="dim">16:9</span>
+              <span class="label" data-i18n data-es="Mockup — Laptop" data-en="Mockup — Laptop">Mockup — Laptop</span>
+            </div>
+          </div>
+          <div class="banner-body">
+            <h3 data-i18n data-es="Mockup Laptop — Vista de Escritorio" data-en="Laptop Mockup — Desktop View">Mockup Laptop — Vista de Escritorio</h3>
+            <div class="copy-text-box" id="copy_mockup01" data-i18n
+              data-es="Tu panel de control financiero siempre a la vista. FlowMint en tu computadora: rápido, limpio y sin distracciones. Disponible desde cualquier navegador. 🖥️"
+              data-en="Your financial control panel always in view. FlowMint on your computer: fast, clean, and distraction-free. Available in any browser. 🖥️">
+              Tu panel de control financiero siempre a la vista. FlowMint en tu computadora: rápido, limpio y sin distracciones. Disponible desde cualquier navegador. 🖥️
+            </div>
+            <div class="btn-row">
+              <a class="btn-dl"
+                 href="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/mockup-laptop.png"
+                 download="mockup-laptop-flowmint.png"
+                 data-i18n data-es="📥 Descargar PNG" data-en="📥 Download PNG">📥 Descargar PNG</a>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_mockup01')">
+                <span data-i18n data-es="📋 Copiar Copy" data-en="📋 Copy Caption">📋 Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="banner-card">
+          <div class="banner-preview mockup">
+            <img src="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/mockup-mobile.png"
+                 onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+                 alt="Mockup Mobile">
+            <div class="banner-preview-placeholder" style="display:none;">
+              <span class="dim">16:9</span>
+              <span class="label" data-i18n data-es="Mockup — Móvil" data-en="Mockup — Mobile">Mockup — Móvil</span>
+            </div>
+          </div>
+          <div class="banner-body">
+            <h3 data-i18n data-es="Mockup Móvil — Vista en Smartphone" data-en="Mobile Mockup — Smartphone View">Mockup Móvil — Smartphone</h3>
+            <div class="copy-text-box" id="copy_mockup02" data-i18n
+              data-es="Controla tus finanzas desde donde estés. FlowMint en tu celular: carga en 2 segundos, sin instalar nada. Tus datos, en tu bolsillo. 📱"
+              data-en="Control your finances from anywhere. FlowMint on your phone: loads in 2 seconds, nothing to install. Your data, in your pocket. 📱">
+              Controla tus finanzas desde donde estés. FlowMint en tu celular: carga en 2 segundos, sin instalar nada. Tus datos, en tu bolsillo. 📱
+            </div>
+            <div class="btn-row">
+              <a class="btn-dl"
+                 href="https://flowmint.centraliaportal.com/recursos-vip/assets/banners/mockup-mobile.png"
+                 download="mockup-mobile-flowmint.png"
+                 data-i18n data-es="📥 Descargar PNG" data-en="📥 Download PNG">📥 Descargar PNG</a>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_mockup02')">
+                <span data-i18n data-es="📋 Copiar Copy" data-en="📋 Copy Caption">📋 Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
   </main>
+
+  <footer>
+    <span data-i18n data-es="FLOWMINT RESELLER NETWORK — MATERIAL GRÁFICO EXCLUSIVO" data-en="FLOWMINT RESELLER NETWORK — EXCLUSIVE GRAPHIC ASSETS">FLOWMINT RESELLER NETWORK — MATERIAL GRÁFICO EXCLUSIVO</span>
+  </footer>
 
 <script>
 let currentLang = localStorage.getItem('flowmint_lang') || 'es';
@@ -282,25 +419,36 @@ function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('flowmint_lang', lang);
   document.documentElement.lang = lang;
-
   const btnText = document.getElementById('langBtnText');
-  if (btnText) {
-    btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
-  }
-
+  if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const text = el.getAttribute('data-' + lang);
     if (text) el.innerHTML = text;
+    const href = el.getAttribute('data-' + lang + '-href');
+    if (href) el.setAttribute('href', href);
+    const src = el.getAttribute('data-' + lang + '-src');
+    if (src) el.setAttribute('src', src);
   });
 }
 
-function toggleLanguage() {
-  setLanguage(currentLang === 'es' ? 'en' : 'es');
+function toggleLanguage() { setLanguage(currentLang === 'es' ? 'en' : 'es'); }
+
+function copyCaption(id) {
+  const text = document.getElementById(id)?.innerText || '';
+  navigator.clipboard.writeText(text).then(() => {
+    alert(currentLang === 'es' ? '¡Copy copiado al portapapeles!' : 'Caption copied to clipboard!');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    alert(currentLang === 'es' ? '¡Copy copiado!' : 'Caption copied!');
+  });
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-  setLanguage(currentLang);
-});
+document.addEventListener('DOMContentLoaded', () => setLanguage(currentLang));
 </script>
 
 </body>
