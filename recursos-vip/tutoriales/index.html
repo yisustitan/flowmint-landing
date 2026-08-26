@@ -3,279 +3,70 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n data-es="FlowMint — Guía Oficial de Usuario & Tutoriales" data-en="FlowMint — Official User Guide & Tutorials">FlowMint — Guía Oficial de Usuario & Tutoriales</title>
+  <title data-i18n data-es="FlowMint — Tutoriales de Usuario" data-en="FlowMint — User Tutorials">FlowMint — Tutoriales de Usuario</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
     :root {
-      --mint: #00C896;
-      --mint-light: #E6FBF4;
-      --mint-mid: #00A67A;
-      --mint-glow: rgba(0, 200, 150, 0.25);
-      --gold: #F5A623;
-      --navy: #0F1B2D;
-      --navy2: #162236;
-      --navy3: #1E2F47;
-      --border: rgba(255, 255, 255, 0.08);
-      --border-light: rgba(255, 255, 255, 0.15);
-      --card: rgba(22, 34, 54, 0.95);
-      --text: #F0F4FF;
-      --text-sec: #9AABC4;
-      --radius: 16px;
-      --shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
-      --font-display: 'DM Serif Display', serif;
-      --font-sans: 'DM Sans', sans-serif;
-      --font-mono: 'JetBrains Mono', monospace;
+      --mint:#00C896; --mint-glow:rgba(0,200,150,0.25); --gold:#F5A623;
+      --navy:#0F1B2D; --navy2:#162236; --navy3:#1E2F47;
+      --border:rgba(255,255,255,0.08); --border-light:rgba(255,255,255,0.15);
+      --card:rgba(22,34,54,0.95); --text:#F0F4FF; --text-sec:#9AABC4;
+      --radius:16px; --shadow:0 8px 32px rgba(0,0,0,0.4);
+      --font-display:'DM Serif Display',serif; --font-sans:'DM Sans',sans-serif; --font-mono:'JetBrains Mono',monospace;
     }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:var(--font-sans);background:var(--navy);color:var(--text);min-height:100vh;line-height:1.6;overflow-x:hidden;}
+    body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 80% 50% at 20% -10%,rgba(0,200,150,0.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 90% 110%,rgba(245,166,35,0.08) 0%,transparent 50%);pointer-events:none;z-index:0;}
 
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      font-family: var(--font-sans);
-      background: var(--navy);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
+    .top-nav{position:sticky;top:0;z-index:100;background:rgba(15,27,45,0.88);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;}
+    .brand-container{display:flex;align-items:center;gap:12px;text-decoration:none;}
+    .brand-logo{width:38px;height:38px;background:linear-gradient(135deg,#00ff88,var(--mint));border-radius:10px;display:flex;align-items:center;justify-content:center;box-shadow:0 0 16px var(--mint-glow);}
+    .brand-logo svg{width:20px;height:20px;stroke:#06231a;}
+    .brand-titles{display:flex;flex-direction:column;}
+    .brand-name{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.5px;line-height:1.1;}
+    .brand-subtitle{font-size:10.5px;color:var(--mint);letter-spacing:0.05em;text-transform:uppercase;font-weight:600;}
+    .nav-actions{display:flex;align-items:center;gap:10px;}
+    .btn-lang{display:inline-flex;align-items:center;gap:6px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text);font-size:12px;font-weight:600;padding:7px 13px;border-radius:100px;cursor:pointer;transition:all .2s ease;}
+    .btn-lang:hover{border-color:var(--mint);color:var(--mint);background:var(--navy3);box-shadow:0 0 12px rgba(0,200,150,0.2);}
+    .btn-back{color:var(--text-sec);font-size:13px;text-decoration:none;padding:6px 10px;}
+    .btn-back:hover{color:#fff;}
 
-    body::before {
-      content: '';
-      position: fixed;
-      inset: 0;
-      background:
-        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.12) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.08) 0%, transparent 50%);
-      pointer-events: none;
-      z-index: 0;
-    }
+    .main-container{max-width:1020px;margin:0 auto;padding:40px 24px 80px;position:relative;z-index:1;}
+    .hero-header{text-align:center;margin-bottom:30px;}
+    .hero-badge{display:inline-block;font-family:var(--font-mono);font-size:11px;color:var(--mint);background:rgba(0,200,150,0.1);border:1px solid rgba(0,200,150,0.25);padding:4px 13px;border-radius:100px;margin-bottom:12px;letter-spacing:0.08em;}
+    .hero-title{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.7rem);color:#fff;margin-bottom:10px;}
+    .hero-desc{color:var(--text-sec);font-size:15px;max-width:600px;margin:0 auto;}
 
-    .top-nav {
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      background: rgba(15, 27, 45, 0.85);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 28px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-    }
+    /* TABS */
+    .tab-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
+    .btn-tab{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .2s ease;}
+    .btn-tab:hover,.btn-tab.active{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.08);box-shadow:0 0 14px rgba(0,200,150,0.2);}
 
-    .brand-container {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      text-decoration: none;
-    }
+    /* VIDEO SELECTOR */
+    .video-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
+    .vsel-btn{font-family:var(--font-mono);font-size:12px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);padding:6px 14px;border-radius:8px;cursor:pointer;transition:all .2s ease;}
+    .vsel-btn:hover,.vsel-btn.active-v{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.07);}
 
-    .brand-logo {
-      width: 40px;
-      height: 40px;
-      background: linear-gradient(135deg, #00ff88, var(--mint));
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 16px var(--mint-glow);
-    }
+    /* VIDEO CARD */
+    .video-card{background:var(--card);border:1px solid var(--border-light);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:36px;}
+    .video-title-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
+    .video-title-bar h3{font-family:var(--font-display);font-size:18px;color:#fff;}
+    .video-lang-pill{font-family:var(--font-mono);font-size:11.5px;color:var(--mint);background:rgba(0,200,150,0.1);border:1px solid rgba(0,200,150,0.3);padding:4px 12px;border-radius:100px;}
+    /* Responsive 16:9 iframe */
+    .video-wrap{position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#050e18;}
+    .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
-    .brand-logo svg { width: 22px; height: 22px; stroke: #06231a; }
-    .brand-titles { display: flex; flex-direction: column; }
-    .brand-name {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 700;
-      color: #ffffff;
-      letter-spacing: -0.5px;
-      line-height: 1.1;
-    }
+    /* MODULES */
+    .section-subtitle{font-family:var(--font-display);font-size:22px;color:#fff;margin-bottom:18px;}
+    .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-bottom:40px;}
+    .step-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:transform .2s,border-color .2s;}
+    .step-box:hover{transform:translateY(-3px);border-color:var(--border-light);}
+    .step-number{font-family:var(--font-mono);font-size:11.5px;color:var(--mint);font-weight:700;margin-bottom:7px;}
+    .step-box h3{font-size:16px;font-weight:600;color:#fff;margin-bottom:7px;}
+    .step-box p{color:var(--text-sec);font-size:13.5px;}
 
-    .brand-subtitle {
-      font-family: var(--font-sans);
-      font-size: 11.5px;
-      color: var(--mint);
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      font-weight: 600;
-    }
-
-    .nav-actions { display: flex; align-items: center; gap: 12px; }
-
-    .btn-lang {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--navy2);
-      border: 1px solid var(--border-light);
-      color: var(--text);
-      font-size: 12.5px;
-      font-weight: 600;
-      padding: 7px 14px;
-      border-radius: 100px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all .2s ease;
-    }
-
-    .btn-lang:hover {
-      border-color: var(--mint);
-      color: var(--mint);
-      background: var(--navy3);
-      box-shadow: 0 0 12px rgba(0, 200, 150, 0.2);
-    }
-
-    .btn-back-portal {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--text-sec);
-      font-size: 13px;
-      text-decoration: none;
-      padding: 7px 12px;
-    }
-    .btn-back-portal:hover { color: #ffffff; }
-
-    .main-container {
-      max-width: 1020px;
-      margin: 0 auto;
-      padding: 48px 24px 80px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-header { text-align: center; margin-bottom: 40px; }
-    .hero-badge {
-      display: inline-block;
-      font-family: var(--font-mono);
-      font-size: 11.5px;
-      color: var(--mint);
-      background: rgba(0, 200, 150, 0.1);
-      border: 1px solid rgba(0, 200, 150, 0.25);
-      padding: 5px 14px;
-      border-radius: 100px;
-      margin-bottom: 16px;
-      letter-spacing: 0.08em;
-    }
-
-    .hero-title {
-      font-family: var(--font-display);
-      font-size: clamp(2rem, 4vw, 2.8rem);
-      color: #ffffff;
-      margin-bottom: 12px;
-      letter-spacing: -0.02em;
-    }
-
-    .hero-desc {
-      color: var(--text-sec);
-      font-size: 15.5px;
-      max-width: 620px;
-      margin: 0 auto;
-    }
-
-    /* ===== VIDEO PLAYER CONTAINER ===== */
-    .video-card {
-      background: var(--card);
-      border: 1px solid var(--border-light);
-      border-radius: var(--radius);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      margin-bottom: 48px;
-    }
-
-    .video-screen {
-      width: 100%;
-      aspect-ratio: 16/9;
-      background: #08101a;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    /* Reproductor Real de Video */
-    .real-video-player {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 12px;
-      display: block;
-      background: #000;
-    }
-
-    .video-status-bar {
-      margin-top: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 12.5px;
-      color: var(--text-sec);
-    }
-    .video-lang-indicator {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      color: var(--mint);
-    }
-    .video-lang-indicator::before {
-      content: '';
-      width: 8px; height: 8px;
-      background: var(--mint);
-      border-radius: 50%;
-      box-shadow: 0 0 8px var(--mint);
-    }
-
-    .section-subtitle {
-      font-family: var(--font-display);
-      font-size: 24px;
-      color: #ffffff;
-      margin-bottom: 20px;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 20px;
-      margin-bottom: 40px;
-    }
-
-    .step-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 24px;
-      transition: transform .2s, border-color .2s;
-    }
-    .step-box:hover {
-      transform: translateY(-3px);
-      border-color: var(--border-light);
-    }
-
-    .step-number {
-      font-family: var(--font-mono);
-      font-size: 12px;
-      color: var(--mint);
-      font-weight: 700;
-      margin-bottom: 8px;
-    }
-
-    .step-box h3 { font-size: 17px; font-weight: 600; color: #ffffff; margin-bottom: 8px; }
-    .step-box p { color: var(--text-sec); font-size: 14px; }
-
-    footer {
-      text-align: center;
-      padding: 30px 24px;
-      color: var(--text-sec);
-      font-size: 12px;
-      font-family: var(--font-mono);
-      border-top: 1px solid var(--border);
-    }
+    footer{text-align:center;padding:28px 24px;color:var(--text-sec);font-size:12px;font-family:var(--font-mono);border-top:1px solid var(--border);}
   </style>
 </head>
 <body>
@@ -292,76 +83,92 @@
         <span class="brand-subtitle" data-i18n data-es="Guía Oficial de Usuario" data-en="Official User Guide">Guía Oficial de Usuario</span>
       </div>
     </a>
-
     <div class="nav-actions">
-      <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back-portal" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
+      <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-back" data-i18n data-es="← Portal VIP" data-en="← VIP Portal">← Portal VIP</a>
       <button id="langToggleBtn" class="btn-lang" onclick="toggleLanguage()" aria-label="Cambiar idioma">
-        <span id="langBtnText">EN | English</span>
-        <span>🌐</span>
+        <span id="langBtnText">EN | English</span><span>🌐</span>
       </button>
     </div>
   </nav>
 
   <main class="main-container">
+
     <div class="hero-header">
-      <span class="hero-badge" data-i18n data-es="VIDEO TUTORIAL & DEMO COMPLETA" data-en="FULL VIDEO TUTORIAL & DEMO">VIDEO TUTORIAL & DEMO COMPLETA</span>
-      <h1 class="hero-title" data-i18n data-es="Guía de Uso Paso a Paso" data-en="Step-by-Step User Guide">Guía de Uso Paso a Paso</h1>
+      <span class="hero-badge" data-i18n data-es="VIDEO TUTORIALES OFICIALES" data-en="OFFICIAL VIDEO TUTORIALS">VIDEO TUTORIALES OFICIALES</span>
+      <h1 class="hero-title" data-i18n data-es="Centro de Tutoriales Flowmint" data-en="Flowmint Tutorial Center">Centro de Tutoriales Flowmint</h1>
       <p class="hero-desc" data-i18n
-        data-es="Conoce cada funcionalidad de la aplicación Flowmint para maximizar el control financiero y operativo en minutos."
-        data-en="Discover every feature of the Flowmint application to maximize financial and operational control in minutes.">
-        Conoce cada funcionalidad de la aplicación Flowmint para maximizar el control financiero y operativo en minutos.
+        data-es="Elige tu perfil y accede a los tutoriales diseñados para ti: usuario cliente o reseller VIP."
+        data-en="Select your profile and access the tutorials designed for you: end user or VIP reseller.">
+        Elige tu perfil y accede a los tutoriales diseñados para ti: usuario cliente o reseller VIP.
       </p>
     </div>
 
-    <!-- REPRODUCTOR DE VIDEO REAL CON CONMUTACIÓN DINÁMICA -->
+    <!-- TABS -->
+    <div class="tab-row">
+      <a class="btn-tab active" id="tabCliente"
+         href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/index.html"
+         data-i18n data-es="👤 Tutoriales Cliente" data-en="👤 Client Tutorials"
+         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/index.html"
+         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/index.html">
+        👤 Tutoriales Cliente
+      </a>
+      <a class="btn-tab" id="tabReseller"
+         href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html"
+         data-i18n data-es="🚀 Tutoriales Reseller" data-en="🚀 Reseller Tutorials"
+         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html"
+         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html">
+        🚀 Tutoriales Reseller
+      </a>
+    </div>
+
+    <!-- VIDEO SELECTOR -->
+    <div class="video-selector">
+      <button class="vsel-btn active-v" onclick="loadVideo('YOUTUBE_ID_DEMO', 'Demo Completa — Flowmint App', 'Full Demo — Flowmint App', this)"
+        data-i18n data-es="▶ Demo Completa" data-en="▶ Full Demo">▶ Demo Completa</button>
+      <button class="vsel-btn" onclick="loadVideo('YOUTUBE_ID_INGRESOS', 'Módulo: Ingresos & Gastos', 'Module: Income & Expenses', this)"
+        data-i18n data-es="📊 Ingresos & Gastos" data-en="📊 Income & Expenses">📊 Ingresos & Gastos</button>
+      <button class="vsel-btn" onclick="loadVideo('YOUTUBE_ID_BOLSILLOS', 'Módulo: Bolsillos & Metas', 'Module: Envelopes & Goals', this)"
+        data-i18n data-es="👛 Bolsillos & Metas" data-en="👛 Envelopes & Goals">👛 Bolsillos & Metas</button>
+    </div>
+
+    <!-- REPRODUCTOR YOUTUBE EMBED RESPONSIVO -->
     <div class="video-card">
-      <div class="video-screen">
-        <video id="mainVideoPlayer" class="real-video-player" controls preload="metadata"
-          data-video-es="https://flowmint.centraliaportal.com/recursos-vip/downloads/demo-usuario-final.mp4"
-          data-video-en="https://flowmint.centraliaportal.com/recursos-vip/downloads/demo-usuario-final-en.mp4"
-          poster="https://flowmint.centraliaportal.com/recursos-vip/downloads/poster-demo.jpg">
-          <source id="videoSource" src="https://flowmint.centraliaportal.com/recursos-vip/downloads/demo-usuario-final.mp4" type="video/mp4">
-          Tu navegador no soporta reproducción directa de video HTML5.
-        </video>
+      <div class="video-title-bar">
+        <h3 id="videoTitle" data-i18n data-es="Demo Completa — Flowmint App" data-en="Full Demo — Flowmint App">Demo Completa — Flowmint App</h3>
+        <span class="video-lang-pill" id="videoLangPill">🌐 ES</span>
       </div>
-      <div class="video-status-bar">
-        <span class="video-lang-indicator" id="videoLangIndicator">Audio & Subtítulos: Español (ES)</span>
-        <span>1080p Full HD</span>
+      <div class="video-wrap">
+        <iframe
+          id="mainYouTubePlayer"
+          src="https://www.youtube.com/embed/YOUTUBE_ID_DEMO?rel=0&modestbranding=1&color=white"
+          title="FlowMint Demo Tutorial"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+          loading="lazy">
+        </iframe>
       </div>
     </div>
 
+    <!-- MÓDULOS -->
     <h2 class="section-subtitle" data-i18n data-es="Módulos de la Guía Oficial" data-en="Official Guide Modules">Módulos de la Guía Oficial</h2>
     <div class="steps-grid">
       <div class="step-box">
         <div class="step-number" data-i18n data-es="MÓDULO 01" data-en="MODULE 01">MÓDULO 01</div>
         <h3 data-i18n data-es="Ingreso y Configuración Inicial" data-en="Login & Initial Setup">Ingreso y Configuración Inicial</h3>
-        <p data-i18n
-          data-es="Apertura instantánea desde navegador en móvil o PC y configuración de tu moneda local."
-          data-en="Instant launch from any browser on mobile or desktop and setup of your local currency.">
-          Apertura instantánea desde navegador en móvil o PC y configuración de tu moneda local.
-        </p>
+        <p data-i18n data-es="Apertura desde navegador en móvil o PC y configuración de tu moneda local." data-en="Launch from any browser on mobile or desktop and set up your local currency.">Apertura desde navegador en móvil o PC y configuración de tu moneda local.</p>
       </div>
-
       <div class="step-box">
         <div class="step-number" data-i18n data-es="MÓDULO 02" data-en="MODULE 02">MÓDULO 02</div>
         <h3 data-i18n data-es="Registro de Ingresos & Gastos" data-en="Income & Expense Tracking">Registro de Ingresos & Gastos</h3>
-        <p data-i18n
-          data-es="Carga de transacciones, categorización rápida y seguimiento en vivo de tus balances."
-          data-en="Quick transaction entry, smart categorization, and real-time balance tracking.">
-          Carga de transacciones, categorización rápida y seguimiento en vivo de tus balances.
-        </p>
+        <p data-i18n data-es="Carga rápida de transacciones, categorización y seguimiento de balances en vivo." data-en="Quick transaction entry, smart categorization, and real-time balance tracking.">Carga rápida de transacciones, categorización y seguimiento de balances en vivo.</p>
       </div>
-
       <div class="step-box">
         <div class="step-number" data-i18n data-es="MÓDULO 03" data-en="MODULE 03">MÓDULO 03</div>
         <h3 data-i18n data-es="Control de Bolsillos y Metas" data-en="Envelopes & Goal Management">Control de Bolsillos y Metas</h3>
-        <p data-i18n
-          data-es="Cómo apartar presupuestos para compromisos fijos y objetivos de ahorro mensual."
-          data-en="How to set aside budgets for fixed commitments and achieve monthly saving goals.">
-          Cómo apartar presupuestos para compromisos fijos y objetivos de ahorro mensual.
-        </p>
+        <p data-i18n data-es="Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual." data-en="Set aside budgets for fixed commitments and achieve monthly saving goals.">Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual.</p>
       </div>
     </div>
+
   </main>
 
   <footer>
@@ -371,56 +178,58 @@
 <script>
 let currentLang = localStorage.getItem('flowmint_lang') || 'es';
 
+// ── Reemplaza YOUTUBE_ID_DEMO con tu ID real de YouTube ──────────────────────
+// Ejemplo: si la URL es https://www.youtube.com/watch?v=abc123XYZ
+// el ID sería 'abc123XYZ'
+// ─────────────────────────────────────────────────────────────────────────────
+
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('flowmint_lang', lang);
   document.documentElement.lang = lang;
-
   const btnText = document.getElementById('langBtnText');
-  if (btnText) {
-    btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
-  }
+  if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const text = el.getAttribute('data-' + lang);
     if (text) el.innerHTML = text;
+    const href = el.getAttribute('data-' + lang + '-href');
+    if (href) el.setAttribute('href', href);
+    const src = el.getAttribute('data-' + lang + '-src');
+    if (src) el.setAttribute('src', src);
   });
 
-  // Conmutación real de la fuente del video
-  updateRealVideoPlayer(lang);
+  const pill = document.getElementById('videoLangPill');
+  if (pill) pill.innerText = '🌐 ' + lang.toUpperCase();
 }
 
 function toggleLanguage() {
   setLanguage(currentLang === 'es' ? 'en' : 'es');
 }
 
-function updateRealVideoPlayer(lang) {
-  const video = document.getElementById('mainVideoPlayer');
-  const source = document.getElementById('videoSource');
-  const indicator = document.getElementById('videoLangIndicator');
-  if (!video) return;
-
-  const targetSrc = video.getAttribute('data-video-' + lang);
-  if (targetSrc && video.src !== targetSrc) {
-    const wasPlaying = !video.paused;
-    const currentTime = video.currentTime;
-    
-    video.src = targetSrc;
-    if (source) source.src = targetSrc;
-    video.load();
-
-    // Mantener timestamp si el usuario ya estaba reproduciendo
-    if (currentTime > 0) {
-      video.currentTime = currentTime;
-    }
-    if (wasPlaying) {
-      video.play().catch(() => {});
-    }
+/**
+ * Carga un video de YouTube en el iframe principal.
+ * @param {string} videoId  - ID de YouTube (ej: 'dQw4w9WgXcQ')
+ * @param {string} titleEs  - Título en español para el header del card
+ * @param {string} titleEn  - Título en inglés
+ * @param {HTMLElement} btn - Botón selector clickeado (para marcar active)
+ */
+function loadVideo(videoId, titleEs, titleEn, btn) {
+  const player = document.getElementById('mainYouTubePlayer');
+  if (player) {
+    player.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1&color=white&autoplay=1';
   }
 
-  if (indicator) {
-    indicator.innerText = (lang === 'es') ? 'Audio & Subtítulos: Español (ES)' : 'Audio & Captions: English (EN)';
+  const title = document.getElementById('videoTitle');
+  if (title) {
+    title.innerText = (currentLang === 'es') ? titleEs : titleEn;
+    title.setAttribute('data-es', titleEs);
+    title.setAttribute('data-en', titleEn);
   }
+
+  // Marcar botón activo
+  document.querySelectorAll('.vsel-btn').forEach(b => b.classList.remove('active-v'));
+  if (btn) btn.classList.add('active-v');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
