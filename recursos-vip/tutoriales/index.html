@@ -152,18 +152,24 @@
     <!-- MÓDULOS -->
     <h2 class="section-subtitle" data-i18n data-es="Módulos de la Guía Oficial" data-en="Official Guide Modules">Módulos de la Guía Oficial</h2>
     <div class="steps-grid">
-      <div class="step-box">
-        <div class="step-number" data-i18n data-es="MÓDULO 01" data-en="MODULE 01">MÓDULO 01</div>
+      <div class="step-box" id="moduleBox1"
+           onclick="loadVideo('YOUTUBE_ID_DEMO', 'Módulo 1: Configuración Inicial', 'Module 1: Initial Setup', this)"
+           title="Ver Módulo 1">
+        <div class="step-number" data-i18n data-es="MÓDULO 01 ▶" data-en="MODULE 01 ▶">MÓDULO 01 ▶</div>
         <h3 data-i18n data-es="Ingreso y Configuración Inicial" data-en="Login & Initial Setup">Ingreso y Configuración Inicial</h3>
         <p data-i18n data-es="Apertura desde navegador en móvil o PC y configuración de tu moneda local." data-en="Launch from any browser on mobile or desktop and set up your local currency.">Apertura desde navegador en móvil o PC y configuración de tu moneda local.</p>
       </div>
-      <div class="step-box">
-        <div class="step-number" data-i18n data-es="MÓDULO 02" data-en="MODULE 02">MÓDULO 02</div>
+      <div class="step-box" id="moduleBox2"
+           onclick="loadVideo('YOUTUBE_ID_INGRESOS', 'Módulo 2: Registro de Ingresos y Gastos', 'Module 2: Income & Expense Tracking', this)"
+           title="Ver Módulo 2">
+        <div class="step-number" data-i18n data-es="MÓDULO 02 ▶" data-en="MODULE 02 ▶">MÓDULO 02 ▶</div>
         <h3 data-i18n data-es="Registro de Ingresos & Gastos" data-en="Income & Expense Tracking">Registro de Ingresos & Gastos</h3>
         <p data-i18n data-es="Carga rápida de transacciones, categorización y seguimiento de balances en vivo." data-en="Quick transaction entry, smart categorization, and real-time balance tracking.">Carga rápida de transacciones, categorización y seguimiento de balances en vivo.</p>
       </div>
-      <div class="step-box">
-        <div class="step-number" data-i18n data-es="MÓDULO 03" data-en="MODULE 03">MÓDULO 03</div>
+      <div class="step-box" id="moduleBox3"
+           onclick="loadVideo('YOUTUBE_ID_BOLSILLOS', 'Módulo 3: Sobres y Gestión de Metas', 'Module 3: Envelopes & Goal Management', this)"
+           title="Ver Módulo 3">
+        <div class="step-number" data-i18n data-es="MÓDULO 03 ▶" data-en="MODULE 03 ▶">MÓDULO 03 ▶</div>
         <h3 data-i18n data-es="Control de Bolsillos y Metas" data-en="Envelopes & Goal Management">Control de Bolsillos y Metas</h3>
         <p data-i18n data-es="Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual." data-en="Set aside budgets for fixed commitments and achieve monthly saving goals.">Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual.</p>
       </div>
@@ -208,28 +214,42 @@ function toggleLanguage() {
 }
 
 /**
- * Carga un video de YouTube en el iframe principal.
+ * Carga un video desde el selector de pestañas o desde una tarjeta de módulo.
  * @param {string} videoId  - ID de YouTube (ej: 'dQw4w9WgXcQ')
  * @param {string} titleEs  - Título en español para el header del card
  * @param {string} titleEn  - Título en inglés
- * @param {HTMLElement} btn - Botón selector clickeado (para marcar active)
+ * @param {HTMLElement} el  - Elemento clickeado (para marcar active)
  */
-function loadVideo(videoId, titleEs, titleEn, btn) {
+function loadVideo(videoId, titleEs, titleEn, el) {
   const player = document.getElementById('mainYouTubePlayer');
   if (player) {
-    player.src = 'https://www.youtube.com/embed/' + videoId + '?rel=0&modestbranding=1&color=white&autoplay=1';
+    player.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&autoplay=1`;
+    // Scroll suave al reproductor
+    player.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
-
+  
   const title = document.getElementById('videoTitle');
   if (title) {
     title.innerText = (currentLang === 'es') ? titleEs : titleEn;
     title.setAttribute('data-es', titleEs);
     title.setAttribute('data-en', titleEn);
   }
+  
+  const pill = document.getElementById('videoLangPill');
+  if (pill) pill.innerText = '🌐 ' + currentLang.toUpperCase();
 
-  // Marcar botón activo
+  // Limpiar clases active de todos los botones y tarjetas
   document.querySelectorAll('.vsel-btn').forEach(b => b.classList.remove('active-v'));
-  if (btn) btn.classList.add('active-v');
+  document.querySelectorAll('.step-box').forEach(b => b.classList.remove('active'));
+
+  // Añadir active al elemento clickeado
+  if (el) {
+    if (el.classList.contains('vsel-btn')) {
+      el.classList.add('active-v');
+    } else if (el.classList.contains('step-box')) {
+      el.classList.add('active');
+    }
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
