@@ -1,0 +1,1773 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowMint — Licencia de Revendedor (Reseller)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --mint: #00C896;
+      --mint-light: #E6FBF4;
+      --mint-mid: #00A67A;
+      --mint-dark: #007A58;
+      --gold: #F5A623;
+      --coral: #FF5C5C;
+      --navy: #0F1B2D;
+      --navy2: #162236;
+      --navy3: #1E2F47;
+      --slate: #3A4E68;
+      --muted: #6B7F99;
+      --border: rgba(255, 255, 255, 0.07);
+      --border-light: rgba(255, 255, 255, 0.12);
+      --card: rgba(22, 34, 54, 0.7);
+      --text: #F0F4FF;
+      --text-sec: #9AABC4;
+      --text-muted: #5E7090;
+      --radius: 24px;
+      --radius-sm: 12px;
+      --shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+      --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    /* Decorative glows */
+    .glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      border-radius: 50%;
+      filter: blur(150px);
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.15;
+    }
+
+    .glow-1 {
+      top: -200px;
+      left: -100px;
+      background: var(--mint);
+    }
+
+    .glow-2 {
+      top: 600px;
+      right: -200px;
+      background: #7C6EF5;
+    }
+
+    .glow-3 {
+      bottom: -100px;
+      left: 10%;
+      background: var(--gold);
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3 {
+      font-family: 'DM Serif Display', serif;
+      font-weight: 400;
+    }
+
+    /* ── LAYOUT & SECTIONS ── */
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Navigation */
+    header {
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 38px;
+      height: 38px;
+      background: var(--mint);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+    }
+
+    .logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: var(--mint);
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 32px;
+    }
+
+    .nav-link {
+      text-decoration: none;
+      color: var(--text-sec);
+      font-size: 14px;
+      font-weight: 500;
+      transition: var(--transition);
+    }
+
+    .nav-link:hover {
+      color: var(--text);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* Language Selector Styles */
+    .lang-switcher {
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 6px 10px;
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .lang-switcher:hover {
+      border-color: var(--mint);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--mint);
+      color: var(--navy);
+    }
+
+    .btn-primary:hover {
+      background: var(--mint-mid);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 200, 150, 0.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border-light);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    .btn-lg {
+      padding: 16px 36px;
+      font-size: 16px;
+      border-radius: 16px;
+    }
+
+    /* Hero Section */
+    .hero {
+      padding: 80px 0 100px;
+      text-align: center;
+      position: relative;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 6px 14px;
+      background: rgba(0, 200, 150, 0.08);
+      border: 1px solid rgba(0, 200, 150, 0.2);
+      color: var(--mint);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+
+    .hero h1 {
+      font-size: 64px;
+      line-height: 1.1;
+      margin-bottom: 24px;
+      letter-spacing: -1.5px;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--mint), #7C6EF5);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text-sec);
+      max-width: 680px;
+      margin: 0 auto 36px;
+    }
+
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin-bottom: 60px;
+    }
+
+    /* Mockup App Showcase */
+    .mockup-wrap {
+      border-radius: var(--radius);
+      background: linear-gradient(135deg, rgba(22, 34, 54, 0.9), rgba(30, 47, 71, 0.6));
+      border: 1px solid var(--border-light);
+      padding: 12px;
+      box-shadow: var(--shadow);
+      max-width: 960px;
+      margin: 0 auto;
+      overflow: hidden;
+      position: relative;
+      transition: var(--transition);
+    }
+
+    .mockup-wrap:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 200, 150, 0.3);
+    }
+
+    .mockup-header {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-left: 12px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 12px;
+    }
+
+    .mockup-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+
+    .mockup-dot.red {
+      background: #FF5959;
+    }
+
+    .mockup-dot.yellow {
+      background: #FFC02F;
+    }
+
+    .mockup-dot.green {
+      background: #2FCA42;
+    }
+
+    /* Interactive CSS Showcase of the App UI components (glassmorphism) */
+    .ui-showcase-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 16px;
+      text-align: left;
+      padding: 12px;
+    }
+
+    .ui-card {
+      background: var(--navy2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 20px;
+    }
+
+    .ui-kpis {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+
+    .ui-kpi {
+      padding: 16px;
+      border-radius: 12px;
+      border-left: 3px solid var(--mint);
+      background: rgba(255, 255, 255, 0.01);
+    }
+
+    .ui-kpi.expense {
+      border-left-color: var(--coral);
+    }
+
+    .ui-kpi.invest {
+      border-left-color: #7C6EF5;
+    }
+
+    .ui-lbl {
+      font-size: 11px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .ui-val {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      margin-top: 4px;
+    }
+
+    .ui-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .ui-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 12px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.02);
+      font-size: 13px;
+    }
+
+    .ui-item .green {
+      color: var(--mint);
+      font-weight: 600;
+    }
+
+    .ui-item .red {
+      color: var(--coral);
+      font-weight: 600;
+    }
+
+    /* Section Styles */
+    section {
+      padding: 100px 0;
+    }
+
+    .sec-header {
+      text-align: center;
+      max-width: 600px;
+      margin: 0 auto 60px;
+    }
+
+    .sec-header h2 {
+      font-size: 44px;
+      line-height: 1.2;
+      margin-bottom: 16px;
+    }
+
+    .sec-header p {
+      color: var(--text-sec);
+    }
+
+    /* Pain & Solution */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .pain-list {
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .pain-item {
+      display: flex;
+      gap: 16px;
+    }
+
+    .pain-icon {
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .pain-text h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 4px;
+    }
+
+    .pain-text p {
+      color: var(--text-sec);
+      font-size: 14px;
+    }
+
+    /* Core Features Grid */
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .feature-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 36px;
+      border-radius: var(--radius);
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      transform: translateY(-5px);
+      border-color: rgba(0, 200, 150, 0.25);
+      background: var(--navy2);
+      box-shadow: var(--shadow);
+    }
+
+    .feature-icon {
+      width: 48px;
+      height: 48px;
+      background: rgba(0, 200, 150, 0.08);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      margin-bottom: 24px;
+      color: var(--mint);
+    }
+
+    .feature-card h3 {
+      font-size: 20px;
+      margin-bottom: 12px;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      color: var(--text-sec);
+      font-size: 14px;
+    }
+
+    /* Why Privacy matters block */
+    .privacy-banner {
+      background: linear-gradient(135deg, rgba(0, 200, 150, 0.1), rgba(124, 110, 245, 0.05));
+      border: 1px solid rgba(0, 200, 150, 0.2);
+      padding: 48px;
+      border-radius: var(--radius);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 40px;
+      margin-top: 80px;
+    }
+
+    .privacy-info h3 {
+      font-size: 28px;
+      margin-bottom: 12px;
+    }
+
+    .privacy-info p {
+      color: var(--text-sec);
+      font-size: 15px;
+      max-width: 600px;
+    }
+
+    /* Testimonials */
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+
+    .testi-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 32px;
+      border-radius: var(--radius);
+    }
+
+    .testi-stars {
+      color: var(--gold);
+      margin-bottom: 16px;
+      font-size: 14px;
+    }
+
+    .testi-text {
+      font-style: italic;
+      color: var(--text-sec);
+      font-size: 14px;
+      margin-bottom: 24px;
+    }
+
+    .testi-author {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .testi-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--navy3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      color: var(--mint);
+      border: 1px solid var(--border-light);
+    }
+
+    .testi-name {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .testi-role {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Pricing */
+    .pricing-card {
+      background: linear-gradient(180deg, var(--navy2) 0%, rgba(22, 34, 54, 0.7) 100%);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      max-width: 550px;
+      margin: 0 auto;
+      padding: 48px;
+      text-align: center;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .pricing-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--mint), #7C6EF5);
+    }
+
+    .price {
+      font-family: 'DM Serif Display', serif;
+      font-size: 72px;
+      line-height: 1;
+      margin: 24px 0 12px;
+    }
+
+    .price span {
+      font-size: 16px;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: line-through;
+      margin-right: 8px;
+    }
+
+    .pricing-features {
+      text-align: left;
+      list-style: none;
+      margin: 36px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .pricing-features li {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--text-sec);
+    }
+
+    .pricing-features li::before {
+      content: '✓';
+      color: var(--mint);
+      font-weight: bold;
+    }
+
+    /* Option/Standard Section */
+    .standard-option {
+      margin-top: 60px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px dashed var(--border-light);
+      border-radius: 16px;
+      text-align: center;
+      max-width: 550px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Footer */
+    footer {
+      padding: 60px 0;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 14px;
+    }
+
+    .footer-links {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+    }
+
+    .footer-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-links a:hover {
+      color: var(--text);
+    }
+
+    /* Link configuration widget */
+    .config-widget {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+    }
+
+    .config-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      font-size: 20px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+      transition: var(--transition);
+    }
+
+    .config-btn:hover {
+      transform: rotate(45deg);
+      border-color: var(--mint);
+    }
+
+    .config-panel {
+      position: absolute;
+      bottom: 60px;
+      right: 0;
+      width: 320px;
+      background: var(--navy2);
+      border: 1px solid var(--border-light);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      display: none;
+      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .config-panel.open {
+      display: block;
+    }
+
+    .config-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .config-field {
+      margin-bottom: 14px;
+    }
+
+    .config-field label {
+      font-size: 10px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-weight: 600;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .config-input {
+      width: 100%;
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: 12px;
+      outline: none;
+    }
+
+    .config-input:focus {
+      border-color: var(--mint);
+    }
+
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 40px;
+      }
+
+      .ui-showcase-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ui-kpis {
+        grid-template-columns: 1fr;
+      }
+
+      .problem-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .features-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .privacy-banner {
+        flex-direction: column;
+        text-align: center;
+        padding: 24px;
+      }
+
+      nav {
+        display: none;
+      }
+    }
+    /* ── BONOS DE LICENCIA + ROI ── */
+    .bonus-section {
+      padding: 90px 0;
+      position: relative;
+    }
+
+    .bonus-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      background: rgba(245, 166, 35, 0.08);
+      border: 1px solid rgba(245, 166, 35, 0.25);
+      color: var(--gold);
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 20px;
+    }
+
+    .bonus-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 56px;
+    }
+
+    .bonus-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 26px 22px;
+      transition: var(--transition);
+    }
+
+    .bonus-item:hover {
+      transform: translateY(-4px);
+      border-color: rgba(0, 200, 150, 0.3);
+      background: var(--navy2);
+      box-shadow: var(--shadow);
+    }
+
+    .bonus-icon {
+      width: 42px;
+      height: 42px;
+      border-radius: 11px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      margin-bottom: 18px;
+      background: rgba(0, 200, 150, 0.08);
+      color: var(--mint);
+    }
+
+    .bonus-item h3 {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15.5px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .bonus-item p {
+      color: var(--text-sec);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .bonus-item.highlight {
+      border-color: rgba(245, 166, 35, 0.3);
+      background: linear-gradient(160deg, var(--card) 0%, rgba(245, 166, 35, 0.06) 140%);
+    }
+
+    .bonus-item.highlight .bonus-icon {
+      background: rgba(245, 166, 35, 0.12);
+      color: var(--gold);
+    }
+
+    /* ROI Calculator Card */
+    .roi-card {
+      background: linear-gradient(135deg, rgba(0, 200, 150, 0.1), rgba(124, 110, 245, 0.06));
+      border: 1px solid rgba(0, 200, 150, 0.25);
+      border-radius: var(--radius);
+      padding: 52px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .roi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, var(--mint), var(--gold));
+    }
+
+    .roi-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      color: var(--mint);
+      margin-bottom: 18px;
+      display: block;
+    }
+
+    .roi-headline {
+      font-family: 'DM Serif Display', serif;
+      font-size: 34px;
+      line-height: 1.3;
+      max-width: 720px;
+      margin: 0 auto 14px;
+    }
+
+    .roi-headline strong {
+      color: var(--mint);
+    }
+
+    .roi-sub {
+      color: var(--text-sec);
+      font-size: 15px;
+      max-width: 560px;
+      margin: 0 auto 34px;
+    }
+
+    .roi-math-row {
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .roi-chip {
+      background: rgba(15, 27, 45, 0.6);
+      border: 1px solid var(--border-light);
+      border-radius: 14px;
+      padding: 18px 26px;
+      min-width: 150px;
+    }
+
+    .roi-chip .roi-chip-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+
+    .roi-chip .roi-chip-lbl {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .roi-chip.accent .roi-chip-num {
+      color: var(--gold);
+    }
+
+    @media (max-width: 900px) {
+      .bonus-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 560px) {
+      .bonus-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .roi-card {
+        padding: 32px 22px;
+      }
+
+      .roi-headline {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="glow glow-1"></div>
+  <div class="glow glow-2"></div>
+  <div class="glow glow-3"></div>
+
+  <!-- ── HEADER ── -->
+  <div class="container">
+    <header>
+      <a href="#" class="logo">
+        <div class="logo-icon">🌿</div>
+        <div class="logo-text">Flow<span>Mint</span> Reseller</div>
+      </a>
+      <nav>
+        <a href="#ventajas" class="nav-link" data-i18n="nav-problem">Ventajas</a>
+        <a href="#caracteristicas" class="nav-link" data-i18n="nav-features">El Software</a>
+        <a href="#privacidad" class="nav-link" data-i18n="nav-privacy">Privacidad</a>
+        <a href="#precios" class="nav-link" data-i18n="nav-pricing">Licencia</a>
+      </nav>
+      <div class="header-actions">
+        <select class="lang-switcher" onchange="changeLanguage(this.value)" id="langSelect">
+          <option value="es">🇪🇸 ES</option>
+          <option value="en">🇺🇸 EN</option>
+        </select>
+        <a href="#precios" class="btn btn-primary" data-i18n="nav-getbtn">Obtener Licencia</a>
+      </div>
+    </header>
+  </div>
+
+  <!-- ── HERO SECTION ── -->
+  <div class="container">
+    <section class="hero">
+      <span class="badge" data-i18n="hero-badge">🔥 Licencia Comercial · 100% Ganancia</span>
+      <h1 data-i18n="hero-title">Revende FlowMint y Quedate con el <span>100% de la Ganancia</span></h1>
+      <p class="hero-sub" data-i18n="hero-sub">
+        Adquiere la Licencia Comercial Completa para revender FlowMint, utilizar nuestros embudos de venta y generar
+        ingresos recurrentes vendiendo un software financiero de alta demanda.
+      </p>
+      <div class="hero-actions">
+        <a href="#precios" class="btn btn-primary btn-lg" data-i18n="hero-cta1">Comprar Licencia ($149 USD)</a>
+      </div>
+
+      <!-- Interactive Mockup Showcase -->
+      <div class="mockup-wrap">
+        <div class="mockup-header">
+          <div class="mockup-dot red"></div>
+          <div class="mockup-dot yellow"></div>
+          <div class="mockup-dot green"></div>
+          <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">FlowMint Finance - Local App
+            System</span>
+        </div>
+        <div class="ui-showcase-grid">
+          <div class="ui-card">
+            <div class="ui-kpis">
+              <div class="ui-kpi">
+                <div class="ui-lbl" data-i18n="ui-income">Ingresos</div>
+                <div class="ui-val" style="color: var(--mint);">$6,240</div>
+              </div>
+              <div class="ui-kpi expense">
+                <div class="ui-lbl" data-i18n="ui-expenses">Gastos</div>
+                <div class="ui-val" style="color: var(--coral);">$1,482</div>
+              </div>
+              <div class="ui-kpi invest">
+                <div class="ui-lbl" data-i18n="ui-portfolio">Portafolio</div>
+                <div class="ui-val" style="color: #7C6EF5;">$18,540</div>
+              </div>
+            </div>
+            <div style="font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 12px;"
+              data-i18n="ui-recent">Transacciones Recientes</div>
+            <div class="ui-list">
+              <div class="ui-item">
+                <span data-i18n="ui-tx1">💼 Salario Empresa</span>
+                <span class="green">+$4,500</span>
+              </div>
+              <div class="ui-item">
+                <span data-i18n="ui-tx2">🍽 Supermercado</span>
+                <span class="red">-$380</span>
+              </div>
+              <div class="ui-item">
+                <span data-i18n="ui-tx3">📈 Compra ETF S&P 500</span>
+                <span style="color: #7C6EF5;">-$500</span>
+              </div>
+            </div>
+          </div>
+          <div class="ui-card" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div style="font-family: 'DM Serif Display', serif; font-size: 18px; margin-bottom: 8px;"
+                data-i18n="ui-goals">Metas de Ahorro</div>
+              <div class="ui-list" style="gap: 12px;">
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                    <span data-i18n="ui-g1">🛡 Fondo de Emergencia</span>
+                    <span>68%</span>
+                  </div>
+                  <div style="height:6px; background: rgba(255,255,255,0.08); border-radius:3px; overflow:hidden;">
+                    <div style="width: 68%; height:100%; background: var(--mint);"></div>
+                  </div>
+                </div>
+                <div>
+                  <div style="display:flex; justify-content:space-between; font-size:12px; margin-bottom:4px;">
+                    <span data-i18n="ui-g2">✈️ Vacaciones Europa</span>
+                    <span>72%</span>
+                  </div>
+                  <div style="height:6px; background: rgba(255,255,255,0.08); border-radius:3px; overflow:hidden;">
+                    <div style="width: 72%; height:100%; background: var(--gold);"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="ui-alert-box"
+              style="padding: 10px; background: rgba(0, 200, 150, 0.05); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 8px; font-size: 11px; color: var(--mint); text-align: center; margin-top: 10px;"
+              data-i18n="ui-alert">
+              🎉 ¡Negocio Llave en Mano Listo para Revender!
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── BONOS DE LA LICENCIA DE REVENDEDOR + CALCULADORA DE ROI ── -->
+  <div class="container">
+    <section class="bonus-section">
+      <div class="sec-header">
+        <span class="bonus-eyebrow" data-i18n="bonus-eyebrow">🎁 Incluido con tu Licencia</span>
+        <h2 data-i18n="bonus-h2">Todo lo que Recibes al Convertirte en Revendedor</h2>
+        <p data-i18n="bonus-desc">No solo compras el software: recibes un negocio completo, listo para operar desde el primer día.</p>
+      </div>
+
+      <div class="bonus-grid">
+        <div class="bonus-item">
+          <div class="bonus-icon">💬</div>
+          <h3 data-i18n="bonus-1-title">Guiones de Venta</h3>
+          <p data-i18n="bonus-1-desc">Scripts listos para presentar, manejar objeciones y cerrar clientes rápidamente.</p>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-icon">🤖</div>
+          <h3 data-i18n="bonus-2-title">IA Accelerator Prompts</h3>
+          <p data-i18n="bonus-2-desc">Prompts optimizados para prospección, contenido y captación de clientes con IA.</p>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-icon">🖼️</div>
+          <h3 data-i18n="bonus-3-title">Kit de Banners</h3>
+          <p data-i18n="bonus-3-desc">Recursos gráficos listos para campañas publicitarias, redes y WhatsApp.</p>
+        </div>
+        <div class="bonus-item highlight">
+          <div class="bonus-icon">🎧</div>
+          <h3 data-i18n="bonus-4-title">Soporte 24/7 Incluido</h3>
+          <p data-i18n="bonus-4-desc">Atención directa a tus clientes finales, sin que tengas que implementar o atender nada tú mismo.</p>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-icon">📣</div>
+          <h3 data-i18n="bonus-5-title">Guía de Marketing Automatizada</h3>
+          <p data-i18n="bonus-5-desc">Estrategias de redes sociales y atracción de clientes listas para ejecutar.</p>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-icon">🧩</div>
+          <h3 data-i18n="bonus-6-title">Plantilla Clonable de la Landing Page</h3>
+          <p data-i18n="bonus-6-desc">Diseño de la página de ventas listo para importar en 1 clic, sin diseñar nada.</p>
+        </div>
+        <div class="bonus-item highlight">
+          <div class="bonus-icon">♾️</div>
+          <h3 data-i18n="bonus-7-title">Actualizaciones para Siempre</h3>
+          <p data-i18n="bonus-7-desc">Cualquier mejora futura de FlowMint se aplica automáticamente a tus clientes, sin costo extra.</p>
+        </div>
+        <div class="bonus-item">
+          <div class="bonus-icon">⏱️</div>
+          <h3 data-i18n="bonus-8-title">Garantía de Configuración en 24 Horas</h3>
+          <p data-i18n="bonus-8-desc">Checklist y tutorial paso a paso para dejar tu sistema de ventas operando el mismo día.</p>
+        </div>
+      </div>
+
+      <!-- CALCULADORA DE ROI / ESCALABILIDAD -->
+      <div class="roi-card">
+        <span class="roi-label" data-i18n="roi-label">📊 Calculadora de ROI / Escalabilidad</span>
+        <h3 class="roi-headline" data-i18n="roi-headline">Vendes <strong>8 licencias</strong> = Recuperas tu inversión <strong>+ $1,192 de ganancia pura</strong></h3>
+        <p class="roi-sub" data-i18n="roi-sub">Con el 100% de cada venta directo a tu cuenta, no necesitas volumen masivo para que este negocio sea rentable desde el primer mes.</p>
+
+        <div class="roi-math-row">
+          <div class="roi-chip">
+            <div class="roi-chip-num">$149</div>
+            <div class="roi-chip-lbl" data-i18n="roi-chip-1-lbl">Tu inversión inicial</div>
+          </div>
+          <div class="roi-chip">
+            <div class="roi-chip-num" data-i18n="roi-chip-2-num">8 ventas</div>
+            <div class="roi-chip-lbl" data-i18n="roi-chip-2-lbl">A $149 c/u</div>
+          </div>
+          <div class="roi-chip">
+            <div class="roi-chip-num">$1,192</div>
+            <div class="roi-chip-lbl" data-i18n="roi-chip-3-lbl">Ganancia pura</div>
+          </div>
+          <div class="roi-chip accent">
+            <div class="roi-chip-num">$1,341</div>
+            <div class="roi-chip-lbl" data-i18n="roi-chip-4-lbl">Ingreso total generado</div>
+          </div>
+        </div>
+
+        <a href="javascript:void(0)" onclick="openResellerUrl()" class="btn btn-primary btn-lg" style="font-weight: 700;" data-i18n="roi-cta-btn">
+          Quiero Todos Estos Bonos ($149 USD)
+        </a>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── VENTAJAS DE REVENDEDOR ── -->
+  <div id="ventajas"
+    style="background: var(--navy2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <section>
+        <div class="problem-grid">
+          <div>
+            <h2 style="font-size: 40px; margin-bottom: 20px;" data-i18n="prob-title">¿Por qué adquirir la Licencia de
+              Revendedor?</h2>
+            <p style="color: var(--text-sec); margin-bottom: 24px;" data-i18n="prob-desc">
+              Desarrollar un software desde cero requiere meses y miles de dólares. Con esta licencia obtienes un
+              producto digital comprobado, un embudo de ventas funcional y el derecho legal de revenderlo cobrando
+              directo a tu cuenta.
+            </p>
+            <a href="#precios" class="btn btn-primary" data-i18n="prob-cta">Quiero la Licencia de Revendedor</a>
+          </div>
+          <div class="pain-list">
+            <div class="pain-item">
+              <div class="pain-icon">💰</div>
+              <div class="pain-text">
+                <h3 data-i18n="pain1-t">100% de Beneficios</h3>
+                <p data-i18n="pain1-d">Cada venta va directo a tu procesador de pagos. Sin comisiones compartidas ni
+                  mensualidades.</p>
+              </div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-icon">📦</div>
+              <div class="pain-text">
+                <h3 data-i18n="pain2-t">Material Comercial Listo</h3>
+                <p data-i18n="pain2-d">Incluye copys de ventas, recursos gráficos y embudos optimizados listos para
+                  lanzar.</p>
+              </div>
+            </div>
+            <div class="pain-item">
+              <div class="pain-icon">⚡</div>
+              <div class="pain-text">
+                <h3 data-i18n="pain3-t">Despliegue Rápido</h3>
+                <p data-i18n="pain3-d">Subes el código a GitHub o Vercel y comienzas a vender inmediatamente sin
+                  configuraciones complejas.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ── CARACTERÍSTICAS DEL SOFTWARE ── -->
+  <div id="caracteristicas" class="container">
+    <section>
+      <div class="sec-header">
+        <h2 data-i18n="feat-header-t">El Software que Tus Clientes Amarán</h2>
+        <p data-i18n="feat-header-d">FlowMint ofrece una experiencia de gestión financiera local, rápida y privada que
+          tus usuarios disfrutarán desde el primer día.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">📊</div>
+          <h3 data-i18n="f1-t">Dashboard en Tiempo Real</h3>
+          <p data-i18n="f1-d">KPIs de ingresos, gastos, balance de caja y portafolio de inversiones actualizados al
+            instante.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">⚖️</div>
+          <h3 data-i18n="f2-t">Control de Presupuestos</h3>
+          <p data-i18n="f2-d">Límites mensuales personalizables con alertas en colores según los presupuestos fijados.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📈</div>
+          <h3 data-i18n="f3-t">Gestión de Inversiones</h3>
+          <p data-i18n="f3-d">Sigue activos en Bolsa, ETFs y Criptomonedas con visualización gráfica del rendimiento.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 data-i18n="f4-t">Metas con Proyección</h3>
+          <p data-i18n="f4-d">Cálculo automático de ahorro mensual necesario para cumplir cualquier objetivo financiero.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 data-i18n="f5-t">Buscador Inteligente</h3>
+          <p data-i18n="f5-d">Filtrado inmediato de historial por notas o categorías sin depender de macros complejas.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📥</div>
+          <h3 data-i18n="f6-t">Copia de Seguridad Local</h3>
+          <p data-i18n="f6-d">Exportación completa a archivos JSON en un clic. Propiedad total del usuario sobre sus
+            datos.</p>
+        </div>
+      </div>
+
+      <div id="privacidad" class="privacy-banner">
+        <div class="privacy-info">
+          <h3 data-i18n="priv-banner-t">🔒 Privacidad Total y Almacenamiento Local</h3>
+          <p data-i18n="priv-banner-d">
+            FlowMint funciona 100% en el navegador del usuario utilizando LocalStorage. No requiere mantener servidores
+            ni bases de datos costosas para atender a tus clientes.
+          </p>
+        </div>
+        <div style="font-size: 60px; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));">🛡️</div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ── TESTIMONIOS ── -->
+  <div style="background: var(--navy2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+    <div class="container">
+      <section>
+        <div class="sec-header">
+          <h2 data-i18n="testi-header-t">Lo que Opinan Quienes Ya Revenden</h2>
+          <p data-i18n="testi-header-d">Emprendedores digitales impulsando sus ventas con Licencias Comerciales.</p>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text" data-i18n="t1-text">
+              "Compré la licencia Reseller y en mi primera semana recuperé totalmente la inversión realizando 3 ventas
+              directa en mi checkout."
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar">AM</div>
+              <div>
+                <div class="testi-name">Alejandro Medina</div>
+                <div class="testi-role" data-i18n="t1-role">Marketer Digital</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text" data-i18n="t2-text">
+              "El kit de marketing incluido ahorra semanas de trabajo. Solo ajusté mis enlaces en el panel y conecté mi
+              plataforma de pago."
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar">CP</div>
+              <div>
+                <div class="testi-name">Camila Pons</div>
+                <div class="testi-role" data-i18n="t2-role">Creadora de Contenido</div>
+              </div>
+            </div>
+          </div>
+          <div class="testi-card">
+            <div class="testi-stars">★★★★★</div>
+            <p class="testi-text" data-i18n="t3-text">
+              "Al ser un software local sin costo de servidores por cliente, mi margen de beneficio es literalmente del
+              100%."
+            </p>
+            <div class="testi-author">
+              <div class="testi-avatar">RG</div>
+              <div>
+                <div class="testi-name">Roberto Gómez</div>
+                <div class="testi-role" data-i18n="t3-role">Emprendedor Web</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ── OFERTA PRINCIPAL DE REVENDEDOR ($149) ── -->
+  <div id="precios" class="container">
+    <section style="padding-bottom: 60px;">
+      <div class="sec-header">
+        <h2 data-i18n="price-header-t">Consigue la Licencia Comercial de Revendedor</h2>
+        <p data-i18n="price-header-d">Pago único de lanzamiento. Quedate con el 100% de cada venta que realices.</p>
+      </div>
+
+      <div class="pricing-card">
+        <div class="badge"
+          style="background: rgba(245, 166, 35, 0.08); border-color: rgba(245, 166, 35, 0.2); color: var(--gold);"
+          data-i18n="price-badge">
+          OFERTA ESPECIAL RESELLER</div>
+        <h3 style="font-size: 28px; margin-top: 12px;" data-i18n="price-card-t">Licencia de Revendedor Completa</h3>
+        <p style="color: var(--text-sec); font-size: 14px; margin-top: 8px;" data-i18n="price-card-d">Derechos de
+          reventa ilimitados + Kit de Marketing</p>
+
+        <div class="price">
+          <span>$299</span>$149 <span
+            style="font-size: 24px; text-decoration: none; color: var(--mint); font-family: 'DM Sans', sans-serif;">USD</span>
+        </div>
+        <p style="color: var(--mint); font-size: 12px; font-weight: 600;" data-i18n="price-note">⚠️ Pago único. Sin
+          regalías ni mensualidades.</p>
+
+        <ul class="pricing-features" id="main-features-list">
+          <!-- Se renderizan dinámicamente según el idioma -->
+        </ul>
+
+        <a href="javascript:void(0)" onclick="openResellerUrl()" class="btn btn-primary btn-lg buy-reseller-link"
+          style="width: 100%; font-weight: 700;" data-i18n="price-btn">
+          Adquirir Licencia de Revendedor ($149 USD)
+        </a>
+        <p style="font-size: 11px; color: var(--text-muted); margin-top: 14px;" data-i18n="price-guarantee">Pago 100%
+          seguro. Acceso inmediato a todos los activos.</p>
+      </div>
+
+    </section>
+  </div>
+
+  <!-- Footer -->
+  <div class="container">
+    <footer>
+      <div class="footer-links">
+        <a href="#ventajas" data-i18n="nav-problem">Ventajas</a>
+        <a href="#caracteristicas" data-i18n="nav-features">El Software</a>
+        <a href="#privacidad" data-i18n="nav-privacy">Privacidad</a>
+        <a href="flowmint.html" target="_blank" data-i18n="footer-demo">Probar Demo</a>
+      </div>
+      <p id="footer-copyright">© 2026 FlowMint Reseller. Todos los derechos reservados.
+      </p>
+    </footer>
+  </div>
+
+  <!-- ── CONFIGURATION PANEL WIDGET ── -->
+  <div class="config-widget">
+    <button class="config-btn" onclick="toggleConfigPanel()" title="Configurar Enlaces de Venta">⚙️</button>
+    <div class="config-panel" id="configPanel">
+      <div class="config-title" data-i18n="cfg-title">⚙️ Ajustes de Checkout</div>
+      <p style="font-size: 11px; color: var(--text-sec); margin-bottom: 14px;" data-i18n="cfg-desc">
+        Configura tus URLs de cobro para actualizar los botones en vivo:
+      </p>
+
+      <div class="config-field">
+        <label for="resellerUrlInput" data-i18n="cfg-reseller-label">URL Licencia de Revendedor ($149)</label>
+        <input type="text" class="config-input" id="resellerUrlInput" placeholder="https://pay.hotmart.com/...">
+      </div>
+
+      <div class="config-field" style="margin-top: 10px;">
+        <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL App Personal ($19)</label>
+        <input type="text" class="config-input" id="checkoutUrlInput" placeholder="https://pay.hotmart.com/...">
+      </div>
+
+      <button class="btn btn-primary" onclick="saveAllUrls()"
+        style="width: 100%; padding: 10px; font-size: 12px; border-radius: 8px; margin-top: 10px; font-weight:700;"
+        data-i18n="cfg-save-btn">
+        Guardar Todo
+      </button>
+    </div>
+  </div>
+
+  <!-- ── TRADUCCIONES Y LÓGICA DE NEGOCIO ── -->
+  <script>
+    // --- 1. DICCIONARIO DE TRADUCCIONES (I18N) ---
+    const translations = {
+      es: {
+        "nav-problem": "Ventajas",
+        "nav-features": "El Software",
+        "nav-privacy": "Privacidad",
+        "nav-pricing": "Licencia",
+        "nav-getbtn": "Obtener Licencia",
+        "hero-badge": "🔥 Licencia Comercial · 100% Ganancia",
+        "hero-title": "Revende FlowMint y Quedate con el <span>100% de la Ganancia</span>",
+        "hero-sub": "Adquiere la Licencia Comercial Completa para revender FlowMint, utilizar nuestros embudos de venta y generar ingresos recurrentes vendiendo un software financiero de alta demanda.",
+        "hero-cta1": "Comprar Licencia ($149 USD)",
+        "ui-income": "Ingresos",
+        "ui-expenses": "Gastos",
+        "ui-portfolio": "Portafolio",
+        "ui-recent": "Transacciones Recientes",
+        "ui-tx1": "💼 Salario Empresa",
+        "ui-tx2": "🍽 Supermercado",
+        "ui-tx3": "📈 Compra ETF S&P 500",
+        "ui-goals": "Metas de Ahorro",
+        "ui-g1": "🛡 Fondo de Emergencia",
+        "ui-g2": "✈️ Vacaciones Europa",
+        "ui-alert": "🎉 ¡Negocio Llave en Mano Listo para Revender!",
+        "prob-title": "¿Por qué adquirir la Licencia de Revendedor?",
+        "prob-desc": "Desarrollar un software desde cero requiere meses y miles de dólares. Con esta licencia obtienes un producto digital comprobado, un embudo de ventas funcional y el derecho legal de revenderlo cobrando directo a tu cuenta.",
+        "prob-cta": "Quiero la Licencia de Revendedor",
+        "pain1-t": "100% de Beneficios",
+        "pain1-d": "Cada venta va directo a tu procesador de pagos. Sin comisiones compartidas ni mensualidades.",
+        "pain2-t": "Material Comercial Listo",
+        "pain2-d": "Incluye copys de ventas, recursos gráficos y embudos optimizados listos para lanzar.",
+        "pain3-t": "Despliegue Rápido",
+        "pain3-d": "Subes el código a GitHub o Vercel y comienzas a vender inmediatamente sin configuraciones complejas.",
+        "feat-header-t": "El Software que Tus Clientes Amarán",
+        "feat-header-d": "FlowMint ofrece una experiencia de gestión financiera local, rápida y privada que tus usuarios disfrutarán desde el primer día.",
+        "f1-t": "Dashboard en Tiempo Real",
+        "f1-d": "KPIs de ingresos, gastos, balance de caja y portafolio de inversiones actualizados al instante.",
+        "f2-t": "Control de Presupuestos",
+        "f2-d": "Límites mensuales personalizables con alertas en colores según los presupuestos fijados.",
+        "f3-t": "Gestión de Inversiones",
+        "f3-d": "Sigue activos en Bolsa, ETFs y Criptomonedas con visualización gráfica del rendimiento.",
+        "f4-t": "Metas con Proyección",
+        "f4-d": "Cálculo automático de ahorro mensual necesario para cumplir cualquier objetivo financiero.",
+        "f5-t": "Buscador Inteligente",
+        "f5-d": "Filtrado inmediato de historial por notas o categorías sin depender de macros complejas.",
+        "f6-t": "Copia de Seguridad Local",
+        "f6-d": "Exportación completa a archivos JSON en un clic. Propiedad total del usuario sobre sus datos.",
+        "priv-banner-t": "🔒 Privacidad Total y Almacenamiento Local",
+        "priv-banner-d": "FlowMint funciona 100% en el navegador del usuario utilizando LocalStorage. No requiere mantener servidores ni bases de datos costosas para atender a tus clientes.",
+        "testi-header-t": "Lo que Opinan Quienes Ya Revenden",
+        "testi-header-d": "Emprendedores digitales impulsando sus ventas con Licencias Comerciales.",
+        "t1-text": '"Compré la licencia Reseller y en mi primera semana recuperé totalmente la inversión realizando 3 ventas directa en mi checkout."',
+        "t1-role": "Marketer Digital",
+        "t2-text": '"El kit de marketing incluido ahorra semanas de trabajo. Solo ajusté mis enlaces en el panel y conecté mi plataforma de pago."',
+        "t2-role": "Creadora de Contenido",
+        "t3-text": '"Al ser un software local sin costo de servidores por cliente, mi margen de beneficio es literalmente del 100%."',
+        "t3-role": "Emprendedor Web",
+        "price-header-t": "Consigue la Licencia Comercial de Revendedor",
+        "price-header-d": "Pago único de lanzamiento. Quedate con el 100% de cada venta que realices.",
+        "price-badge": "OFERTA ESPECIAL RESELLER",
+        "price-card-t": "Licencia de Revendedor Completa",
+        "price-card-d": "Derechos de reventa ilimitados + Kit de Marketing",
+        "price-note": "⚠️ Pago único. Sin regalías ni mensualidades.",
+        "price-btn": "Adquirir Licencia de Revendedor ($149 USD)",
+        "price-guarantee": "Pago 100% seguro. Acceso inmediato a todos los activos.",
+        "footer-demo": "Probar Demo",
+        "copyright": "© 2026 FlowMint Reseller. Todos los derechos reservados.",
+        "bonus-eyebrow": "🎁 Incluido con tu Licencia",
+        "bonus-h2": "Todo lo que Recibes al Convertirte en Revendedor",
+        "bonus-desc": "No solo compras el software: recibes un negocio completo, listo para operar desde el primer día.",
+        "bonus-1-title": "Guiones de Venta",
+        "bonus-1-desc": "Scripts listos para presentar, manejar objeciones y cerrar clientes rápidamente.",
+        "bonus-2-title": "IA Accelerator Prompts",
+        "bonus-2-desc": "Prompts optimizados para prospección, contenido y captación de clientes con IA.",
+        "bonus-3-title": "Kit de Banners",
+        "bonus-3-desc": "Recursos gráficos listos para campañas publicitarias, redes y WhatsApp.",
+        "bonus-4-title": "Soporte 24/7 Incluido",
+        "bonus-4-desc": "Atención directa a tus clientes finales, sin que tengas que implementar o atender nada tú mismo.",
+        "bonus-5-title": "Guía de Marketing Automatizada",
+        "bonus-5-desc": "Estrategias de redes sociales y atracción de clientes listas para ejecutar.",
+        "bonus-6-title": "Plantilla Clonable de la Landing Page",
+        "bonus-6-desc": "Diseño de la página de ventas listo para importar en 1 clic, sin diseñar nada.",
+        "bonus-7-title": "Actualizaciones para Siempre",
+        "bonus-7-desc": "Cualquier mejora futura de FlowMint se aplica automáticamente a tus clientes, sin costo extra.",
+        "bonus-8-title": "Garantía de Configuración en 24 Horas",
+        "bonus-8-desc": "Checklist y tutorial paso a paso para dejar tu sistema de ventas operando el mismo día.",
+        "roi-label": "📊 Calculadora de ROI / Escalabilidad",
+        "roi-headline": "Vendes <strong>8 licencias</strong> = Recuperas tu inversión <strong>+ $1,192 de ganancia pura</strong>",
+        "roi-sub": "Con el 100% de cada venta directo a tu cuenta, no necesitas volumen masivo para que este negocio sea rentable desde el primer mes.",
+        "roi-chip-1-lbl": "Tu inversión inicial",
+        "roi-chip-2-num": "8 ventas",
+        "roi-chip-2-lbl": "A $149 c/u",
+        "roi-chip-3-lbl": "Ganancia pura",
+        "roi-chip-4-lbl": "Ingreso total generado",
+        "roi-cta-btn": "Quiero Todos Estos Bonos ($149 USD)",
+        "cfg-title": "⚙️ Ajustes de Checkout",
+        "cfg-desc": "Configura tus URLs de cobro para actualizar los botones en vivo:",
+        "cfg-main-label": "URL App Personal ($19)",
+        "cfg-reseller-label": "URL Licencia de Revendedor ($149)",
+        "cfg-save-btn": "Guardar Todo"
+      },
+      en: {
+        "nav-problem": "Benefits",
+        "nav-features": "Software",
+        "nav-privacy": "Privacy",
+        "nav-pricing": "License",
+        "nav-getbtn": "Get License",
+        "hero-badge": "🔥 Commercial License · 100% Profits",
+        "hero-title": "Resell FlowMint & Keep <span>100% of Every Sale</span>",
+        "hero-sub": "Acquire full commercial reseller rights for FlowMint, utilize our turnkey sales funnels, and generate recurring income selling high-demand financial software.",
+        "hero-cta1": "Get Reseller License ($149 USD)",
+        "ui-income": "Income",
+        "ui-expenses": "Expenses",
+        "ui-portfolio": "Portfolio",
+        "ui-recent": "Recent Transactions",
+        "ui-tx1": "💼 Company Salary",
+        "ui-tx2": "🍽 Grocery Store",
+        "ui-tx3": "📈 Bought S&P 500 ETF",
+        "ui-goals": "Savings Goals",
+        "ui-g1": "🛡 Emergency Fund",
+        "ui-g2": "✈️ Europe Vacation",
+        "ui-alert": "🎉 Turnkey Business Ready to Resell!",
+        "prob-title": "Why Acquire the Reseller License?",
+        "prob-desc": "Building software from scratch costs months and thousands of dollars. With this license, you get a proven digital product, a high-converting sales funnel, and full commercial distribution rights.",
+        "prob-cta": "I Want the Reseller License",
+        "pain1-t": "100% Profit Margins",
+        "pain1-d": "Every sale goes straight to your payment processor. No revenue splitting or hidden fees.",
+        "pain2-t": "Complete Marketing Assets",
+        "pain2-d": "Includes ad copy, sales scripts, graphic designs, and pre-built conversion funnels.",
+        "pain3-t": "Instant Deployment",
+        "pain3-d": "Host on GitHub or Vercel and start generating sales immediately with zero setup friction.",
+        "feat-header-t": "Software Your Customers Will Love",
+        "feat-header-d": "FlowMint delivers a local, fast, and completely private personal finance system users love.",
+        "f1-t": "Real-Time Dashboard",
+        "f1-d": "Instant KPI tracking for cash flows, monthly balances, and investment portfolios.",
+        "f2-t": "Budget Enforcements",
+        "f2-d": "Customizable monthly thresholds with active visual alerts to control spending.",
+        "f3-t": "Investment Management",
+        "f3-d": "Track stocks, ETFs, and cryptocurrencies with integrated portfolio allocation charts.",
+        "f4-t": "Target Projections",
+        "f4-d": "Automated savings progress calculators to keep financial deadlines on track.",
+        "f5-t": "Smart Explorer",
+        "f5-d": "Instant search filtering for historical entries without reliance on complex macros.",
+        "f6-t": "Local Backup System",
+        "f6-d": "One-click JSON file exports. Full user data ownership without cloud dependencies.",
+        "priv-banner-t": "🔒 Total Privacy & Local Browser Storage",
+        "priv-banner-d": "FlowMint operates 100% inside local client browser storage via LocalStorage. Zero backend servers or database costs to manage for your buyers.",
+        "testi-header-t": "Trusted by Active Resellers",
+        "testi-header-d": "Digital entrepreneurs building steady revenue with commercial software licenses.",
+        "t1-text": '"I purchased the Reseller License and recovered my entire investment in week one with 3 direct sales through my gateway."',
+        "t1-role": "Digital Marketer",
+        "t2-text": '"The marketing kit saved me weeks of production. I just swapped in my payment URLs and went live immediately."',
+        "t2-role": "Content Creator",
+        "t3-text": '"Since it runs locally with zero hosting overhead per customer, my profit margins are literally 100%."',
+        "t3-role": "Web Entrepreneur",
+        "price-header-t": "Get Full Commercial Reseller Rights",
+        "price-header-d": "One-time payment structure. Keep 100% of all generated customer revenue.",
+        "price-badge": "SPECIAL RESELLER OFFER",
+        "price-card-t": "Full Commercial Reseller License",
+        "price-card-d": "Unlimited re-distribution rights + Turnkey Marketing Kit",
+        "price-note": "⚠️ One-time payment. No royalties or recurring costs.",
+        "price-btn": "Acquire Reseller License ($149 USD)",
+        "price-guarantee": "100% secure purchase. Immediate access to source files and assets.",
+        "footer-demo": "Try Demo",
+        "copyright": "© 2026 FlowMint Reseller. All rights reserved.",
+        "bonus-eyebrow": "🎁 Included With Your License",
+        "bonus-h2": "Everything You Get When You Become a Reseller",
+        "bonus-desc": "You're not just buying software: you get a complete business, ready to operate from day one.",
+        "bonus-1-title": "Sales Scripts",
+        "bonus-1-desc": "Ready-to-use scripts to pitch, handle objections, and close clients fast.",
+        "bonus-2-title": "AI Accelerator Prompts",
+        "bonus-2-desc": "Optimized prompts for prospecting, content creation, and client acquisition with AI.",
+        "bonus-3-title": "Banner Kit",
+        "bonus-3-desc": "Ready-made graphic assets for ad campaigns, social media, and WhatsApp.",
+        "bonus-4-title": "24/7 Support Included",
+        "bonus-4-desc": "Direct support for your end customers, with nothing for you to set up or handle yourself.",
+        "bonus-5-title": "Automated Marketing Guide",
+        "bonus-5-desc": "Ready-to-execute social media strategies and client-attraction tactics.",
+        "bonus-6-title": "Clonable Landing Page Template",
+        "bonus-6-desc": "Sales page design ready to import in 1 click, no design work needed.",
+        "bonus-7-title": "Lifetime Updates",
+        "bonus-7-desc": "Any future FlowMint improvement is applied automatically to your customers, at no extra cost.",
+        "bonus-8-title": "24-Hour Setup Guarantee",
+        "bonus-8-desc": "Step-by-step checklist and tutorial to get your sales system running the same day.",
+        "roi-label": "📊 ROI / Scalability Calculator",
+        "roi-headline": "Sell <strong>8 licenses</strong> = Recoup Your Investment <strong>+ $1,192 in Pure Profit</strong>",
+        "roi-sub": "With 100% of every sale going straight to your account, you don't need massive volume for this business to be profitable from month one.",
+        "roi-chip-1-lbl": "Your initial investment",
+        "roi-chip-2-num": "8 sales",
+        "roi-chip-2-lbl": "At $149 each",
+        "roi-chip-3-lbl": "Pure profit",
+        "roi-chip-4-lbl": "Total revenue generated",
+        "roi-cta-btn": "I Want All These Bonuses ($149 USD)",
+        "cfg-title": "⚙️ Checkout Settings",
+        "cfg-desc": "Configure your payment gateway links to update live site buttons:",
+        "cfg-main-label": "Personal App URL ($19)",
+        "cfg-reseller-label": "Reseller License URL ($149)",
+        "cfg-save-btn": "Save All"
+      }
+    };
+
+    const listFeaturesTranslations = {
+      es: [
+        "<strong>Derechos de Reventa Ilimitados:</strong> Revende el producto cuantas veces quieras.",
+        "<strong>100% de la Ganancia:</strong> Todos los cobros van directo a tu procesador de pagos.",
+        "<strong>Kit de Marketing Completo:</strong> Copys de venta, correos y diseños listos.",
+        "<strong>Software FlowMint Completo:</strong> Archivos fuente de la aplicación web.",
+        "<strong>Despliegue Llave en Mano:</strong> Compatible con Vercel, Netlify y GitHub Pages.",
+        "<strong>Sin Gastos de Servidor:</strong> Funciona 100% local en el navegador del usuario.",
+        "<strong>Soporte para Actualizaciones:</strong> Acceso a mejoras y refactorizaciones del código.",
+        "<strong>Uso Comercial Bilingüe:</strong> Plantillas en Español e Inglés incluidas."
+      ],
+      en: [
+        "<strong>Unlimited Resale Rights:</strong> Sell the software as many times as you want.",
+        "<strong>100% Profit Margins:</strong> Customer payments route directly to your account.",
+        "<strong>Turnkey Marketing Kit:</strong> High-converting copys, email swipes, and ad templates.",
+        "<strong>Full FlowMint Source Files:</strong> Complete local application codebase.",
+        "<strong>Instant Cloud Deployment:</strong> Optimized for Vercel, Netlify, and GitHub Pages.",
+        "<strong>Zero Backend Overhead:</strong> 100% client-side local browser execution.",
+        "<strong>Future Code Updates:</strong> Free access to core framework enhancements.",
+        "<strong>Bilingual Deployment Assets:</strong> Spanish and English landing templates included."
+      ]
+    };
+
+    // --- 2. GESTIÓN DE IDIOMA ---
+    let currentLang = localStorage.getItem('fm_reseller_lang') || 'es';
+
+    function changeLanguage(lang) {
+      currentLang = lang;
+      localStorage.setItem('fm_reseller_lang', lang);
+      const langSel = document.getElementById('langSelect');
+      if (langSel) {
+        Array.from(langSel.options).forEach(opt => {
+          opt.selected = (opt.value === lang);
+        });
+      }
+      document.documentElement.lang = lang;
+
+      document.querySelectorAll('[data-i18n]').forEach(elem => {
+        const key = elem.getAttribute('data-i18n');
+        if (translations[lang] && translations[lang][key] !== undefined) {
+          if (key === 'hero-title') {
+            elem.innerHTML = lang === 'es'
+              ? 'Revende FlowMint y Quedate con el <span>100% de la Ganancia</span>'
+              : 'Resell FlowMint & Keep <span>100% of Every Sale</span>';
+          } else if (key === 'roi-headline') {
+            elem.innerHTML = lang === 'es'
+              ? 'Vendes <strong>8 licencias</strong> = Recuperas tu inversión <strong>+ $1,192 de ganancia pura</strong>'
+              : 'Sell <strong>8 licenses</strong> = Recoup Your Investment <strong>+ $1,192 in Pure Profit</strong>';
+          } else {
+            elem.textContent = translations[lang][key];
+          }
+        }
+      });
+
+      const mainList = document.getElementById('main-features-list');
+      if (mainList) {
+        mainList.innerHTML = listFeaturesTranslations[lang].map(item => `<li>${item}</li>`).join('');
+      }
+
+      const copyrightElem = document.getElementById('footer-copyright');
+      if (copyrightElem) {
+        copyrightElem.textContent = translations[lang]['copyright'];
+      }
+    }
+
+    // --- 3. GESTIÓN DE ENLACES DE COBRO ---
+    let resellerUrl = localStorage.getItem('fm_landing_reseller_url') || 'https://pay.hotmart.com/G106875530I';
+    let checkoutUrl = localStorage.getItem('fm_landing_checkout_url') || 'https://pay.hotmart.com/thttps://pay.hotmart.com/S106873189Y?checkoutMode=10';
+
+    window.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('resellerUrlInput').value = resellerUrl;
+      document.getElementById('checkoutUrlInput').value = checkoutUrl;
+
+      changeLanguage(currentLang);
+    });
+
+    function toggleConfigPanel() {
+      document.getElementById('configPanel').classList.toggle('open');
+    }
+
+    function saveAllUrls() {
+      const mainVal = document.getElementById('checkoutUrlInput').value.trim();
+      const resellerVal = document.getElementById('resellerUrlInput').value.trim();
+
+      if (mainVal && resellerVal) {
+        checkoutUrl = mainVal;
+        resellerUrl = resellerVal;
+
+        localStorage.setItem('fm_landing_checkout_url', checkoutUrl);
+        localStorage.setItem('fm_landing_reseller_url', resellerUrl);
+
+        alert(currentLang === 'es' ? '¡Todos los enlaces de pago actualizados!' : 'All checkout links updated successfully!');
+        toggleConfigPanel();
+      } else {
+        alert(currentLang === 'es' ? 'Por favor, rellena ambos campos con URLs válidas.' : 'Please fill out both fields with valid URLs.');
+      }
+    }
+
+    function openResellerUrl() {
+      window.open(resellerUrl, '_blank');
+    }
+
+    function openCheckoutUrl() {
+      window.open(checkoutUrl, '_blank');
+    }
+
+    document.addEventListener('click', (e) => {
+      const panel = document.getElementById('configPanel');
+      const widget = document.querySelector('.config-widget');
+      if (!panel || !panel.classList.contains('open')) return;
+      if (!widget) return;
+      if (widget.contains(e.target)) return;
+      if (e.target.closest('a, button, input, select, label')) return;
+      panel.classList.remove('open');
+    });
+  </script>
+</body>
+
+</html>
