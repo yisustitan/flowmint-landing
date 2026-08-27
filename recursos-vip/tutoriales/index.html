@@ -43,10 +43,7 @@
     .btn-tab{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .2s ease;}
     .btn-tab:hover,.btn-tab.active{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.08);box-shadow:0 0 14px rgba(0,200,150,0.2);}
 
-    /* VIDEO SELECTOR */
-    .video-selector{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px;}
-    .vsel-btn{font-family:var(--font-mono);font-size:12px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);padding:6px 14px;border-radius:8px;cursor:pointer;transition:all .2s ease;}
-    .vsel-btn:hover,.vsel-btn.active-v{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.07);}
+
 
     /* VIDEO CARD */
     .video-card{background:var(--card);border:1px solid var(--border-light);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:36px;}
@@ -60,8 +57,9 @@
     /* MODULES */
     .section-subtitle{font-family:var(--font-display);font-size:22px;color:#fff;margin-bottom:18px;}
     .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-bottom:40px;}
-    .step-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:transform .2s,border-color .2s;}
-    .step-box:hover{transform:translateY(-3px);border-color:var(--border-light);}
+    .step-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;}
+    .step-box:hover{transform:translateY(-3px);border-color:var(--border-light);box-shadow:0 6px 24px rgba(0,200,150,0.12);}
+    .step-box.active{border-color:var(--mint);background:rgba(0,200,150,0.06);box-shadow:0 0 20px rgba(0,200,150,0.22);transform:translateY(-2px);}
     .step-number{font-family:var(--font-mono);font-size:11.5px;color:var(--mint);font-weight:700;margin-bottom:7px;}
     .step-box h3{font-size:16px;font-weight:600;color:#fff;margin-bottom:7px;}
     .step-box p{color:var(--text-sec);font-size:13.5px;}
@@ -97,9 +95,9 @@
       <span class="hero-badge" data-i18n data-es="VIDEO TUTORIALES OFICIALES" data-en="OFFICIAL VIDEO TUTORIALS">VIDEO TUTORIALES OFICIALES</span>
       <h1 class="hero-title" data-i18n data-es="Centro de Tutoriales Flowmint" data-en="Flowmint Tutorial Center">Centro de Tutoriales Flowmint</h1>
       <p class="hero-desc" data-i18n
-        data-es="Elige tu perfil y accede a los tutoriales diseñados para ti: usuario cliente o reseller VIP."
-        data-en="Select your profile and access the tutorials designed for you: end user or VIP reseller.">
-        Elige tu perfil y accede a los tutoriales diseñados para ti: usuario cliente o reseller VIP.
+        data-es="Aprende a dominar Flowmint con nuestros tutoriales oficiales o explora la oportunidad de iniciar tu propio negocio."
+        data-en="Master Flowmint with our official tutorials or explore the opportunity to launch your own business.">
+        Aprende a dominar Flowmint con nuestros tutoriales oficiales o explora la oportunidad de iniciar tu propio negocio.
       </p>
     </div>
 
@@ -113,23 +111,17 @@
         👤 Tutoriales Cliente
       </a>
       <a class="btn-tab" id="tabReseller"
-         href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html"
-         data-i18n data-es="🚀 Tutoriales Reseller" data-en="🚀 Reseller Tutorials"
-         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html"
-         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html">
-        🚀 Tutoriales Reseller
+         href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html"
+         target="_blank"
+         rel="noopener noreferrer"
+         data-i18n data-es="🚀 Oportunidad VIP" data-en="🚀 VIP Opportunity"
+         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html"
+         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html">
+        🚀 Oportunidad VIP
       </a>
     </div>
 
-    <!-- VIDEO SELECTOR -->
-    <div class="video-selector">
-      <button class="vsel-btn active-v" onclick="loadVideo('YOUTUBE_ID_DEMO', 'Demo Completa — Flowmint App', 'Full Demo — Flowmint App', this)"
-        data-i18n data-es="▶ Demo Completa" data-en="▶ Full Demo">▶ Demo Completa</button>
-      <button class="vsel-btn" onclick="loadVideo('YOUTUBE_ID_INGRESOS', 'Módulo: Ingresos & Gastos', 'Module: Income & Expenses', this)"
-        data-i18n data-es="📊 Ingresos & Gastos" data-en="📊 Income & Expenses">📊 Ingresos & Gastos</button>
-      <button class="vsel-btn" onclick="loadVideo('YOUTUBE_ID_BOLSILLOS', 'Módulo: Bolsillos & Metas', 'Module: Envelopes & Goals', this)"
-        data-i18n data-es="👛 Bolsillos & Metas" data-en="👛 Envelopes & Goals">👛 Bolsillos & Metas</button>
-    </div>
+
 
     <!-- REPRODUCTOR YOUTUBE EMBED RESPONSIVO -->
     <div class="video-card">
@@ -238,17 +230,12 @@ function loadVideo(videoId, titleEs, titleEn, el) {
   const pill = document.getElementById('videoLangPill');
   if (pill) pill.innerText = '🌐 ' + currentLang.toUpperCase();
 
-  // Limpiar clases active de todos los botones y tarjetas
-  document.querySelectorAll('.vsel-btn').forEach(b => b.classList.remove('active-v'));
+  // Limpiar clase active de todas las tarjetas de módulo
   document.querySelectorAll('.step-box').forEach(b => b.classList.remove('active'));
 
-  // Añadir active al elemento clickeado
-  if (el) {
-    if (el.classList.contains('vsel-btn')) {
-      el.classList.add('active-v');
-    } else if (el.classList.contains('step-box')) {
-      el.classList.add('active');
-    }
+  // Marcar como activa la tarjeta clickeada
+  if (el && el.classList.contains('step-box')) {
+    el.classList.add('active');
   }
 }
 
