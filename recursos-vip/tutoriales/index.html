@@ -242,33 +242,43 @@ function loadVideo(videoId, titleEs, titleEn, el) {
 }
 
 /**
- * Detecta si el visitante viene del panel de Reseller (vía ?from=reseller
- * o porque ya quedó marcado en localStorage en una visita anterior) y,
- * de ser así, transforma el botón "Oportunidad VIP" en un botón de
- * regreso directo al panel de tutoriales Reseller.
+ * Transforma el botón "Oportunidad VIP" en un botón de regreso al panel
+ * de tutoriales Reseller SOLO mientras la URL actual contenga
+ * ?from=reseller. No usa localStorage: se evalúa en cada carga de
+ * página exclusivamente a partir de la URL actual, así que un cliente
+ * normal que abra index.html directamente siempre ve "Oportunidad VIP".
  */
 function applyResellerReturnMode() {
   const params = new URLSearchParams(window.location.search);
   const cameFromReseller = params.get('from') === 'reseller';
 
-  if (cameFromReseller) {
-    localStorage.setItem('flowmint_from_reseller', 'true');
-  }
-
-  const isResellerVisitor = cameFromReseller || localStorage.getItem('flowmint_from_reseller') === 'true';
   const tabReseller = document.getElementById('tabReseller');
-  if (!isResellerVisitor || !tabReseller) return;
+  if (!tabReseller) return;
 
   const returnUrl = 'https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html';
+  const vipUrl = 'https://flowmint.centraliaportal.com/reseller';
 
-  tabReseller.setAttribute('data-es', '🚀 Volver a Panel Reseller');
-  tabReseller.setAttribute('data-en', '🚀 Back to Reseller Panel');
-  tabReseller.setAttribute('data-es-href', returnUrl);
-  tabReseller.setAttribute('data-en-href', returnUrl);
-  tabReseller.setAttribute('href', returnUrl);
-  tabReseller.removeAttribute('target');
-  tabReseller.removeAttribute('rel');
-  tabReseller.classList.add('reseller-return');
+  if (cameFromReseller) {
+    // Vino desde el panel Reseller → botón de regreso
+    tabReseller.setAttribute('data-es', '🚀 Volver a Panel Reseller');
+    tabReseller.setAttribute('data-en', '🚀 Back to Reseller Panel');
+    tabReseller.setAttribute('data-es-href', returnUrl);
+    tabReseller.setAttribute('data-en-href', returnUrl);
+    tabReseller.setAttribute('href', returnUrl);
+    tabReseller.removeAttribute('target');
+    tabReseller.removeAttribute('rel');
+    tabReseller.classList.add('reseller-return');
+  } else {
+    // Visita normal (cliente final) → botón original de Oportunidad VIP
+    tabReseller.setAttribute('data-es', '🚀 Oportunidad VIP');
+    tabReseller.setAttribute('data-en', '🚀 VIP Opportunity');
+    tabReseller.setAttribute('data-es-href', vipUrl);
+    tabReseller.setAttribute('data-en-href', vipUrl);
+    tabReseller.setAttribute('href', vipUrl);
+    tabReseller.setAttribute('target', '_blank');
+    tabReseller.setAttribute('rel', 'noopener noreferrer');
+    tabReseller.classList.remove('reseller-return');
+  }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
