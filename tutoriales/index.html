@@ -42,6 +42,8 @@
     .tab-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
     .btn-tab{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .2s ease;}
     .btn-tab:hover,.btn-tab.active{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.08);box-shadow:0 0 14px rgba(0,200,150,0.2);}
+    .btn-tab.reseller-return{background:var(--mint);border-color:var(--mint);color:#06231a;font-weight:700;box-shadow:0 0 16px var(--mint-glow);}
+    .btn-tab.reseller-return:hover{background:#00e0a8;border-color:#00e0a8;color:#06231a;box-shadow:0 0 20px var(--mint-glow);}
 
 
 
@@ -111,12 +113,12 @@
         👤 Tutoriales Cliente
       </a>
       <a class="btn-tab" id="tabReseller"
-         href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html"
+         href="https://flowmint.centraliaportal.com/reseller"
          target="_blank"
          rel="noopener noreferrer"
          data-i18n data-es="🚀 Oportunidad VIP" data-en="🚀 VIP Opportunity"
-         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html"
-         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html">
+         data-es-href="https://flowmint.centraliaportal.com/reseller"
+         data-en-href="https://flowmint.centraliaportal.com/reseller">
         🚀 Oportunidad VIP
       </a>
     </div>
@@ -239,7 +241,38 @@ function loadVideo(videoId, titleEs, titleEn, el) {
   }
 }
 
+/**
+ * Detecta si el visitante viene del panel de Reseller (vía ?from=reseller
+ * o porque ya quedó marcado en localStorage en una visita anterior) y,
+ * de ser así, transforma el botón "Oportunidad VIP" en un botón de
+ * regreso directo al panel de tutoriales Reseller.
+ */
+function applyResellerReturnMode() {
+  const params = new URLSearchParams(window.location.search);
+  const cameFromReseller = params.get('from') === 'reseller';
+
+  if (cameFromReseller) {
+    localStorage.setItem('flowmint_from_reseller', 'true');
+  }
+
+  const isResellerVisitor = cameFromReseller || localStorage.getItem('flowmint_from_reseller') === 'true';
+  const tabReseller = document.getElementById('tabReseller');
+  if (!isResellerVisitor || !tabReseller) return;
+
+  const returnUrl = 'https://flowmint.centraliaportal.com/recursos-vip/tutoriales/reseller-tutorial.html';
+
+  tabReseller.setAttribute('data-es', '🚀 Volver a Panel Reseller');
+  tabReseller.setAttribute('data-en', '🚀 Back to Reseller Panel');
+  tabReseller.setAttribute('data-es-href', returnUrl);
+  tabReseller.setAttribute('data-en-href', returnUrl);
+  tabReseller.setAttribute('href', returnUrl);
+  tabReseller.removeAttribute('target');
+  tabReseller.removeAttribute('rel');
+  tabReseller.classList.add('reseller-return');
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  applyResellerReturnMode();
   setLanguage(currentLang);
 });
 </script>
