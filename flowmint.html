@@ -3435,6 +3435,7 @@
         'invest.distribution.total': 'Total',
         'invest.empty': 'Aún no tienes activos en tu portafolio.',
         'invest.empty.desc': 'Registra tus acciones, ETFs, criptomonedas o fondos manuales para realizar el seguimiento de su rendimiento real.',
+        'invest.empty.short': 'Sin activos aún',
         'invest.tx_title': 'Movimientos de Inversión del Período',
         'invest.tx_empty': 'No hay movimientos de inversión registrados en este período.',
         'invest.donut.empty': 'Sin distribución disponible',
@@ -3760,6 +3761,7 @@
         'invest.distribution.total': 'Total',
         'invest.empty': 'No assets in your portfolio yet.',
         'invest.empty.desc': 'Register your stocks, ETFs, crypto or manual funds to track their real-time performance.',
+        'invest.empty.short': 'No assets yet',
         'invest.tx_title': 'Investment Movements of the Period',
         'invest.tx_empty': 'No investment transactions registered in this period.',
         'invest.donut.empty': 'No distribution available',
@@ -4715,6 +4717,11 @@
       // la app siempre trabaja sobre datos ya materializados y consistentes.
       try { generateRecurringOccurrences(); } catch (e) { console.warn('FlowMint: error generando recurrencias:', e.message); }
 
+      // Reconstruye/sincroniza el portafolio de Activos con las transacciones de
+      // tipo "Inversión" existentes (retroactivo, idempotente — ver comentario
+      // en la definición de la función).
+      try { syncInvestmentPortfolioFromTransactions(); } catch (e) { console.warn('FlowMint: error sincronizando portafolio de inversiones:', e.message); }
+
       const fns = [
         updateKPIs, renderPockets, renderBarChart, renderDonut, renderRecentTx,
         renderUpcoming, renderAlerts, renderAllTx, renderCatGrid,
@@ -5542,6 +5549,11 @@
       };
 
       // ── Step 4: Insert or update in the global array ──
+      // Capturamos la transacción ANTERIOR (si estamos editando) antes de que
+      // sea sobrescrita, para poder revertir su efecto sobre `investments` si
+      // era de tipo "invest" (ver syncInvestmentForTransaction más abajo).
+      const oldTxObj = editingTxId != null ? transactions.find(t => t.id === editingTxId) : null;
+
       // BLOQUEANTE: si hay duplicado recurrente y el usuario NO confirmó reemplazo → abortar.
       if (recurring !== 'none' && !editingTxId && !window._bypassRecurringDupCheck) {
         const dupExists = checkRecurringDuplicate(txObj.type, txObj.cat, txObj.amount, txObj.desc, txObj.id);
@@ -5600,6 +5612,13 @@
         transactions.unshift(txObj);
       }
 
+      // ── Step 4.5: Sincronizar el Portafolio de Inversiones ──
+      // Si esta transacción es (o dejó de ser) de tipo "Inversión", refleja el
+      // cambio en `investments` (crea el activo si no existe, o acumula/revierte
+      // el monto si ya existía) para que Dashboard, Transacciones e Inversiones
+      // muestren siempre el mismo número.
+      try { syncInvestmentForTransaction(txObj, oldTxObj); } catch (e) { console.warn('FlowMint: error sincronizando inversión:', e.message); }
+
       // ── Step 5: Persist (never throws — safeSetItem handles file://) ──
       saveToLocalStorage();
 
@@ -5640,6 +5659,11 @@
       if (event) event.stopPropagation();
       if (confirm(translate('confirm.delete'))) {
         const target = transactions.find(t => t.id === id);
+        // Si esta transacción era de tipo "Inversión", revertimos su efecto sobre
+        // el activo correspondiente en `investments` antes de borrarla.
+        if (target && target.type === 'invest') {
+          try { reverseInvestmentEffect(target.desc, target.amount); } catch (e) { console.warn('FlowMint: error revirtiendo inversión eliminada:', e.message); }
+        }
         // Si es una ocurrencia auto-generada de una recurrencia, marcamos ese mes/año
         // como "omitido" en la plantilla para que el motor de recurrencia no la
         // vuelva a crear automáticamente en el próximo render.
@@ -5716,6 +5740,170 @@
       saveToLocalStorage();
       renderAll();
       closeBudgetModal();
+    }
+
+    // ══════════════════════════════════════════
+    // SINCRONIZACIÓN AUTOMÁTICA: Transacciones "Inversión" ↔ Activos del Portafolio
+    // ══════════════════════════════════════════
+    // Antes de este parche, "+ Nuevo Activo" (modal Inversiones) y "+ Transacción"
+    // tipo Inversión vivían como dos fuentes de datos independientes: la primera
+    // alimentaba el array `investments` (Portafolio Total, Activos en Portafolio),
+    // la segunda solo alimentaba `transactions`. Estas funciones mantienen ambas
+    // fuentes sincronizadas en los dos sentidos, sin duplicar montos.
+
+    // Colores rotativos para activos creados automáticamente desde una transacción
+    const AUTO_ASSET_COLORS = ['#00C896', '#7C6EF5', '#F5A623', '#3A9EF5', '#FF5C5C', '#E07EF5'];
+    function pickAssetColor() {
+      return AUTO_ASSET_COLORS[investments.length % AUTO_ASSET_COLORS.length];
+    }
+
+    // Genera un ticker corto y legible a partir del nombre/descripción cuando
+    // el activo se crea automáticamente (ej. "S&P 500" → "SP500")
+    function generateTickerFromName(name) {
+      const clean = (name || '').replace(/[^a-zA-Z0-9]/g, '').toUpperCase();
+      return clean.slice(0, 6) || 'AST';
+    }
+
+    // Empareja activos por nombre normalizado (sin importar mayúsculas/espacios),
+    // que es la clave que compartirán el "nombre de activo" y la "descripción"
+    // de la transacción de inversión correspondiente.
+    function normalizeAssetName(str) {
+      return (str || '').trim().toLowerCase();
+    }
+    function findInvestmentIndexByName(name) {
+      const key = normalizeAssetName(name);
+      if (!key) return -1;
+      return investments.findIndex(inv => normalizeAssetName(inv.name) === key);
+    }
+
+    // Revierte el efecto de una transacción de inversión sobre su activo
+    // (usado al editar con un monto/nombre distinto, o al eliminarla).
+    function reverseInvestmentEffect(desc, amount) {
+      const idx = findInvestmentIndexByName(desc);
+      if (idx === -1) return;
+      investments[idx].invested -= amount;
+      investments[idx].value -= amount;
+      if (investments[idx].invested <= 0.01) {
+        investments.splice(idx, 1);
+      } else {
+        investments[idx].return = parseFloat(
+          ((investments[idx].value - investments[idx].invested) / investments[idx].invested * 100).toFixed(1)
+        );
+      }
+    }
+
+    // Aplica el efecto de una transacción de inversión sobre el activo con el
+    // mismo nombre: lo crea si no existe, o acumula el monto si ya existía.
+    function applyInvestmentEffect(desc, amount) {
+      if (!desc || !amount) return;
+      const idx = findInvestmentIndexByName(desc);
+      if (idx === -1) {
+        investments.push({
+          name: desc,
+          ticker: generateTickerFromName(desc),
+          value: amount,
+          invested: amount,
+          return: 0,
+          color: pickAssetColor(),
+          auto: true // creado automáticamente desde "+ Transacción", no desde "+ Nuevo Activo"
+        });
+      } else {
+        investments[idx].invested += amount;
+        investments[idx].value += amount;
+        investments[idx].return = parseFloat(
+          ((investments[idx].value - investments[idx].invested) / investments[idx].invested * 100).toFixed(1)
+        );
+      }
+    }
+
+    // Punto único de sincronización usado por saveTransaction(): revierte el
+    // efecto de la transacción ANTERIOR (si existía y era de tipo invest) y
+    // aplica el efecto de la NUEVA (si es de tipo invest). Cubre altas, ediciones
+    // de monto/nombre, y cambios de tipo hacia/desde "Inversión".
+    function syncInvestmentForTransaction(newTx, oldTx) {
+      if (oldTx && oldTx.type === 'invest') {
+        reverseInvestmentEffect(oldTx.desc, oldTx.amount);
+      }
+      if (newTx && newTx.type === 'invest') {
+        applyInvestmentEffect(newTx.desc, newTx.amount);
+      }
+    }
+
+    // Sincronización RETROACTIVA: se ejecuta en cada renderAll(). Recorre todas
+    // las transacciones tipo "invest" agrupadas por nombre y crea el activo
+    // correspondiente en `investments` SOLO si aún no existe uno con ese nombre.
+    // Es idempotente — nunca duplica ni vuelve a sumar activos ya sincronizados —
+    // así que resuelve datos históricos (localStorage previo a este parche) sin
+    // arriesgar dobles conteos en el uso normal día a día.
+    function syncInvestmentPortfolioFromTransactions() {
+      const totals = {};   // key normalizado -> suma de montos
+      const labels = {};   // key normalizado -> nombre original (para mostrar/crear)
+
+      transactions.forEach(t => {
+        if (t.type !== 'invest') return;
+        const key = normalizeAssetName(t.desc);
+        if (!key) return;
+        totals[key] = (totals[key] || 0) + (parseFloat(t.amount) || 0);
+        if (!labels[key]) labels[key] = (t.desc || '').trim();
+      });
+
+      Object.keys(totals).forEach(key => {
+        if (findInvestmentIndexByName(labels[key]) !== -1) return; // ya existe, no tocar
+        const total = totals[key];
+        if (total <= 0) return;
+        investments.push({
+          name: labels[key],
+          ticker: generateTickerFromName(labels[key]),
+          value: total,
+          invested: total,
+          return: 0,
+          color: pickAssetColor(),
+          auto: true
+        });
+      });
+    }
+
+    // ══════════════════════════════════════════
+    // VISTA DE PORTAFOLIO FILTRADA POR PERÍODO
+    // ══════════════════════════════════════════
+    // `investments` guarda el estado ACUMULADO de cada activo (igual que antes),
+    // pero la pestaña Inversiones tiene su propio selector de Mes/Año y debe
+    // comportarse igual que Transacciones: un activo solo debe aparecer en el
+    // período (mes/año, o año completo con "Todo el año") en el que tuvo algún
+    // movimiento de tipo Inversión. Esta función construye esa vista "de solo
+    // lectura" en cada render, sin tocar ni persistir el array `investments`.
+    function getPeriodInvestmentsView() {
+      const periodInvestTx = getTx().filter(t => t.type === 'invest');
+
+      // Sumamos, por nombre normalizado, cuánto se invirtió DENTRO del período
+      // actualmente seleccionado (mismo criterio que "Movimientos de Inversión"
+      // y que la pestaña Transacciones).
+      const periodTotals = {};
+      periodInvestTx.forEach(t => {
+        const key = normalizeAssetName(t.desc);
+        if (!key) return;
+        periodTotals[key] = (periodTotals[key] || 0) + (parseFloat(t.amount) || 0);
+      });
+
+      const view = [];
+      investments.forEach((inv, idx) => {
+        const key = normalizeAssetName(inv.name);
+        const periodInvested = periodTotals[key] || 0;
+        if (periodInvested <= 0) return; // sin movimientos de este activo en el período → no se muestra
+
+        if (Math.abs(periodInvested - inv.invested) < 0.01) {
+          // Todo lo invertido en este activo ocurrió dentro del período visible:
+          // mostramos sus cifras reales (conserva valor de mercado/rentabilidad
+          // si el activo fue añadido manualmente con "+ Nuevo Activo").
+          view.push({ idx, name: inv.name, ticker: inv.ticker, color: inv.color, value: inv.value, invested: inv.invested, return: inv.return });
+        } else {
+          // El activo recibió aportes en distintos períodos (ej. compras en
+          // varios meses): mostramos solo la porción aportada en ESTE período,
+          // igual que hace la sección de Movimientos de Inversión.
+          view.push({ idx, name: inv.name, ticker: inv.ticker, color: inv.color, value: periodInvested, invested: periodInvested, return: 0 });
+        }
+      });
+      return view;
     }
 
     function saveInvestment() {
@@ -6489,16 +6677,18 @@
     // INVESTMENTS
     // ══════════════════════════════════════════
     function renderInvestments() {
-      const totalPortfolio = investments.reduce((s, i) => s + i.value, 0);
-      const totalInvested = investments.reduce((s, i) => s + i.invested, 0);
+      const periodView = getPeriodInvestmentsView();
+
+      const totalPortfolio = periodView.reduce((s, i) => s + i.value, 0);
+      const totalInvested = periodView.reduce((s, i) => s + i.invested, 0);
       const netReturn = totalPortfolio - totalInvested;
       const pct = totalInvested > 0 ? parseFloat((netReturn / totalInvested * 100).toFixed(1)) : 0;
 
       document.getElementById('portfolio-total').textContent = fmt(totalPortfolio);
       const sign = netReturn >= 0 ? '↑' : '↓';
       document.getElementById('portfolio-change').innerHTML = totalInvested > 0
-        ? `<span class="${netReturn >= 0 ? 'up' : 'down'}">${sign} ${fmt(Math.abs(netReturn))} vs invertido</span>`
-        : 'Sin activos aún';
+        ? `<span class="${netReturn >= 0 ? 'up' : 'down'}">${sign} ${fmt(Math.abs(netReturn))} ${translate('invest.vs_investment')}</span>`
+        : translate('invest.empty.short');
       document.getElementById('portfolio-return-pct').textContent = (pct >= 0 ? '+' : '') + pct + '%';
       document.getElementById('portfolio-return-pct').style.color = pct >= 0 ? 'var(--mint)' : 'var(--coral)';
 
@@ -6513,22 +6703,22 @@
         .reduce((s, t) => s + t.amount, 0);
       document.getElementById('portfolio-dividends').textContent = dividends > 0 ? fmt(dividends) : fmt(0);
 
-      // ── Sección 1: Activos del portafolio ──
-      if (!investments.length) {
+      // ── Sección 1: Activos del portafolio (filtrados al período seleccionado) ──
+      if (!periodView.length) {
         document.getElementById('investCards').innerHTML =
           `<div class="empty" style="grid-column:span 3;padding:32px 0">
         <div class="empty-icon">📁</div>
-        <div style="font-size:14px;margin-bottom:8px">Sin activos en el portafolio</div>
-        <div style="font-size:12px;color:var(--text-muted)">Usa <strong style="color:var(--mint)">+ Nuevo Activo</strong> para añadir un activo que quieras seguir (acción, ETF, crypto, etc.) y actualizar su valor actual vs. lo que invertiste.</div>
+        <div style="font-size:14px;margin-bottom:8px">${translate('invest.empty')}</div>
+        <div style="font-size:12px;color:var(--text-muted)">${translate('invest.empty.desc')}</div>
       </div>`;
       } else {
-        document.getElementById('investCards').innerHTML = investments.map((inv, idx) =>
+        document.getElementById('investCards').innerHTML = periodView.map((inv) =>
           `<div class="invest-card">
         <div style="display:flex;justify-content:space-between;align-items:flex-start">
           <div><div class="invest-name">${inv.name}</div><div class="invest-ticker">${inv.ticker}</div></div>
           <div style="display:flex;gap:8px;align-items:center">
             <span class="tag ${inv.return > 0 ? 'green' : 'red'}">${inv.return > 0 ? '+' : ''}${inv.return}%</span>
-            <button class="btn-delete" onclick="deleteInvestment(${idx},event)" title="${translate('modal.detail.btn.delete')}">✕</button>
+            <button class="btn-delete" onclick="deleteInvestment(${inv.idx},event)" title="${translate('modal.detail.btn.delete')}">✕</button>
           </div>
         </div>
         <div class="invest-value">${fmt(inv.value)}</div>
@@ -6608,7 +6798,8 @@
     }
 
     function renderInvestDonut() {
-      const total = investments.reduce((s, i) => s + i.value, 0);
+      const periodView = getPeriodInvestmentsView();
+      const total = periodView.reduce((s, i) => s + i.value, 0);
       const cx = 70, cy = 70, r = 50, inner = 34;
       let startAngle = -Math.PI / 2, arcs = '', legend = '';
 
@@ -6617,7 +6808,7 @@
         arcs = `<circle cx="${cx}" cy="${cy}" r="${r - 8}" fill="none" stroke="var(--border-light)" stroke-width="12"/>`;
         legend = `<div style="text-align:center;color:var(--text-muted);font-size:12px;padding:8px 0">${translate('invest.donut.empty')}</div>`;
       } else {
-        investments.forEach(inv => {
+        periodView.forEach(inv => {
           const angle = (inv.value / total) * 2 * Math.PI;
           const x1 = cx + r * Math.cos(startAngle), y1 = cy + r * Math.sin(startAngle);
           const x2 = cx + r * Math.cos(startAngle + angle), y2 = cy + r * Math.sin(startAngle + angle);
