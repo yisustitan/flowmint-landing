@@ -2883,7 +2883,7 @@
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="form-group"><label class="form-label" data-i18n="modal.tx.label.amount">Monto</label><input
-            type="number" class="form-input" id="txAmount" placeholder="0.00" oninput="checkTxInputs()"></div>
+            type="number" step="0.01" class="form-input" id="txAmount" placeholder="0.00" oninput="checkTxInputs()"></div>
         <div class="form-group"><label class="form-label" data-i18n="modal.tx.label.date">Fecha</label><input
             type="date" class="form-input" id="txDate"></div>
       </div>
@@ -2975,9 +2975,9 @@
           placeholder="Ej: Fondo de emergencia, Vacaciones..." data-i18n-placeholder="modal.goal.ph.name"></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.target">Monto
-            objetivo</label><input type="number" class="form-input" id="goalTarget" placeholder="10000"></div>
+            objetivo</label><input type="number" step="0.01" class="form-input" id="goalTarget" placeholder="10000"></div>
         <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.current">Ahorrado hasta
-            ahora</label><input type="number" class="form-input" id="goalCurrent" placeholder="0"></div>
+            ahora</label><input type="number" step="0.01" class="form-input" id="goalCurrent" placeholder="0"></div>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="form-group"><label class="form-label" data-i18n="modal.goal.label.date">Fecha límite</label><input
@@ -3038,14 +3038,14 @@
       </div>
       <div class="card-sub" style="margin-bottom:16px" data-i18n="modal.pockets.sub">Define el saldo base de cada
         bolsillo. FlowMint sumará o restará automáticamente cada transacción que asignes a esa cuenta.</div>
-      <div class="form-group"><label class="form-label" data-i18n="account.cash">💵 Efectivo</label><input type="number"
+      <div class="form-group"><label class="form-label" data-i18n="account.cash">💵 Efectivo</label><input type="number" step="0.01"
           class="form-input" id="pocketBase-cash" placeholder="0.00"></div>
-      <div class="form-group"><label class="form-label" data-i18n="account.bankA">🏦 Banco A</label><input type="number"
+      <div class="form-group"><label class="form-label" data-i18n="account.bankA">🏦 Banco A</label><input type="number" step="0.01"
           class="form-input" id="pocketBase-bankA" placeholder="0.00"></div>
-      <div class="form-group"><label class="form-label" data-i18n="account.bankB">🏦 Banco B</label><input type="number"
+      <div class="form-group"><label class="form-label" data-i18n="account.bankB">🏦 Banco B</label><input type="number" step="0.01"
           class="form-input" id="pocketBase-bankB" placeholder="0.00"></div>
       <div class="form-group"><label class="form-label" data-i18n="account.card">💳 Tarjeta de Crédito</label><input
-          type="number" class="form-input" id="pocketBase-card" placeholder="0.00"></div>
+          type="number" step="0.01" class="form-input" id="pocketBase-card" placeholder="0.00"></div>
       <div class="modal-actions">
         <button class="btn-ghost" onclick="closePocketModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
         <button class="btn-primary" onclick="savePockets()" data-i18n="modal.pockets.btn.save">✓ Guardar
@@ -3081,9 +3081,9 @@
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
         <div class="form-group"><label class="form-label" data-i18n="modal.invest.label.invested">Monto Invertido
-            ($)</label><input type="number" class="form-input" id="invInvested" placeholder="1000"></div>
+            ($)</label><input type="number" step="0.01" class="form-input" id="invInvested" placeholder="1000"></div>
         <div class="form-group"><label class="form-label" data-i18n="modal.invest.label.current">Valor Actual
-            ($)</label><input type="number" class="form-input" id="invValue" placeholder="1200"></div>
+            ($)</label><input type="number" step="0.01" class="form-input" id="invValue" placeholder="1200"></div>
       </div>
       <div class="modal-actions">
         <button class="btn-ghost" onclick="closeInvestModal()" data-i18n="modal.tx.btn.cancel">Cancelar</button>
@@ -4545,8 +4545,7 @@
     function fmt(amount) {
       const val = fx(amount);
       if (val >= 1000000) return currency.symbol + (val / 1000000).toFixed(1) + 'M';
-      if (val >= 10000) return currency.symbol + Math.round(val).toLocaleString('es-ES');
-      return currency.symbol + val.toLocaleString('es-ES', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      return currency.symbol + val.toLocaleString('es-ES', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
     // ── Filter transactions by current period ──
@@ -5354,7 +5353,7 @@
       document.getElementById('budgetFormFields').innerHTML = activeBudgets.map(b =>
         `<div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px">
       <span style="font-size:14px;min-width:150px">${b.emoji} ${translate('cat.' + b.cat)}</span>
-      <input type="number" class="form-input" id="budget-limit-${b.cat}" value="${b.limit}" style="max-width:150px">
+      <input type="number" step="0.01" class="form-input" id="budget-limit-${b.cat}" value="${b.limit}" style="max-width:150px">
     </div>`
       ).join('');
     }
@@ -7194,7 +7193,7 @@
         <div class="card-title" style="margin-bottom:14px">${translate('report.annual_proj')} ${currentPeriodYear}</div>
         <p style="color:var(--text-muted);font-size:13px;margin-bottom:14px">${translate('report.based_on')} ${months} ${translate('report.months_data')}</p>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px">
-          ${[{ l: translate('report.proj_income'), v: fmt(Math.round(yIn / months * 12)), c: 'var(--mint)' }, { l: translate('report.proj_expense'), v: fmt(Math.round(yEx / months * 12)), c: 'var(--coral)' }, { l: translate('report.proj_savings'), v: fmt(Math.round((yIn - yEx) / months * 12)), c: 'var(--gold)' }].map(r => `<div style="padding:14px;background:var(--navy3);border-radius:10px;text-align:center"><div style="font-size:11px;color:var(--text-muted);margin-bottom:6px">${r.l}</div><div style="font-size:18px;font-weight:600;color:${r.c}">${r.v}</div></div>`).join('')}
+          ${[{ l: translate('report.proj_income'), v: fmt(yIn / months * 12), c: 'var(--mint)' }, { l: translate('report.proj_expense'), v: fmt(yEx / months * 12), c: 'var(--coral)' }, { l: translate('report.proj_savings'), v: fmt((yIn - yEx) / months * 12), c: 'var(--gold)' }].map(r => `<div style="padding:14px;background:var(--navy3);border-radius:10px;text-align:center"><div style="font-size:11px;color:var(--text-muted);margin-bottom:6px">${r.l}</div><div style="font-size:18px;font-weight:600;color:${r.c}">${r.v}</div></div>`).join('')}
         </div>
       </div>`;
 
@@ -7253,8 +7252,8 @@
       if (bc) bc.innerHTML = `
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px">
       <div class="report-card"><div class="report-lbl">${translate('budget.total')}</div><div class="report-val">${fmt(totalLimit)}</div></div>
-      <div class="report-card"><div class="report-lbl">${translate('budget.spent_lbl')}</div><div class="report-val" style="color:var(--coral)">${fmt(Math.round(totalSpent))}</div></div>
-      <div class="report-card"><div class="report-lbl">${translate('budget.available')}</div><div class="report-val" style="color:var(--mint)">${fmt(Math.max(0, totalLimit - Math.round(totalSpent)))}</div></div>
+      <div class="report-card"><div class="report-lbl">${translate('budget.spent_lbl')}</div><div class="report-val" style="color:var(--coral)">${fmt(totalSpent)}</div></div>
+      <div class="report-card"><div class="report-lbl">${translate('budget.available')}</div><div class="report-val" style="color:var(--mint)">${fmt(Math.max(0, totalLimit - totalSpent))}</div></div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px">
       ${activeBudgets.map(b => {
@@ -7269,7 +7268,7 @@
           </div>
           <div class="progress-bar" style="height:8px;margin-bottom:6px"><div class="progress-fill" style="width:${p}%;background:${color}"></div></div>
           <div style="display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)">
-            <span>${fmt(Math.round(spent))} ${translate('budget.spent')}</span><span>${translate('budget.limit')} ${fmt(b.limit)}</span>
+            <span>${fmt(spent)} ${translate('budget.spent')}</span><span>${translate('budget.limit')} ${fmt(b.limit)}</span>
           </div>
         </div>`;
       }).join('')}
