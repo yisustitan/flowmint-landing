@@ -53,47 +53,63 @@
     .video-wrap{position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#050e18;}
     .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
-    /* BOTONES DE NAVEGACIÓN RÁPIDA DEBAJO DEL VIDEO */
-    .module-nav-bar{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:18px;}
-    .btn-module{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      background:var(--navy2);
-      border:1px solid var(--border-light);
-      color:var(--text);
-      font-size:13.5px;
-      font-weight:600;
-      padding:11px 22px;
-      border-radius:10px;
-      cursor:pointer;
-      transition:all .25s ease;
-    }
-    .btn-module:hover{
-      border-color:var(--mint);
-      color:var(--mint);
-      background:var(--navy3);
-      transform:translateY(-2px);
-      box-shadow:0 4px 14px rgba(0,200,150,0.18);
-    }
-    .btn-module.active{
-      border-color:var(--mint);
-      color:#06231a;
-      background:linear-gradient(135deg,#00ff88,var(--mint));
-      font-weight:700;
-      box-shadow:0 0 18px var(--mint-glow);
-      transform:translateY(-1px);
-    }
-
-    /* MÓDULOS INFORMATIVOS (GRID) */
+    /* MÓDULOS NAVEGABLES (GRID INTERACTIVA) */
     .section-subtitle{font-family:var(--font-display);font-size:22px;color:#fff;margin-bottom:18px;}
     .steps-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:18px;margin-bottom:40px;}
-    .step-box{background:var(--card);border:1px solid var(--border);border-radius:var(--radius);padding:22px;transition:transform .2s,border-color .2s,box-shadow .2s;cursor:pointer;}
-    .step-box:hover{transform:translateY(-3px);border-color:var(--border-light);box-shadow:0 6px 24px rgba(0,200,150,0.12);}
-    .step-box.active{border-color:var(--mint);background:rgba(0,200,150,0.06);box-shadow:0 0 20px rgba(0,200,150,0.22);transform:translateY(-2px);}
-    .step-number{font-family:var(--font-mono);font-size:11.5px;color:var(--mint);font-weight:700;margin-bottom:7px;}
-    .step-box h3{font-size:16px;font-weight:600;color:#fff;margin-bottom:7px;}
-    .step-box p{color:var(--text-sec);font-size:13.5px;}
+    
+    .step-box{
+      background:var(--card);
+      border:1px solid var(--border);
+      border-radius:var(--radius);
+      padding:22px;
+      transition:all .25s ease;
+      cursor:pointer;
+      user-select:none;
+      outline:none;
+      position:relative;
+    }
+    .step-box:hover{
+      transform:translateY(-3px);
+      border-color:var(--border-light);
+      background:rgba(30,47,71,0.7);
+      box-shadow:0 8px 24px rgba(0,200,150,0.15);
+    }
+    .step-box.active{
+      border-color:var(--mint);
+      background:rgba(0,200,150,0.08);
+      box-shadow:0 0 24px rgba(0,200,150,0.25);
+      transform:translateY(-2px);
+    }
+    .step-box:focus-visible{
+      border-color:var(--mint);
+      box-shadow:0 0 0 2px var(--mint);
+    }
+
+    .step-number{
+      font-family:var(--font-mono);
+      font-size:11.5px;
+      color:var(--mint);
+      font-weight:700;
+      margin-bottom:7px;
+      display:flex;
+      align-items:center;
+      gap:6px;
+    }
+    .step-box h3{
+      font-size:16px;
+      font-weight:600;
+      color:#fff;
+      margin-bottom:7px;
+      transition:color .2s;
+    }
+    .step-box.active h3{
+      color:var(--mint);
+    }
+    .step-box p{
+      color:var(--text-sec);
+      font-size:13.5px;
+      line-height:1.5;
+    }
 
     footer{text-align:center;padding:28px 24px;color:var(--text-sec);font-size:12px;font-family:var(--font-mono);border-top:1px solid var(--border);}
   </style>
@@ -168,39 +184,45 @@
           loading="lazy">
         </iframe>
       </div>
-
-      <!-- BOTONES DE MÓDULOS -->
-      <div class="module-nav-bar">
-        <button class="btn-module active" id="btnMod1" onclick="cambiarModulo('hdAi2phMU7I', 1, true)">
-          <span data-i18n data-es="▶ Módulo 1" data-en="▶ Module 1">▶ Módulo 1</span>
-        </button>
-        <button class="btn-module" id="btnMod2" onclick="cambiarModulo('6ceMtGGETj4', 2, true)">
-          <span data-i18n data-es="▶ Módulo 2" data-en="▶ Module 2">▶ Módulo 2</span>
-        </button>
-        <button class="btn-module" id="btnMod3" onclick="cambiarModulo('Fe57RWDSBco', 3, true)">
-          <span data-i18n data-es="▶ Módulo 3" data-en="▶ Module 3">▶ Módulo 3</span>
-        </button>
-      </div>
     </div>
 
-    <!-- MÓDULOS DESCRIPTIVOS -->
+    <!-- MÓDULOS DE LA GUÍA OFICIAL (TARJETAS INTERACTIVAS) -->
     <h2 class="section-subtitle" data-i18n data-es="Módulos de la Guía Oficial" data-en="Official Guide Modules">Módulos de la Guía Oficial</h2>
     <div class="steps-grid">
-      <div class="step-box active" id="moduleBox1" onclick="cambiarModulo('hdAi2phMU7I', 1, true)" title="Ver Módulo 1">
+      
+      <!-- TARJETA MÓDULO 1 -->
+      <div class="step-box active" id="moduleBox1"
+           tabindex="0" role="button"
+           onclick="cambiarModulo('hdAi2phMU7I', 1, true)"
+           onkeydown="if(event.key==='Enter'||event.key===' ') cambiarModulo('hdAi2phMU7I', 1, true)"
+           title="Ver Módulo 1">
         <div class="step-number" data-i18n data-es="MÓDULO 01 ▶" data-en="MODULE 01 ▶">MÓDULO 01 ▶</div>
         <h3 data-i18n data-es="Ingreso y Configuración Inicial" data-en="Login & Initial Setup">Ingreso y Configuración Inicial</h3>
         <p data-i18n data-es="Apertura desde navegador en móvil o PC y configuración de tu moneda local." data-en="Launch from any browser on mobile or desktop and set up your local currency.">Apertura desde navegador en móvil o PC y configuración de tu moneda local.</p>
       </div>
-      <div class="step-box" id="moduleBox2" onclick="cambiarModulo('6ceMtGGETj4', 2, true)" title="Ver Módulo 2">
+
+      <!-- TARJETA MÓDULO 2 -->
+      <div class="step-box" id="moduleBox2"
+           tabindex="0" role="button"
+           onclick="cambiarModulo('6ceMtGGETj4', 2, true)"
+           onkeydown="if(event.key==='Enter'||event.key===' ') cambiarModulo('6ceMtGGETj4', 2, true)"
+           title="Ver Módulo 2">
         <div class="step-number" data-i18n data-es="MÓDULO 02 ▶" data-en="MODULE 02 ▶">MÓDULO 02 ▶</div>
         <h3 data-i18n data-es="Registro de Ingresos & Gastos" data-en="Income & Expense Tracking">Registro de Ingresos & Gastos</h3>
         <p data-i18n data-es="Carga rápida de transacciones, categorización y seguimiento de balances en vivo." data-en="Quick transaction entry, smart categorization, and real-time balance tracking.">Carga rápida de transacciones, categorización y seguimiento de balances en vivo.</p>
       </div>
-      <div class="step-box" id="moduleBox3" onclick="cambiarModulo('Fe57RWDSBco', 3, true)" title="Ver Módulo 3">
+
+      <!-- TARJETA MÓDULO 3 -->
+      <div class="step-box" id="moduleBox3"
+           tabindex="0" role="button"
+           onclick="cambiarModulo('Fe57RWDSBco', 3, true)"
+           onkeydown="if(event.key==='Enter'||event.key===' ') cambiarModulo('Fe57RWDSBco', 3, true)"
+           title="Ver Módulo 3">
         <div class="step-number" data-i18n data-es="MÓDULO 03 ▶" data-en="MODULE 03 ▶">MÓDULO 03 ▶</div>
         <h3 data-i18n data-es="Control de Bolsillos y Metas" data-en="Envelopes & Goal Management">Control de Bolsillos y Metas</h3>
         <p data-i18n data-es="Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual." data-en="Set aside budgets for fixed commitments and achieve monthly saving goals.">Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual.</p>
       </div>
+
     </div>
 
   </main>
@@ -241,6 +263,7 @@ function cambiarModulo(videoId, modNum, autoplay = true) {
   const player = document.getElementById('mainYouTubePlayer');
   
   if (player) {
+    // Al seleccionar, se asigna con autoplay=1 y rel=0
     player.src = autoplay 
       ? `https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0`
       : `https://www.youtube.com/embed/${videoId}?rel=0`;
@@ -250,7 +273,7 @@ function cambiarModulo(videoId, modNum, autoplay = true) {
     }
   }
 
-  // Actualizar título del reproductor
+  // Actualizar título en el encabezado del reproductor
   const modData = modulesMetadata[modNum];
   const title = document.getElementById('videoTitle');
   if (title && modData) {
@@ -259,15 +282,12 @@ function cambiarModulo(videoId, modNum, autoplay = true) {
     title.setAttribute('data-en', modData.titleEn);
   }
 
-  // Actualizar botón activo
-  document.querySelectorAll('.btn-module').forEach(b => b.classList.remove('active'));
-  const activeBtn = document.getElementById(`btnMod${modNum}`);
-  if (activeBtn) activeBtn.classList.add('active');
-
-  // Actualizar tarjeta inferior activa
+  // Marcar visualmente la tarjeta activa (y desmarcar las otras)
   document.querySelectorAll('.step-box').forEach(s => s.classList.remove('active'));
   const activeBox = document.getElementById(`moduleBox${modNum}`);
-  if (activeBox) activeBox.classList.add('active');
+  if (activeBox) {
+    activeBox.classList.add('active');
+  }
 }
 
 function setLanguage(lang) {
