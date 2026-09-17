@@ -114,41 +114,57 @@
       </a>
     </div>
 
-    <!-- REPRODUCTOR YOUTUBE EMBED RESPONSIVO -->
+    <!-- REPRODUCTOR YOUTUBE EMBED -->
     <div class="video-card">
       <div class="video-title-bar">
-        <h3 id="videoTitle" data-es="Módulo 1: Ingreso y Configuración Inicial" data-en="Module 1: Login & Initial Setup">Módulo 1: Ingreso y Configuración Inicial</h3>
+        <h3 id="videoTitle">Módulo 1: Ingreso y Configuración Inicial</h3>
         <span class="video-lang-pill" id="videoLangPill">🌐 ES</span>
       </div>
       <div class="video-wrap" id="videoWrap">
-        <!-- El iframe se renderiza dinámicamente mediante JS -->
+        <!-- El iframe se genera dinámicamente -->
       </div>
     </div>
 
-    <!-- MÓDULOS -->
+    <!-- MÓDULOS CON ATRIBUTOS DIRECTOS DE VIDEO -->
     <h2 class="section-subtitle" data-i18n data-es="Módulos de la Guía Oficial" data-en="Official Guide Modules">Módulos de la Guía Oficial</h2>
     <div class="steps-grid">
+      
       <div class="step-box active" id="moduleBox1"
-           onclick="loadModule(1, 'Módulo 1: Ingreso y Configuración Inicial', 'Module 1: Login & Initial Setup', this)"
-           title="Ver Módulo 1">
+           data-module="1"
+           data-video-es="Ccb4T8LwZKY"
+           data-video-en="0vddHF5cuME"
+           data-title-es="Módulo 1: Ingreso y Configuración Inicial"
+           data-title-en="Module 1: Login & Initial Setup"
+           onclick="selectModule(this, true)">
         <div class="step-number" data-i18n data-es="MÓDULO 01 ▶" data-en="MODULE 01 ▶">MÓDULO 01 ▶</div>
         <h3 data-i18n data-es="Ingreso y Configuración Inicial" data-en="Login & Initial Setup">Ingreso y Configuración Inicial</h3>
         <p data-i18n data-es="Apertura desde navegador en móvil o PC y configuración de tu moneda local." data-en="Launch from any browser on mobile or desktop and set up your local currency.">Apertura desde navegador en móvil o PC y configuración de tu moneda local.</p>
       </div>
+
       <div class="step-box" id="moduleBox2"
-           onclick="loadModule(2, 'Módulo 2: Registro de Ingresos y Gastos', 'Module 2: Income & Expense Tracking', this)"
-           title="Ver Módulo 2">
+           data-module="2"
+           data-video-es="6ceMtGGETj4"
+           data-video-en="lMfncPB02qM"
+           data-title-es="Módulo 2: Registro de Ingresos y Gastos"
+           data-title-en="Module 2: Income & Expense Tracking"
+           onclick="selectModule(this, true)">
         <div class="step-number" data-i18n data-es="MÓDULO 02 ▶" data-en="MODULE 02 ▶">MÓDULO 02 ▶</div>
         <h3 data-i18n data-es="Registro de Ingresos & Gastos" data-en="Income & Expense Tracking">Registro de Ingresos & Gastos</h3>
         <p data-i18n data-es="Carga rápida de transacciones, categorización y seguimiento de balances en vivo." data-en="Quick transaction entry, smart categorization, and real-time balance tracking.">Carga rápida de transacciones, categorización y seguimiento de balances en vivo.</p>
       </div>
+
       <div class="step-box" id="moduleBox3"
-           onclick="loadModule(3, 'Módulo 3: Control de Bolsillos y Metas', 'Module 3: Envelopes & Goal Management', this)"
-           title="Ver Módulo 3">
+           data-module="3"
+           data-video-es="Fe57RWDSBco"
+           data-video-en="bKuyOql2XEA"
+           data-title-es="Módulo 3: Control de Bolsillos y Metas"
+           data-title-en="Module 3: Envelopes & Goal Management"
+           onclick="selectModule(this, true)">
         <div class="step-number" data-i18n data-es="MÓDULO 03 ▶" data-en="MODULE 03 ▶">MÓDULO 03 ▶</div>
         <h3 data-i18n data-es="Control de Bolsillos y Metas" data-en="Envelopes & Goal Management">Control de Bolsillos y Metas</h3>
         <p data-i18n data-es="Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual." data-en="Set aside budgets for fixed commitments and achieve monthly saving goals.">Aparta presupuestos para compromisos fijos y objetivos de ahorro mensual.</p>
       </div>
+
     </div>
 
   </main>
@@ -160,35 +176,29 @@
 <script>
 let currentLang = (localStorage.getItem('flowmint_lang') || 'es').toLowerCase();
 
-// IDs de YouTube verificados
-const MODULE_VIDEOS = {
-  1: { es: 'Ccb4T8LwZKY', en: '0vddHF5cuME' },
-  2: { es: '6ceMtGGETj4', en: 'lMfncPB02qM' },
-  3: { es: 'Fe57RWDSBco', en: 'bKuyOql2XEA' }
-};
+function updateActiveVideo(autoplay = false) {
+  const activeCard = document.querySelector('.step-box.active') || document.getElementById('moduleBox1');
+  if (!activeCard) return;
 
-let currentModule = 1;
+  const videoId = activeCard.getAttribute('data-video-' + currentLang) || activeCard.getAttribute('data-video-es');
+  const titleText = activeCard.getAttribute('data-title-' + currentLang) || activeCard.getAttribute('data-title-es');
 
-// Recrea dinámicamente el iframe en el DOM para forzar la recarga del video en cualquier navegador
-function renderPlayer(moduleNum, autoplay = false) {
+  const titleEl = document.getElementById('videoTitle');
+  if (titleEl && titleText) {
+    titleEl.innerText = titleText;
+  }
+
   const container = document.getElementById('videoWrap');
-  if (!container) return;
-
-  const ids = MODULE_VIDEOS[moduleNum];
-  if (!ids) return;
-
-  const langKey = (currentLang || 'es').toLowerCase();
-  const videoId = ids[langKey] || ids.es;
-  const embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&iv_load_policy=3${autoplay ? '&autoplay=1' : ''}`;
-
-  container.innerHTML = `<iframe
-    id="mainYouTubePlayer"
-    src="${embedUrl}"
-    title="FlowMint Demo Tutorial"
-    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-    allowfullscreen
-    loading="lazy">
-  </iframe>`;
+  if (container && videoId) {
+    const embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&iv_load_policy=3${autoplay ? '&autoplay=1' : ''}`;
+    container.innerHTML = `<iframe
+      id="mainYouTubePlayer"
+      src="${embedUrl}"
+      title="FlowMint Video Tutorial"
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen>
+    </iframe>`;
+  }
 }
 
 function setLanguage(lang) {
@@ -211,40 +221,22 @@ function setLanguage(lang) {
     pill.innerText = '🌐 ' + currentLang.toUpperCase();
   }
 
-  const title = document.getElementById('videoTitle');
-  if (title) {
-    const titleText = title.getAttribute('data-' + currentLang);
-    if (titleText) title.innerText = titleText;
-  }
-
-  // Fuerza la recreación del reproductor con el ID del idioma seleccionado
-  renderPlayer(currentModule, false);
+  updateActiveVideo(false);
 }
 
 function toggleLanguage() {
   setLanguage(currentLang === 'es' ? 'en' : 'es');
 }
 
-function loadModule(moduleNum, titleEs, titleEn, el) {
-  currentModule = moduleNum;
-  
-  const title = document.getElementById('videoTitle');
-  if (title) {
-    title.setAttribute('data-es', titleEs);
-    title.setAttribute('data-en', titleEn);
-    title.innerText = (currentLang === 'es') ? titleEs : titleEn;
-  }
+function selectModule(element, autoplay = true) {
+  document.querySelectorAll('.step-box').forEach(b => b.classList.remove('active'));
+  element.classList.add('active');
 
-  renderPlayer(moduleNum, true);
+  updateActiveVideo(autoplay);
 
   const container = document.getElementById('videoWrap');
   if (container) {
     container.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }
-
-  document.querySelectorAll('.step-box').forEach(b => b.classList.remove('active'));
-  if (el && el.classList.contains('step-box')) {
-    el.classList.add('active');
   }
 }
 
