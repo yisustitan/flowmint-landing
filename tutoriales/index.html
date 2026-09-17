@@ -43,14 +43,11 @@
     .btn-tab{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .2s ease;}
     .btn-tab:hover,.btn-tab.active{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.08);box-shadow:0 0 14px rgba(0,200,150,0.2);}
 
-
-
     /* VIDEO CARD */
     .video-card{background:var(--card);border:1px solid var(--border-light);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:36px;}
     .video-title-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
     .video-title-bar h3{font-family:var(--font-display);font-size:18px;color:#fff;}
     .video-lang-pill{font-family:var(--font-mono);font-size:11.5px;color:var(--mint);background:rgba(0,200,150,0.1);border:1px solid rgba(0,200,150,0.3);padding:4px 12px;border-radius:100px;}
-    /* Responsive 16:9 iframe */
     .video-wrap{position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#050e18;}
     .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
@@ -105,28 +102,22 @@
     <div class="tab-row">
       <a class="btn-tab active" id="tabCliente"
          href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/index.html"
-         data-i18n data-es="👤 Tutoriales Cliente" data-en="👤 Client Tutorials"
-         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/index.html"
-         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/tutoriales/index.html">
+         data-i18n data-es="👤 Tutoriales Cliente" data-en="👤 Client Tutorials">
         👤 Tutoriales Cliente
       </a>
       <a class="btn-tab" id="tabReseller"
          href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html"
          target="_blank"
          rel="noopener noreferrer"
-         data-i18n data-es="🚀 Oportunidad VIP" data-en="🚀 VIP Opportunity"
-         data-es-href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html"
-         data-en-href="https://flowmint.centraliaportal.com/recursos-vip/reseller-opportunity.html">
+         data-i18n data-es="🚀 Oportunidad VIP" data-en="🚀 VIP Opportunity">
         🚀 Oportunidad VIP
       </a>
     </div>
 
-
-
     <!-- REPRODUCTOR YOUTUBE EMBED RESPONSIVO -->
     <div class="video-card">
       <div class="video-title-bar">
-        <h3 id="videoTitle" data-i18n data-es="Módulo 1: Configuración Inicial" data-en="Module 1: Initial Setup">Módulo 1: Configuración Inicial</h3>
+        <h3 id="videoTitle" data-es="Módulo 1: Ingreso y Configuración Inicial" data-en="Module 1: Login & Initial Setup">Módulo 1: Ingreso y Configuración Inicial</h3>
         <span class="video-lang-pill" id="videoLangPill">🌐 ES</span>
       </div>
       <div class="video-wrap">
@@ -145,7 +136,7 @@
     <h2 class="section-subtitle" data-i18n data-es="Módulos de la Guía Oficial" data-en="Official Guide Modules">Módulos de la Guía Oficial</h2>
     <div class="steps-grid">
       <div class="step-box active" id="moduleBox1"
-           onclick="loadModule(1, 'Módulo 1: Configuración Inicial', 'Module 1: Initial Setup', this)"
+           onclick="loadModule(1, 'Módulo 1: Ingreso y Configuración Inicial', 'Module 1: Login & Initial Setup', this)"
            title="Ver Módulo 1">
         <div class="step-number" data-i18n data-es="MÓDULO 01 ▶" data-en="MODULE 01 ▶">MÓDULO 01 ▶</div>
         <h3 data-i18n data-es="Ingreso y Configuración Inicial" data-en="Login & Initial Setup">Ingreso y Configuración Inicial</h3>
@@ -159,7 +150,7 @@
         <p data-i18n data-es="Carga rápida de transacciones, categorización y seguimiento de balances en vivo." data-en="Quick transaction entry, smart categorization, and real-time balance tracking.">Carga rápida de transacciones, categorización y seguimiento de balances en vivo.</p>
       </div>
       <div class="step-box" id="moduleBox3"
-           onclick="loadModule(3, 'Módulo 3: Sobres y Gestión de Metas', 'Module 3: Envelopes & Goal Management', this)"
+           onclick="loadModule(3, 'Módulo 3: Control de Bolsillos y Metas', 'Module 3: Envelopes & Goal Management', this)"
            title="Ver Módulo 3">
         <div class="step-number" data-i18n data-es="MÓDULO 03 ▶" data-en="MODULE 03 ▶">MÓDULO 03 ▶</div>
         <h3 data-i18n data-es="Control de Bolsillos y Metas" data-en="Envelopes & Goal Management">Control de Bolsillos y Metas</h3>
@@ -174,85 +165,89 @@
   </footer>
 
 <script>
-let currentLang = localStorage.getItem('flowmint_lang') || 'es';
+let currentLang = (localStorage.getItem('flowmint_lang') || 'es').toLowerCase();
 
-// ── Mapa de videos por Módulo e idioma (ES/EN) ───────────────────────────────
-// IDs extraídos de tus enlaces de YouTube (https://youtu.be/ID_DEL_VIDEO)
+// Mapa de los 6 videos oficiales (3 en Español / 3 en Inglés)
 const MODULE_VIDEOS = {
   1: { es: 'Ccb4T8LwZKY', en: '0vddHF5cuME' },
   2: { es: '6ceMtGGETj4', en: 'lMfncPB02qM' },
   3: { es: 'Fe57RWDSBco', en: 'bKuyOql2XEA' }
 };
 
-let currentModule = 1; // Módulo actualmente cargado en el reproductor principal
+let currentModule = 1;
 
-// Construye la URL embed de YouTube para un módulo, en el idioma activo
-function getEmbedUrl(moduleNum, autoplay) {
+function getEmbedUrl(moduleNum, autoplay = false) {
   const ids = MODULE_VIDEOS[moduleNum];
   if (!ids) return '';
-  const videoId = ids[currentLang] || ids.es;
+  const langKey = (currentLang || 'es').toLowerCase();
+  const videoId = ids[langKey] || ids.es;
   return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&iv_load_policy=3${autoplay ? '&autoplay=1' : ''}`;
 }
 
+function updatePlayerVideo(autoplay = false) {
+  const player = document.getElementById('mainYouTubePlayer');
+  if (player) {
+    const newSrc = getEmbedUrl(currentModule, autoplay);
+    player.src = newSrc;
+    player.setAttribute('src', newSrc);
+  }
+}
+
 function setLanguage(lang) {
-  currentLang = lang;
-  localStorage.setItem('flowmint_lang', lang);
-  document.documentElement.lang = lang;
+  currentLang = (lang || 'es').toLowerCase();
+  localStorage.setItem('flowmint_lang', currentLang);
+  document.documentElement.lang = currentLang;
+
   const btnText = document.getElementById('langBtnText');
-  if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
+  if (btnText) {
+    btnText.innerText = (currentLang === 'es') ? 'EN | English' : 'ES | Español';
+  }
 
   document.querySelectorAll('[data-i18n]').forEach(el => {
-    const text = el.getAttribute('data-' + lang);
+    const text = el.getAttribute('data-' + currentLang);
     if (text) el.innerHTML = text;
-    const href = el.getAttribute('data-' + lang + '-href');
+    const href = el.getAttribute('data-' + currentLang + '-href');
     if (href) el.setAttribute('href', href);
-    const src = el.getAttribute('data-' + lang + '-src');
-    if (src) el.setAttribute('src', src);
   });
 
   const pill = document.getElementById('videoLangPill');
-  if (pill) pill.innerText = '🌐 ' + lang.toUpperCase();
+  if (pill) {
+    pill.innerText = '🌐 ' + currentLang.toUpperCase();
+  }
 
-  // Recarga el video del MÓDULO ACTIVO en el nuevo idioma (sin autoplay,
-  // para no interrumpir con sonido automático solo por cambiar el idioma).
-  const player = document.getElementById('mainYouTubePlayer');
-  if (player) player.src = getEmbedUrl(currentModule, false);
+  // Actualizar título del reproductor al cambiar idioma
+  const title = document.getElementById('videoTitle');
+  if (title) {
+    const titleText = title.getAttribute('data-' + currentLang);
+    if (titleText) title.innerText = titleText;
+  }
+
+  // RECARGAR EL REPRODUCTOR EN EL IDIOMA SELECCIONADO
+  updatePlayerVideo(false);
 }
 
 function toggleLanguage() {
   setLanguage(currentLang === 'es' ? 'en' : 'es');
 }
 
-/**
- * Carga el video de un Módulo (1, 2 o 3) en el idioma actualmente activo.
- * @param {number} moduleNum - Número de módulo (1, 2, 3)
- * @param {string} titleEs   - Título en español para el header del reproductor
- * @param {string} titleEn   - Título en inglés
- * @param {HTMLElement} el   - Tarjeta clickeada (para marcar active)
- */
 function loadModule(moduleNum, titleEs, titleEn, el) {
   currentModule = moduleNum;
+  
+  const title = document.getElementById('videoTitle');
+  if (title) {
+    title.setAttribute('data-es', titleEs);
+    title.setAttribute('data-en', titleEn);
+    title.innerText = (currentLang === 'es') ? titleEs : titleEn;
+  }
+
+  updatePlayerVideo(true);
+
   const player = document.getElementById('mainYouTubePlayer');
   if (player) {
-    player.src = getEmbedUrl(moduleNum, true);
-    // Scroll suave al reproductor
     player.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
-  const title = document.getElementById('videoTitle');
-  if (title) {
-    title.innerText = (currentLang === 'es') ? titleEs : titleEn;
-    title.setAttribute('data-es', titleEs);
-    title.setAttribute('data-en', titleEn);
-  }
-
-  const pill = document.getElementById('videoLangPill');
-  if (pill) pill.innerText = '🌐 ' + currentLang.toUpperCase();
-
-  // Limpiar clase active de todas las tarjetas de módulo
   document.querySelectorAll('.step-box').forEach(b => b.classList.remove('active'));
-
-  // Marcar como activa la tarjeta clickeada
   if (el && el.classList.contains('step-box')) {
     el.classList.add('active');
   }
