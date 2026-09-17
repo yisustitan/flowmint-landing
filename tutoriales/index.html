@@ -120,15 +120,8 @@
         <h3 id="videoTitle" data-es="Módulo 1: Ingreso y Configuración Inicial" data-en="Module 1: Login & Initial Setup">Módulo 1: Ingreso y Configuración Inicial</h3>
         <span class="video-lang-pill" id="videoLangPill">🌐 ES</span>
       </div>
-      <div class="video-wrap">
-        <iframe
-          id="mainYouTubePlayer"
-          src="https://www.youtube.com/embed/Ccb4T8LwZKY?rel=0&modestbranding=1&color=white&iv_load_policy=3"
-          title="FlowMint Demo Tutorial"
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-          allowfullscreen
-          loading="lazy">
-        </iframe>
+      <div class="video-wrap" id="videoWrap">
+        <!-- El iframe se renderiza dinámicamente mediante JS -->
       </div>
     </div>
 
@@ -167,7 +160,7 @@
 <script>
 let currentLang = (localStorage.getItem('flowmint_lang') || 'es').toLowerCase();
 
-// Mapa de los 6 videos oficiales (3 en Español / 3 en Inglés)
+// IDs de YouTube verificados
 const MODULE_VIDEOS = {
   1: { es: 'Ccb4T8LwZKY', en: '0vddHF5cuME' },
   2: { es: '6ceMtGGETj4', en: 'lMfncPB02qM' },
@@ -176,21 +169,26 @@ const MODULE_VIDEOS = {
 
 let currentModule = 1;
 
-function getEmbedUrl(moduleNum, autoplay = false) {
+// Recrea dinámicamente el iframe en el DOM para forzar la recarga del video en cualquier navegador
+function renderPlayer(moduleNum, autoplay = false) {
+  const container = document.getElementById('videoWrap');
+  if (!container) return;
+
   const ids = MODULE_VIDEOS[moduleNum];
-  if (!ids) return '';
+  if (!ids) return;
+
   const langKey = (currentLang || 'es').toLowerCase();
   const videoId = ids[langKey] || ids.es;
-  return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&iv_load_policy=3${autoplay ? '&autoplay=1' : ''}`;
-}
+  const embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&iv_load_policy=3${autoplay ? '&autoplay=1' : ''}`;
 
-function updatePlayerVideo(autoplay = false) {
-  const player = document.getElementById('mainYouTubePlayer');
-  if (player) {
-    const newSrc = getEmbedUrl(currentModule, autoplay);
-    player.src = newSrc;
-    player.setAttribute('src', newSrc);
-  }
+  container.innerHTML = `<iframe
+    id="mainYouTubePlayer"
+    src="${embedUrl}"
+    title="FlowMint Demo Tutorial"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+    allowfullscreen
+    loading="lazy">
+  </iframe>`;
 }
 
 function setLanguage(lang) {
@@ -206,8 +204,6 @@ function setLanguage(lang) {
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const text = el.getAttribute('data-' + currentLang);
     if (text) el.innerHTML = text;
-    const href = el.getAttribute('data-' + currentLang + '-href');
-    if (href) el.setAttribute('href', href);
   });
 
   const pill = document.getElementById('videoLangPill');
@@ -215,15 +211,14 @@ function setLanguage(lang) {
     pill.innerText = '🌐 ' + currentLang.toUpperCase();
   }
 
-  // Actualizar título del reproductor al cambiar idioma
   const title = document.getElementById('videoTitle');
   if (title) {
     const titleText = title.getAttribute('data-' + currentLang);
     if (titleText) title.innerText = titleText;
   }
 
-  // RECARGAR EL REPRODUCTOR EN EL IDIOMA SELECCIONADO
-  updatePlayerVideo(false);
+  // Fuerza la recreación del reproductor con el ID del idioma seleccionado
+  renderPlayer(currentModule, false);
 }
 
 function toggleLanguage() {
@@ -240,11 +235,11 @@ function loadModule(moduleNum, titleEs, titleEn, el) {
     title.innerText = (currentLang === 'es') ? titleEs : titleEn;
   }
 
-  updatePlayerVideo(true);
+  renderPlayer(moduleNum, true);
 
-  const player = document.getElementById('mainYouTubePlayer');
-  if (player) {
-    player.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  const container = document.getElementById('videoWrap');
+  if (container) {
+    container.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
 
   document.querySelectorAll('.step-box').forEach(b => b.classList.remove('active'));
