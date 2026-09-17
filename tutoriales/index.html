@@ -132,7 +132,7 @@
       <div class="video-wrap">
         <iframe
           id="mainYouTubePlayer"
-          src="https://www.youtube.com/embed/sd62XHH-exw?rel=0&modestbranding=1&color=white&iv_load_policy=3"
+          src="https://www.youtube.com/embed/Ccb4T8LwZKY?rel=0&modestbranding=1&color=white&iv_load_policy=3"
           title="FlowMint Demo Tutorial"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen
@@ -145,21 +145,21 @@
     <h2 class="section-subtitle" data-i18n data-es="Módulos de la Guía Oficial" data-en="Official Guide Modules">Módulos de la Guía Oficial</h2>
     <div class="steps-grid">
       <div class="step-box active" id="moduleBox1"
-           onclick="loadVideo('sd62XHH-exw', 'Módulo 1: Configuración Inicial', 'Module 1: Initial Setup', this)"
+           onclick="loadModule(1, 'Módulo 1: Configuración Inicial', 'Module 1: Initial Setup', this)"
            title="Ver Módulo 1">
         <div class="step-number" data-i18n data-es="MÓDULO 01 ▶" data-en="MODULE 01 ▶">MÓDULO 01 ▶</div>
         <h3 data-i18n data-es="Ingreso y Configuración Inicial" data-en="Login & Initial Setup">Ingreso y Configuración Inicial</h3>
         <p data-i18n data-es="Apertura desde navegador en móvil o PC y configuración de tu moneda local." data-en="Launch from any browser on mobile or desktop and set up your local currency.">Apertura desde navegador en móvil o PC y configuración de tu moneda local.</p>
       </div>
       <div class="step-box" id="moduleBox2"
-           onclick="loadVideo('YOUTUBE_ID_INGRESOS', 'Módulo 2: Registro de Ingresos y Gastos', 'Module 2: Income & Expense Tracking', this)"
+           onclick="loadModule(2, 'Módulo 2: Registro de Ingresos y Gastos', 'Module 2: Income & Expense Tracking', this)"
            title="Ver Módulo 2">
         <div class="step-number" data-i18n data-es="MÓDULO 02 ▶" data-en="MODULE 02 ▶">MÓDULO 02 ▶</div>
         <h3 data-i18n data-es="Registro de Ingresos & Gastos" data-en="Income & Expense Tracking">Registro de Ingresos & Gastos</h3>
         <p data-i18n data-es="Carga rápida de transacciones, categorización y seguimiento de balances en vivo." data-en="Quick transaction entry, smart categorization, and real-time balance tracking.">Carga rápida de transacciones, categorización y seguimiento de balances en vivo.</p>
       </div>
       <div class="step-box" id="moduleBox3"
-           onclick="loadVideo('YOUTUBE_ID_BOLSILLOS', 'Módulo 3: Sobres y Gestión de Metas', 'Module 3: Envelopes & Goal Management', this)"
+           onclick="loadModule(3, 'Módulo 3: Sobres y Gestión de Metas', 'Module 3: Envelopes & Goal Management', this)"
            title="Ver Módulo 3">
         <div class="step-number" data-i18n data-es="MÓDULO 03 ▶" data-en="MODULE 03 ▶">MÓDULO 03 ▶</div>
         <h3 data-i18n data-es="Control de Bolsillos y Metas" data-en="Envelopes & Goal Management">Control de Bolsillos y Metas</h3>
@@ -176,11 +176,23 @@
 <script>
 let currentLang = localStorage.getItem('flowmint_lang') || 'es';
 
-// ── Módulo 1 ya está asignado con el ID real de YouTube: sd62XHH-exw ─────────
-// Reemplaza YOUTUBE_ID_INGRESOS y YOUTUBE_ID_BOLSILLOS (Módulos 2 y 3) cuando
-// subas esos videos, con el mismo formato: si la URL es
-// https://youtu.be/abc123XYZ, el ID a usar es 'abc123XYZ'
-// ─────────────────────────────────────────────────────────────────────────────
+// ── Mapa de videos por Módulo e idioma (ES/EN) ───────────────────────────────
+// IDs extraídos de tus enlaces de YouTube (https://youtu.be/ID_DEL_VIDEO)
+const MODULE_VIDEOS = {
+  1: { es: 'Ccb4T8LwZKY', en: '0vddHF5cuME' },
+  2: { es: '6ceMtGGETj4', en: 'lMfncPB02qM' },
+  3: { es: 'Fe57RWDSBco', en: 'bKuyOql2XEA' }
+};
+
+let currentModule = 1; // Módulo actualmente cargado en el reproductor principal
+
+// Construye la URL embed de YouTube para un módulo, en el idioma activo
+function getEmbedUrl(moduleNum, autoplay) {
+  const ids = MODULE_VIDEOS[moduleNum];
+  if (!ids) return '';
+  const videoId = ids[currentLang] || ids.es;
+  return `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&iv_load_policy=3${autoplay ? '&autoplay=1' : ''}`;
+}
 
 function setLanguage(lang) {
   currentLang = lang;
@@ -200,6 +212,11 @@ function setLanguage(lang) {
 
   const pill = document.getElementById('videoLangPill');
   if (pill) pill.innerText = '🌐 ' + lang.toUpperCase();
+
+  // Recarga el video del MÓDULO ACTIVO en el nuevo idioma (sin autoplay,
+  // para no interrumpir con sonido automático solo por cambiar el idioma).
+  const player = document.getElementById('mainYouTubePlayer');
+  if (player) player.src = getEmbedUrl(currentModule, false);
 }
 
 function toggleLanguage() {
@@ -207,27 +224,28 @@ function toggleLanguage() {
 }
 
 /**
- * Carga un video desde el selector de pestañas o desde una tarjeta de módulo.
- * @param {string} videoId  - ID de YouTube (ej: 'dQw4w9WgXcQ')
- * @param {string} titleEs  - Título en español para el header del card
- * @param {string} titleEn  - Título en inglés
- * @param {HTMLElement} el  - Elemento clickeado (para marcar active)
+ * Carga el video de un Módulo (1, 2 o 3) en el idioma actualmente activo.
+ * @param {number} moduleNum - Número de módulo (1, 2, 3)
+ * @param {string} titleEs   - Título en español para el header del reproductor
+ * @param {string} titleEn   - Título en inglés
+ * @param {HTMLElement} el   - Tarjeta clickeada (para marcar active)
  */
-function loadVideo(videoId, titleEs, titleEn, el) {
+function loadModule(moduleNum, titleEs, titleEn, el) {
+  currentModule = moduleNum;
   const player = document.getElementById('mainYouTubePlayer');
   if (player) {
-    player.src = `https://www.youtube.com/embed/${videoId}?rel=0&modestbranding=1&color=white&iv_load_policy=3&autoplay=1`;
+    player.src = getEmbedUrl(moduleNum, true);
     // Scroll suave al reproductor
     player.scrollIntoView({ behavior: 'smooth', block: 'center' });
   }
-  
+
   const title = document.getElementById('videoTitle');
   if (title) {
     title.innerText = (currentLang === 'es') ? titleEs : titleEn;
     title.setAttribute('data-es', titleEs);
     title.setAttribute('data-en', titleEn);
   }
-  
+
   const pill = document.getElementById('videoLangPill');
   if (pill) pill.innerText = '🌐 ' + currentLang.toUpperCase();
 
