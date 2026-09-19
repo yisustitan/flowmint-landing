@@ -681,102 +681,6 @@
       color: var(--text);
     }
 
-    /* Link configuration widget */
-    .config-widget {
-      position: fixed;
-      bottom: 24px;
-      right: 24px;
-      z-index: 1000;
-    }
-
-    .config-btn {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      background: var(--navy3);
-      border: 1px solid var(--border-light);
-      color: var(--text);
-      font-size: 20px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-      transition: var(--transition);
-    }
-
-    .config-btn:hover {
-      transform: rotate(45deg);
-      border-color: var(--mint);
-    }
-
-    .config-panel {
-      position: absolute;
-      bottom: 60px;
-      right: 0;
-      width: 320px;
-      background: var(--navy2);
-      border: 1px solid var(--border-light);
-      border-radius: 16px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      display: none;
-      animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-    }
-
-    @keyframes slideUp {
-      from {
-        opacity: 0;
-        transform: translateY(10px);
-      }
-
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    .config-panel.open {
-      display: block;
-    }
-
-    .config-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .config-field {
-      margin-bottom: 14px;
-    }
-
-    .config-field label {
-      font-size: 10px;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      font-weight: 600;
-      display: block;
-      margin-bottom: 4px;
-    }
-
-    .config-input {
-      width: 100%;
-      background: var(--navy3);
-      border: 1px solid var(--border-light);
-      color: var(--text);
-      padding: 8px 12px;
-      border-radius: 8px;
-      font-size: 12px;
-      outline: none;
-    }
-
-    .config-input:focus {
-      border-color: var(--mint);
-    }
-
     @media (max-width: 768px) {
       .hero h1 {
         font-size: 40px;
@@ -1424,32 +1328,6 @@
   </div>
 
   <!-- ── CONFIGURATION PANEL WIDGET ── -->
-  <div class="config-widget">
-    <button class="config-btn" onclick="toggleConfigPanel()" title="Configurar Enlaces de Venta">⚙️</button>
-    <div class="config-panel" id="configPanel">
-      <div class="config-title" data-i18n="cfg-title">⚙️ Ajustes de Checkout</div>
-      <p style="font-size: 11px; color: var(--text-sec); margin-bottom: 14px;" data-i18n="cfg-desc">
-        Configura tus URLs de cobro para actualizar los botones en vivo:
-      </p>
-
-      <div class="config-field">
-        <label for="resellerUrlInput" data-i18n="cfg-reseller-label">URL Licencia de Revendedor ($149)</label>
-        <input type="text" class="config-input" id="resellerUrlInput" placeholder="https://pay.hotmart.com/...">
-      </div>
-
-      <div class="config-field" style="margin-top: 10px;">
-        <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL App Personal ($19)</label>
-        <input type="text" class="config-input" id="checkoutUrlInput" placeholder="https://pay.hotmart.com/...">
-      </div>
-
-      <button class="btn btn-primary" onclick="saveAllUrls()"
-        style="width: 100%; padding: 10px; font-size: 12px; border-radius: 8px; margin-top: 10px; font-weight:700;"
-        data-i18n="cfg-save-btn">
-        Guardar Todo
-      </button>
-    </div>
-  </div>
-
   <!-- ── TRADUCCIONES Y LÓGICA DE NEGOCIO ── -->
   <script>
     // --- 1. DICCIONARIO DE TRADUCCIONES (I18N) ---
@@ -1545,12 +1423,7 @@
         "roi-chip-2-lbl": "A $149 c/u",
         "roi-chip-3-lbl": "Ganancia pura",
         "roi-chip-4-lbl": "Ingreso total generado",
-        "roi-cta-btn": "Quiero Todos Estos Bonos ($149 USD)",
-        "cfg-title": "⚙️ Ajustes de Checkout",
-        "cfg-desc": "Configura tus URLs de cobro para actualizar los botones en vivo:",
-        "cfg-main-label": "URL App Personal ($19)",
-        "cfg-reseller-label": "URL Licencia de Revendedor ($149)",
-        "cfg-save-btn": "Guardar Todo"
+        "roi-cta-btn": "Quiero Todos Estos Bonos ($149 USD)"
       },
       en: {
         "nav-problem": "Benefits",
@@ -1643,12 +1516,7 @@
         "roi-chip-2-lbl": "At $149 each",
         "roi-chip-3-lbl": "Pure profit",
         "roi-chip-4-lbl": "Total revenue generated",
-        "roi-cta-btn": "I Want All These Bonuses ($149 USD)",
-        "cfg-title": "⚙️ Checkout Settings",
-        "cfg-desc": "Configure your payment gateway links to update live site buttons:",
-        "cfg-main-label": "Personal App URL ($19)",
-        "cfg-reseller-label": "Reseller License URL ($149)",
-        "cfg-save-btn": "Save All"
+        "roi-cta-btn": "I Want All These Bonuses ($149 USD)"
       }
     };
 
@@ -1717,56 +1585,16 @@
       }
     }
 
-    // --- 3. GESTIÓN DE ENLACES DE COBRO ---
-    let resellerUrl = localStorage.getItem('fm_landing_reseller_url') || 'https://pay.hotmart.com/G106875530I';
-    let checkoutUrl = localStorage.getItem('fm_landing_checkout_url') || 'https://pay.hotmart.com/thttps://pay.hotmart.com/S106873189Y?checkoutMode=10';
+    // --- 3. ENLACE DE COBRO (Licencia de Revendedor $149) ---
+    const resellerUrl = 'https://pay.hotmart.com/G106875530I';
 
     window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('resellerUrlInput').value = resellerUrl;
-      document.getElementById('checkoutUrlInput').value = checkoutUrl;
-
       changeLanguage(currentLang);
     });
-
-    function toggleConfigPanel() {
-      document.getElementById('configPanel').classList.toggle('open');
-    }
-
-    function saveAllUrls() {
-      const mainVal = document.getElementById('checkoutUrlInput').value.trim();
-      const resellerVal = document.getElementById('resellerUrlInput').value.trim();
-
-      if (mainVal && resellerVal) {
-        checkoutUrl = mainVal;
-        resellerUrl = resellerVal;
-
-        localStorage.setItem('fm_landing_checkout_url', checkoutUrl);
-        localStorage.setItem('fm_landing_reseller_url', resellerUrl);
-
-        alert(currentLang === 'es' ? '¡Todos los enlaces de pago actualizados!' : 'All checkout links updated successfully!');
-        toggleConfigPanel();
-      } else {
-        alert(currentLang === 'es' ? 'Por favor, rellena ambos campos con URLs válidas.' : 'Please fill out both fields with valid URLs.');
-      }
-    }
 
     function openResellerUrl() {
       window.open(resellerUrl, '_blank');
     }
-
-    function openCheckoutUrl() {
-      window.open(checkoutUrl, '_blank');
-    }
-
-    document.addEventListener('click', (e) => {
-      const panel = document.getElementById('configPanel');
-      const widget = document.querySelector('.config-widget');
-      if (!panel || !panel.classList.contains('open')) return;
-      if (!widget) return;
-      if (widget.contains(e.target)) return;
-      if (e.target.closest('a, button, input, select, label')) return;
-      panel.classList.remove('open');
-    });
   </script>
 </body>
 
