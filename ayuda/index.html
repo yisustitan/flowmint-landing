@@ -1,542 +1,714 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FlowMint App — Centro de Ayuda &amp; Tutorial Oficial</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap" rel="stylesheet">
-<style>
-  :root{
-    --bg:#0B0F19;
-    --bg-alt:#0F172A;
-    --card:#1E293B;
-    --card-hover:#243248;
-    --border:#334155;
-    --mint:#10B981;
-    --mint-light:#34D399;
-    --mint-deep:#059669;
-    --text:#F8FAFC;
-    --text-sec:#94A3B8;
-    --text-mute:#64748B;
-    --radius:16px;
-    --radius-sm:10px;
-    --font:'Inter', system-ui, -apple-system, sans-serif;
-    --font-mono:'JetBrains Mono', monospace;
-  }
-
-  *{ box-sizing:border-box; margin:0; padding:0; }
-  html{ scroll-behavior:smooth; }
-
-  body{
-    font-family:var(--font);
-    background:
-      radial-gradient(ellipse 900px 480px at 15% -5%, rgba(16,185,129,0.10), transparent 60%),
-      radial-gradient(ellipse 700px 420px at 100% 10%, rgba(52,211,153,0.06), transparent 55%),
-      var(--bg);
-    color:var(--text);
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  a{ color:inherit; text-decoration:none; }
-  ul{ list-style:none; }
-
-  @media (prefers-reduced-motion:reduce){
-    *{ animation-duration:0.001ms !important; transition-duration:0.001ms !important; }
-  }
-
-  /* ===== LANGUAGE CONTROL ===== */
-  .lang-en{ display:none; }
-  body.lang-english .lang-es{ display:none; }
-  body.lang-english .lang-en{ display:inline; }
-  body.lang-english div.lang-en,
-  body.lang-english p.lang-en,
-  body.lang-english li.lang-en,
-  body.lang-english h1.lang-en,
-  body.lang-english h2.lang-en,
-  body.lang-english h3.lang-en,
-  body.lang-english h4.lang-en,
-  body.lang-english span.lang-en.block{ display:block; }
-
-  .container{ max-width:1120px; margin:0 auto; padding:0 24px; }
-
-  /* ===== NAVBAR ===== */
-  nav{
-    position:sticky; top:0; z-index:100;
-    background:rgba(11,15,25,0.85);
-    backdrop-filter:blur(14px);
-    -webkit-backdrop-filter:blur(14px);
-    border-bottom:1px solid var(--border);
-  }
-  .nav-inner{
-    max-width:1120px; margin:0 auto; padding:14px 24px;
-    display:flex; align-items:center; justify-content:space-between; gap:16px;
-  }
-  .brand{ display:flex; align-items:center; gap:11px; flex-shrink:0; }
-  .brand-badge{
-    width:36px; height:36px; border-radius:10px;
-    background:linear-gradient(135deg, var(--mint-light) 0%, var(--mint-deep) 100%);
-    display:flex; align-items:center; justify-content:center;
-    font-size:18px; box-shadow:0 6px 18px -6px rgba(16,185,129,0.5);
-  }
-  .brand-text h1{ font-size:16.5px; font-weight:800; letter-spacing:-0.01em; }
-  .brand-text span{ font-size:11px; color:var(--text-sec); }
-
-  .nav-right{ display:flex; align-items:center; gap:10px; }
-
-  .nav-links{
-    display:flex; align-items:center; gap:4px;
-    list-style:none;
-  }
-  .nav-links a{
-    font-size:13.5px; font-weight:500; color:var(--text-sec);
-    padding:8px 12px; border-radius:8px;
-    transition:color .2s ease, background .2s ease;
-  }
-  .nav-links a:hover{ color:var(--text); background:rgba(255,255,255,0.05); }
-
-  .lang-btn{
-    background:var(--card);
-    border:1px solid var(--border);
-    color:var(--mint-light);
-    padding:8px 15px;
-    border-radius:100px;
-    font-weight:600; font-size:12.5px;
-    cursor:pointer;
-    transition:background .2s ease, border-color .2s ease;
-    white-space:nowrap;
-  }
-  .lang-btn:hover{ background:var(--card-hover); border-color:var(--mint); }
-
-  .cta-btn{
-    display:inline-flex; align-items:center; gap:8px;
-    background:linear-gradient(135deg, var(--mint-light), var(--mint-deep));
-    color:#052e21;
-    font-weight:700; font-size:13.5px;
-    padding:10px 18px; border-radius:10px;
-    box-shadow:0 8px 20px -8px rgba(16,185,129,0.55);
-    transition:transform .2s ease, box-shadow .2s ease;
-    white-space:nowrap;
-  }
-  .cta-btn:hover{ transform:translateY(-2px); box-shadow:0 12px 26px -8px rgba(16,185,129,0.65); }
-
-  .menu-toggle{
-    display:none;
-    background:none; border:1px solid var(--border); border-radius:8px;
-    width:38px; height:38px; color:var(--text);
-    align-items:center; justify-content:center; cursor:pointer;
-    flex-shrink:0;
-  }
-  .menu-toggle svg{ width:18px; height:18px; }
-
-  /* ===== HERO ===== */
-  .hero{ text-align:center; padding:76px 24px 40px; }
-  .hero-eyebrow{
-    display:inline-flex; align-items:center; gap:8px;
-    font-size:12.5px; font-weight:600; color:var(--mint-light);
-    background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.28);
-    padding:6px 14px; border-radius:100px; margin-bottom:22px;
-  }
-  .hero h2{
-    font-size:clamp(1.9rem, 4.6vw, 3rem);
-    font-weight:800; letter-spacing:-0.025em;
-    max-width:760px; margin:0 auto;
-  }
-  .hero p{
-    margin-top:16px; font-size:16.5px; color:var(--text-sec);
-    max-width:580px; margin-left:auto; margin-right:auto;
-  }
-
-  /* ===== SECTION SHELL ===== */
-  section.block{ padding:16px 24px 64px; }
-  .section-head{ margin-bottom:26px; }
-  .section-head h3{ font-size:22px; font-weight:800; letter-spacing:-0.01em; margin-bottom:8px; }
-  .section-head p{ color:var(--text-sec); font-size:14.5px; max-width:620px; }
-
-  /* ===== VIDEO CARD ===== */
-  .card{
-    background:var(--card); border:1px solid var(--border);
-    border-radius:var(--radius); padding:24px;
-  }
-  .video-box{
-    position:relative; width:100%; aspect-ratio:16/9;
-    background:#000; border-radius:12px; overflow:hidden;
-    border:1px solid var(--border); margin-bottom:22px;
-    display:flex; align-items:center; justify-content:center;
-  }
-  .video-box iframe{ position:absolute; inset:0; width:100%; height:100%; border:0; }
-
-  .video-info h4{ font-size:18px; font-weight:700; margin-bottom:8px; }
-  .video-info > p.desc{ color:var(--text-sec); font-size:14px; margin-bottom:20px; max-width:680px; }
-
-  .timestamp-list{ display:flex; flex-direction:column; gap:2px; }
-  .timestamp-item{
-    display:flex; align-items:center; gap:12px;
-    padding:9px 4px; border-bottom:1px solid rgba(255,255,255,0.05);
-    font-size:13.5px;
-  }
-  .timestamp-item:last-child{ border-bottom:0; }
-  .timestamp-item .time{
-    font-family:var(--font-mono); font-size:12px; font-weight:600;
-    color:var(--mint-light); background:rgba(16,185,129,0.1);
-    padding:3px 8px; border-radius:6px; flex-shrink:0; min-width:52px; text-align:center;
-  }
-  .timestamp-item .label{ color:var(--text-sec); }
-
-  /* ===== QUICK ACCESS ===== */
-  .quick-grid{
-    display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-    gap:18px;
-  }
-  .quick-card{
-    background:var(--card); border:1px solid var(--border);
-    border-radius:var(--radius); padding:24px;
-    display:flex; flex-direction:column; gap:12px;
-    transition:transform .2s ease, border-color .2s ease;
-  }
-  .quick-card:hover{ transform:translateY(-3px); border-color:var(--mint); }
-  .quick-icon{
-    width:42px; height:42px; border-radius:11px;
-    background:rgba(16,185,129,0.12); color:var(--mint-light);
-    display:flex; align-items:center; justify-content:center;
-  }
-  .quick-icon svg{ width:21px; height:21px; }
-  .quick-card h4{ font-size:16.5px; font-weight:700; }
-  .quick-card p{ color:var(--text-sec); font-size:13.5px; flex-grow:1; }
-  .quick-card .cta-btn{ align-self:flex-start; margin-top:4px; }
-  .quick-card .steps{ display:flex; flex-direction:column; gap:6px; margin-top:4px; }
-  .quick-card .steps li{ font-size:13px; color:var(--text-sec); padding-left:18px; position:relative; }
-  .quick-card .steps li::before{
-    content:'0' counter(step-counter); counter-increment:step-counter;
-    position:absolute; left:0; top:0;
-    font-family:var(--font-mono); font-size:11px; color:var(--mint-light); font-weight:700;
-  }
-  .quick-card .steps{ counter-reset:step-counter; }
-
-  /* ===== FAQ ===== */
-  .faq-item{
-    background:var(--card); border:1px solid var(--border);
-    border-radius:var(--radius-sm); margin-bottom:12px; overflow:hidden;
-  }
-  .faq-item summary{
-    list-style:none; cursor:pointer; font-weight:600; font-size:14.5px;
-    padding:18px 20px; display:flex; align-items:center; justify-content:space-between; gap:16px;
-    outline:none;
-  }
-  .faq-item summary::-webkit-details-marker{ display:none; }
-  .faq-icon{
-    width:24px; height:24px; border-radius:50%; flex-shrink:0;
-    background:rgba(16,185,129,0.12); color:var(--mint-light);
-    display:flex; align-items:center; justify-content:center;
-    transition:transform .25s ease, background .2s ease;
-  }
-  .faq-icon svg{ width:13px; height:13px; }
-  .faq-item[open] .faq-icon{ transform:rotate(45deg); background:var(--mint); color:#052e21; }
-  .faq-item p{ padding:0 20px 20px; color:var(--text-sec); font-size:13.5px; max-width:680px; }
-
-  /* ===== SUPPORT ===== */
-  .support-card{
-    background:linear-gradient(150deg, var(--card) 0%, #142a22 140%);
-    border:1px solid rgba(16,185,129,0.3);
-    border-radius:var(--radius); padding:40px;
-    text-align:center;
-  }
-  .support-status{
-    display:inline-flex; align-items:center; gap:8px;
-    font-family:var(--font-mono); font-size:12px; color:var(--mint-light);
-    background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.28);
-    padding:6px 14px; border-radius:100px; margin-bottom:20px;
-  }
-  .support-status::before{
-    content:''; width:7px; height:7px; border-radius:50%;
-    background:var(--mint-light); box-shadow:0 0 8px var(--mint-light);
-    animation:pulse 2s ease-in-out infinite;
-  }
-  @keyframes pulse{ 0%,100%{opacity:1;} 50%{opacity:0.3;} }
-  .support-card h3{ font-size:22px; font-weight:800; margin-bottom:10px; }
-  .support-card p{ color:var(--text-sec); font-size:14.5px; max-width:520px; margin:0 auto; }
-
-  /* ===== FOOTER ===== */
-  footer{
-    border-top:1px solid var(--border);
-    padding:34px 24px; text-align:center;
-  }
-  footer p{ color:var(--text-mute); font-size:13px; margin-bottom:10px; }
-  .footer-links{ display:flex; justify-content:center; gap:20px; flex-wrap:wrap; }
-  .footer-links a{ font-size:13px; color:var(--text-sec); transition:color .2s ease; }
-  .footer-links a:hover{ color:var(--mint-light); }
-
-  /* ===== RESPONSIVE / MOBILE-FIRST ===== */
-  @media (max-width:860px){
-    .nav-links{
-      display:none;
-      position:absolute; top:100%; left:0; right:0;
-      background:var(--bg-alt); border-bottom:1px solid var(--border);
-      flex-direction:column; align-items:stretch;
-      padding:10px 16px 16px;
-      gap:2px;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Ayuda — FlowMint</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --mint: #00C896;
+      --mint-light: #E6FBF4;
+      --mint-mid: #00A67A;
+      --navy: #0F1B2D;
+      --navy2: #162236;
+      --navy3: #1E2F47;
+      --border: rgba(255, 255, 255, 0.08);
+      --border-light: rgba(255, 255, 255, 0.15);
+      --card: rgba(22, 34, 54, 0.95);
+      --card2: rgba(30, 47, 71, 0.8);
+      --text: #F0F4FF;
+      --text-sec: #9AABC4;
+      --text-muted: #5E7090;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
     }
-    .nav-links.open{ display:flex; }
-    .nav-links a{ padding:12px 10px; border-radius:8px; }
-    .menu-toggle{ display:flex; }
-    nav{ position:sticky; }
-    .nav-inner{ position:relative; }
-  }
 
-  @media (max-width:640px){
-    .hero{ padding:52px 20px 32px; }
-    section.block{ padding:10px 20px 48px; }
-    .card{ padding:18px; }
-    .support-card{ padding:28px 22px; }
-    .cta-btn span.cta-long{ display:none; }
-  }
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
 
-  a:focus-visible, summary:focus-visible, button:focus-visible{
-    outline:2px solid var(--mint);
-    outline-offset:2px;
-  }
-</style>
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 200, 150, 0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 90% 110%, rgba(245, 166, 35, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 24px 60px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* HEADER */
+    .header {
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 36px;
+    }
+
+    .logo-mark {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      background: var(--mint);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+    }
+
+    .logo-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+    }
+
+    .logo-text span {
+      color: var(--mint);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .lang-btn {
+      background: var(--navy2);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s;
+    }
+
+    .lang-btn:hover {
+      border-color: var(--mint);
+    }
+
+    .btn-back {
+      background: var(--navy2);
+      border: 1px solid var(--border-light);
+      color: var(--text-sec);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .btn-back:hover {
+      background: var(--border);
+      color: var(--text);
+      border-color: var(--mint);
+    }
+
+    /* HERO */
+    .hero {
+      text-align: center;
+      margin-bottom: 36px;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      background: rgba(0, 200, 150, 0.12);
+      color: var(--mint);
+      font-size: 12px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .hero-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 36px;
+      margin-bottom: 10px;
+    }
+
+    .hero-sub {
+      color: var(--text-sec);
+      font-size: 15px;
+      max-width: 580px;
+      margin: 0 auto 28px;
+    }
+
+    /* TUTORIAL CARD */
+    .tutorial-card {
+      background: linear-gradient(135deg, rgba(30, 47, 71, 0.9) 0%, rgba(22, 34, 54, 0.95) 100%);
+      border: 1px solid rgba(0, 200, 150, 0.25);
+      border-radius: var(--radius);
+      padding: 32px 24px;
+      text-align: center;
+      margin-bottom: 40px;
+      box-shadow: var(--shadow);
+    }
+
+    .tutorial-icon {
+      font-size: 32px;
+      margin-bottom: 12px;
+    }
+
+    .tutorial-card h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    .tutorial-card p {
+      color: var(--text-sec);
+      font-size: 14px;
+      max-width: 600px;
+      margin: 0 auto 20px;
+      line-height: 1.6;
+    }
+
+    .btn-primary {
+      background: var(--mint);
+      color: var(--navy);
+      border: none;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover {
+      background: var(--mint-mid);
+    }
+
+    /* SECTION TITLE WITH NUMBERS */
+    .sec-num-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .num-badge {
+      width: 28px;
+      height: 28px;
+      background: var(--mint);
+      color: var(--navy);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    /* PWA INSTALL SECTION */
+    .pwa-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 20px;
+      margin-bottom: 44px;
+    }
+
+    .pwa-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .pwa-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .pwa-header h3 {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .pwa-steps {
+      list-style: none;
+    }
+
+    .pwa-steps li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--text-sec);
+      margin-bottom: 12px;
+      line-height: 1.4;
+    }
+
+    .pwa-steps li:last-child {
+      margin-bottom: 0;
+    }
+
+    .step-num {
+      background: var(--mint);
+      color: var(--navy);
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* FAQ SECTION */
+    .faq-search-wrap {
+      margin-bottom: 20px;
+    }
+
+    .faq-search {
+      width: 100%;
+      background: var(--card2);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 12px 18px;
+      border-radius: var(--radius-sm);
+      outline: none;
+    }
+
+    .faq-search:focus {
+      border-color: var(--mint);
+    }
+
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 12px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--border-light);
+    }
+
+    .faq-item.open {
+      border-color: var(--mint);
+    }
+
+    .faq-question {
+      padding: 16px 20px;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .faq-chevron {
+      font-size: 12px;
+      color: var(--text-muted);
+      transition: transform 0.2s;
+    }
+
+    .faq-item.open .faq-chevron {
+      transform: rotate(180deg);
+      color: var(--mint);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 16px 20px 20px;
+      font-size: 14px;
+      color: var(--text-sec);
+      border-top: 1px solid var(--border);
+      line-height: 1.6;
+    }
+
+    .faq-item.open .faq-answer {
+      display: block;
+    }
+
+    /* SUPPORT SECTION */
+    .support-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .support-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+    }
+
+    .support-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--mint);
+      margin-bottom: 12px;
+    }
+
+    .status-dot {
+      width: 8px;
+      height: 8px;
+      background: var(--mint);
+      border-radius: 50%;
+    }
+
+    .support-card h3 {
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+
+    .support-card p {
+      font-size: 13px;
+      color: var(--text-sec);
+      margin-bottom: 20px;
+    }
+
+    .support-links {
+      list-style: none;
+    }
+
+    .support-links li {
+      margin-bottom: 12px;
+    }
+
+    .support-links a {
+      color: var(--text-sec);
+      text-decoration: none;
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: color 0.2s;
+    }
+
+    .support-links a:hover {
+      color: var(--mint);
+    }
+
+    @media (max-width: 768px) {
+      .support-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- NAVBAR -->
-<nav>
-  <div class="nav-inner">
-    <div class="brand">
-      <div class="brand-badge">🌱</div>
-      <div class="brand-text">
-        <h1>FlowMint App</h1>
-        <span class="lang-es">Centro de Ayuda</span>
-        <span class="lang-en">Help Center</span>
-      </div>
-    </div>
-
-    <ul class="nav-links" id="navLinks">
-      <li><a href="#inicio" class="lang-es">Inicio</a><a href="#inicio" class="lang-en">Home</a></li>
-      <li><a href="#video-tour" class="lang-es">Video Tour</a><a href="#video-tour" class="lang-en">Video Tour</a></li>
-      <li><a href="#faq" class="lang-es">Preguntas Frecuentes</a><a href="#faq" class="lang-en">FAQ</a></li>
-      <li><a href="#soporte" class="lang-es">Soporte</a><a href="#soporte" class="lang-en">Support</a></li>
-    </ul>
-
-    <div class="nav-right">
-      <button class="lang-btn" onclick="toggleLanguage()">
-        <span class="lang-es">EN | English 🌐</span>
-        <span class="lang-en">ES | Español 🌐</span>
-      </button>
-      <a href="../flowmint.html" class="cta-btn">
-        <span class="lang-es"><span class="cta-long">Abrir </span>FlowMint App</span>
-        <span class="lang-en"><span class="cta-long">Open </span>FlowMint App</span>
+  <div class="container">
+    <!-- HEADER -->
+    <header class="header">
+      <a href="../index.html" class="logo-mark">
+        <div class="logo-icon">🌿</div>
+        <div class="logo-text">Flow<span>Mint</span></div>
       </a>
-      <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()" aria-label="Menú">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-      </button>
-    </div>
-  </div>
-</nav>
+      <div class="header-actions">
+        <button class="lang-btn" onclick="toggleLanguage()" id="langToggleBtn">🌐 <span>EN</span></button>
+        <a href="../index.html" class="btn-back" data-es="← Volver a la app" data-en="← Back to app">← Volver a la app</a>
+      </div>
+    </header>
 
-<!-- HERO -->
-<section class="hero container" id="inicio">
-  <span class="hero-eyebrow">📚 <span class="lang-es">Centro de Ayuda Oficial</span><span class="lang-en">Official Help Center</span></span>
-  <h2 class="lang-es">Guía Oficial de Usuario &amp; Centro de Ayuda</h2>
-  <h2 class="lang-en">Official User Guide &amp; Help Center</h2>
-  <p class="lang-es">Aprende a dominar tus finanzas personales, configurar tus bolsillos y sacarle el máximo provecho a FlowMint App.</p>
-  <p class="lang-en">Learn to master your personal finances, set up your pockets, and get the most out of FlowMint App.</p>
-</section>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge" data-es="💚 ESTAMOS PARA AYUDARTE" data-en="💚 WE ARE HERE TO HELP">💚 ESTAMOS PARA AYUDARTE</div>
+      <h1 class="hero-title" data-es="¿En qué podemos ayudarte hoy?" data-en="How can we help you today?">¿En qué podemos ayudarte hoy?</h1>
+      <p class="hero-sub" data-es="Tutoriales, guías de instalación, preguntas frecuentes y soporte directo — todo en un solo lugar." data-en="Tutorials, installation guides, FAQs, and direct support — all in one place.">Tutoriales, guías de instalación, preguntas frecuentes y soporte directo — todo en un solo lugar.</p>
+    </section>
 
-<!-- VIDEO PRINCIPAL -->
-<section class="block container" id="video-tour">
-  <div class="card">
-    <div class="video-box">
-      <!-- REPRODUCTOR DE VIDEO PRINCIPAL (sustituir src por el embed real de YouTube/Vimeo) -->
-      <iframe
-        src="[AQUÍ_VA_TU_VIDEO_MASTERCLASS_EMBED]"
-        title="Recorrido Completo por FlowMint App"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen>
-      </iframe>
+    <!-- TUTORIAL CARD (SIN LA PALABRA ACADEMIA) -->
+    <div class="tutorial-card">
+      <div class="tutorial-icon">🎓</div>
+      <h2 data-es="Guías y Tutoriales en Video" data-en="Video Guides & Tutorials">Guías y Tutoriales en Video</h2>
+      <p data-es="Aprende a dominar FlowMint paso a paso: configuración inicial, registro de ingresos y gastos, control de bolsillos y metas de ahorro — todo explicado en video, a tu ritmo." data-en="Learn to master FlowMint step by step: initial setup, income & expense tracking, wallet management, and savings goals — all explained on video at your pace.">Aprende a dominar FlowMint paso a paso: configuración inicial, registro de ingresos y gastos, control de bolsillos y metas de ahorro — todo explicado en video, a tu ritmo.</p>
+      <a href="../tutoriales/index.html" class="btn-primary" data-es="Ver Guía de Tutoriales Interactivos →" data-en="View Interactive Tutorials →">Ver Guía de Tutoriales Interactivos →</a>
     </div>
 
-    <div class="video-info">
-      <h4 class="lang-es">Recorrido Completo por FlowMint App (Paso a Paso)</h4>
-      <h4 class="lang-en">Complete FlowMint App Walkthrough (Step by Step)</h4>
+    <!-- SECCIÓN 1: ACCESO RÁPIDO PWA -->
+    <h2 class="sec-num-title">
+      <span class="num-badge">1</span>
+      <span data-es="Acceso Rápido: Instala FlowMint en tu Celular" data-en="Quick Access: Install FlowMint on your Mobile">Acceso Rápido: Instala FlowMint en tu Celular</span>
+    </h2>
 
-      <p class="desc lang-es">En este video aprenderás desde la configuración de tu divisa, la metodología 50/30/20, el registro de tus transacciones y el uso de bolsillos, hasta la instalación de la app como PWA en iOS y Android.</p>
-      <p class="desc lang-en">In this video you'll learn everything from setting up your currency, the 50/30/20 methodology, recording your transactions and using pockets, to installing the app as a PWA on iOS and Android.</p>
+    <div class="pwa-grid">
+      <!-- iOS -->
+      <div class="pwa-card">
+        <div class="pwa-header">
+          <span>🍎</span>
+          <h3>iPhone / iPad (Safari)</h3>
+        </div>
+        <ul class="pwa-steps">
+          <li>
+            <span class="step-num">1</span>
+            <span data-es="Abre FlowMint en Safari (debe ser Safari, no funciona desde Chrome en iOS)." data-en="Open FlowMint in Safari (must be Safari, doesn't work from Chrome on iOS).">Abre FlowMint en Safari (debe ser Safari, no funciona desde Chrome en iOS).</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span data-es="Toca el ícono de Compartir (el cuadrado con la flecha hacia arriba) en la barra inferior." data-en="Tap the Share icon (square with arrow pointing up) in bottom bar.">Toca el ícono de Compartir (el cuadrado con la flecha hacia arriba) en la barra inferior.</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span data-es="Desplázate y selecciona 'Agregar a pantalla de inicio'." data-en="Scroll down and select 'Add to Home Screen'.">Desplázate y selecciona "Agregar a pantalla de inicio".</span>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <span data-es="Confirma el nombre y toca 'Agregar'. Ya tienes el ícono de FlowMint como una app nativa." data-en="Confirm name and tap 'Add'. You now have FlowMint as a native app.">Confirma el nombre y toca "Agregar". Ya tienes el ícono de FlowMint como una app nativa.</span>
+          </li>
+        </ul>
+      </div>
 
-      <div class="timestamp-list">
-        <div class="timestamp-item">
-          <span class="time">0:00</span>
-          <span class="label lang-es">Bienvenida y configuración de divisa</span>
-          <span class="label lang-en">Welcome and currency setup</span>
+      <!-- Android -->
+      <div class="pwa-card">
+        <div class="pwa-header">
+          <span>🤖</span>
+          <h3>Android (Chrome)</h3>
         </div>
-        <div class="timestamp-item">
-          <span class="time">0:45</span>
-          <span class="label lang-es">Metodología 50/30/20 explicada</span>
-          <span class="label lang-en">The 50/30/20 methodology explained</span>
+        <ul class="pwa-steps">
+          <li>
+            <span class="step-num">1</span>
+            <span data-es="Abre FlowMint en Google Chrome." data-en="Open FlowMint in Google Chrome.">Abre FlowMint en Google Chrome.</span>
+          </li>
+          <li>
+            <span class="step-num">2</span>
+            <span data-es="Toca el menú de tres puntos (⋮) en la esquina superior derecha." data-en="Tap the three dots menu (⋮) in the top right corner.">Toca el menú de tres puntos (⋮) en la esquina superior derecha.</span>
+          </li>
+          <li>
+            <span class="step-num">3</span>
+            <span data-es="Selecciona 'Instalar aplicación' o 'Agregar a pantalla de inicio'." data-en="Select 'Install application' or 'Add to home screen'.">Selecciona "Instalar aplicación" o "Agregar a pantalla de inicio".</span>
+          </li>
+          <li>
+            <span class="step-num">4</span>
+            <span data-es="Confirma tocando 'Instalar'. FlowMint aparecerá en tu cajón de apps, con ícono propio y sin barra del navegador." data-en="Confirm by tapping 'Install'. FlowMint will appear in your app drawer with its own icon and no browser bar.">Confirma tocando "Instalar". FlowMint aparecerá en tu cajón de apps, con ícono propio y sin barra del navegador.</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- SECCIÓN 2: PREGUNTAS FRECUENTES (TEXTOS EXPLICATIVOS EXPLICITOS) -->
+    <h2 class="sec-num-title">
+      <span class="num-badge">2</span>
+      <span data-es="Preguntas Frecuentes" data-en="Frequently Asked Questions">Preguntas Frecuentes</span>
+    </h2>
+
+    <div class="faq-search-wrap">
+      <input type="text" id="faqSearch" class="faq-search" placeholder="🔍 Buscar pregunta o tema..." oninput="filterFaqs(this.value)" data-es-placeholder="🔍 Buscar pregunta o tema..." data-en-placeholder="🔍 Search question or topic...">
+    </div>
+
+    <div id="faqList">
+      <!-- FAQ 1: Moneda -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span data-es="💱 ¿Puedo usar FlowMint con la moneda de mi país?" data-en="💱 Can I use FlowMint with my country's currency?">💱 ¿Puedo usar FlowMint con la moneda de mi país?</span>
+          <span class="faq-chevron">▼</span>
         </div>
-        <div class="timestamp-item">
-          <span class="time">1:30</span>
-          <span class="label lang-es">Registro de ingresos y gastos</span>
-          <span class="label lang-en">Recording income and expenses</span>
+        <div class="faq-answer" 
+             data-es="Sí. FlowMint incluye un selector de moneda (junto al selector de período, en la parte superior del Dashboard) con las principales monedas y su símbolo correspondiente. También puedes configurar una tasa de cambio personalizada si tu moneda no está en la lista, y todos tus montos, reportes y presupuestos se recalculan automáticamente con esa conversión." 
+             data-en="Yes. FlowMint includes a currency selector (next to the period selector at the top of the Dashboard) with major currencies and their symbols. You can also set a custom exchange rate if your currency is not listed, and all your amounts, reports, and budgets will recalculate automatically with that conversion.">
+          Sí. FlowMint incluye un selector de moneda (junto al selector de período, en la parte superior del Dashboard) con las principales monedas y su símbolo correspondiente. También puedes configurar una tasa de cambio personalizada si tu moneda no está en la lista, y todos tus montos, reportes y presupuestos se recalculan automáticamente con esa conversión.
         </div>
-        <div class="timestamp-item">
-          <span class="time">2:15</span>
-          <span class="label lang-es">Uso de bolsillos financieros</span>
-          <span class="label lang-en">Using financial pockets</span>
+      </div>
+
+      <!-- FAQ 2: Regla 50/30/20 -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span data-es="⚖️ ¿Qué es la regla 50/30/20 y cómo la usa FlowMint?" data-en="⚖️ What is the 50/30/20 rule and how does FlowMint use it?">⚖️ ¿Qué es la regla 50/30/20 y cómo la usa FlowMint?</span>
+          <span class="faq-chevron">▼</span>
         </div>
-        <div class="timestamp-item">
-          <span class="time">2:50</span>
-          <span class="label lang-es">Instalación como PWA en iOS y Android</span>
-          <span class="label lang-en">Installing as a PWA on iOS and Android</span>
+        <div class="faq-answer" 
+             data-es="Es una guía clásica de presupuesto personal: 50% de tus ingresos para necesidades (vivienda, comida, transporte), 30% para deseos (entretenimiento, suscripciones) y 20% para ahorro e inversión. En la sección &quot;Presupuesto&quot; de FlowMint puedes crear límites por categoría inspirados en esta regla, y la app te muestra en tiempo real cuánto llevas gastado de cada uno y cuánto te queda disponible en el período." 
+             data-en="It's a classic personal budgeting rule: 50% of your income for needs (housing, food, transport), 30% for wants (entertainment, subscriptions), and 20% for savings & investments. In FlowMint's &quot;Budget&quot; section, you can create category limits inspired by this rule, and the app shows you in real-time how much you've spent and how much remains available for the period.">
+          Es una guía clásica de presupuesto personal: 50% de tus ingresos para necesidades (vivienda, comida, transporte), 30% para deseos (entretenimiento, suscripciones) y 20% para ahorro e inversión. En la sección "Presupuesto" de FlowMint puedes crear límites por categoría inspirados en esta regla, y la app te muestra en tiempo real cuánto llevas gastado de cada uno y cuánto te queda disponible en el período.
+        </div>
+      </div>
+
+      <!-- FAQ 3: Modo Offline -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span data-es="📶 ¿FlowMint funciona sin conexión a internet?" data-en="📶 Does FlowMint work without an internet connection?">📶 ¿FlowMint funciona sin conexión a internet?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" 
+             data-es="Sí, completamente. FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no en un servidor externo), así que puedes registrar transacciones, revisar tu Dashboard, tus metas y tus reportes incluso sin señal ni WiFi. Solo necesitas conexión si decides exportar/respaldar tus datos a otro dispositivo." 
+             data-en="Yes, completely. FlowMint saves absolutely all your data locally on your own device (not on an external server), so you can log transactions, check your Dashboard, goals, and reports even without signal or WiFi. You only need a connection if you decide to export/backup your data to another device.">
+          Sí, completamente. FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no en un servidor externo), así que puedes registrar transacciones, revisar tu Dashboard, tus metas y tus reportes incluso sin señal ni WiFi. Solo necesitas conexión si decides exportar/respaldar tus datos a otro dispositivo.
+        </div>
+      </div>
+
+      <!-- FAQ 4: Seguridad de datos -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span data-es="🔒 ¿Qué tan seguros están mis datos financieros?" data-en="🔒 How secure is my financial data?">🔒 ¿Qué tan seguros están mis datos financieros?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" 
+             data-es="Tus datos nunca salen de tu dispositivo: no hay servidor externo que los reciba, no hay cuenta en la nube ni sincronización remota por defecto. Toda la información vive únicamente en el almacenamiento local de tu navegador/dispositivo. Te recomendamos usar la opción &quot;Exportar Datos&quot; del menú periódicamente para tener tu propia copia de seguridad, especialmente antes de cambiar de celular o borrar el navegador." 
+             data-en="Your data never leaves your device: there is no external server receiving it, no cloud account, and no remote sync by default. All information lives strictly inside your browser/device's local storage. We recommend using the &quot;Export Data&quot; option in the menu periodically to keep your own backup, especially before changing phones or clearing browser data.">
+          Tus datos nunca salen de tu dispositivo: no hay servidor externo que los reciba, no hay cuenta en la nube ni sincronización remota por defecto. Toda la información vive únicamente en el almacenamiento local de tu navegador/dispositivo. Te recomendamos usar la opción "Exportar Datos" del menú periódicamente para tener tu propia copia de seguridad, especialmente antes de cambiar de celular o borrar el navegador.
+        </div>
+      </div>
+
+      <!-- FAQ 5: Licencias y Dispositivos -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span data-es="🔑 ¿En cuántos dispositivos puedo usar mi clave de licencia?" data-en="🔑 How many devices can I use my license key on?">🔑 ¿En cuántos dispositivos puedo usar mi clave de licencia?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" 
+             data-es="Cada clave de licencia de FlowMint permite la activación en un máximo de 2 dispositivos simultáneos (por ejemplo, tu laptop y tu teléfono móvil). Si vinculas un tercer dispositivo, el sistema detectará el límite y te permitirá desvincular uno de los equipos anteriores fácilmente." 
+             data-en="Each FlowMint license key allows activation on up to 2 devices simultaneously (for example, your laptop and mobile phone). If you link a third device, the system will detect the limit and allow you to easily unlink a previous device.">
+          Cada clave de licencia de FlowMint permite la activación en un máximo de 2 dispositivos simultáneos (por ejemplo, tu laptop y tu teléfono móvil). Si vinculas un tercer dispositivo, el sistema detectará el límite y te permitirá desvincular uno de los equipos anteriores fácilmente.
+        </div>
+      </div>
+
+      <!-- FAQ 6: Dónde encontrar la clave -->
+      <div class="faq-item">
+        <div class="faq-question" onclick="toggleFaq(this)">
+          <span data-es="📩 ¿Dónde encuentro mi clave de licencia al comprar?" data-en="📩 Where do I find my license key after purchasing?">📩 ¿Dónde encuentro mi clave de licencia al comprar?</span>
+          <span class="faq-chevron">▼</span>
+        </div>
+        <div class="faq-answer" 
+             data-es="Tu clave se genera y envía inmediatamente al correo electrónico que ingresaste en la plataforma de pago (Hotmart). Si no la ves en tu bandeja de entrada principal, verifica tu carpeta de Spam/Promociones buscando 'Licencia FlowMint'." 
+             data-en="Your key is generated and sent immediately to the email address used during payment checkout (Hotmart). If you don't see it in your inbox, please check your Spam/Promotions folder searching for 'FlowMint License'.">
+          Tu clave se genera y envía inmediatamente al correo electrónico que ingresaste en la plataforma de pago (Hotmart). Si no la ves en tu bandeja de entrada principal, verifica tu carpeta de Spam/Promociones buscando 'Licencia FlowMint'.
         </div>
       </div>
     </div>
-  </div>
-</section>
 
-<!-- ACCESO RÁPIDO -->
-<section class="block container">
-  <div class="section-head">
-    <h3 class="lang-es">Acceso Rápido</h3>
-    <h3 class="lang-en">Quick Access</h3>
-    <p class="lang-es">Todo lo que necesitas para empezar a usar FlowMint App hoy mismo.</p>
-    <p class="lang-en">Everything you need to start using FlowMint App today.</p>
-  </div>
+    <!-- SECCIÓN 3: SOPORTE TÉCNICO CON LINKS REALES -->
+    <h2 class="sec-num-title" style="margin-top: 44px;">
+      <span class="num-badge">3</span>
+      <span data-es="Soporte Técnico" data-en="Technical Support">Soporte Técnico</span>
+    </h2>
 
-  <div class="quick-grid">
-    <div class="quick-card">
-      <div class="quick-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+    <div class="support-grid">
+      <!-- CHAT EN VIVO -->
+      <div class="support-card">
+        <div class="support-status">
+          <span class="status-dot"></span>
+          <span data-es="Agentes disponibles ahora" data-en="Agents available now">Agentes disponibles ahora</span>
+        </div>
+        <h3 data-es="Chat en Vivo" data-en="Live Chat">Chat en Vivo</h3>
+        <p data-es="¿Tienes una duda puntual o un problema técnico? Escríbenos directamente y te respondemos en minutos, sin necesidad de esperar un correo." data-en="Have a specific question or technical issue? Text us directly and we'll respond in minutes without waiting for an email.">¿Tienes una duda puntual o un problema técnico? Escríbenos directamente y te respondemos en minutos, sin necesidad de esperar un correo.</p>
+        <button class="btn-primary" onclick="iniciarChatSoporte()" data-es="💬 Iniciar conversación" data-en="💬 Start Conversation">💬 Iniciar conversación</button>
       </div>
-      <h4 class="lang-es">Acceder a FlowMint App</h4>
-      <h4 class="lang-en">Access FlowMint App</h4>
-      <p class="lang-es">Abre la aplicación web directamente desde tu navegador, sin necesidad de instalar nada.</p>
-      <p class="lang-en">Open the web app directly from your browser, no installation required.</p>
-      <a href="../flowmint.html" class="cta-btn">
-        <span class="lang-es">Abrir la App →</span>
-        <span class="lang-en">Open the App →</span>
-      </a>
+
+      <!-- OTROS CANALES (LINKS DIRECCIONADOS) -->
+      <div class="support-card">
+        <h3 data-es="Otros canales" data-en="Other channels">Otros canales</h3>
+        <ul class="support-links">
+          <li>
+            <a href="mailto:hola@centraliaportal.com">✉️ hola@centraliaportal.com</a>
+          </li>
+          <li>
+            <a href="../tutoriales/index.html">🎓 <span data-es="Guías de Tutoriales" data-en="Tutorial Guides">Guías de Tutoriales</span></a>
+          </li>
+          <li>
+            <a href="../feedback/index.html">📝 <span data-es="Enviar Opinión / Reportar un error" data-en="Send Feedback / Report Bug">Enviar Opinión / Reportar un error</span></a>
+          </li>
+        </ul>
+      </div>
     </div>
 
-    <div class="quick-card">
-      <div class="quick-icon">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
-      </div>
-      <h4 class="lang-es">Instalar en Móvil (PWA)</h4>
-      <h4 class="lang-en">Install on Mobile (PWA)</h4>
-      <p class="lang-es">Agrega FlowMint App a tu pantalla de inicio y úsala como una app nativa, incluso sin conexión.</p>
-      <p class="lang-en">Add FlowMint App to your home screen and use it like a native app, even offline.</p>
-      <ul class="steps">
-        <li class="lang-es">iPhone: Compartir → Añadir a pantalla de inicio</li>
-        <li class="lang-en">iPhone: Share → Add to Home Screen</li>
-        <li class="lang-es">Android: Menú (⋮) → Instalar app</li>
-        <li class="lang-en">Android: Menu (⋮) → Install app</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- FAQ -->
-<section class="block container" id="faq">
-  <div class="section-head">
-    <h3 class="lang-es">Preguntas Frecuentes</h3>
-    <h3 class="lang-en">Frequently Asked Questions</h3>
-    <p class="lang-es">Resolvemos las dudas más comunes de nuestros usuarios.</p>
-    <p class="lang-en">We answer our users' most common questions.</p>
   </div>
 
-  <details class="faq-item">
-    <summary>
-      <span><span class="lang-es">¿Cómo configuro mi moneda local y presupuesto base en FlowMint App?</span><span class="lang-en">How do I set up my local currency and base budget in FlowMint App?</span></span>
-      <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-    </summary>
-    <p class="lang-es">Ve a Configuración dentro de la app, selecciona tu divisa local de la lista y define tu ingreso mensual base. FlowMint calculará automáticamente tus porcentajes recomendados.</p>
-    <p class="lang-en">Go to Settings inside the app, select your local currency from the list, and define your base monthly income. FlowMint will automatically calculate your recommended percentages.</p>
-  </details>
+  <script>
+    let currentLang = 'es';
 
-  <details class="faq-item">
-    <summary>
-      <span><span class="lang-es">¿Cómo funciona la regla 50/30/20 en los bolsillos?</span><span class="lang-en">How does the 50/30/20 rule work with pockets?</span></span>
-      <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-    </summary>
-    <p class="lang-es">FlowMint divide tu ingreso en tres bolsillos: 50% para necesidades esenciales, 30% para estilo de vida y 20% para ahorro e inversión. Puedes ajustar estos porcentajes según tus propias metas.</p>
-    <p class="lang-en">FlowMint splits your income into three pockets: 50% for essential needs, 30% for lifestyle, and 20% for savings and investing. You can adjust these percentages to fit your own goals.</p>
-  </details>
+    function toggleLanguage() {
+      currentLang = currentLang === 'es' ? 'en' : 'es';
+      document.getElementById('langToggleBtn').querySelector('span').innerText = currentLang === 'es' ? 'EN' : 'ES';
 
-  <details class="faq-item">
-    <summary>
-      <span><span class="lang-es">¿Puedo usar FlowMint App sin conexión a internet?</span><span class="lang-en">Can I use FlowMint App without an internet connection?</span></span>
-      <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-    </summary>
-    <p class="lang-es">Sí. Al instalar FlowMint como PWA en tu pantalla de inicio, puedes seguir registrando tus movimientos aunque no tengas conexión activa en ese momento.</p>
-    <p class="lang-en">Yes. By installing FlowMint as a PWA on your home screen, you can keep logging your transactions even without an active connection at that moment.</p>
-  </details>
+      // Cambiar textos dinámicamente
+      document.querySelectorAll('[data-es]').forEach(el => {
+        const text = el.getAttribute('data-' + currentLang);
+        if (text) el.innerText = text;
+      });
 
-  <details class="faq-item">
-    <summary>
-      <span><span class="lang-es">¿Cómo instalo FlowMint App en mi teléfono (iOS / Android) sin pasar por App Store/Play Store?</span><span class="lang-en">How do I install FlowMint App on my phone (iOS / Android) without going through the App Store/Play Store?</span></span>
-      <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-    </summary>
-    <p class="lang-es">FlowMint funciona como una PWA. En iPhone, abre el menú "Compartir" en Safari y selecciona "Añadir a pantalla de inicio". En Android, abre el menú (⋮) de Chrome y selecciona "Instalar app". Quedará como un ícono más en tu teléfono.</p>
-    <p class="lang-en">FlowMint works as a PWA. On iPhone, open the "Share" menu in Safari and select "Add to Home Screen". On Android, open the Chrome menu (⋮) and select "Install app". It will appear as a regular icon on your phone.</p>
-  </details>
+      // Cambiar placeholders
+      const searchInput = document.getElementById('faqSearch');
+      if (searchInput) {
+        searchInput.placeholder = searchInput.getAttribute('data-' + currentLang + '-placeholder');
+      }
+    }
 
-  <details class="faq-item">
-    <summary>
-      <span><span class="lang-es">¿Mis datos financieros se guardan de forma segura?</span><span class="lang-en">Is my financial data stored securely?</span></span>
-      <span class="faq-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
-    </summary>
-    <p class="lang-es">Sí. Tus datos financieros se guardan de forma 100% privada y local en tu propio dispositivo, sin depender de servidores externos para su funcionamiento diario.</p>
-    <p class="lang-en">Yes. Your financial data is stored 100% privately and locally on your own device, without relying on external servers for day-to-day use.</p>
-  </details>
-</section>
+    function toggleFaq(el) {
+      const item = el.parentElement;
+      item.classList.toggle('open');
+    }
 
-<!-- SOPORTE -->
-<section class="block container" id="soporte">
-  <div class="support-card">
-    <span class="support-status">
-      <span class="lang-es">Chat en vivo disponible</span>
-      <span class="lang-en">Live chat available</span>
-    </span>
-    <h3 class="lang-es">¿Tienes alguna duda o necesitas ayuda?</h3>
-    <h3 class="lang-en">Have a question or need help?</h3>
-    <p class="lang-es">Nuestro equipo de soporte está disponible a través del chat en vivo, ubicado en la esquina inferior derecha de tu pantalla. Escríbenos y con gusto te ayudamos.</p>
-    <p class="lang-en">Our support team is available through the live chat, located in the bottom-right corner of your screen. Reach out and we'll be glad to help.</p>
-  </div>
-</section>
+    function filterFaqs(q) {
+      const term = q.toLowerCase();
+      document.querySelectorAll('.faq-item').forEach(item => {
+        const text = item.innerText.toLowerCase();
+        item.style.display = text.includes(term) ? 'block' : 'none';
+      });
+    }
 
-<!-- FOOTER -->
-<footer>
-  <p>© 2026 FlowMint App. <span class="lang-es">Todos los derechos reservados.</span><span class="lang-en">All rights reserved.</span></p>
-  <div class="footer-links">
-    <a href="#" class="lang-es">Términos de Servicio</a>
-    <a href="#" class="lang-en">Terms of Service</a>
-    <a href="#" class="lang-es">Política de Privacidad</a>
-    <a href="#" class="lang-en">Privacy Policy</a>
-  </div>
-</footer>
-
-<script>
-  function toggleLanguage(){
-    document.body.classList.toggle('lang-english');
-  }
-
-  function toggleMenu(){
-    document.getElementById('navLinks').classList.toggle('open');
-  }
-</script>
-
-<!--
-  INTEGRACIÓN DE TIDIO CHAT
-  Reemplaza YOUR_TIDIO_ID por el ID real de tu cuenta de Tidio
-  (Panel de Tidio > Configuración > Instalación del chat).
-
-  <script src="//code.tidio.co/YOUR_TIDIO_ID.js" async></script>
--->
-
+    function iniciarChatSoporte() {
+      alert(currentLang === 'es' 
+        ? 'Conectando con el chat de soporte en vivo...' 
+        : 'Connecting to live support chat...');
+    }
+  </script>
 </body>
+
 </html>
-
-
