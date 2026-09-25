@@ -2336,9 +2336,16 @@
 
 <body>
 
-  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
-
   <div class="app">
+    <!-- Overlay movido DENTRO de .app (fix de stacking context): antes vivía como
+         hermano de .app, y como .app tiene su propio contexto de apilamiento
+         (position:relative + z-index:1), el z-index:99 del overlay competía contra
+         el "1" de .app en el contexto raíz — no contra el z-index:100 del sidebar,
+         que solo es válido DENTRO de .app. Resultado: el overlay siempre terminaba
+         pintado por ENCIMA del sidebar, interceptando (silenciosamente) todos los
+         toques sobre los nav-item y disparando closeSidebar() en vez de showView(). -->
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
     <!-- SIDEBAR -->
     <aside class="sidebar" id="sidebar">
       <div class="logo" id="logoFlowMint">
@@ -2379,6 +2386,9 @@
         </div>
         <div class="nav-section">
           <div class="nav-label" data-i18n="nav.sec.help">Ayuda</div>
+          <a class="nav-item" id="helpCenterLink" href="https://flowmint.centraliaportal.com/ayuda/index.html" target="_blank" rel="noopener noreferrer"
+            style="text-decoration:none"><span class="nav-icon">❓</span> <span data-i18n="nav.help_center">Centro de
+              Ayuda</span></a>
           <a class="nav-item" id="feedbackLink" href="feedback.html" target="_blank" rel="noopener noreferrer"
             style="text-decoration:none"><span class="nav-icon">💬</span> <span data-i18n="nav.feedback">Enviar
               Opinión</span></a>
@@ -3368,6 +3378,7 @@
         'nav.import': 'Importar Datos',
         'nav.home': 'Inicio',
         'nav.sec.help': 'Ayuda',
+        'nav.help_center': 'Centro de Ayuda',
         'nav.feedback': 'Enviar Opinión',
 
         'btn.add_tx': '+ Transacción',
@@ -3693,6 +3704,7 @@
         'nav.import': 'Import Data',
         'nav.home': 'Home',
         'nav.sec.help': 'Help',
+        'nav.help_center': 'Help Center',
         'nav.feedback': 'Send Feedback',
 
         'btn.add_tx': '+ Transaction',
