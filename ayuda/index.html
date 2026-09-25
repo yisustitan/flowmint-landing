@@ -325,24 +325,24 @@
       margin-top: 2px;
     }
 
-    /* SELECTOR DESPLEGABLE DE PREGUNTAS (BUSCADOR INTELIGENTE) */
+    /* SELECTOR DESPLEGABLE DE PREGUNTAS ESPECÍFICAS (SECCIÓN SUPERIOR) */
     .faq-select-wrap {
-      margin-bottom: 30px;
+      margin-bottom: 34px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px 22px;
-      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
+      padding: 24px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
     }
 
     .faq-select-label {
       display: flex;
       align-items: center;
       gap: 8px;
-      font-size: 13.5px;
+      font-size: 14px;
       font-weight: 600;
       color: var(--mint);
-      margin-bottom: 10px;
+      margin-bottom: 12px;
       letter-spacing: 0.02em;
     }
 
@@ -405,30 +405,75 @@
       transition: transform 0.2s;
     }
 
-    /* FAQ CATEGORIES & ACCORDIONS */
-    .faq-category {
-      margin-bottom: 32px;
+    /* RESPUESTA DESPLEGABLE DIRECTAMENTE DEBAJO DEL SELECTOR */
+    .faq-select-answer-box {
+      margin-top: 18px;
+      padding: 20px;
+      background: rgba(30, 47, 71, 0.7);
+      border: 1px solid rgba(0, 200, 150, 0.35);
+      border-radius: var(--radius-sm);
+      animation: fadeInAnswer 0.3s ease-out;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
     }
 
-    .faq-cat-header {
+    @keyframes fadeInAnswer {
+      from {
+        opacity: 0;
+        transform: translateY(-8px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .faq-select-answer-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--mint);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .faq-select-answer-content {
+      font-size: 14px;
+      color: var(--text-sec);
+      line-height: 1.65;
+    }
+
+    .faq-select-answer-content strong {
+      color: var(--text);
+    }
+
+    .faq-select-answer-content code {
+      background: rgba(0, 200, 150, 0.12);
+      color: var(--mint);
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: monospace;
+    }
+
+    /* SECCIÓN INFERIOR: ACORDEÓN DE PREGUNTAS GENERALES FIJAS */
+    .faq-accordion-section {
+      margin-bottom: 40px;
+    }
+
+    .faq-accordion-header {
       display: flex;
       align-items: center;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 16px;
       padding-bottom: 8px;
       border-bottom: 1px solid var(--border);
     }
 
-    .faq-cat-badge {
-      font-size: 18px;
-    }
-
-    .faq-cat-title {
+    .faq-accordion-title {
       font-family: 'DM Serif Display', serif;
-      font-size: 19px;
+      font-size: 20px;
       color: var(--text);
-      font-weight: normal;
-      letter-spacing: -0.2px;
     }
 
     .faq-item {
@@ -438,7 +483,6 @@
       margin-bottom: 12px;
       overflow: hidden;
       transition: all 0.25s ease;
-      scroll-margin-top: 90px;
     }
 
     .faq-item:hover {
@@ -449,26 +493,6 @@
       border-color: var(--mint);
       background: rgba(22, 34, 54, 0.98);
       box-shadow: 0 4px 18px rgba(0, 0, 0, 0.25);
-    }
-
-    @keyframes highlightPulse {
-      0% {
-        box-shadow: 0 0 0 0 rgba(0, 200, 150, 0.55);
-        border-color: var(--mint);
-      }
-      50% {
-        box-shadow: 0 0 0 10px rgba(0, 200, 150, 0);
-        border-color: var(--mint);
-      }
-      100% {
-        box-shadow: none;
-        border-color: var(--mint);
-      }
-    }
-
-    .faq-item.highlighted {
-      animation: highlightPulse 1.5s ease-out;
-      border-color: var(--mint) !important;
     }
 
     .faq-question {
@@ -589,7 +613,7 @@
       color: var(--mint);
     }
 
-    /* MODALES FLOTANTES COMPARTIDOS */
+    /* MODALES FLOTANTES NATIVOS FLOWMINT */
     .modal-overlay {
       display: none;
       position: fixed;
@@ -615,8 +639,8 @@
       border: 1px solid var(--border-light);
       border-radius: var(--radius);
       width: 100%;
-      max-width: 590px;
-      padding: 24px;
+      max-width: 540px;
+      padding: 26px;
       box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 200, 150, 0.12);
       position: relative;
       transform: translateY(14px) scale(0.98);
@@ -631,17 +655,24 @@
 
     .modal-header {
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       justify-content: space-between;
-      margin-bottom: 14px;
+      margin-bottom: 20px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 12px;
+      padding-bottom: 14px;
     }
 
     .modal-title {
       font-family: 'DM Serif Display', serif;
-      font-size: 20px;
+      font-size: 22px;
       color: var(--text);
+    }
+
+    .modal-sub {
+      font-size: 13px;
+      color: var(--text-sec);
+      margin-top: 4px;
+      line-height: 1.4;
     }
 
     .modal-close {
@@ -661,16 +692,7 @@
       background: rgba(255, 255, 255, 0.05);
     }
 
-    .modal-iframe-wrap {
-      width: 100%;
-      border-radius: 12px;
-      overflow: hidden;
-      background: #ffffff;
-      padding: 8px 4px;
-      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
-    }
-
-    /* ESTILOS DEL FORMULARIO DE FEEDBACK DENTRO DEL MODAL */
+    /* ESTILOS DE FORMULARIO OSCURO */
     .form-group {
       margin-bottom: 18px;
     }
@@ -691,23 +713,25 @@
       color: var(--text);
       font-family: 'DM Sans', sans-serif;
       font-size: 14px;
-      padding: 10px 14px;
+      padding: 12px 14px;
       border-radius: var(--radius-sm);
       outline: none;
-      transition: border-color 0.2s;
+      transition: border-color 0.2s, box-shadow 0.2s;
     }
 
     .form-input:focus,
     .form-textarea:focus {
       border-color: var(--mint);
+      box-shadow: 0 0 0 3px rgba(0, 200, 150, 0.2);
     }
 
     .form-textarea {
       resize: vertical;
-      min-height: 80px;
+      min-height: 110px;
+      line-height: 1.5;
     }
 
-    /* Calificación por estrellas */
+    /* Star rating */
     .star-row {
       display: flex;
       gap: 8px;
@@ -793,27 +817,28 @@
       display: block;
     }
 
-    .feedback-footer-note {
+    .modal-footer-note {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-top: 14px;
-      padding-top: 12px;
+      margin-top: 16px;
+      padding-top: 14px;
       border-top: 1px solid var(--border);
       font-size: 12px;
       color: var(--text-muted);
     }
 
-    .feedback-footer-note a {
+    .modal-footer-note a {
       color: var(--mint);
       text-decoration: none;
+      font-weight: 500;
     }
 
-    .feedback-footer-note a:hover {
+    .modal-footer-note a:hover {
       text-decoration: underline;
     }
 
-    /* Thank-you card inside feedback modal */
+    /* Thank You State */
     .thankyou-box {
       display: none;
       flex-direction: column;
@@ -823,7 +848,7 @@
     }
 
     .thankyou-emoji {
-      font-size: 42px;
+      font-size: 44px;
       margin-bottom: 12px;
     }
 
@@ -831,6 +856,7 @@
       font-family: 'DM Serif Display', serif;
       font-size: 22px;
       margin-bottom: 8px;
+      color: var(--text);
     }
 
     .thankyou-sub {
@@ -847,7 +873,7 @@
       }
 
       .modal-box {
-        padding: 18px 14px;
+        padding: 20px 16px;
       }
 
       .faq-question {
@@ -880,10 +906,8 @@
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-badge" data-es="💚 ESTAMOS PARA AYUDARTE" data-en="💚 WE ARE HERE TO HELP">💚 ESTAMOS PARA
-        AYUDARTE</div>
-      <h1 class="hero-title" data-es="¿En qué podemos ayudarte hoy?" data-en="How can we help you today?">¿En qué
-        podemos ayudarte hoy?</h1>
+      <div class="hero-badge" data-es="💚 ESTAMOS PARA AYUDARTE" data-en="💚 WE ARE HERE TO HELP">💚 ESTAMOS PARA AYUDARTE</div>
+      <h1 class="hero-title" data-es="¿En qué podemos ayudarte hoy?" data-en="How can we help you today?">¿En qué podemos ayudarte hoy?</h1>
       <p class="hero-sub"
         data-es="Tutoriales, guías de instalación, preguntas frecuentes y soporte directo — todo en un solo lugar."
         data-en="Tutorials, installation guides, FAQs, and direct support — all in one place.">Tutoriales, guías de
@@ -988,154 +1012,82 @@
       <span data-es="Preguntas Frecuentes" data-en="Frequently Asked Questions">Preguntas Frecuentes</span>
     </h2>
 
-    <!-- BUSCADOR INTELIGENTE CON SELECTOR DESPLEGABLE -->
+    <!-- SECCIÓN SUPERIOR: BUSCADOR / SELECTOR DESPLEGABLE CON PREGUNTAS ESPECÍFICAS DE LA APP -->
     <div class="faq-select-wrap">
       <label for="faqSelect" class="faq-select-label">
         <span>🔍</span>
-        <span data-es="Buscador Rápido: Selecciona una consulta para abrirla al instante"
-          data-en="Quick Finder: Select a question to open it instantly">Buscador Rápido: Selecciona una consulta para abrirla al instante</span>
+        <span data-es="Consultas Específicas de la App: Selecciona una pregunta para ver su respuesta"
+          data-en="Specific App Inquiries: Select a question to view its answer">Consultas Específicas de la App: Selecciona una pregunta para ver su respuesta</span>
       </label>
       <div class="select-container">
         <select id="faqSelect" class="faq-select" onchange="onFaqSelect(this.value)">
-          <option value="" data-es="-- Despliega para elegir una pregunta frecuente --"
-            data-en="-- Select a frequently asked question --">-- Despliega para elegir una pregunta frecuente --</option>
-          <optgroup label="🔑 Licencia y Dispositivos" data-label-es="🔑 Licencia y Dispositivos"
-            data-label-en="🔑 License & Devices">
-            <option value="faq-lic-1"
+          <option value="" data-es="-- Despliega para elegir una consulta sobre la app --"
+            data-en="-- Select an app-specific question --">-- Despliega para elegir una consulta sobre la app --</option>
+          <optgroup label="🔑 Licencias y Dispositivos" data-label-es="🔑 Licencias y Dispositivos"
+            data-label-en="🔑 Licenses & Devices">
+            <option value="faq-spec-lic-1"
               data-es="¿En cuántos dispositivos puedo usar mi clave de licencia?"
               data-en="How many devices can I use my license key on?">¿En cuántos dispositivos puedo usar mi clave de licencia?</option>
-            <option value="faq-lic-2"
+            <option value="faq-spec-lic-2"
               data-es="¿Dónde encuentro mi clave de licencia?"
               data-en="Where do I find my license key?">¿Dónde encuentro mi clave de licencia?</option>
-            <option value="faq-lic-3"
+            <option value="faq-spec-lic-3"
               data-es="¿Mis datos financieros se suben a la nube cuando me licencio?"
               data-en="Is my financial data uploaded to the cloud when I activate my license?">¿Mis datos financieros se suben a la nube cuando me licencio?</option>
           </optgroup>
-          <optgroup label="💾 Datos y Copias de Seguridad" data-label-es="💾 Datos y Copias de Seguridad"
-            data-label-en="💾 Data & Backups">
-            <option value="faq-bak-1"
-              data-es="¿Cómo puedo hacer una copia de seguridad de mi información?"
-              data-en="How can I back up my data?">¿Cómo puedo hacer una copia de seguridad de mi información?</option>
-            <option value="faq-bak-2"
+          <optgroup label="💾 Copias de Seguridad JSON y Sincronización" data-label-es="💾 Copias de Seguridad JSON y Sincronización"
+            data-label-en="💾 JSON Backups & Sync">
+            <option value="faq-spec-bak-1"
+              data-es="¿Cómo puedo hacer una copia de seguridad de mi información (.json)?"
+              data-en="How can I back up my data (.json)?">¿Cómo puedo hacer una copia de seguridad de mi información (.json)?</option>
+            <option value="faq-spec-bak-2"
               data-es="¿Cómo paso mis datos a otro equipo o navegador?"
               data-en="How do I transfer my data to another device or browser?">¿Cómo paso mis datos a otro equipo o navegador?</option>
-            <option value="faq-bak-3"
-              data-es="¿FlowMint funciona sin conexión a internet (modo offline)?"
-              data-en="Does FlowMint work offline without internet?">¿FlowMint funciona sin conexión a internet (modo offline)?</option>
-            <option value="faq-bak-4"
-              data-es="¿Qué tan seguros están mis datos financieros?"
-              data-en="How secure is my financial data?">¿Qué tan seguros están mis datos financieros?</option>
           </optgroup>
-          <optgroup label="📊 Uso de la Aplicación" data-label-es="📊 Uso de la Aplicación"
-            data-label-en="📊 App Usage">
-            <option value="faq-app-1"
+          <optgroup label="👛 Bolsillos y Cuentas" data-label-es="👛 Bolsillos y Cuentas"
+            data-label-en="👛 Wallets & Accounts">
+            <option value="faq-spec-wal-1"
               data-es="¿Cómo funcionan los Bolsillos en FlowMint?"
               data-en="How do Wallets work in FlowMint?">¿Cómo funcionan los Bolsillos en FlowMint?</option>
-            <option value="faq-app-2"
-              data-es="¿Cómo configurar mi moneda personalizada?"
-              data-en="How do I set up a custom currency?">¿Cómo configurar mi moneda personalizada?</option>
-            <option value="faq-app-3"
-              data-es="¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?"
-              data-en="What is the 50/30/20 rule and how does FlowMint use it?">¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?</option>
           </optgroup>
         </select>
         <div class="select-icon">▼</div>
       </div>
+
+      <!-- CONTENEDOR DE RESPUESTA DIRECTA (DEBAJO DEL SELECTOR) -->
+      <div id="faqSelectAnswerBox" class="faq-select-answer-box" style="display: none;">
+        <div class="faq-select-answer-title" id="faqAnswerTitle"></div>
+        <div class="faq-select-answer-content" id="faqAnswerBody"></div>
+      </div>
     </div>
 
-    <!-- LISTA DE PREGUNTAS FRECUENTES (TODAS FIJAS Y SIEMPRE VISIBLES) -->
-    <div id="faqList">
-
-      <!-- CATEGORÍA 1: LICENCIA Y DISPOSITIVOS -->
-      <div class="faq-category">
-        <div class="faq-cat-header">
-          <span class="faq-cat-badge">🔑</span>
-          <h3 class="faq-cat-title" data-es="Licencia y Dispositivos" data-en="License & Devices">Licencia y Dispositivos</h3>
-        </div>
-
-        <!-- FAQ 1.1 -->
-        <div class="faq-item" id="faq-lic-1">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿En cuántos dispositivos puedo usar mi clave de licencia?"
-              data-en="How many devices can I use my license key on?">¿En cuántos dispositivos puedo usar mi clave de licencia?</span>
-            <span class="faq-chevron">▼</span>
-          </div>
-          <div class="faq-answer"
-            data-es="Cada clave de licencia de FlowMint permite la activación en un máximo de <strong>hasta 2 dispositivos simultáneos</strong> (por ejemplo, tu laptop personal y tu teléfono móvil). Si necesitas cambiar de equipo o vincular un nuevo dispositivo más adelante, el sistema te permitirá gestionar o desvincular equipos anteriores de forma sencilla."
-            data-en="Each FlowMint license key allows activation on up to <strong>2 simultaneous devices</strong> (for example, your personal laptop and your mobile phone). If you need to switch devices or link a new one later on, the system allows you to easily manage or unlink previous devices.">
-            Cada clave de licencia de FlowMint permite la activación en un máximo de <strong>hasta 2 dispositivos simultáneos</strong> (por ejemplo, tu laptop personal y tu teléfono móvil). Si necesitas cambiar de equipo o vincular un nuevo dispositivo más adelante, el sistema te permitirá gestionar o desvincular equipos anteriores de forma sencilla.
-          </div>
-        </div>
-
-        <!-- FAQ 1.2 -->
-        <div class="faq-item" id="faq-lic-2">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿Dónde encuentro mi clave de licencia?"
-              data-en="Where do I find my license key?">¿Dónde encuentro mi clave de licencia?</span>
-            <span class="faq-chevron">▼</span>
-          </div>
-          <div class="faq-answer"
-            data-es="Tu clave de licencia se genera automáticamente y se envía al <strong>correo electrónico registrado en Hotmart</strong> al momento de completar tu compra. Te sugerimos revisar tu bandeja de entrada principal, así como las carpetas de Spam, Correo no deseado o Promociones buscando el asunto 'Licencia FlowMint'."
-            data-en="Your license key is generated automatically and sent to the <strong>email address registered on Hotmart</strong> when completing your purchase. We suggest checking your primary inbox as well as Spam, Junk, or Promotions folders searching for 'FlowMint License'.">
-            Tu clave de licencia se genera automáticamente y se envía al <strong>correo electrónico registrado en Hotmart</strong> al momento de completar tu compra. Te sugerimos revisar tu bandeja de entrada principal, así como las carpetas de Spam, Correo no deseado o Promociones buscando el asunto 'Licencia FlowMint'.
-          </div>
-        </div>
-
-        <!-- FAQ 1.3 -->
-        <div class="faq-item" id="faq-lic-3">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿Mis datos financieros se suben a la nube cuando me licencio?"
-              data-en="Is my financial data uploaded to the cloud when I activate my license?">¿Mis datos financieros se suben a la nube cuando me licencio?</span>
-            <span class="faq-chevron">▼</span>
-          </div>
-          <div class="faq-answer"
-            data-es="<strong>No.</strong> En FlowMint tu privacidad es absoluta: todos tus datos financieros, ingresos, gastos y presupuestos se guardan exclusivamente en el <code>LocalStorage</code> de tu propio navegador o dispositivo. El proceso de licencia únicamente valida la autenticidad de tu clave y jamás transmite tu información personal ni financiera a la nube o a servidores externos."
-            data-en="<strong>No.</strong> In FlowMint your privacy is absolute: all your financial data, income, expenses, and budgets are saved exclusively in your own browser's <code>LocalStorage</code>. The license verification process only validates the authenticity of your key and never uploads or transmits your personal or financial data to the cloud or external servers.">
-            <strong>No.</strong> En FlowMint tu privacidad es absoluta: todos tus datos financieros, ingresos, gastos y presupuestos se guardan exclusivamente en el <code>LocalStorage</code> de tu propio navegador o dispositivo. El proceso de licencia únicamente valida la autenticidad de tu clave y jamás transmite tu información personal ni financiera a la nube o a servidores externos.
-          </div>
-        </div>
+    <!-- SECCIÓN INFERIOR: ACORDEÓN DE PREGUNTAS GENERALES FIJAS VISIBLES (4 PREGUNTAS ORIGINALES) -->
+    <div class="faq-accordion-section">
+      <div class="faq-accordion-header">
+        <span style="font-size: 20px;">💡</span>
+        <h3 class="faq-accordion-title" data-es="Preguntas Generales Frecuentes" data-en="General Frequently Asked Questions">Preguntas Generales Frecuentes</h3>
       </div>
 
-      <!-- CATEGORÍA 2: DATOS Y COPIAS DE SEGURIDAD -->
-      <div class="faq-category">
-        <div class="faq-cat-header">
-          <span class="faq-cat-badge">💾</span>
-          <h3 class="faq-cat-title" data-es="Datos y Copias de Seguridad" data-en="Data & Backups">Datos y Copias de Seguridad</h3>
-        </div>
-
-        <!-- FAQ 2.1 -->
-        <div class="faq-item" id="faq-bak-1">
+      <div id="faqAccordionList">
+        <!-- 1. Regla 50/30/20 -->
+        <div class="faq-item" id="faq-gen-1">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿Cómo puedo hacer una copia de seguridad de mi información?"
-              data-en="How can I back up my data?">¿Cómo puedo hacer una copia de seguridad de mi información?</span>
+            <span data-es="¿Qué es la regla 50/30/20 y cómo la usa FlowMint?"
+              data-en="What is the 50/30/20 rule and how does FlowMint use it?">¿Qué es la regla 50/30/20 y cómo la usa FlowMint?</span>
             <span class="faq-chevron">▼</span>
           </div>
           <div class="faq-answer"
-            data-es="Crear un respaldo es inmediato: abre el <strong>Menú lateral</strong> en FlowMint, ingresa a la sección <strong>Copia de Seguridad</strong> y presiona el botón <strong>Exportar Datos</strong>. Se descargará de forma instantánea un archivo con extensión <code>.json</code> que contiene todo tu historial, transacciones y configuraciones listo para ser guardado donde prefieras."
-            data-en="Creating a backup is immediate: open the <strong>Side menu</strong> in FlowMint, navigate to the <strong>Backup</strong> section, and click the <strong>Export Data</strong> button. A <code>.json</code> file containing all your records, transactions, and settings will download instantly, ready to be stored wherever you choose.">
-            Crear un respaldo es inmediato: abre el <strong>Menú lateral</strong> en FlowMint, ingresa a la sección <strong>Copia de Seguridad</strong> y presiona el botón <strong>Exportar Datos</strong>. Se descargará de forma instantánea un archivo con extensión <code>.json</code> que contiene todo tu historial, transacciones y configuraciones listo para ser guardado donde prefieras.
+            data-es="Es una regla de finanzas probada: destina el <strong>50%</strong> de tus ingresos a Necesidades (vivienda, comida, servicios), el <strong>30%</strong> a Deseos (entretenimiento, compras, ocio) y el <strong>20%</strong> a Ahorro e Inversión. En el módulo de Presupuestos de FlowMint puedes clasificar tus categorías bajo esta metodología y monitorear barras de progreso en tiempo real."
+            data-en="It is a proven personal finance rule: allocate <strong>50%</strong> of your income to Needs (housing, groceries, utilities), <strong>30%</strong> to Wants (leisure, hobbies, dining), and <strong>20%</strong> to Savings & Investments. In FlowMint's Budget section, you can organize your categories under this framework and track visual progress bars in real time.">
+            Es una regla de finanzas probada: destina el <strong>50%</strong> de tus ingresos a Necesidades (vivienda, comida, servicios), el <strong>30%</strong> a Deseos (entretenimiento, compras, ocio) y el <strong>20%</strong> a Ahorro e Inversión. En el módulo de Presupuestos de FlowMint puedes clasificar tus categorías bajo esta metodología y monitorear barras de progreso en tiempo real.
           </div>
         </div>
 
-        <!-- FAQ 2.2 -->
-        <div class="faq-item" id="faq-bak-2">
+        <!-- 2. Funcionamiento Offline -->
+        <div class="faq-item" id="faq-gen-2">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿Cómo paso mis datos a otro equipo o navegador?"
-              data-en="How do I transfer my data to another device or browser?">¿Cómo paso mis datos a otro equipo o navegador?</span>
-            <span class="faq-chevron">▼</span>
-          </div>
-          <div class="faq-answer"
-            data-es="Para transferir tu información solo necesitas dos pasos: primero, en tu equipo origen ve a <strong>Menú lateral → Copia de Seguridad → Exportar Datos</strong> para descargar tu archivo <code>.json</code>. Luego, abre FlowMint en tu nuevo equipo o navegador, dirígete a esa misma sección y haz clic en <strong>Importar Datos</strong> seleccionando el archivo que descargaste. ¡Toda tu información quedará sincronizada de inmediato!"
-            data-en="To transfer your data, you only need two steps: first, on your source device go to <strong>Side menu → Backup → Export Data</strong> to download your <code>.json</code> file. Then, open FlowMint on your new device or browser, navigate to the same section, and click <strong>Import Data</strong> selecting the file you downloaded. All your information will be restored immediately!">
-            Para transferir tu información solo necesitas dos pasos: primero, en tu equipo origen ve a <strong>Menú lateral → Copia de Seguridad → Exportar Datos</strong> para descargar tu archivo <code>.json</code>. Luego, abre FlowMint en tu nuevo equipo o navegador, dirígete a esa misma sección y haz clic en <strong>Importar Datos</strong> seleccionando el archivo que descargaste. ¡Toda tu información quedará sincronizada de inmediato!
-          </div>
-        </div>
-
-        <!-- FAQ 2.3 -->
-        <div class="faq-item" id="faq-bak-3">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿FlowMint funciona sin conexión a internet (modo offline)?"
-              data-en="Does FlowMint work offline without internet?">¿FlowMint funciona sin conexión a internet (modo offline)?</span>
+            <span data-es="¿FlowMint funciona sin conexión a internet?"
+              data-en="Does FlowMint work without an internet connection?">¿FlowMint funciona sin conexión a internet?</span>
             <span class="faq-chevron">▼</span>
           </div>
           <div class="faq-answer"
@@ -1145,8 +1097,8 @@
           </div>
         </div>
 
-        <!-- FAQ 2.4 -->
-        <div class="faq-item" id="faq-bak-4">
+        <!-- 3. Seguridad de Datos -->
+        <div class="faq-item" id="faq-gen-3">
           <div class="faq-question" onclick="toggleFaq(this)">
             <span data-es="¿Qué tan seguros están mis datos financieros?"
               data-en="How secure is my financial data?">¿Qué tan seguros están mis datos financieros?</span>
@@ -1158,34 +1110,12 @@
             Tus datos nunca salen de tu dispositivo: no hay servidores de terceros que los recopilen, no hay cuenta en la nube ni tracking remoto. Toda la información vive protegida en el almacenamiento seguro de tu navegador. Recomendamos usar la herramienta <strong>Exportar Datos</strong> periódicamente para conservar tus copias personales de seguridad.
           </div>
         </div>
-      </div>
 
-      <!-- CATEGORÍA 3: USO DE LA APLICACIÓN -->
-      <div class="faq-category">
-        <div class="faq-cat-header">
-          <span class="faq-cat-badge">📊</span>
-          <h3 class="faq-cat-title" data-es="Uso de la Aplicación" data-en="App Usage">Uso de la Aplicación</h3>
-        </div>
-
-        <!-- FAQ 3.1 -->
-        <div class="faq-item" id="faq-app-1">
+        <!-- 4. Configuración de Moneda -->
+        <div class="faq-item" id="faq-gen-4">
           <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿Cómo funcionan los Bolsillos en FlowMint?"
-              data-en="How do Wallets work in FlowMint?">¿Cómo funcionan los Bolsillos en FlowMint?</span>
-            <span class="faq-chevron">▼</span>
-          </div>
-          <div class="faq-answer"
-            data-es="Los <strong>Bolsillos</strong> representan tus cuentas y fuentes de dinero reales: efectivo en mano, cuentas bancarias, tarjetas de débito o billeteras digitales. Al registrar cualquier ingreso o gasto, puedes indicar de qué bolsillo proviene o hacia cuál entra el dinero, dándote visibilidad exacta del saldo disponible en cada lugar en todo momento."
-            data-en="<strong>Wallets</strong> represent your real-life money accounts and cash sources: cash on hand, bank accounts, debit cards, or digital wallets. When logging any income or expense, you can select which wallet is affected, giving you exact visibility into your available balance across every account at all times.">
-            Los <strong>Bolsillos</strong> representan tus cuentas y fuentes de dinero reales: efectivo en mano, cuentas bancarias, tarjetas de débito o billeteras digitales. Al registrar cualquier ingreso o gasto, puedes indicar de qué bolsillo proviene o hacia cuál entra el dinero, dándote visibilidad exacta del saldo disponible en cada lugar en todo momento.
-          </div>
-        </div>
-
-        <!-- FAQ 3.2 -->
-        <div class="faq-item" id="faq-app-2">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿Cómo configurar mi moneda personalizada?"
-              data-en="How do I set up a custom currency?">¿Cómo configurar mi moneda personalizada?</span>
+            <span data-es="¿Cómo puedo configurar mi moneda en FlowMint?"
+              data-en="How can I set up my currency in FlowMint?">¿Cómo puedo configurar mi moneda en FlowMint?</span>
             <span class="faq-chevron">▼</span>
           </div>
           <div class="faq-answer"
@@ -1194,22 +1124,7 @@
             En la parte superior del Dashboard encontrarás el <strong>Selector de Monedas</strong>. Si tu moneda local no figura entre las predeterminadas, selecciona la opción <strong>'Moneda personalizada'</strong>. Allí podrás definir el código ISO (ej: COP, MXN, ARS), su símbolo visual ($, €, S/, etc.) y la tasa de cambio de referencia respecto al dólar (USD). La app recalculará automáticamente todos tus totales, presupuestos y gráficos.
           </div>
         </div>
-
-        <!-- FAQ 3.3 -->
-        <div class="faq-item" id="faq-app-3">
-          <div class="faq-question" onclick="toggleFaq(this)">
-            <span data-es="¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?"
-              data-en="What is the 50/30/20 rule and how does FlowMint use it?">¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?</span>
-            <span class="faq-chevron">▼</span>
-          </div>
-          <div class="faq-answer"
-            data-es="Es una regla de finanzas probada: destina el <strong>50%</strong> de tus ingresos a Necesidades (vivienda, comida, servicios), el <strong>30%</strong> a Deseos (entretenimiento, compras, ocio) y el <strong>20%</strong> a Ahorro e Inversión. En el módulo de Presupuestos de FlowMint puedes clasificar tus categorías bajo esta metodología y monitorear barras de progreso en tiempo real."
-            data-en="It is a proven personal finance rule: allocate <strong>50%</strong> of your income to Needs (housing, groceries, utilities), <strong>30%</strong> to Wants (leisure, hobbies, dining), and <strong>20%</strong> to Savings & Investments. In FlowMint's Budget section, you can organize your categories under this framework and track visual progress bars in real time.">
-            Es una regla de finanzas probada: destina el <strong>50%</strong> de tus ingresos a Necesidades (vivienda, comida, servicios), el <strong>30%</strong> a Deseos (entretenimiento, compras, ocio) y el <strong>20%</strong> a Ahorro e Inversión. En el módulo de Presupuestos de FlowMint puedes clasificar tus categorías bajo esta metodología y monitorear barras de progreso en tiempo real.
-          </div>
-        </div>
       </div>
-
     </div>
 
     <!-- SECCIÓN 3: SOPORTE TÉCNICO -->
@@ -1244,7 +1159,7 @@
           <li>
             <a href="javascript:void(0)" onclick="openContactModal()" role="button" title="Formulario de Contacto">
               <span>✉️</span>
-              <span>hola@centraliaportal.com</span>
+              <span id="supportEmailLinkText" data-es="hola@centraliaportal.com" data-en="hola@centraliaportal.com">hola@centraliaportal.com</span>
             </a>
           </li>
           <li>
@@ -1260,30 +1175,65 @@
 
   </div>
 
-  <!-- MODAL 1: FORMULARIO DE CONTACTO BREVO (HOLA@CENTRALIAPORTAL.COM) -->
+  <!-- MODAL 1: CONTACTO A SOPORTE NATIVO FLOWMINT (HOLA@CENTRALIAPORTAL.COM) -->
   <div class="modal-overlay" id="contactModal" onclick="if(event.target === this) closeContactModal()" role="dialog"
     aria-modal="true" aria-labelledby="modalContactTitle">
     <div class="modal-box">
       <div class="modal-header">
         <div>
-          <h3 class="modal-title" id="modalContactTitle" data-es="✉️ Contactar a Soporte"
-            data-en="✉️ Contact Support">✉️ Contactar a Soporte</h3>
-          <p style="font-size:12px; color:var(--text-sec); margin-top:2px;"
-            data-es="Escríbenos directamente y te responderemos a la brevedad."
-            data-en="Write to us directly and we will respond as soon as possible.">Escríbenos directamente y te
-            responderemos a la brevedad.</p>
+          <h3 class="modal-title" id="modalContactTitle" data-es="✉️ Contacto a Soporte"
+            data-en="✉️ Contact Support">✉️ Contacto a Soporte</h3>
+          <p class="modal-sub" id="modalContactSub"
+            data-es="Envíanos tu consulta y te responderemos a la brevedad."
+            data-en="Send us your question and we'll reply shortly.">Envíanos tu consulta y te responderemos a la brevedad.</p>
         </div>
         <button class="modal-close" onclick="closeContactModal()" aria-label="Cerrar modal">✕</button>
       </div>
-      <div class="modal-iframe-wrap">
-        <iframe width="540" height="305"
-          src="https://1f0e6012.sibforms.com/v2/serve/MUIFAGaFqLxjyHWPjEK8_JgspcSO_8cKISQN7DcnV9pojJ7m6AzNvfu1NtAV-qmXNhsy-UnnsV2BTNZTlQkKfuxGNyLbdPuoRc18Ded7cVK36tI41MLYt8-84ZESrT0sZnl59hH5cvh8GzYkwGRG8WyL-WFWPe5a5VY8Al9Oux1SvFBZOek8VJuoADftXHeVL0x3VrAA4EBnvYh9Ow=="
-          frameborder="0" scrolling="auto" allowfullscreen
-          style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
-      </div>
-      <div class="feedback-footer-note">
-        <span data-es="¿Prefieres abrir en tu cliente de correo?" data-en="Prefer your desktop mail app?">¿Prefieres abrir en tu cliente de correo?</span>
-        <a href="mailto:hola@centraliaportal.com" data-es="Abrir mailto: ↗" data-en="Open mailto: ↗">Abrir mailto: ↗</a>
+
+      <!-- Formulario Nativo -->
+      <form id="contactForm" onsubmit="submitContactForm(event)">
+        <!-- Campo 1: Correo electrónico -->
+        <div class="form-group">
+          <label class="form-label" for="contactEmail" data-es="Correo electrónico" data-en="Email address">Correo electrónico</label>
+          <input type="email" id="contactEmail" class="form-input"
+            data-es-placeholder="ejemplo@correo.com"
+            data-en-placeholder="example@email.com"
+            placeholder="ejemplo@correo.com" required>
+        </div>
+
+        <!-- Campo 2: Tu mensaje -->
+        <div class="form-group">
+          <label class="form-label" for="contactMessage" data-es="Tu mensaje" data-en="Your message">Tu mensaje</label>
+          <textarea id="contactMessage" class="form-textarea"
+            data-es-placeholder="Describe tu consulta detalladamente para que podamos ayudarte..."
+            data-en-placeholder="Describe your question in detail so we can help you..."
+            placeholder="Describe tu consulta detalladamente para que podamos ayudarte..." required></textarea>
+        </div>
+
+        <!-- Alerta de validación -->
+        <div class="validation-msg" id="contactValidationMsg"></div>
+
+        <!-- Botón de Envío -->
+        <button type="submit" class="btn-primary" id="btnSubmitContact" style="width: 100%; justify-content: center; padding: 13px;">
+          <span id="btnContactText" data-es="Enviar Mensaje" data-en="Send Message">Enviar Mensaje</span>
+          <span id="btnContactSpinner" style="display:none;" data-es="⏳ Enviando..." data-en="⏳ Sending...">⏳ Enviando...</span>
+        </button>
+
+        <div class="modal-footer-note">
+          <span data-es="Canal directo oficial:" data-en="Official direct channel:">Canal directo oficial:</span>
+          <a href="mailto:hola@centraliaportal.com">hola@centraliaportal.com ↗</a>
+        </div>
+      </form>
+
+      <!-- Mensaje de Éxito Contacto -->
+      <div id="contactThankyouBox" class="thankyou-box">
+        <div class="thankyou-emoji">✉️</div>
+        <h3 class="thankyou-title" data-es="¡Mensaje Enviado con Éxito!" data-en="Message Sent Successfully!">¡Mensaje Enviado con Éxito!</h3>
+        <p class="thankyou-sub" data-es="Hemos recibido tu consulta en nuestro buzón oficial. Te responderemos a la brevedad posible."
+          data-en="We have received your inquiry in our official inbox. We will get back to you as soon as possible.">
+          Hemos recibido tu consulta en nuestro buzón oficial. Te responderemos a la brevedad posible.
+        </p>
+        <button type="button" class="btn-primary" onclick="closeContactModal()" data-es="Listo, cerrar" data-en="Done, close">Listo, cerrar</button>
       </div>
     </div>
   </div>
@@ -1296,7 +1246,7 @@
         <div>
           <h3 class="modal-title" id="modalFeedbackTitle" data-es="📝 Enviar Opinión / Reportar error"
             data-en="📝 Send Feedback / Report Bug">📝 Enviar Opinión / Reportar error</h3>
-          <p style="font-size:12px; color:var(--text-sec); margin-top:2px;"
+          <p class="modal-sub"
             data-es="Tu experiencia nos ayuda a mejorar FlowMint día a día."
             data-en="Your feedback helps us make FlowMint better every day.">Tu experiencia nos ayuda a mejorar FlowMint día a día.</p>
         </div>
@@ -1369,14 +1319,14 @@
           <span id="fbBtnSpinner" style="display:none;" data-es="⏳ Enviando..." data-en="⏳ Sending...">⏳ Enviando...</span>
         </button>
 
-        <div class="feedback-footer-note">
+        <div class="modal-footer-note">
           <span data-es="¿Prefieres la página completa?" data-en="Prefer the full page view?">¿Prefieres la página completa?</span>
           <a href="https://flowmint.centraliaportal.com/feedback.html?lang=es" id="fbFullPageLink" target="_blank"
             rel="noopener noreferrer" data-es="Abrir feedback.html ↗" data-en="Open feedback.html ↗">Abrir feedback.html ↗</a>
         </div>
       </div>
 
-      <!-- Thank You Box -->
+      <!-- Thank You Box Feedback -->
       <div id="fbThankyouBox" class="thankyou-box">
         <div class="thankyou-emoji" id="fbThankEmoji">🎉</div>
         <h3 class="thankyou-title" id="fbThankTitle" data-es="¡Gracias por ayudarnos a mejorar FlowMint!"
@@ -1395,6 +1345,71 @@
   <script>
     let currentLang = 'es';
     let fbSelectedRating = 0;
+    let currentSelectedFaqId = '';
+
+    // Diccionario de respuestas para el selector superior
+    const specificFaqData = {
+      'faq-spec-lic-1': {
+        title: {
+          es: '¿En cuántos dispositivos puedo usar mi clave de licencia?',
+          en: 'How many devices can I use my license key on?'
+        },
+        answer: {
+          es: 'Cada clave de licencia de FlowMint permite la activación en un máximo de <strong>hasta 2 dispositivos simultáneos</strong> (por ejemplo, tu laptop personal y tu teléfono móvil). Si necesitas cambiar de equipo o vincular un nuevo dispositivo más adelante, el sistema te permitirá gestionar o desvincular equipos anteriores de forma sencilla.',
+          en: 'Each FlowMint license key allows activation on up to <strong>2 simultaneous devices</strong> (for example, your personal laptop and your mobile phone). If you need to switch devices or link a new one later on, the system allows you to easily manage or unlink previous devices.'
+        }
+      },
+      'faq-spec-lic-2': {
+        title: {
+          es: '¿Dónde encuentro mi clave de licencia?',
+          en: 'Where do I find my license key?'
+        },
+        answer: {
+          es: 'Tu clave de licencia se genera automáticamente y se envía al <strong>correo electrónico registrado en Hotmart</strong> al momento de completar tu compra. Te sugerimos revisar tu bandeja de entrada principal, así como las carpetas de Spam, Correo no deseado o Promociones buscando el asunto "Licencia FlowMint".',
+          en: 'Your license key is generated automatically and sent to the <strong>email address registered on Hotmart</strong> when completing your purchase. We suggest checking your primary inbox as well as Spam, Junk, or Promotions folders searching for "FlowMint License".'
+        }
+      },
+      'faq-spec-lic-3': {
+        title: {
+          es: '¿Mis datos financieros se suben a la nube cuando me licencio?',
+          en: 'Is my financial data uploaded to the cloud when I activate my license?'
+        },
+        answer: {
+          es: '<strong>No.</strong> En FlowMint tu privacidad es absoluta: todos tus datos financieros, ingresos, gastos y presupuestos se guardan exclusivamente en el <code>LocalStorage</code> de tu propio navegador o dispositivo. El proceso de licencia únicamente valida la autenticidad de tu clave y jamás transmite tu información personal ni financiera a la nube o a servidores externos.',
+          en: '<strong>No.</strong> In FlowMint your privacy is absolute: all your financial data, income, expenses, and budgets are saved exclusively in your own browser\'s <code>LocalStorage</code>. The license verification process only validates the authenticity of your key and never uploads or transmits your personal or financial data to the cloud or external servers.'
+        }
+      },
+      'faq-spec-bak-1': {
+        title: {
+          es: '¿Cómo puedo hacer una copia de seguridad de mi información (.json)?',
+          en: 'How can I back up my data (.json)?'
+        },
+        answer: {
+          es: 'Crear un respaldo es inmediato: abre el <strong>Menú lateral</strong> en FlowMint, ingresa a la sección <strong>Copia de Seguridad</strong> y presiona el botón <strong>Exportar Datos</strong>. Se descargará de forma instantánea un archivo con extensión <code>.json</code> que contiene todo tu historial, transacciones y configuraciones listo para ser guardado donde prefieras.',
+          en: 'Creating a backup is immediate: open the <strong>Side menu</strong> in FlowMint, navigate to the <strong>Backup</strong> section, and click the <strong>Export Data</strong> button. A <code>.json</code> file containing all your records, transactions, and settings will download instantly, ready to be stored wherever you choose.'
+        }
+      },
+      'faq-spec-bak-2': {
+        title: {
+          es: '¿Cómo paso mis datos a otro equipo o navegador?',
+          en: 'How do I transfer my data to another device or browser?'
+        },
+        answer: {
+          es: 'Para transferir tu información solo necesitas dos pasos: primero, en tu equipo origen ve a <strong>Menú lateral → Copia de Seguridad → Exportar Datos</strong> para descargar tu archivo <code>.json</code>. Luego, abre FlowMint en tu nuevo equipo o navegador, dirígete a esa misma sección y haz clic en <strong>Importar Datos</strong> seleccionando el archivo que descargaste. ¡Toda tu información quedará sincronizada de inmediato!',
+          en: 'To transfer your data, you only need two steps: first, on your source device go to <strong>Side menu → Backup → Export Data</strong> to download your <code>.json</code> file. Then, open FlowMint on your new device or browser, navigate to the same section, and click <strong>Import Data</strong> selecting the file you downloaded. All your information will be restored immediately!'
+        }
+      },
+      'faq-spec-wal-1': {
+        title: {
+          es: '¿Cómo funcionan los Bolsillos en FlowMint?',
+          en: 'How do Wallets work in FlowMint?'
+        },
+        answer: {
+          es: 'Los <strong>Bolsillos</strong> representan tus cuentas y fuentes de dinero reales: efectivo en mano, cuentas bancarias, tarjetas de débito o billeteras digitales. Al registrar cualquier ingreso o gasto, puedes indicar de qué bolsillo proviene o hacia cuál entra el dinero, dándote visibilidad exacta del saldo disponible en cada lugar en todo momento.',
+          en: '<strong>Wallets</strong> represent your real-life money accounts and cash sources: cash on hand, bank accounts, debit cards, or digital wallets. When logging any income or expense, you can select which wallet is affected, giving you exact visibility into your available balance across every account at all times.'
+        }
+      }
+    };
 
     const starHints = {
       es: ['', 'Muy mala experiencia', 'Podría mejorar', 'Aceptable', 'Buena experiencia', '¡Excelente!'],
@@ -1410,12 +1425,15 @@
 
     function applyLanguage(lang) {
       currentLang = lang;
+      document.documentElement.lang = currentLang;
+
+      // Actualizar botón de idioma
       const btn = document.getElementById('langToggleBtn');
       if (btn) {
         btn.querySelector('span').innerText = currentLang === 'es' ? 'EN' : 'ES';
       }
 
-      // Actualizar atributos de elementos con data-es / data-en
+      // Actualizar textos con data-es / data-en
       document.querySelectorAll('[data-es]').forEach(el => {
         if (el.tagName !== 'OPTION' && el.tagName !== 'OPTGROUP') {
           const text = el.getAttribute('data-' + currentLang);
@@ -1435,7 +1453,7 @@
         if (ph) el.placeholder = ph;
       });
 
-      // Actualizar select y optgroups del buscador de preguntas
+      // Actualizar selector desplegable de preguntas y optgroups
       const select = document.getElementById('faqSelect');
       if (select) {
         select.querySelectorAll('option').forEach(opt => {
@@ -1448,7 +1466,12 @@
         });
       }
 
-      // Actualizar links externos a feedback.html con parámetro de idioma sincronizado
+      // Actualizar respuesta del selector superior si está abierta
+      if (currentSelectedFaqId && specificFaqData[currentSelectedFaqId]) {
+        renderFaqSelectAnswer(currentSelectedFaqId);
+      }
+
+      // Actualizar links externos a feedback.html
       const fbLink = document.getElementById('feedbackLink');
       if (fbLink) {
         fbLink.href = `https://flowmint.centraliaportal.com/feedback.html?lang=${currentLang}`;
@@ -1458,7 +1481,7 @@
         fbFullLink.href = `https://flowmint.centraliaportal.com/feedback.html?lang=${currentLang}`;
       }
 
-      // Actualizar hint de estrellas del feedback si hay rating seleccionado
+      // Actualizar hint de estrellas
       const hintEl = document.getElementById('fbStarHint');
       if (hintEl) {
         if (fbSelectedRating > 0) {
@@ -1468,40 +1491,47 @@
         }
       }
 
-      // Sincronización forzada con Tidio Chat
+      // Sincronización obligatoria con Tidio Chat
       if (window.tidioChatApi && typeof window.tidioChatApi.setLanguage === 'function') {
         window.tidioChatApi.setLanguage(currentLang);
       }
     }
 
-    // Buscador Inteligente: al seleccionar una pregunta del select
-    function onFaqSelect(faqId) {
-      if (!faqId) return;
-      const target = document.getElementById(faqId);
-      if (target) {
-        // Abrir la pregunta seleccionada (sin ocultar las demás)
-        target.classList.add('open');
-        
-        // Destello visual de resaltado
-        target.classList.add('highlighted');
-        setTimeout(() => {
-          target.classList.remove('highlighted');
-        }, 1600);
-
-        // Desplazamiento suave hacia la tarjeta
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    // Buscador / Selector desplegable de preguntas específicas
+    function onFaqSelect(val) {
+      currentSelectedFaqId = val;
+      const box = document.getElementById('faqSelectAnswerBox');
+      if (!val || !specificFaqData[val]) {
+        box.style.display = 'none';
+        return;
       }
+      renderFaqSelectAnswer(val);
+      box.style.display = 'block';
     }
 
+    function renderFaqSelectAnswer(key) {
+      const data = specificFaqData[key];
+      if (!data) return;
+      const titleEl = document.getElementById('faqAnswerTitle');
+      const bodyEl = document.getElementById('faqAnswerBody');
+      titleEl.innerHTML = `<span>💡</span> ${data.title[currentLang]}`;
+      bodyEl.innerHTML = data.answer[currentLang];
+    }
+
+    // Acordeón de preguntas generales (Sección inferior)
     function toggleFaq(headerEl) {
       const item = headerEl.parentElement;
       item.classList.toggle('open');
     }
 
+    // Sincronización y apertura de Tidio Chat
     function iniciarChatSoporte() {
       if (window.tidioChatApi) {
         if (typeof window.tidioChatApi.setLanguage === 'function') {
           window.tidioChatApi.setLanguage(currentLang);
+        }
+        if (typeof window.tidioChatApi.show === 'function') {
+          window.tidioChatApi.show();
         }
         window.tidioChatApi.open();
       } else {
@@ -1511,10 +1541,22 @@
       }
     }
 
-    /* Modal Contacto Brevo */
+    // Escucha de carga de Tidio
+    document.addEventListener("tidioChat-ready", () => {
+      if (window.tidioChatApi && typeof window.tidioChatApi.setLanguage === 'function') {
+        window.tidioChatApi.setLanguage(currentLang);
+      }
+    });
+
+    /* MODAL DE CONTACTO NATIVO */
     function openContactModal() {
       const modal = document.getElementById('contactModal');
       if (modal) {
+        // Reset del formulario al abrir
+        document.getElementById('contactForm').style.display = 'block';
+        document.getElementById('contactThankyouBox').style.display = 'none';
+        const valMsg = document.getElementById('contactValidationMsg');
+        if (valMsg) valMsg.classList.remove('show');
         modal.classList.add('open');
         document.body.style.overflow = 'hidden';
       }
@@ -1528,12 +1570,78 @@
       }
     }
 
-    /* Modal Feedback */
+    function submitContactForm(e) {
+      e.preventDefault();
+      const emailInput = document.getElementById('contactEmail');
+      const msgInput = document.getElementById('contactMessage');
+      const valMsg = document.getElementById('contactValidationMsg');
+
+      if (!emailInput.value || !emailInput.checkValidity()) {
+        valMsg.textContent = currentLang === 'es'
+          ? '⚠️ Por favor, ingresa un correo electrónico válido.'
+          : '⚠️ Please enter a valid email address.';
+        valMsg.classList.add('show');
+        emailInput.focus();
+        return;
+      }
+
+      if (!msgInput.value.trim()) {
+        valMsg.textContent = currentLang === 'es'
+          ? '⚠️ Por favor, escribe tu mensaje o consulta.'
+          : '⚠️ Please write your question or message.';
+        valMsg.classList.add('show');
+        msgInput.focus();
+        return;
+      }
+
+      valMsg.classList.remove('show');
+
+      // Animación de envío
+      const btn = document.getElementById('btnSubmitContact');
+      const btnText = document.getElementById('btnContactText');
+      const btnSpinner = document.getElementById('btnContactSpinner');
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'inline';
+
+      // Registro local de respaldo y apertura de cliente de correo opcional
+      try {
+        const contactLog = JSON.parse(localStorage.getItem('fm_contact_messages') || '[]');
+        contactLog.push({
+          timestamp: new Date().toISOString(),
+          email: emailInput.value.trim(),
+          message: msgInput.value.trim(),
+          lang: currentLang
+        });
+        localStorage.setItem('fm_contact_messages', JSON.stringify(contactLog));
+      } catch (err) {
+        console.warn('Local contact backup', err);
+      }
+
+      setTimeout(() => {
+        btn.disabled = false;
+        btn.style.opacity = '';
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+
+        // Disparo de mailto en segundo plano
+        const subject = encodeURIComponent(currentLang === 'es' ? 'Consulta Soporte FlowMint' : 'FlowMint Support Inquiry');
+        const body = encodeURIComponent(`De: ${emailInput.value}\n\nMensaje:\n${msgInput.value}`);
+        window.location.href = `mailto:hola@centraliaportal.com?subject=${subject}&body=${body}`;
+
+        // Mostrar caja de agradecimiento / confirmación
+        document.getElementById('contactForm').style.display = 'none';
+        document.getElementById('contactThankyouBox').style.display = 'flex';
+        emailInput.value = '';
+        msgInput.value = '';
+      }, 500);
+    }
+
+    /* MODAL DE FEEDBACK */
     function openFeedbackModal(e) {
       if (e) e.preventDefault();
-      // Aseguramos persistencia del idioma en localStorage para sincronización
       localStorage.setItem('flowmint_lang', currentLang);
-
       const modal = document.getElementById('feedbackModal');
       if (modal) {
         modal.classList.add('open');
@@ -1549,7 +1657,7 @@
       }
     }
 
-    // Inicializar interacción de estrellas
+    // Inicializar interacción de estrellas de feedback
     document.addEventListener('DOMContentLoaded', () => {
       const stars = document.querySelectorAll('#fbStarRow .star');
       const hintEl = document.getElementById('fbStarHint');
@@ -1602,7 +1710,7 @@
       }
     });
 
-    // Envío del Formulario de Feedback a Brevo
+    // Envío del Formulario de Feedback a Brevo y LocalStorage
     async function submitFeedbackForm() {
       const emailInput = document.getElementById('fbUserEmail');
       const valMsg = document.getElementById('fbValidationMsg');
@@ -1631,16 +1739,14 @@
       const recChecked = document.querySelector('input[name="fbRecommend"]:checked');
       const recVal = recChecked ? recChecked.value : 'yes';
 
-      // Estado de carga en el botón
       const btnSubmit = document.getElementById('fbBtnSubmit');
-      const btnText = document.getElementById('fbBtnText');
+      const btnText = document.getElementById('btnText');
       const btnSpinner = document.getElementById('fbBtnSpinner');
       btnSubmit.disabled = true;
       btnSubmit.style.opacity = '0.7';
-      btnText.style.display = 'none';
-      btnSpinner.style.display = 'inline';
+      if (btnText) btnText.style.display = 'none';
+      if (btnSpinner) btnSpinner.style.display = 'inline';
 
-      // Construcción del FormData para Brevo
       const BREVO_URL = 'https://1f0e6012.sibforms.com/serve/MUIFAGaFqLxjyHWPjEK8_JgspcSO_8cKISQN7DcnV9pojJ7m6AzNvfu1NtAV-qmXNhsy-UnnsV2BTNZTlQkKfuxGNyLbdPuoRc18Ded7cVK36tI41MLYt8-84ZESrT0sZnl59hH5cvh8GzYkwGRG8WyL-WFWPe5a5VY8Al9Oux1SvFBZOek8VJuoADftXHeVL0x3VrAA4EBnvYh9Ow==';
 
       const formData = new FormData();
@@ -1651,7 +1757,6 @@
       formData.append('LANGUAGE', currentLang.toUpperCase());
       formData.append('TIMESTAMP', new Date().toLocaleString(currentLang === 'en' ? 'en-US' : 'es-ES'));
 
-      // Respaldo local
       try {
         const prev = JSON.parse(localStorage.getItem('fm_feedback') || '[]');
         prev.push({
@@ -1667,7 +1772,6 @@
         console.warn('FlowMint: Local backup warning', err);
       }
 
-      // Enviar a Brevo
       try {
         await fetch(BREVO_URL, {
           method: 'POST',
@@ -1676,13 +1780,12 @@
         });
         showThankYouFeedback();
       } catch (err) {
-        // En caso de modo offline o fallback, se muestra éxito gracias al respaldo en localStorage
         showThankYouFeedback();
       } finally {
         btnSubmit.disabled = false;
         btnSubmit.style.opacity = '';
-        btnText.style.display = 'inline';
-        btnSpinner.style.display = 'none';
+        if (btnText) btnText.style.display = 'inline';
+        if (btnSpinner) btnSpinner.style.display = 'none';
       }
     }
 
@@ -1694,6 +1797,7 @@
       document.getElementById('fbThankEmoji').textContent = thankEmojis[fbSelectedRating] || '🎉';
     }
 
+    // Tecla Escape para cerrar modales
     window.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeContactModal();
