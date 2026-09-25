@@ -440,15 +440,101 @@
       align-items: center;
       gap: 10px;
       transition: color 0.2s;
+      cursor: pointer;
     }
 
     .support-links a:hover {
       color: var(--mint);
     }
 
+    /* MODAL CONTACTO BREVO */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(10, 15, 26, 0.82);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-box {
+      background: var(--navy2);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius);
+      width: 100%;
+      max-width: 590px;
+      padding: 24px;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 0 30px rgba(0, 200, 150, 0.1);
+      position: relative;
+      transform: translateY(12px) scale(0.98);
+      transition: transform 0.25s ease;
+      max-height: 92vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open .modal-box {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 12px;
+    }
+
+    .modal-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 20px;
+      color: var(--text);
+    }
+
+    .modal-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-size: 24px;
+      cursor: pointer;
+      line-height: 1;
+      padding: 4px 8px;
+      border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .modal-close:hover {
+      color: var(--mint);
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .modal-iframe-wrap {
+      width: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      background: #ffffff;
+      padding: 8px 4px;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+
     @media (max-width: 768px) {
       .support-grid {
         grid-template-columns: 1fr;
+      }
+
+      .modal-box {
+        padding: 18px 14px;
       }
     }
   </style>
@@ -459,35 +545,46 @@
   <div class="container">
     <!-- HEADER -->
     <header class="header">
-      <a href="../index.html" class="logo-mark">
+      <a href="https://flowmint.centraliaportal.com/flowmint.html" class="logo-mark">
         <div class="logo-icon">🌿</div>
         <div class="logo-text">Flow<span>Mint</span></div>
       </a>
       <div class="header-actions">
         <button class="lang-btn" onclick="toggleLanguage()" id="langToggleBtn">🌐 <span>EN</span></button>
-        <a href="../index.html" class="btn-back" data-es="← Volver a la app" data-en="← Back to app">← Volver a la app</a>
+        <a href="https://flowmint.centraliaportal.com/flowmint.html" class="btn-back" data-es="← Volver a la app" data-en="← Back to app">← Volver a la
+          app</a>
       </div>
     </header>
 
     <!-- HERO -->
     <section class="hero">
-      <div class="hero-badge" data-es="💚 ESTAMOS PARA AYUDARTE" data-en="💚 WE ARE HERE TO HELP">💚 ESTAMOS PARA AYUDARTE</div>
-      <h1 class="hero-title" data-es="¿En qué podemos ayudarte hoy?" data-en="How can we help you today?">¿En qué podemos ayudarte hoy?</h1>
-      <p class="hero-sub" data-es="Tutoriales, guías de instalación, preguntas frecuentes y soporte directo — todo en un solo lugar." data-en="Tutorials, installation guides, FAQs, and direct support — all in one place.">Tutoriales, guías de instalación, preguntas frecuentes y soporte directo — todo en un solo lugar.</p>
+      <div class="hero-badge" data-es="💚 ESTAMOS PARA AYUDARTE" data-en="💚 WE ARE HERE TO HELP">💚 ESTAMOS PARA
+        AYUDARTE</div>
+      <h1 class="hero-title" data-es="¿En qué podemos ayudarte hoy?" data-en="How can we help you today?">¿En qué
+        podemos ayudarte hoy?</h1>
+      <p class="hero-sub"
+        data-es="Tutoriales, guías de instalación, preguntas frecuentes y soporte directo — todo en un solo lugar."
+        data-en="Tutorials, installation guides, FAQs, and direct support — all in one place.">Tutoriales, guías de
+        instalación, preguntas frecuentes y soporte directo — todo en un solo lugar.</p>
     </section>
 
     <!-- TUTORIAL CARD (SIN LA PALABRA ACADEMIA) -->
     <div class="tutorial-card">
       <div class="tutorial-icon">🎓</div>
       <h2 data-es="Guías y Tutoriales en Video" data-en="Video Guides & Tutorials">Guías y Tutoriales en Video</h2>
-      <p data-es="Aprende a dominar FlowMint paso a paso: configuración inicial, registro de ingresos y gastos, control de bolsillos y metas de ahorro — todo explicado en video, a tu ritmo." data-en="Learn to master FlowMint step by step: initial setup, income & expense tracking, wallet management, and savings goals — all explained on video at your pace.">Aprende a dominar FlowMint paso a paso: configuración inicial, registro de ingresos y gastos, control de bolsillos y metas de ahorro — todo explicado en video, a tu ritmo.</p>
-      <a href="../tutoriales/index.html" class="btn-primary" data-es="Ver Guía de Tutoriales Interactivos →" data-en="View Interactive Tutorials →">Ver Guía de Tutoriales Interactivos →</a>
+      <p data-es="Aprende a dominar FlowMint paso a paso: configuración inicial, registro de ingresos y gastos, control de bolsillos y metas de ahorro — todo explicado en video, a tu ritmo."
+        data-en="Learn to master FlowMint step by step: initial setup, income & expense tracking, wallet management, and savings goals — all explained on video at your pace.">
+        Aprende a dominar FlowMint paso a paso: configuración inicial, registro de ingresos y gastos, control de
+        bolsillos y metas de ahorro — todo explicado en video, a tu ritmo.</p>
+      <a href="../tutoriales/index.html" class="btn-primary" data-es="Ver Guía de Tutoriales Interactivos →"
+        data-en="View Interactive Tutorials →">Ver Guía de Tutoriales Interactivos →</a>
     </div>
 
     <!-- SECCIÓN 1: ACCESO RÁPIDO PWA -->
     <h2 class="sec-num-title">
       <span class="num-badge">1</span>
-      <span data-es="Acceso Rápido: Instala FlowMint en tu Celular" data-en="Quick Access: Install FlowMint on your Mobile">Acceso Rápido: Instala FlowMint en tu Celular</span>
+      <span data-es="Acceso Rápido: Instala FlowMint en tu Celular"
+        data-en="Quick Access: Install FlowMint on your Mobile">Acceso Rápido: Instala FlowMint en tu Celular</span>
     </h2>
 
     <div class="pwa-grid">
@@ -500,19 +597,27 @@
         <ul class="pwa-steps">
           <li>
             <span class="step-num">1</span>
-            <span data-es="Abre FlowMint en Safari (debe ser Safari, no funciona desde Chrome en iOS)." data-en="Open FlowMint in Safari (must be Safari, doesn't work from Chrome on iOS).">Abre FlowMint en Safari (debe ser Safari, no funciona desde Chrome en iOS).</span>
+            <span data-es="Abre FlowMint en Safari (debe ser Safari, no funciona desde Chrome en iOS)."
+              data-en="Open FlowMint in Safari (must be Safari, doesn't work from Chrome on iOS).">Abre FlowMint en
+              Safari (debe ser Safari, no funciona desde Chrome en iOS).</span>
           </li>
           <li>
             <span class="step-num">2</span>
-            <span data-es="Toca el ícono de Compartir (el cuadrado con la flecha hacia arriba) en la barra inferior." data-en="Tap the Share icon (square with arrow pointing up) in bottom bar.">Toca el ícono de Compartir (el cuadrado con la flecha hacia arriba) en la barra inferior.</span>
+            <span data-es="Toca el ícono de Compartir (el cuadrado con la flecha hacia arriba) en la barra inferior."
+              data-en="Tap the Share icon (square with arrow pointing up) in bottom bar.">Toca el ícono de Compartir (el
+              cuadrado con la flecha hacia arriba) en la barra inferior.</span>
           </li>
           <li>
             <span class="step-num">3</span>
-            <span data-es="Desplázate y selecciona 'Agregar a pantalla de inicio'." data-en="Scroll down and select 'Add to Home Screen'.">Desplázate y selecciona "Agregar a pantalla de inicio".</span>
+            <span data-es="Desplázate y selecciona 'Agregar a pantalla de inicio'."
+              data-en="Scroll down and select 'Add to Home Screen'.">Desplázate y selecciona "Agregar a pantalla de
+              inicio".</span>
           </li>
           <li>
             <span class="step-num">4</span>
-            <span data-es="Confirma el nombre y toca 'Agregar'. Ya tienes el ícono de FlowMint como una app nativa." data-en="Confirm name and tap 'Add'. You now have FlowMint as a native app.">Confirma el nombre y toca "Agregar". Ya tienes el ícono de FlowMint como una app nativa.</span>
+            <span data-es="Confirma el nombre y toca 'Agregar'. Ya tienes el ícono de FlowMint como una app nativa."
+              data-en="Confirm name and tap 'Add'. You now have FlowMint as a native app.">Confirma el nombre y toca
+              "Agregar". Ya tienes el ícono de FlowMint como una app nativa.</span>
           </li>
         </ul>
       </div>
@@ -526,19 +631,28 @@
         <ul class="pwa-steps">
           <li>
             <span class="step-num">1</span>
-            <span data-es="Abre FlowMint en Google Chrome." data-en="Open FlowMint in Google Chrome.">Abre FlowMint en Google Chrome.</span>
+            <span data-es="Abre FlowMint en Google Chrome." data-en="Open FlowMint in Google Chrome.">Abre FlowMint en
+              Google Chrome.</span>
           </li>
           <li>
             <span class="step-num">2</span>
-            <span data-es="Toca el menú de tres puntos (⋮) en la esquina superior derecha." data-en="Tap the three dots menu (⋮) in the top right corner.">Toca el menú de tres puntos (⋮) en la esquina superior derecha.</span>
+            <span data-es="Toca el menú de tres puntos (⋮) en la esquina superior derecha."
+              data-en="Tap the three dots menu (⋮) in the top right corner.">Toca el menú de tres puntos (⋮) en la
+              esquina superior derecha.</span>
           </li>
           <li>
             <span class="step-num">3</span>
-            <span data-es="Selecciona 'Instalar aplicación' o 'Agregar a pantalla de inicio'." data-en="Select 'Install application' or 'Add to home screen'.">Selecciona "Instalar aplicación" o "Agregar a pantalla de inicio".</span>
+            <span data-es="Selecciona 'Instalar aplicación' o 'Agregar a pantalla de inicio'."
+              data-en="Select 'Install application' or 'Add to home screen'.">Selecciona "Instalar aplicación" o
+              "Agregar a pantalla de inicio".</span>
           </li>
           <li>
             <span class="step-num">4</span>
-            <span data-es="Confirma tocando 'Instalar'. FlowMint aparecerá en tu cajón de apps, con ícono propio y sin barra del navegador." data-en="Confirm by tapping 'Install'. FlowMint will appear in your app drawer with its own icon and no browser bar.">Confirma tocando "Instalar". FlowMint aparecerá en tu cajón de apps, con ícono propio y sin barra del navegador.</span>
+            <span
+              data-es="Confirma tocando 'Instalar'. FlowMint aparecerá en tu cajón de apps, con ícono propio y sin barra del navegador."
+              data-en="Confirm by tapping 'Install'. FlowMint will appear in your app drawer with its own icon and no browser bar.">Confirma
+              tocando "Instalar". FlowMint aparecerá en tu cajón de apps, con ícono propio y sin barra del
+              navegador.</span>
           </li>
         </ul>
       </div>
@@ -551,85 +665,114 @@
     </h2>
 
     <div class="faq-search-wrap">
-      <input type="text" id="faqSearch" class="faq-search" placeholder="🔍 Buscar pregunta o tema..." oninput="filterFaqs(this.value)" data-es-placeholder="🔍 Buscar pregunta o tema..." data-en-placeholder="🔍 Search question or topic...">
+      <input type="text" id="faqSearch" class="faq-search" placeholder="🔍 Buscar pregunta o tema..."
+        oninput="filterFaqs(this.value)" data-es-placeholder="🔍 Buscar pregunta o tema..."
+        data-en-placeholder="🔍 Search question or topic...">
     </div>
 
     <div id="faqList">
       <!-- FAQ 1: Moneda -->
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          <span data-es="💱 ¿Puedo usar FlowMint con la moneda de mi país?" data-en="💱 Can I use FlowMint with my country's currency?">💱 ¿Puedo usar FlowMint con la moneda de mi país?</span>
+          <span data-es="💱 ¿Puedo usar FlowMint con la moneda de mi país?"
+            data-en="💱 Can I use FlowMint with my country's currency?">💱 ¿Puedo usar FlowMint con la moneda de mi
+            país?</span>
           <span class="faq-chevron">▼</span>
         </div>
-        <div class="faq-answer" 
-             data-es="Sí. FlowMint incluye un selector de moneda (junto al selector de período, en la parte superior del Dashboard) con las principales monedas y su símbolo correspondiente. También puedes configurar una tasa de cambio personalizada si tu moneda no está en la lista, y todos tus montos, reportes y presupuestos se recalculan automáticamente con esa conversión." 
-             data-en="Yes. FlowMint includes a currency selector (next to the period selector at the top of the Dashboard) with major currencies and their symbols. You can also set a custom exchange rate if your currency is not listed, and all your amounts, reports, and budgets will recalculate automatically with that conversion.">
-          Sí. FlowMint incluye un selector de moneda (junto al selector de período, en la parte superior del Dashboard) con las principales monedas y su símbolo correspondiente. También puedes configurar una tasa de cambio personalizada si tu moneda no está en la lista, y todos tus montos, reportes y presupuestos se recalculan automáticamente con esa conversión.
+        <div class="faq-answer"
+          data-es="Sí. FlowMint incluye un selector de moneda (junto al selector de período, en la parte superior del Dashboard) con las principales monedas y su símbolo correspondiente. También puedes configurar una tasa de cambio personalizada si tu moneda no está en la lista, y todos tus montos, reportes y presupuestos se recalculan automáticamente con esa conversión."
+          data-en="Yes. FlowMint includes a currency selector (next to the period selector at the top of the Dashboard) with major currencies and their symbols. You can also set a custom exchange rate if your currency is not listed, and all your amounts, reports, and budgets will recalculate automatically with that conversion.">
+          Sí. FlowMint incluye un selector de moneda (junto al selector de período, en la parte superior del Dashboard)
+          con las principales monedas y su símbolo correspondiente. También puedes configurar una tasa de cambio
+          personalizada si tu moneda no está en la lista, y todos tus montos, reportes y presupuestos se recalculan
+          automáticamente con esa conversión.
         </div>
       </div>
 
       <!-- FAQ 2: Regla 50/30/20 -->
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          <span data-es="⚖️ ¿Qué es la regla 50/30/20 y cómo la usa FlowMint?" data-en="⚖️ What is the 50/30/20 rule and how does FlowMint use it?">⚖️ ¿Qué es la regla 50/30/20 y cómo la usa FlowMint?</span>
+          <span data-es="⚖️ ¿Qué es la regla 50/30/20 y cómo la usa FlowMint?"
+            data-en="⚖️ What is the 50/30/20 rule and how does FlowMint use it?">⚖️ ¿Qué es la regla 50/30/20 y cómo la
+            usa FlowMint?</span>
           <span class="faq-chevron">▼</span>
         </div>
-        <div class="faq-answer" 
-             data-es="Es una guía clásica de presupuesto personal: 50% de tus ingresos para necesidades (vivienda, comida, transporte), 30% para deseos (entretenimiento, suscripciones) y 20% para ahorro e inversión. En la sección &quot;Presupuesto&quot; de FlowMint puedes crear límites por categoría inspirados en esta regla, y la app te muestra en tiempo real cuánto llevas gastado de cada uno y cuánto te queda disponible en el período." 
-             data-en="It's a classic personal budgeting rule: 50% of your income for needs (housing, food, transport), 30% for wants (entertainment, subscriptions), and 20% for savings & investments. In FlowMint's &quot;Budget&quot; section, you can create category limits inspired by this rule, and the app shows you in real-time how much you've spent and how much remains available for the period.">
-          Es una guía clásica de presupuesto personal: 50% de tus ingresos para necesidades (vivienda, comida, transporte), 30% para deseos (entretenimiento, suscripciones) y 20% para ahorro e inversión. En la sección "Presupuesto" de FlowMint puedes crear límites por categoría inspirados en esta regla, y la app te muestra en tiempo real cuánto llevas gastado de cada uno y cuánto te queda disponible en el período.
+        <div class="faq-answer"
+          data-es="Es una guía clásica de presupuesto personal: 50% de tus ingresos para necesidades (vivienda, comida, transporte), 30% para deseos (entretenimiento, suscripciones) y 20% para ahorro e inversión. En la sección &quot;Presupuesto&quot; de FlowMint puedes crear límites por categoría inspirados en esta regla, y la app te muestra en tiempo real cuánto llevas gastado de cada uno y cuánto te queda disponible en el período."
+          data-en="It's a classic personal budgeting rule: 50% of your income for needs (housing, food, transport), 30% for wants (entertainment, subscriptions), and 20% for savings & investments. In FlowMint's &quot;Budget&quot; section, you can create category limits inspired by this rule, and the app shows you in real-time how much you've spent and how much remains available for the period.">
+          Es una guía clásica de presupuesto personal: 50% de tus ingresos para necesidades (vivienda, comida,
+          transporte), 30% para deseos (entretenimiento, suscripciones) y 20% para ahorro e inversión. En la sección
+          "Presupuesto" de FlowMint puedes crear límites por categoría inspirados en esta regla, y la app te muestra en
+          tiempo real cuánto llevas gastado de cada uno y cuánto te queda disponible en el período.
         </div>
       </div>
 
       <!-- FAQ 3: Modo Offline -->
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          <span data-es="📶 ¿FlowMint funciona sin conexión a internet?" data-en="📶 Does FlowMint work without an internet connection?">📶 ¿FlowMint funciona sin conexión a internet?</span>
+          <span data-es="📶 ¿FlowMint funciona sin conexión a internet?"
+            data-en="📶 Does FlowMint work without an internet connection?">📶 ¿FlowMint funciona sin conexión a
+            internet?</span>
           <span class="faq-chevron">▼</span>
         </div>
-        <div class="faq-answer" 
-             data-es="Sí, completamente. FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no en un servidor externo), así que puedes registrar transacciones, revisar tu Dashboard, tus metas y tus reportes incluso sin señal ni WiFi. Solo necesitas conexión si decides exportar/respaldar tus datos a otro dispositivo." 
-             data-en="Yes, completely. FlowMint saves absolutely all your data locally on your own device (not on an external server), so you can log transactions, check your Dashboard, goals, and reports even without signal or WiFi. You only need a connection if you decide to export/backup your data to another device.">
-          Sí, completamente. FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no en un servidor externo), así que puedes registrar transacciones, revisar tu Dashboard, tus metas y tus reportes incluso sin señal ni WiFi. Solo necesitas conexión si decides exportar/respaldar tus datos a otro dispositivo.
+        <div class="faq-answer"
+          data-es="Sí, completamente. FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no en un servidor externo), así que puedes registrar transacciones, revisar tu Dashboard, tus metas y tus reportes incluso sin señal ni WiFi. Solo necesitas conexión si decides exportar/respaldar tus datos a otro dispositivo."
+          data-en="Yes, completely. FlowMint saves absolutely all your data locally on your own device (not on an external server), so you can log transactions, check your Dashboard, goals, and reports even without signal or WiFi. You only need a connection if you decide to export/backup your data to another device.">
+          Sí, completamente. FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no
+          en un servidor externo), así que puedes registrar transacciones, revisar tu Dashboard, tus metas y tus
+          reportes incluso sin señal ni WiFi. Solo necesitas conexión si decides exportar/respaldar tus datos a otro
+          dispositivo.
         </div>
       </div>
 
       <!-- FAQ 4: Seguridad de datos -->
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          <span data-es="🔒 ¿Qué tan seguros están mis datos financieros?" data-en="🔒 How secure is my financial data?">🔒 ¿Qué tan seguros están mis datos financieros?</span>
+          <span data-es="🔒 ¿Qué tan seguros están mis datos financieros?"
+            data-en="🔒 How secure is my financial data?">🔒 ¿Qué tan seguros están mis datos financieros?</span>
           <span class="faq-chevron">▼</span>
         </div>
-        <div class="faq-answer" 
-             data-es="Tus datos nunca salen de tu dispositivo: no hay servidor externo que los reciba, no hay cuenta en la nube ni sincronización remota por defecto. Toda la información vive únicamente en el almacenamiento local de tu navegador/dispositivo. Te recomendamos usar la opción &quot;Exportar Datos&quot; del menú periódicamente para tener tu propia copia de seguridad, especialmente antes de cambiar de celular o borrar el navegador." 
-             data-en="Your data never leaves your device: there is no external server receiving it, no cloud account, and no remote sync by default. All information lives strictly inside your browser/device's local storage. We recommend using the &quot;Export Data&quot; option in the menu periodically to keep your own backup, especially before changing phones or clearing browser data.">
-          Tus datos nunca salen de tu dispositivo: no hay servidor externo que los reciba, no hay cuenta en la nube ni sincronización remota por defecto. Toda la información vive únicamente en el almacenamiento local de tu navegador/dispositivo. Te recomendamos usar la opción "Exportar Datos" del menú periódicamente para tener tu propia copia de seguridad, especialmente antes de cambiar de celular o borrar el navegador.
+        <div class="faq-answer"
+          data-es="Tus datos nunca salen de tu dispositivo: no hay servidor externo que los reciba, no hay cuenta en la nube ni sincronización remota por defecto. Toda la información vive únicamente en el almacenamiento local de tu navegador/dispositivo. Te recomendamos usar la opción &quot;Exportar Datos&quot; del menú periódicamente para tener tu propia copia de seguridad, especialmente antes de cambiar de celular o borrar el navegador."
+          data-en="Your data never leaves your device: there is no external server receiving it, no cloud account, and no remote sync by default. All information lives strictly inside your browser/device's local storage. We recommend using the &quot;Export Data&quot; option in the menu periodically to keep your own backup, especially before changing phones or clearing browser data.">
+          Tus datos nunca salen de tu dispositivo: no hay servidor externo que los reciba, no hay cuenta en la nube ni
+          sincronización remota por defecto. Toda la información vive únicamente en el almacenamiento local de tu
+          navegador/dispositivo. Te recomendamos usar la opción "Exportar Datos" del menú periódicamente para tener tu
+          propia copia de seguridad, especialmente antes de cambiar de celular o borrar el navegador.
         </div>
       </div>
 
       <!-- FAQ 5: Licencias y Dispositivos -->
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          <span data-es="🔑 ¿En cuántos dispositivos puedo usar mi clave de licencia?" data-en="🔑 How many devices can I use my license key on?">🔑 ¿En cuántos dispositivos puedo usar mi clave de licencia?</span>
+          <span data-es="🔑 ¿En cuántos dispositivos puedo usar mi clave de licencia?"
+            data-en="🔑 How many devices can I use my license key on?">🔑 ¿En cuántos dispositivos puedo usar mi clave
+            de licencia?</span>
           <span class="faq-chevron">▼</span>
         </div>
-        <div class="faq-answer" 
-             data-es="Cada clave de licencia de FlowMint permite la activación en un máximo de 2 dispositivos simultáneos (por ejemplo, tu laptop y tu teléfono móvil). Si vinculas un tercer dispositivo, el sistema detectará el límite y te permitirá desvincular uno de los equipos anteriores fácilmente." 
-             data-en="Each FlowMint license key allows activation on up to 2 devices simultaneously (for example, your laptop and mobile phone). If you link a third device, the system will detect the limit and allow you to easily unlink a previous device.">
-          Cada clave de licencia de FlowMint permite la activación en un máximo de 2 dispositivos simultáneos (por ejemplo, tu laptop y tu teléfono móvil). Si vinculas un tercer dispositivo, el sistema detectará el límite y te permitirá desvincular uno de los equipos anteriores fácilmente.
+        <div class="faq-answer"
+          data-es="Cada clave de licencia de FlowMint permite la activación en un máximo de 2 dispositivos simultáneos (por ejemplo, tu laptop y tu teléfono móvil). Si vinculas un tercer dispositivo, el sistema detectará el límite y te permitirá desvincular uno de los equipos anteriores fácilmente."
+          data-en="Each FlowMint license key allows activation on up to 2 devices simultaneously (for example, your laptop and mobile phone). If you link a third device, the system will detect the limit and allow you to easily unlink a previous device.">
+          Cada clave de licencia de FlowMint permite la activación en un máximo de 2 dispositivos simultáneos (por
+          ejemplo, tu laptop y tu teléfono móvil). Si vinculas un tercer dispositivo, el sistema detectará el límite y
+          te permitirá desvincular uno de los equipos anteriores fácilmente.
         </div>
       </div>
 
       <!-- FAQ 6: Dónde encontrar la clave -->
       <div class="faq-item">
         <div class="faq-question" onclick="toggleFaq(this)">
-          <span data-es="📩 ¿Dónde encuentro mi clave de licencia al comprar?" data-en="📩 Where do I find my license key after purchasing?">📩 ¿Dónde encuentro mi clave de licencia al comprar?</span>
+          <span data-es="📩 ¿Dónde encuentro mi clave de licencia al comprar?"
+            data-en="📩 Where do I find my license key after purchasing?">📩 ¿Dónde encuentro mi clave de licencia al
+            comprar?</span>
           <span class="faq-chevron">▼</span>
         </div>
-        <div class="faq-answer" 
-             data-es="Tu clave se genera y envía inmediatamente al correo electrónico que ingresaste en la plataforma de pago (Hotmart). Si no la ves en tu bandeja de entrada principal, verifica tu carpeta de Spam/Promociones buscando 'Licencia FlowMint'." 
-             data-en="Your key is generated and sent immediately to the email address used during payment checkout (Hotmart). If you don't see it in your inbox, please check your Spam/Promotions folder searching for 'FlowMint License'.">
-          Tu clave se genera y envía inmediatamente al correo electrónico que ingresaste en la plataforma de pago (Hotmart). Si no la ves en tu bandeja de entrada principal, verifica tu carpeta de Spam/Promociones buscando 'Licencia FlowMint'.
+        <div class="faq-answer"
+          data-es="Tu clave se genera y envía inmediatamente al correo electrónico que ingresaste en la plataforma de pago (Hotmart). Si no la ves en tu bandeja de entrada principal, verifica tu carpeta de Spam/Promociones buscando 'Licencia FlowMint'."
+          data-en="Your key is generated and sent immediately to the email address used during payment checkout (Hotmart). If you don't see it in your inbox, please check your Spam/Promotions folder searching for 'FlowMint License'.">
+          Tu clave se genera y envía inmediatamente al correo electrónico que ingresaste en la plataforma de pago
+          (Hotmart). Si no la ves en tu bandeja de entrada principal, verifica tu carpeta de Spam/Promociones buscando
+          'Licencia FlowMint'.
         </div>
       </div>
     </div>
@@ -648,8 +791,12 @@
           <span data-es="Agentes disponibles ahora" data-en="Agents available now">Agentes disponibles ahora</span>
         </div>
         <h3 data-es="Chat en Vivo" data-en="Live Chat">Chat en Vivo</h3>
-        <p data-es="¿Tienes una duda puntual o un problema técnico? Escríbenos directamente y te respondemos en minutos, sin necesidad de esperar un correo." data-en="Have a specific question or technical issue? Text us directly and we'll respond in minutes without waiting for an email.">¿Tienes una duda puntual o un problema técnico? Escríbenos directamente y te respondemos en minutos, sin necesidad de esperar un correo.</p>
-        <button class="btn-primary" onclick="iniciarChatSoporte()" data-es="💬 Iniciar conversación" data-en="💬 Start Conversation">💬 Iniciar conversación</button>
+        <p data-es="¿Tienes una duda puntual o un problema técnico? Escríbenos directamente y te respondemos en minutos, sin necesidad de esperar un correo."
+          data-en="Have a specific question or technical issue? Text us directly and we'll respond in minutes without waiting for an email.">
+          ¿Tienes una duda puntual o un problema técnico? Escríbenos directamente y te respondemos en minutos, sin
+          necesidad de esperar un correo.</p>
+        <button class="btn-primary" onclick="iniciarChatSoporte()" data-es="💬 Iniciar conversación"
+          data-en="💬 Start Conversation">💬 Iniciar conversación</button>
       </div>
 
       <!-- OTROS CANALES (LINKS DIRECCIONADOS) -->
@@ -657,18 +804,32 @@
         <h3 data-es="Otros canales" data-en="Other channels">Otros canales</h3>
         <ul class="support-links">
           <li>
-            <a href="mailto:hola@centraliaportal.com">✉️ hola@centraliaportal.com</a>
+            <a href="javascript:void(0)" onclick="openContactModal()" role="button">✉️ hola@centraliaportal.com</a>
           </li>
           <li>
-            <a href="../tutoriales/index.html">🎓 <span data-es="Guías de Tutoriales" data-en="Tutorial Guides">Guías de Tutoriales</span></a>
-          </li>
-          <li>
-            <a href="../feedback/index.html">📝 <span data-es="Enviar Opinión / Reportar un error" data-en="Send Feedback / Report Bug">Enviar Opinión / Reportar un error</span></a>
+            <a href="https://flowmint.centraliaportal.com/feedback.html" target="_blank" rel="noopener noreferrer">📝 <span data-es="Enviar Opinión / Reportar un error"
+                data-en="Send Feedback / Report Bug">Enviar Opinión / Reportar un error</span></a>
           </li>
         </ul>
       </div>
     </div>
 
+  </div>
+
+  <!-- MODAL DE CONTACTO BREVO -->
+  <div class="modal-overlay" id="contactModal" onclick="if(event.target === this) closeContactModal()" role="dialog" aria-modal="true" aria-labelledby="modalContactTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="modalContactTitle" data-es="✉️ Contactar a Soporte" data-en="✉️ Contact Support">✉️ Contactar a Soporte</h3>
+          <p style="font-size:12px; color:var(--text-sec); margin-top:2px;" data-es="Escríbenos directamente y te responderemos a la brevedad." data-en="Write to us directly and we will respond as soon as possible.">Escríbenos directamente y te responderemos a la brevedad.</p>
+        </div>
+        <button class="modal-close" onclick="closeContactModal()" aria-label="Cerrar modal">✕</button>
+      </div>
+      <div class="modal-iframe-wrap">
+        <iframe width="540" height="305" src="https://1f0e6012.sibforms.com/v2/serve/MUIFAGaFqLxjyHWPjEK8_JgspcSO_8cKISQN7DcnV9pojJ7m6AzNvfu1NtAV-qmXNhsy-UnnsV2BTNZTlQkKfuxGNyLbdPuoRc18Ded7cVK36tI41MLYt8-84ZESrT0sZnl59hH5cvh8GzYkwGRG8WyL-WFWPe5a5VY8Al9Oux1SvFBZOek8VJuoADftXHeVL0x3VrAA4EBnvYh9Ow==" frameborder="0" scrolling="auto" allowfullscreen style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -708,11 +869,32 @@
       if (window.tidioChatApi) {
         window.tidioChatApi.open();
       } else {
-        alert(currentLang === 'es' 
-          ? 'El servicio de chat se está iniciando, por favor intenta de nuevo en unos segundos.' 
+        alert(currentLang === 'es'
+          ? 'El servicio de chat se está iniciando, por favor intenta de nuevo en unos segundos.'
           : 'Live chat service is initializing, please try again in a few seconds.');
       }
     }
+
+    /* Modal Contacto Brevo */
+    function openContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeContactModal();
+    });
   </script>
 
   <!-- Script Tidio -->
