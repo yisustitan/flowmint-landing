@@ -17,10 +17,11 @@
       --navy: #0F1B2D;
       --navy2: #162236;
       --navy3: #1E2F47;
+      --gold: #F5A623;
       --border: rgba(255, 255, 255, 0.08);
       --border-light: rgba(255, 255, 255, 0.15);
       --card: rgba(22, 34, 54, 0.95);
-      --card2: rgba(30, 47, 71, 0.8);
+      --card2: rgba(30, 47, 71, 0.85);
       --text: #F0F4FF;
       --text-sec: #9AABC4;
       --text-muted: #5E7090;
@@ -452,7 +453,7 @@
 
     @keyframes highlightPulse {
       0% {
-        box-shadow: 0 0 0 0 rgba(0, 200, 150, 0.5);
+        box-shadow: 0 0 0 0 rgba(0, 200, 150, 0.55);
         border-color: var(--mint);
       }
       50% {
@@ -466,7 +467,7 @@
     }
 
     .faq-item.highlighted {
-      animation: highlightPulse 1.4s ease-out;
+      animation: highlightPulse 1.5s ease-out;
       border-color: var(--mint) !important;
     }
 
@@ -570,7 +571,7 @@
     }
 
     .support-links li {
-      margin-bottom: 12px;
+      margin-bottom: 14px;
     }
 
     .support-links a {
@@ -588,12 +589,12 @@
       color: var(--mint);
     }
 
-    /* MODAL CONTACTO BREVO */
+    /* MODALES FLOTANTES COMPARTIDOS */
     .modal-overlay {
       display: none;
       position: fixed;
       inset: 0;
-      background: rgba(10, 15, 26, 0.84);
+      background: rgba(10, 15, 26, 0.85);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
       z-index: 9999;
@@ -669,6 +670,177 @@
       box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.08);
     }
 
+    /* ESTILOS DEL FORMULARIO DE FEEDBACK DENTRO DEL MODAL */
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .form-input,
+    .form-textarea {
+      width: 100%;
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+      border-color: var(--mint);
+    }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+
+    /* Calificación por estrellas */
+    .star-row {
+      display: flex;
+      gap: 8px;
+      font-size: 26px;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .star {
+      color: rgba(255, 255, 255, 0.2);
+      transition: color 0.15s, transform 0.15s;
+    }
+
+    .star:hover,
+    .star.hovered {
+      color: var(--gold);
+      transform: scale(1.15);
+    }
+
+    .star.selected {
+      color: var(--gold);
+    }
+
+    .star-hint {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 5px;
+      min-height: 16px;
+    }
+
+    /* Pills recomendación */
+    .pill-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .pill-label {
+      position: relative;
+      cursor: pointer;
+    }
+
+    .pill-label input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .pill-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--navy3);
+      border: 1px solid var(--border-light);
+      color: var(--text-sec);
+      padding: 10px 8px;
+      border-radius: var(--radius-sm);
+      font-size: 12.5px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .pill-label input:checked + .pill-btn {
+      border-color: var(--mint);
+      background: rgba(0, 200, 150, 0.12);
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .validation-msg {
+      display: none;
+      font-size: 12.5px;
+      color: #FF6B6B;
+      background: rgba(255, 107, 107, 0.1);
+      border: 1px solid rgba(255, 107, 107, 0.25);
+      padding: 8px 12px;
+      border-radius: 8px;
+      margin-bottom: 14px;
+    }
+
+    .validation-msg.show {
+      display: block;
+    }
+
+    .feedback-footer-note {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border);
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .feedback-footer-note a {
+      color: var(--mint);
+      text-decoration: none;
+    }
+
+    .feedback-footer-note a:hover {
+      text-decoration: underline;
+    }
+
+    /* Thank-you card inside feedback modal */
+    .thankyou-box {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 24px 12px;
+    }
+
+    .thankyou-emoji {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .thankyou-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 22px;
+      margin-bottom: 8px;
+    }
+
+    .thankyou-sub {
+      font-size: 14px;
+      color: var(--text-sec);
+      max-width: 440px;
+      line-height: 1.5;
+      margin-bottom: 20px;
+    }
+
     @media (max-width: 768px) {
       .support-grid {
         grid-template-columns: 1fr;
@@ -681,6 +853,10 @@
       .faq-question {
         font-size: 14px;
         padding: 14px 16px;
+      }
+
+      .pill-row {
+        grid-template-columns: 1fr;
       }
     }
   </style>
@@ -843,6 +1019,12 @@
             <option value="faq-bak-2"
               data-es="¿Cómo paso mis datos a otro equipo o navegador?"
               data-en="How do I transfer my data to another device or browser?">¿Cómo paso mis datos a otro equipo o navegador?</option>
+            <option value="faq-bak-3"
+              data-es="¿FlowMint funciona sin conexión a internet (modo offline)?"
+              data-en="Does FlowMint work offline without internet?">¿FlowMint funciona sin conexión a internet (modo offline)?</option>
+            <option value="faq-bak-4"
+              data-es="¿Qué tan seguros están mis datos financieros?"
+              data-en="How secure is my financial data?">¿Qué tan seguros están mis datos financieros?</option>
           </optgroup>
           <optgroup label="📊 Uso de la Aplicación" data-label-es="📊 Uso de la Aplicación"
             data-label-en="📊 App Usage">
@@ -852,13 +1034,16 @@
             <option value="faq-app-2"
               data-es="¿Cómo configurar mi moneda personalizada?"
               data-en="How do I set up a custom currency?">¿Cómo configurar mi moneda personalizada?</option>
+            <option value="faq-app-3"
+              data-es="¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?"
+              data-en="What is the 50/30/20 rule and how does FlowMint use it?">¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?</option>
           </optgroup>
         </select>
         <div class="select-icon">▼</div>
       </div>
     </div>
 
-    <!-- LISTA DE PREGUNTAS EN 3 CATEGORÍAS -->
+    <!-- LISTA DE PREGUNTAS FRECUENTES (TODAS FIJAS Y SIEMPRE VISIBLES) -->
     <div id="faqList">
 
       <!-- CATEGORÍA 1: LICENCIA Y DISPOSITIVOS -->
@@ -945,6 +1130,34 @@
             Para transferir tu información solo necesitas dos pasos: primero, en tu equipo origen ve a <strong>Menú lateral → Copia de Seguridad → Exportar Datos</strong> para descargar tu archivo <code>.json</code>. Luego, abre FlowMint en tu nuevo equipo o navegador, dirígete a esa misma sección y haz clic en <strong>Importar Datos</strong> seleccionando el archivo que descargaste. ¡Toda tu información quedará sincronizada de inmediato!
           </div>
         </div>
+
+        <!-- FAQ 2.3 -->
+        <div class="faq-item" id="faq-bak-3">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span data-es="¿FlowMint funciona sin conexión a internet (modo offline)?"
+              data-en="Does FlowMint work offline without internet?">¿FlowMint funciona sin conexión a internet (modo offline)?</span>
+            <span class="faq-chevron">▼</span>
+          </div>
+          <div class="faq-answer"
+            data-es="<strong>Sí, completamente.</strong> FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no en servidores externos), así que puedes registrar transacciones, consultar tu Dashboard, tus presupuestos y reportes sin requerir señal ni WiFi. Solo requieres conexión temporal si descargas actualizaciones o si deseas exportar tu respaldo."
+            data-en="<strong>Yes, completely.</strong> FlowMint saves all your data locally on your own device (not on external servers), so you can log transactions, view your Dashboard, budgets, and reports without needing an active internet or WiFi connection. You only need connection if you download updates or export your backup.">
+            <strong>Sí, completamente.</strong> FlowMint guarda absolutamente todos tus datos de forma local en tu propio dispositivo (no en servidores externos), así que puedes registrar transacciones, consultar tu Dashboard, tus presupuestos y reportes sin requerir señal ni WiFi. Solo requieres conexión temporal si descargas actualizaciones o si deseas exportar tu respaldo.
+          </div>
+        </div>
+
+        <!-- FAQ 2.4 -->
+        <div class="faq-item" id="faq-bak-4">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span data-es="¿Qué tan seguros están mis datos financieros?"
+              data-en="How secure is my financial data?">¿Qué tan seguros están mis datos financieros?</span>
+            <span class="faq-chevron">▼</span>
+          </div>
+          <div class="faq-answer"
+            data-es="Tus datos nunca salen de tu dispositivo: no hay servidores de terceros que los recopilen, no hay cuenta en la nube ni tracking remoto. Toda la información vive protegida en el almacenamiento seguro de tu navegador. Recomendamos usar la herramienta <strong>Exportar Datos</strong> periódicamente para conservar tus copias personales de seguridad."
+            data-en="Your data never leaves your device: there are no third-party servers collecting it, no cloud accounts, and no remote tracking. All records live protected inside your browser's secure local storage. We recommend using the <strong>Export Data</strong> feature periodically to keep personal backup files.">
+            Tus datos nunca salen de tu dispositivo: no hay servidores de terceros que los recopilen, no hay cuenta en la nube ni tracking remoto. Toda la información vive protegida en el almacenamiento seguro de tu navegador. Recomendamos usar la herramienta <strong>Exportar Datos</strong> periódicamente para conservar tus copias personales de seguridad.
+          </div>
+        </div>
       </div>
 
       <!-- CATEGORÍA 3: USO DE LA APLICACIÓN -->
@@ -979,6 +1192,20 @@
             data-es="En la parte superior del Dashboard encontrarás el <strong>Selector de Monedas</strong>. Si tu moneda local no figura entre las predeterminadas, selecciona la opción <strong>'Moneda personalizada'</strong>. Allí podrás definir el código ISO (ej: COP, MXN, ARS), su símbolo visual ($, €, S/, etc.) y la tasa de cambio de referencia respecto al dólar (USD). La app recalculará automáticamente todos tus totales, presupuestos y gráficos."
             data-en="At the top of the Dashboard you will find the <strong>Currency Selector</strong>. If your local currency is not listed among the defaults, choose the <strong>'Custom Currency'</strong> option. There you can define the ISO code (e.g., COP, MXN, EUR), symbol ($, €, etc.), and its exchange rate relative to USD. The app will automatically recalculate all your totals, budgets, and charts.">
             En la parte superior del Dashboard encontrarás el <strong>Selector de Monedas</strong>. Si tu moneda local no figura entre las predeterminadas, selecciona la opción <strong>'Moneda personalizada'</strong>. Allí podrás definir el código ISO (ej: COP, MXN, ARS), su símbolo visual ($, €, S/, etc.) y la tasa de cambio de referencia respecto al dólar (USD). La app recalculará automáticamente todos tus totales, presupuestos y gráficos.
+          </div>
+        </div>
+
+        <!-- FAQ 3.3 -->
+        <div class="faq-item" id="faq-app-3">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span data-es="¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?"
+              data-en="What is the 50/30/20 rule and how does FlowMint use it?">¿Qué es la regla 50/30/20 y cómo la aplica FlowMint?</span>
+            <span class="faq-chevron">▼</span>
+          </div>
+          <div class="faq-answer"
+            data-es="Es una regla de finanzas probada: destina el <strong>50%</strong> de tus ingresos a Necesidades (vivienda, comida, servicios), el <strong>30%</strong> a Deseos (entretenimiento, compras, ocio) y el <strong>20%</strong> a Ahorro e Inversión. En el módulo de Presupuestos de FlowMint puedes clasificar tus categorías bajo esta metodología y monitorear barras de progreso en tiempo real."
+            data-en="It is a proven personal finance rule: allocate <strong>50%</strong> of your income to Needs (housing, groceries, utilities), <strong>30%</strong> to Wants (leisure, hobbies, dining), and <strong>20%</strong> to Savings & Investments. In FlowMint's Budget section, you can organize your categories under this framework and track visual progress bars in real time.">
+            Es una regla de finanzas probada: destina el <strong>50%</strong> de tus ingresos a Necesidades (vivienda, comida, servicios), el <strong>30%</strong> a Deseos (entretenimiento, compras, ocio) y el <strong>20%</strong> a Ahorro e Inversión. En el módulo de Presupuestos de FlowMint puedes clasificar tus categorías bajo esta metodología y monitorear barras de progreso en tiempo real.
           </div>
         </div>
       </div>
@@ -1021,7 +1248,8 @@
             </a>
           </li>
           <li>
-            <a href="https://flowmint.centraliaportal.com/feedback.html" target="_blank" rel="noopener noreferrer">
+            <a href="https://flowmint.centraliaportal.com/feedback.html?lang=es" id="feedbackLink"
+              onclick="openFeedbackModal(event)" target="_blank" rel="noopener noreferrer">
               <span>📝</span>
               <span data-es="Enviar Opinión / Reportar error" data-en="Send Feedback / Report Bug">Enviar Opinión / Reportar error</span>
             </a>
@@ -1032,7 +1260,7 @@
 
   </div>
 
-  <!-- MODAL DE CONTACTO BREVO -->
+  <!-- MODAL 1: FORMULARIO DE CONTACTO BREVO (HOLA@CENTRALIAPORTAL.COM) -->
   <div class="modal-overlay" id="contactModal" onclick="if(event.target === this) closeContactModal()" role="dialog"
     aria-modal="true" aria-labelledby="modalContactTitle">
     <div class="modal-box">
@@ -1053,14 +1281,129 @@
           frameborder="0" scrolling="auto" allowfullscreen
           style="display: block;margin-left: auto;margin-right: auto;max-width: 100%;"></iframe>
       </div>
+      <div class="feedback-footer-note">
+        <span data-es="¿Prefieres abrir en tu cliente de correo?" data-en="Prefer your desktop mail app?">¿Prefieres abrir en tu cliente de correo?</span>
+        <a href="mailto:hola@centraliaportal.com" data-es="Abrir mailto: ↗" data-en="Open mailto: ↗">Abrir mailto: ↗</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL 2: FORMULARIO FLOTANTE DE FEEDBACK (100% BILINGÜE) -->
+  <div class="modal-overlay" id="feedbackModal" onclick="if(event.target === this) closeFeedbackModal()" role="dialog"
+    aria-modal="true" aria-labelledby="modalFeedbackTitle">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h3 class="modal-title" id="modalFeedbackTitle" data-es="📝 Enviar Opinión / Reportar error"
+            data-en="📝 Send Feedback / Report Bug">📝 Enviar Opinión / Reportar error</h3>
+          <p style="font-size:12px; color:var(--text-sec); margin-top:2px;"
+            data-es="Tu experiencia nos ayuda a mejorar FlowMint día a día."
+            data-en="Your feedback helps us make FlowMint better every day.">Tu experiencia nos ayuda a mejorar FlowMint día a día.</p>
+        </div>
+        <button class="modal-close" onclick="closeFeedbackModal()" aria-label="Cerrar modal">✕</button>
+      </div>
+
+      <!-- Form Panel -->
+      <div id="fbFormPanel">
+        <!-- Campo: Email -->
+        <div class="form-group">
+          <label class="form-label" for="fbUserEmail" data-es="Correo electrónico" data-en="Email address">Correo electrónico</label>
+          <input type="email" id="fbUserEmail" class="form-input"
+            data-es-placeholder="Tu correo electrónico para enterarte de novedades..."
+            data-en-placeholder="Your email address to stay updated on what's new..."
+            placeholder="Tu correo electrónico para enterarte de novedades..." required>
+        </div>
+
+        <!-- Campo: Calificación por estrellas -->
+        <div class="form-group">
+          <label class="form-label" id="fbRatingLabel" data-es="¿Cómo calificarías tu experiencia general?"
+            data-en="How would you rate your overall experience?">¿Cómo calificarías tu experiencia general?</label>
+          <div class="star-row" id="fbStarRow">
+            <span class="star" data-value="1">★</span>
+            <span class="star" data-value="2">★</span>
+            <span class="star" data-value="3">★</span>
+            <span class="star" data-value="4">★</span>
+            <span class="star" data-value="5">★</span>
+          </div>
+          <div class="star-hint" id="fbStarHint" data-es="Selecciona una calificación" data-en="Select a rating">Selecciona una calificación</div>
+        </div>
+
+        <!-- Campo: Comentarios / Sugerencia -->
+        <div class="form-group">
+          <label class="form-label" for="fbSuggestionText"
+            data-es="¿Qué función te gustaría ver o qué problema tuviste?"
+            data-en="What feature would you like to see or what issue did you face?">¿Qué función te gustaría ver o qué problema tuviste?</label>
+          <textarea id="fbSuggestionText" class="form-textarea"
+            data-es-placeholder="Cuéntanos tus sugerencias o describe lo sucedido..."
+            data-en-placeholder="Tell us your suggestions or describe what happened..."
+            placeholder="Cuéntanos tus sugerencias o describe lo sucedido..."></textarea>
+        </div>
+
+        <!-- Campo: Recomendación -->
+        <div class="form-group">
+          <label class="form-label" data-es="¿Recomendarías FlowMint a un amigo o colega?"
+            data-en="Would you recommend FlowMint to a friend or colleague?">¿Recomendarías FlowMint a un amigo o colega?</label>
+          <div class="pill-row">
+            <label class="pill-label">
+              <input type="radio" name="fbRecommend" value="yes" checked>
+              <span class="pill-btn" data-es="✅ Sí, sin duda" data-en="✅ Yes, definitely">✅ Sí, sin duda</span>
+            </label>
+            <label class="pill-label">
+              <input type="radio" name="fbRecommend" value="maybe">
+              <span class="pill-btn" data-es="🤔 Tal vez" data-en="🤔 Maybe">🤔 Tal vez</span>
+            </label>
+            <label class="pill-label">
+              <input type="radio" name="fbRecommend" value="no">
+              <span class="pill-btn" data-es="❌ No por ahora" data-en="❌ Not right now">❌ No por ahora</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Mensaje de Validación -->
+        <div class="validation-msg" id="fbValidationMsg"></div>
+
+        <!-- Botón de Envío -->
+        <button type="button" class="btn-primary" id="fbBtnSubmit" onclick="submitFeedbackForm()"
+          style="width: 100%; justify-content: center; padding: 13px;">
+          <span id="fbBtnText" data-es="💬 Enviar Opinión" data-en="💬 Send Feedback">💬 Enviar Opinión</span>
+          <span id="fbBtnSpinner" style="display:none;" data-es="⏳ Enviando..." data-en="⏳ Sending...">⏳ Enviando...</span>
+        </button>
+
+        <div class="feedback-footer-note">
+          <span data-es="¿Prefieres la página completa?" data-en="Prefer the full page view?">¿Prefieres la página completa?</span>
+          <a href="https://flowmint.centraliaportal.com/feedback.html?lang=es" id="fbFullPageLink" target="_blank"
+            rel="noopener noreferrer" data-es="Abrir feedback.html ↗" data-en="Open feedback.html ↗">Abrir feedback.html ↗</a>
+        </div>
+      </div>
+
+      <!-- Thank You Box -->
+      <div id="fbThankyouBox" class="thankyou-box">
+        <div class="thankyou-emoji" id="fbThankEmoji">🎉</div>
+        <h3 class="thankyou-title" id="fbThankTitle" data-es="¡Gracias por ayudarnos a mejorar FlowMint!"
+          data-en="Thank you for helping us improve FlowMint!">¡Gracias por ayudarnos a mejorar FlowMint!</h3>
+        <p class="thankyou-sub" id="fbThankSub"
+          data-es="Tu opinión ha sido registrada exitosamente. Cada sugerencia nos ayuda a construir la mejor herramienta para tus finanzas."
+          data-en="Your feedback has been successfully registered. Every suggestion helps us build the best financial tool for you.">
+          Tu opinión ha sido registrada exitosamente. Cada sugerencia nos ayuda a construir la mejor herramienta para tus finanzas.
+        </p>
+        <button class="btn-primary" onclick="closeFeedbackModal()" data-es="Listo, cerrar" data-en="Done, close">Listo, cerrar</button>
+      </div>
+
     </div>
   </div>
 
   <script>
     let currentLang = 'es';
+    let fbSelectedRating = 0;
+
+    const starHints = {
+      es: ['', 'Muy mala experiencia', 'Podría mejorar', 'Aceptable', 'Buena experiencia', '¡Excelente!'],
+      en: ['', 'Very poor experience', 'Could be better', 'Acceptable', 'Good experience', 'Excellent!']
+    };
 
     function toggleLanguage() {
       currentLang = currentLang === 'es' ? 'en' : 'es';
+      localStorage.setItem('flowmint_lang', currentLang);
       localStorage.setItem('flowmint_help_lang', currentLang);
       applyLanguage(currentLang);
     }
@@ -1072,7 +1415,7 @@
         btn.querySelector('span').innerText = currentLang === 'es' ? 'EN' : 'ES';
       }
 
-      // Cambiar textos dinámicamente con data-es / data-en
+      // Actualizar atributos de elementos con data-es / data-en
       document.querySelectorAll('[data-es]').forEach(el => {
         if (el.tagName !== 'OPTION' && el.tagName !== 'OPTGROUP') {
           const text = el.getAttribute('data-' + currentLang);
@@ -1086,7 +1429,13 @@
         }
       });
 
-      // Actualizar opciones y optgroups del selector desplegable
+      // Actualizar placeholders bilingües
+      document.querySelectorAll('[data-es-placeholder]').forEach(el => {
+        const ph = el.getAttribute('data-' + currentLang + '-placeholder');
+        if (ph) el.placeholder = ph;
+      });
+
+      // Actualizar select y optgroups del buscador de preguntas
       const select = document.getElementById('faqSelect');
       if (select) {
         select.querySelectorAll('option').forEach(opt => {
@@ -1097,6 +1446,26 @@
           const l = og.getAttribute('data-label-' + currentLang);
           if (l) og.label = l;
         });
+      }
+
+      // Actualizar links externos a feedback.html con parámetro de idioma sincronizado
+      const fbLink = document.getElementById('feedbackLink');
+      if (fbLink) {
+        fbLink.href = `https://flowmint.centraliaportal.com/feedback.html?lang=${currentLang}`;
+      }
+      const fbFullLink = document.getElementById('fbFullPageLink');
+      if (fbFullLink) {
+        fbFullLink.href = `https://flowmint.centraliaportal.com/feedback.html?lang=${currentLang}`;
+      }
+
+      // Actualizar hint de estrellas del feedback si hay rating seleccionado
+      const hintEl = document.getElementById('fbStarHint');
+      if (hintEl) {
+        if (fbSelectedRating > 0) {
+          hintEl.textContent = starHints[currentLang][fbSelectedRating];
+        } else {
+          hintEl.textContent = hintEl.getAttribute('data-' + currentLang);
+        }
       }
 
       // Sincronización forzada con Tidio Chat
@@ -1110,14 +1479,14 @@
       if (!faqId) return;
       const target = document.getElementById(faqId);
       if (target) {
-        // Asegurar que esté abierto
+        // Abrir la pregunta seleccionada (sin ocultar las demás)
         target.classList.add('open');
         
-        // Efecto visual de resaltado
+        // Destello visual de resaltado
         target.classList.add('highlighted');
         setTimeout(() => {
           target.classList.remove('highlighted');
-        }, 1500);
+        }, 1600);
 
         // Desplazamiento suave hacia la tarjeta
         target.scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1159,15 +1528,176 @@
       }
     }
 
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeContactModal();
+    /* Modal Feedback */
+    function openFeedbackModal(e) {
+      if (e) e.preventDefault();
+      // Aseguramos persistencia del idioma en localStorage para sincronización
+      localStorage.setItem('flowmint_lang', currentLang);
+
+      const modal = document.getElementById('feedbackModal');
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeFeedbackModal() {
+      const modal = document.getElementById('feedbackModal');
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    // Inicializar interacción de estrellas
+    document.addEventListener('DOMContentLoaded', () => {
+      const stars = document.querySelectorAll('#fbStarRow .star');
+      const hintEl = document.getElementById('fbStarHint');
+
+      stars.forEach(star => {
+        star.addEventListener('mouseenter', () => {
+          const val = parseInt(star.getAttribute('data-value'));
+          paintStars(val, true);
+          hintEl.textContent = starHints[currentLang][val];
+          hintEl.style.color = 'var(--gold)';
+        });
+
+        star.addEventListener('mouseleave', () => {
+          paintStars(fbSelectedRating, false);
+          if (fbSelectedRating > 0) {
+            hintEl.textContent = starHints[currentLang][fbSelectedRating];
+            hintEl.style.color = 'var(--gold)';
+          } else {
+            hintEl.textContent = hintEl.getAttribute('data-' + currentLang);
+            hintEl.style.color = '';
+          }
+        });
+
+        star.addEventListener('click', () => {
+          fbSelectedRating = parseInt(star.getAttribute('data-value'));
+          paintStars(fbSelectedRating, false);
+          hintEl.textContent = starHints[currentLang][fbSelectedRating];
+          hintEl.style.color = 'var(--gold)';
+          const valMsg = document.getElementById('fbValidationMsg');
+          if (valMsg) valMsg.classList.remove('show');
+        });
+      });
+
+      function paintStars(rating, isHover) {
+        stars.forEach(s => {
+          const val = parseInt(s.getAttribute('data-value'));
+          if (isHover) {
+            s.classList.toggle('hovered', val <= rating);
+          } else {
+            s.classList.remove('hovered');
+            s.classList.toggle('selected', val <= rating);
+          }
+        });
+      }
+
+      // Cargar idioma guardado si existe
+      const saved = localStorage.getItem('flowmint_lang') || localStorage.getItem('flowmint_help_lang');
+      if (saved && (saved === 'es' || saved === 'en') && saved !== 'es') {
+        applyLanguage(saved);
+      }
     });
 
-    // Cargar preferencia previa de idioma si existe
-    window.addEventListener('DOMContentLoaded', () => {
-      const savedLang = localStorage.getItem('flowmint_help_lang');
-      if (savedLang && (savedLang === 'es' || savedLang === 'en') && savedLang !== 'es') {
-        applyLanguage(savedLang);
+    // Envío del Formulario de Feedback a Brevo
+    async function submitFeedbackForm() {
+      const emailInput = document.getElementById('fbUserEmail');
+      const valMsg = document.getElementById('fbValidationMsg');
+
+      if (!emailInput.value || !emailInput.checkValidity()) {
+        valMsg.textContent = currentLang === 'es'
+          ? '⚠️ Por favor, ingresa un correo electrónico válido.'
+          : '⚠️ Please enter a valid email address.';
+        valMsg.classList.add('show');
+        emailInput.focus();
+        return;
+      }
+
+      if (!fbSelectedRating) {
+        valMsg.textContent = currentLang === 'es'
+          ? '⚠️ Por favor, califica tu experiencia antes de enviar.'
+          : '⚠️ Please rate your experience before submitting.';
+        valMsg.classList.add('show');
+        document.getElementById('fbStarRow').scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      valMsg.classList.remove('show');
+
+      const suggestion = document.getElementById('fbSuggestionText').value.trim();
+      const recChecked = document.querySelector('input[name="fbRecommend"]:checked');
+      const recVal = recChecked ? recChecked.value : 'yes';
+
+      // Estado de carga en el botón
+      const btnSubmit = document.getElementById('fbBtnSubmit');
+      const btnText = document.getElementById('fbBtnText');
+      const btnSpinner = document.getElementById('fbBtnSpinner');
+      btnSubmit.disabled = true;
+      btnSubmit.style.opacity = '0.7';
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'inline';
+
+      // Construcción del FormData para Brevo
+      const BREVO_URL = 'https://1f0e6012.sibforms.com/serve/MUIFAGaFqLxjyHWPjEK8_JgspcSO_8cKISQN7DcnV9pojJ7m6AzNvfu1NtAV-qmXNhsy-UnnsV2BTNZTlQkKfuxGNyLbdPuoRc18Ded7cVK36tI41MLYt8-84ZESrT0sZnl59hH5cvh8GzYkwGRG8WyL-WFWPe5a5VY8Al9Oux1SvFBZOek8VJuoADftXHeVL0x3VrAA4EBnvYh9Ow==';
+
+      const formData = new FormData();
+      formData.append('EMAIL', emailInput.value);
+      formData.append('RATING', `${fbSelectedRating} / 5`);
+      formData.append('FEEDBACK', suggestion || (currentLang === 'en' ? '(no comment)' : '(sin comentario)'));
+      formData.append('RECOMMENDATION', recVal);
+      formData.append('LANGUAGE', currentLang.toUpperCase());
+      formData.append('TIMESTAMP', new Date().toLocaleString(currentLang === 'en' ? 'en-US' : 'es-ES'));
+
+      // Respaldo local
+      try {
+        const prev = JSON.parse(localStorage.getItem('fm_feedback') || '[]');
+        prev.push({
+          timestamp: new Date().toISOString(),
+          email: emailInput.value,
+          rating: fbSelectedRating,
+          feedback_text: suggestion,
+          recommendation: recVal,
+          lang: currentLang
+        });
+        localStorage.setItem('fm_feedback', JSON.stringify(prev));
+      } catch (err) {
+        console.warn('FlowMint: Local backup warning', err);
+      }
+
+      // Enviar a Brevo
+      try {
+        await fetch(BREVO_URL, {
+          method: 'POST',
+          body: formData,
+          mode: 'no-cors'
+        });
+        showThankYouFeedback();
+      } catch (err) {
+        // En caso de modo offline o fallback, se muestra éxito gracias al respaldo en localStorage
+        showThankYouFeedback();
+      } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.style.opacity = '';
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+      }
+    }
+
+    function showThankYouFeedback() {
+      document.getElementById('fbFormPanel').style.display = 'none';
+      const thankBox = document.getElementById('fbThankyouBox');
+      thankBox.style.display = 'flex';
+      const thankEmojis = { 1: '🤝', 2: '💡', 3: '👍', 4: '🌟', 5: '🎉' };
+      document.getElementById('fbThankEmoji').textContent = thankEmojis[fbSelectedRating] || '🎉';
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeContactModal();
+        closeFeedbackModal();
       }
     });
   </script>
