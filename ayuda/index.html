@@ -1580,6 +1580,15 @@
       }
     }
 
+    function mostrarPantallaExitoContacto() {
+      document.getElementById('contactForm').style.display = 'none';
+      document.getElementById('contactThankyouBox').style.display = 'flex';
+      const emailInput = document.getElementById('contactEmail');
+      const msgInput = document.getElementById('contactMessage');
+      if (emailInput) emailInput.value = '';
+      if (msgInput) msgInput.value = '';
+    }
+
     function submitContactForm(e) {
       e.preventDefault();
       const emailInput = document.getElementById('contactEmail');
@@ -1615,7 +1624,7 @@
       btnText.style.display = 'none';
       btnSpinner.style.display = 'inline';
 
-      // Registro local de respaldo y apertura de cliente de correo opcional
+      // Registro local de respaldo
       try {
         const contactLog = JSON.parse(localStorage.getItem('fm_contact_messages') || '[]');
         contactLog.push({
@@ -1629,23 +1638,38 @@
         console.warn('Local contact backup', err);
       }
 
-      setTimeout(() => {
+      const emailVal = emailInput.value.trim();
+      const messageVal = msgInput.value.trim();
+
+      fetch("https://formsubmit.co/ajax/hola@centraliaportal.com", {
+        method: "POST",
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: emailVal,
+          message: messageVal,
+          _subject: "Nuevo mensaje de Soporte - FlowMint Help Center",
+          _template: "table",
+          _captcha: "false"
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
         btn.disabled = false;
         btn.style.opacity = '';
         btnText.style.display = 'inline';
         btnSpinner.style.display = 'none';
-
-        // Disparo de mailto en segundo plano
-        const subject = encodeURIComponent(currentLang === 'es' ? 'Consulta Soporte FlowMint' : 'FlowMint Support Inquiry');
-        const body = encodeURIComponent(`De: ${emailInput.value}\n\nMensaje:\n${msgInput.value}`);
-        window.location.href = `mailto:hola@centraliaportal.com?subject=${subject}&body=${body}`;
-
-        // Mostrar caja de agradecimiento / confirmación
-        document.getElementById('contactForm').style.display = 'none';
-        document.getElementById('contactThankyouBox').style.display = 'flex';
-        emailInput.value = '';
-        msgInput.value = '';
-      }, 500);
+        mostrarPantallaExitoContacto();
+      })
+      .catch(error => {
+        btn.disabled = false;
+        btn.style.opacity = '';
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+        alert(currentLang === 'en' ? 'Error sending message. Please try again.' : 'Error al enviar el mensaje. Inténtalo de nuevo.');
+      });
     }
 
     /* MODAL DE FEEDBACK */
