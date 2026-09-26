@@ -1420,7 +1420,7 @@
       currentLang = currentLang === 'es' ? 'en' : 'es';
       localStorage.setItem('flowmint_lang', currentLang);
       localStorage.setItem('flowmint_help_lang', currentLang);
-      applyLanguage(currentLang);
+      location.reload();
     }
 
     function applyLanguage(lang) {
@@ -1808,6 +1808,36 @@
         closeFeedbackModal();
       }
     });
+  </script>
+
+  <!-- Pre-inyección de idioma para la burbuja de Tidio -->
+  <script>
+    (function() {
+      var savedLang = (localStorage.getItem('flowmint_lang') || 'es').toLowerCase();
+      if (savedLang === 'en') {
+        try {
+          Object.defineProperty(navigator, 'language', {
+            get: function() { return 'en-US'; },
+            configurable: true
+          });
+          Object.defineProperty(navigator, 'languages', {
+            get: function() { return ['en-US', 'en']; },
+            configurable: true
+          });
+        } catch (e) {}
+      } else if (savedLang === 'es') {
+        try {
+          Object.defineProperty(navigator, 'language', {
+            get: function() { return 'es-ES'; },
+            configurable: true
+          });
+          Object.defineProperty(navigator, 'languages', {
+            get: function() { return ['es-ES', 'es']; },
+            configurable: true
+          });
+        } catch (e) {}
+      }
+    })();
   </script>
 
   <!-- Script Tidio -->
