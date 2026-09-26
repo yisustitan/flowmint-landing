@@ -1491,11 +1491,22 @@
         }
       }
 
-      // Sincronización obligatoria con Tidio Chat
+      // Sincronización obligatoria con Tidio Chat (siempre en minúsculas)
+      syncTidioLanguage();
+    }
+
+    // Función global dedicada para forzar el idioma en Tidio en minúsculas
+    function syncTidioLanguage() {
+      const lang = (currentLang || 'es').toLowerCase();
       if (window.tidioChatApi && typeof window.tidioChatApi.setLanguage === 'function') {
-        window.tidioChatApi.setLanguage(currentLang);
+        window.tidioChatApi.setLanguage(lang);
       }
     }
+
+    // Listener de carga asíncrona para que no se pierda la sincronización
+    document.addEventListener("tidioChat-ready", function() {
+      syncTidioLanguage();
+    });
 
     // Buscador / Selector desplegable de preguntas específicas
     function onFaqSelect(val) {
@@ -1526,27 +1537,18 @@
 
     // Sincronización y apertura de Tidio Chat
     function iniciarChatSoporte() {
+      syncTidioLanguage();
       if (window.tidioChatApi) {
-        if (typeof window.tidioChatApi.setLanguage === 'function') {
-          window.tidioChatApi.setLanguage(currentLang);
-        }
         if (typeof window.tidioChatApi.show === 'function') {
           window.tidioChatApi.show();
         }
         window.tidioChatApi.open();
       } else {
-        alert(currentLang === 'es'
+        alert((currentLang || 'es').toLowerCase() === 'es'
           ? 'El servicio de chat se está iniciando, por favor intenta de nuevo en unos segundos.'
           : 'Live chat service is initializing, please try again in a few seconds.');
       }
     }
-
-    // Escucha de carga de Tidio
-    document.addEventListener("tidioChat-ready", () => {
-      if (window.tidioChatApi && typeof window.tidioChatApi.setLanguage === 'function') {
-        window.tidioChatApi.setLanguage(currentLang);
-      }
-    });
 
     /* MODAL DE CONTACTO NATIVO */
     function openContactModal() {
@@ -1705,8 +1707,10 @@
 
       // Cargar idioma guardado si existe
       const saved = localStorage.getItem('flowmint_lang') || localStorage.getItem('flowmint_help_lang');
-      if (saved && (saved === 'es' || saved === 'en') && saved !== 'es') {
+      if (saved && (saved === 'es' || saved === 'en')) {
         applyLanguage(saved);
+      } else {
+        syncTidioLanguage();
       }
     });
 
