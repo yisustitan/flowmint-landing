@@ -1496,10 +1496,18 @@
     }
 
     // Función global dedicada para forzar el idioma en Tidio en minúsculas
+    // Actualiza tanto la interfaz del widget como la sesión del visitante
     function syncTidioLanguage() {
       const lang = (currentLang || 'es').toLowerCase();
-      if (window.tidioChatApi && typeof window.tidioChatApi.setLanguage === 'function') {
-        window.tidioChatApi.setLanguage(lang);
+      if (window.tidioChatApi) {
+        if (typeof window.tidioChatApi.setLanguage === 'function') {
+          window.tidioChatApi.setLanguage(lang);
+        }
+        if (typeof window.tidioChatApi.setVisitorData === 'function') {
+          window.tidioChatApi.setVisitorData({
+            language: lang
+          });
+        }
       }
     }
 
