@@ -1,0 +1,460 @@
+
+        <html xmlns:o="urn:schemas-microsoft-microsoft-com:office:office" 
+              xmlns:x="urn:schemas-microsoft-microsoft-com:office:excel" 
+              xmlns="http://www.w3.org/TR/REC-html40">
+        <head>
+          <meta charset="utf-8" />
+          <style>
+            th {
+              background-color: #FFFF00; /* Encabezado Amarillo */
+              font-weight: bold;
+              text-align: center;
+              border: 0.5pt solid #000000;
+              font-family: Arial, sans-serif;
+              font-size: 11pt;
+              padding: 6px;
+            }
+            td {
+              text-align: center; /* Centrar celdas */
+              vertical-align: middle;
+              border: 0.5pt solid #d3d3d3;
+              font-family: Arial, sans-serif;
+              font-size: 10pt;
+              padding: 4px;
+              mso-number-format: "\@"; /* Evita que el ID pase a 1.79E+12 */
+            }
+            .monto {
+              mso-number-format: "#,##0"; /* Formato de número */
+            }
+          </style>
+        </head>
+        <body>
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 140px;">ID</th>
+                <th style="width: 90px;">Fecha</th>
+                <th style="width: 80px;">Tipo</th>
+                <th style="width: 160px;">Categoría</th>
+                <th style="width: 180px;">Descripción</th>
+                <th style="width: 90px;">Monto</th>
+                <th style="width: 250px;">Nota</th>
+              </tr>
+            </thead>
+            <tbody>
+      
+          <tr>
+            <td>1786590314416</td>
+            <td>2026-08-08</td>
+            <td>Gasto</td>
+            <td>🍽 Comida</td>
+            <td>Comida</td>
+            <td class="monto">210</td>
+            <td>Comida del Super</td>
+          </tr>
+        
+          <tr>
+            <td>1786590189274</td>
+            <td>2026-08-04</td>
+            <td>Gasto</td>
+            <td>🚗 Transporte</td>
+            <td>Gasolina</td>
+            <td class="monto">59</td>
+            <td>Pague con Banco B</td>
+          </tr>
+        
+          <tr>
+            <td>1786589810318</td>
+            <td>2026-07-07</td>
+            <td>Gasto</td>
+            <td>🚗 Transporte</td>
+            <td>Gasolina</td>
+            <td class="monto">64</td>
+            <td>Pague con Banco B</td>
+          </tr>
+        
+          <tr>
+            <td>1786589674863</td>
+            <td>2026-06-16</td>
+            <td>Gasto</td>
+            <td>🚗 Transporte</td>
+            <td>Gas</td>
+            <td class="monto">71</td>
+            <td>Pague con Banco B</td>
+          </tr>
+        
+          <tr>
+            <td>1786589452802</td>
+            <td>2026-05-19</td>
+            <td>Gasto</td>
+            <td>🚗 Transporte</td>
+            <td>Gasolina del Totota</td>
+            <td class="monto">68</td>
+            <td>Gasolina del mes-con Banco B</td>
+          </tr>
+        
+          <tr>
+            <td>1786569710280</td>
+            <td>2026-01-31</td>
+            <td>Gasto</td>
+            <td>📚 Educación</td>
+            <td>Curso Aprendizaje</td>
+            <td class="monto">97</td>
+            <td>Curso Intensivo de Marketing</td>
+          </tr>
+        
+          <tr>
+            <td>1786566898406</td>
+            <td>2026-07-22</td>
+            <td>Inversión</td>
+            <td>📊 Dividendos/Rentas</td>
+            <td>S&P 500</td>
+            <td class="monto">1200</td>
+            <td>Inversion en la Bolsa</td>
+          </tr>
+        
+          <tr>
+            <td>1786387961143</td>
+            <td>2026-04-24</td>
+            <td>Gasto</td>
+            <td>🏥 Salud</td>
+            <td>Dentista</td>
+            <td class="monto">460</td>
+            <td>Arreglo de Dientes, pague con T Credito</td>
+          </tr>
+        
+          <tr>
+            <td>1786387816304</td>
+            <td>2026-04-15</td>
+            <td>Gasto</td>
+            <td>🚗 Transporte</td>
+            <td>Gasolina</td>
+            <td class="monto">50</td>
+            <td>Gasolina pague con Banco B</td>
+          </tr>
+        
+          <tr>
+            <td>1786387728597</td>
+            <td>2026-04-28</td>
+            <td>Gasto</td>
+            <td>🍽 Comida</td>
+            <td>Comida</td>
+            <td class="monto">190</td>
+            <td>comida del mes</td>
+          </tr>
+        
+          <tr>
+            <td>1786328408705</td>
+            <td>2026-03-01</td>
+            <td>Gasto</td>
+            <td>🏠 Hogar</td>
+            <td>Hogar</td>
+            <td class="monto">950</td>
+            <td>Pago/mes de la casa</td>
+          </tr>
+        
+          <tr>
+            <td>1786328034228</td>
+            <td>2026-03-07</td>
+            <td>Gasto</td>
+            <td>🎬 Entretenimiento</td>
+            <td>Concierto</td>
+            <td class="monto">360</td>
+            <td>Concierto en Vivo de Marc Anthony</td>
+          </tr>
+        
+          <tr>
+            <td>1786327837157</td>
+            <td>2026-03-22</td>
+            <td>Gasto</td>
+            <td>🚗 Transporte</td>
+            <td>Gasolina del carro Nissan</td>
+            <td class="monto">80</td>
+            <td>Lleno del tanque gasolina</td>
+          </tr>
+        
+          <tr>
+            <td>1786327732102</td>
+            <td>2026-03-12</td>
+            <td>Gasto</td>
+            <td>🍽 Comida</td>
+            <td>Comida</td>
+            <td class="monto">285</td>
+            <td>Supermercado y comida china</td>
+          </tr>
+        
+          <tr>
+            <td>1786327621391</td>
+            <td>2026-03-18</td>
+            <td>Gasto</td>
+            <td>🏥 Salud</td>
+            <td>Medico</td>
+            <td class="monto">390</td>
+            <td>Sala Urgencias</td>
+          </tr>
+        
+          <tr>
+            <td>1786327520056</td>
+            <td>2026-03-06</td>
+            <td>Gasto</td>
+            <td>📱 Suscripciones</td>
+            <td>Celular</td>
+            <td class="monto">70</td>
+            <td>Pago mensual celular Recurrente</td>
+          </tr>
+        
+          <tr>
+            <td>1786327314579</td>
+            <td>2026-03-21</td>
+            <td>Ingreso</td>
+            <td>💼 Salario</td>
+            <td>Salario mensual</td>
+            <td class="monto">3800</td>
+            <td>Salario/mes cada dia 20</td>
+          </tr>
+        
+          <tr>
+            <td>1785084985593</td>
+            <td>2026-07-26</td>
+            <td>Gasto</td>
+            <td>🍽 Comida</td>
+            <td>Restaurantes y Supermercado</td>
+            <td class="monto">420</td>
+            <td>Monto Total en el mes-Hasta la fecha gastado en Comida.</td>
+          </tr>
+        
+          <tr>
+            <td>1786328113000</td>
+            <td>2026-04-21</td>
+            <td>Ingreso</td>
+            <td>💼 Salario</td>
+            <td>Salario mensual</td>
+            <td class="monto">3800</td>
+            <td>Salario/mes cada dia 20</td>
+          </tr>
+        
+          <tr>
+            <td>1786328270577</td>
+            <td>2026-05-21</td>
+            <td>Ingreso</td>
+            <td>💼 Salario</td>
+            <td>Salario mensual</td>
+            <td class="monto">3800</td>
+            <td>Salario/mes cada dia 20</td>
+          </tr>
+        
+          <tr>
+            <td>1786327420299</td>
+            <td>2026-06-21</td>
+            <td>Ingreso</td>
+            <td>💼 Salario</td>
+            <td>Salario mensual</td>
+            <td class="monto">3800</td>
+            <td>Salario/mes cada dia 20</td>
+          </tr>
+        
+          <tr>
+            <td>1786327656504</td>
+            <td>2026-07-21</td>
+            <td>Ingreso</td>
+            <td>💼 Salario</td>
+            <td>Salario mensual</td>
+            <td class="monto">3800</td>
+            <td>Salario/mes cada dia 20</td>
+          </tr>
+        
+          <tr>
+            <td>1786327949390</td>
+            <td>2026-08-21</td>
+            <td>Ingreso</td>
+            <td>💼 Salario</td>
+            <td>Salario mensual</td>
+            <td class="monto">3800</td>
+            <td>Salario/mes cada dia 20</td>
+          </tr>
+        
+          <tr>
+            <td>1786327679917</td>
+            <td>2026-04-06</td>
+            <td>Gasto</td>
+            <td>📱 Suscripciones</td>
+            <td>Celular</td>
+            <td class="monto">70</td>
+            <td>Pago mensual celular Recurrente</td>
+          </tr>
+        
+          <tr>
+            <td>1786328137430</td>
+            <td>2026-05-06</td>
+            <td>Gasto</td>
+            <td>📱 Suscripciones</td>
+            <td>Celular</td>
+            <td class="monto">70</td>
+            <td>Pago mensual celular Recurrente</td>
+          </tr>
+        
+          <tr>
+            <td>1786327854877</td>
+            <td>2026-06-06</td>
+            <td>Gasto</td>
+            <td>📱 Suscripciones</td>
+            <td>Celular</td>
+            <td class="monto">70</td>
+            <td>Pago mensual celular Recurrente</td>
+          </tr>
+        
+          <tr>
+            <td>1786328508931</td>
+            <td>2026-07-06</td>
+            <td>Gasto</td>
+            <td>📱 Suscripciones</td>
+            <td>Celular</td>
+            <td class="monto">70</td>
+            <td>Pago mensual celular Recurrente</td>
+          </tr>
+        
+          <tr>
+            <td>1786328112512</td>
+            <td>2026-08-06</td>
+            <td>Gasto</td>
+            <td>📱 Suscripciones</td>
+            <td>Celular</td>
+            <td class="monto">70</td>
+            <td>Pago mensual celular Recurrente</td>
+          </tr>
+        
+          <tr>
+            <td>1786327562509</td>
+            <td>2026-09-06</td>
+            <td>Gasto</td>
+            <td>📱 Suscripciones</td>
+            <td>Celular</td>
+            <td class="monto">70</td>
+            <td>Pago mensual celular Recurrente</td>
+          </tr>
+        
+          <tr>
+            <td>1786329122771</td>
+            <td>2026-04-01</td>
+            <td>Gasto</td>
+            <td>🏠 Hogar</td>
+            <td>Hogar</td>
+            <td class="monto">950</td>
+            <td>Pago/mes de la casa</td>
+          </tr>
+        
+          <tr>
+            <td>1786328652429</td>
+            <td>2026-05-01</td>
+            <td>Gasto</td>
+            <td>🏠 Hogar</td>
+            <td>Hogar</td>
+            <td class="monto">950</td>
+            <td>Pago/mes de la casa</td>
+          </tr>
+        
+          <tr>
+            <td>1786328723138</td>
+            <td>2026-06-01</td>
+            <td>Gasto</td>
+            <td>🏠 Hogar</td>
+            <td>Hogar</td>
+            <td class="monto">950</td>
+            <td>Pago/mes de la casa</td>
+          </tr>
+        
+          <tr>
+            <td>1786329393034</td>
+            <td>2026-07-01</td>
+            <td>Gasto</td>
+            <td>🏠 Hogar</td>
+            <td>Hogar</td>
+            <td class="monto">950</td>
+            <td>Pago/mes de la casa</td>
+          </tr>
+        
+          <tr>
+            <td>1786328462619</td>
+            <td>2026-08-01</td>
+            <td>Gasto</td>
+            <td>🏠 Hogar</td>
+            <td>Hogar</td>
+            <td class="monto">950</td>
+            <td>Pago/mes de la casa</td>
+          </tr>
+        
+          <tr>
+            <td>1786328907704</td>
+            <td>2026-09-01</td>
+            <td>Gasto</td>
+            <td>🏠 Hogar</td>
+            <td>Hogar</td>
+            <td class="monto">950</td>
+            <td>Pago/mes de la casa</td>
+          </tr>
+        
+          <tr>
+            <td>1786570291024</td>
+            <td>2026-02-28</td>
+            <td>Gasto</td>
+            <td>📚 Educación</td>
+            <td>Curso Aprendizaje</td>
+            <td class="monto">97</td>
+            <td>Curso Intensivo de Marketing</td>
+          </tr>
+        
+          <tr>
+            <td>1786570702240</td>
+            <td>2026-03-31</td>
+            <td>Gasto</td>
+            <td>📚 Educación</td>
+            <td>Curso Aprendizaje</td>
+            <td class="monto">97</td>
+            <td>Curso Intensivo de Marketing</td>
+          </tr>
+        
+          <tr>
+            <td>1786570010497</td>
+            <td>2026-04-30</td>
+            <td>Gasto</td>
+            <td>📚 Educación</td>
+            <td>Curso Aprendizaje</td>
+            <td class="monto">97</td>
+            <td>Curso Intensivo de Marketing</td>
+          </tr>
+        
+          <tr>
+            <td>1786570287603</td>
+            <td>2026-05-31</td>
+            <td>Gasto</td>
+            <td>📚 Educación</td>
+            <td>Curso Aprendizaje</td>
+            <td class="monto">97</td>
+            <td>Curso Intensivo de Marketing</td>
+          </tr>
+        
+          <tr>
+            <td>1786570630830</td>
+            <td>2026-06-30</td>
+            <td>Gasto</td>
+            <td>📚 Educación</td>
+            <td>Curso Aprendizaje</td>
+            <td class="monto">97</td>
+            <td>Curso Intensivo de Marketing</td>
+          </tr>
+        
+          <tr>
+            <td>1786570271694</td>
+            <td>2026-07-31</td>
+            <td>Gasto</td>
+            <td>📚 Educación</td>
+            <td>Curso Aprendizaje</td>
+            <td class="monto">97</td>
+            <td>Curso Intensivo de Marketing</td>
+          </tr>
+        
+            </tbody>
+          </table>
+        </body>
+        </html>
+      

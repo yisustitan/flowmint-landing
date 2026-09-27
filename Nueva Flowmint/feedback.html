@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opinión y Sugerencias — FlowMint</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint:         #00C896;
+    --mint-mid:     #00A67A;
+    --mint-dark:    #007A58;
+    --gold:         #F5A623;
+    --coral:        #FF5C5C;
+    --navy:         #0F1B2D;
+    --navy2:        #162236;
+    --navy3:        #1E2F47;
+    --border:       rgba(255,255,255,0.07);
+    --border-light: rgba(255,255,255,0.12);
+    --card:         rgba(22,34,54,0.95);
+    --card2:        rgba(30,47,71,0.85);
+    --text:         #F0F4FF;
+    --text-sec:     #9AABC4;
+    --text-muted:   #5E7090;
+    --radius:       16px;
+    --radius-sm:    10px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 16px;
+    position: relative;
+    overflow-x: hidden;
+  }
+
+  /* Ambient glow background */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 50% at 15% -5%,  rgba(0,200,150,0.10) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 40% at 90% 100%, rgba(245,166,35,0.07) 0%, transparent 55%),
+      radial-gradient(ellipse 40% 30% at 60% 50%,  rgba(124,110,245,0.05) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .page-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 560px;
+  }
+
+  /* ── Logo header ── */
+  .logo-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 32px;
+    justify-content: center;
+  }
+  .logo-icon {
+    width: 38px; height: 38px;
+    background: var(--mint);
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+  .logo-text {
+    font-family: 'DM Serif Display', serif;
+    font-size: 22px;
+    letter-spacing: -0.4px;
+  }
+  .logo-text span { color: var(--mint); }
+
+  /* ── Card ── */
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    padding: 36px 36px 32px;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 24px 80px rgba(0,0,0,0.35), 0 0 0 1px rgba(0,200,150,0.06);
+    animation: fadeUp 0.45s cubic-bezier(.22,.68,0,1.2) both;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .card-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 24px;
+    line-height: 1.2;
+    margin-bottom: 6px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--mint) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .card-sub {
+    font-size: 13px;
+    color: var(--text-sec);
+    margin-bottom: 32px;
+    line-height: 1.5;
+  }
+
+  /* ── Form groups ── */
+  .form-group { margin-bottom: 28px; }
+  .form-label {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-sec);
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    margin-bottom: 12px;
+  }
+
+  /* ── Star rating ── */
+  .star-row {
+    display: flex;
+    gap: 6px;
+  }
+  .star {
+    font-size: 34px;
+    cursor: pointer;
+    color: var(--border-light);
+    transition: color 0.15s, transform 0.15s;
+    line-height: 1;
+    user-select: none;
+  }
+  .star.active  { color: var(--gold); }
+  .star.hovered { color: var(--gold); transform: scale(1.15); }
+  .star:hover   { transform: scale(1.18); }
+  .star-hint {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    min-height: 18px;
+    transition: color 0.2s;
+  }
+
+  /* ── Text Inputs ── */
+  .form-input,
+  .form-textarea {
+    width: 100%;
+    background: var(--card2);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius-sm);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 12px 14px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    line-height: 1.55;
+  }
+  .form-textarea {
+    resize: vertical;
+    min-height: 110px;
+  }
+  .form-input::placeholder,
+  .form-textarea::placeholder { color: var(--text-muted); }
+  .form-input:focus,
+  .form-textarea:focus {
+    border-color: var(--mint);
+    box-shadow: 0 0 0 3px rgba(0,200,150,0.12);
+  }
+
+  /* ── Recommend radio pills ── */
+  .pill-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .pill-label {
+    cursor: pointer;
+  }
+  .pill-label input[type="radio"] { display: none; }
+  .pill-label .pill-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 9px 20px;
+    border-radius: 50px;
+    border: 1.5px solid var(--border-light);
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text-sec);
+    transition: all 0.2s;
+    background: var(--card2);
+    white-space: nowrap;
+    user-select: none;
+  }
+  .pill-label input[type="radio"]:checked + .pill-btn {
+    border-color: var(--mint);
+    color: var(--mint);
+    background: rgba(0,200,150,0.10);
+    box-shadow: 0 0 0 3px rgba(0,200,150,0.10);
+  }
+  .pill-label .pill-btn:hover {
+    border-color: rgba(0,200,150,0.4);
+    color: var(--text);
+  }
+
+  /* ── Divider ── */
+  .divider { height: 1px; background: var(--border); margin: 4px 0 28px; }
+
+  /* ── Submit button ── */
+  .btn-submit {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, var(--mint) 0%, var(--mint-mid) 100%);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,200,150,0.25);
+    letter-spacing: 0.2px;
+  }
+  .btn-submit:hover  { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(0,200,150,0.32); }
+  .btn-submit:active { transform: translateY(0); }
+
+  /* ── Thank-you card ── */
+  .thankyou-card {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 32px;
+    gap: 16px;
+    animation: fadeUp 0.4s cubic-bezier(.22,.68,0,1.2) both;
+  }
+  .thankyou-emoji {
+    font-size: 64px;
+    line-height: 1;
+    animation: popIn 0.5s cubic-bezier(.22,.68,0,1.4) both;
+  }
+  @keyframes popIn {
+    from { transform: scale(0.4); opacity: 0; }
+    to   { transform: scale(1);   opacity: 1; }
+  }
+  .thankyou-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    background: linear-gradient(135deg, var(--text) 0%, var(--mint) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.2;
+  }
+  .thankyou-sub {
+    font-size: 14px;
+    color: var(--text-sec);
+    max-width: 340px;
+    line-height: 1.6;
+  }
+  .btn-back {
+    margin-top: 8px;
+    padding: 11px 28px;
+    border-radius: 50px;
+    border: 1.5px solid var(--mint);
+    background: rgba(0,200,150,0.08);
+    color: var(--mint);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-back:hover {
+    background: rgba(0,200,150,0.16);
+    box-shadow: 0 0 0 3px rgba(0,200,150,0.12);
+    transform: translateY(-1px);
+  }
+
+  /* ── Validation hint ── */
+  .validation-msg {
+    font-size: 12px;
+    color: var(--coral);
+    margin-top: 10px;
+    display: none;
+    align-items: center;
+    gap: 5px;
+  }
+  .validation-msg.show { display: flex; }
+
+  /* ── Footer note ── */
+  .footer-note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 20px;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 520px) {
+    .card { padding: 28px 22px 24px; }
+    .card-title { font-size: 20px; }
+    .star { font-size: 28px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page-wrap">
+
+  <!-- Logo -->
+  <div class="logo-bar">
+    <div class="logo-icon">🌿</div>
+    <div class="logo-text">Flow<span>Mint</span></div>
+  </div>
+
+  <!-- Feedback card -->
+  <div class="card" id="feedbackCard">
+
+    <!-- Form panel -->
+    <div id="formPanel">
+      <div class="card-title" data-i18n="title">Opinión y Sugerencias</div>
+      <div class="card-sub" data-i18n="sub">Tu experiencia nos ayuda a hacer FlowMint mejor cada día. ¡Gracias por tomarte un momento!</div>
+
+      <!-- Email Field -->
+      <div class="form-group">
+        <label class="form-label" for="userEmail" data-i18n="email_label">Correo electrónico</label>
+        <input
+          type="email"
+          class="form-input"
+          id="userEmail"
+          name="EMAIL"
+          data-i18n-placeholder="email_placeholder"
+          placeholder="Tu correo electrónico para enterarte de novedades..."
+          required
+        />
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Q1: Star rating -->
+      <div class="form-group">
+        <div class="form-label" data-i18n="q1_label">¿Cómo calificarías tu experiencia general?</div>
+        <div class="star-row" id="starRow" role="group">
+          <span class="star" data-value="1" role="radio" tabindex="0">★</span>
+          <span class="star" data-value="2" role="radio" tabindex="0">★</span>
+          <span class="star" data-value="3" role="radio" tabindex="0">★</span>
+          <span class="star" data-value="4" role="radio" tabindex="0">★</span>
+          <span class="star" data-value="5" role="radio" tabindex="0">★</span>
+        </div>
+        <div class="star-hint" id="starHint" data-i18n="star_default">Selecciona una calificación</div>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Q2: Textarea -->
+      <div class="form-group">
+        <label class="form-label" for="suggestionText" data-i18n="q2_label">¿Qué función o categoría te gustaría ver en la próxima versión?</label>
+        <textarea
+          class="form-textarea"
+          id="suggestionText"
+          data-i18n-placeholder="q2_placeholder"
+          placeholder="Ej: Modo oscuro mejorado, más categorías, exportación a PDF, gráficos personalizados..."
+          maxlength="600"
+        ></textarea>
+      </div>
+
+      <div class="divider"></div>
+
+      <!-- Q3: Recommend -->
+      <div class="form-group" style="margin-bottom:0">
+        <div class="form-label" data-i18n="q3_label">¿Recomendarías FlowMint a un amigo o colega?</div>
+        <div class="pill-row">
+          <label class="pill-label">
+            <input type="radio" name="recommend" value="yes" id="rec-yes">
+            <span class="pill-btn" data-i18n="rec_yes">✅ Sí, sin duda</span>
+          </label>
+          <label class="pill-label">
+            <input type="radio" name="recommend" value="maybe" id="rec-maybe">
+            <span class="pill-btn" data-i18n="rec_maybe">🤔 Tal vez</span>
+          </label>
+          <label class="pill-label">
+            <input type="radio" name="recommend" value="no" id="rec-no">
+            <span class="pill-btn" data-i18n="rec_no">❌ No por ahora</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Validation msg -->
+      <div class="validation-msg" id="validationMsg" data-i18n="validation">
+        ⚠️ Por favor, califica tu experiencia antes de enviar.
+      </div>
+
+      <!-- Submit -->
+      <div style="margin-top:28px">
+        <button class="btn-submit" id="btnSubmit" type="submit">
+          <span id="btnLabel" data-i18n="btn_send">💬 Enviar Opinión</span>
+          <span id="btnSpinner" style="display:none" aria-live="polite" data-i18n="btn_sending">⏳ Enviando...</span>
+        </button>
+      </div>
+    </div><!-- /formPanel -->
+
+    <!-- Thank-you panel (hidden initially) -->
+    <div class="thankyou-card" id="thankyouPanel">
+      <div class="thankyou-emoji" id="thankEmoji">🎉</div>
+      <div class="thankyou-title" id="thankTitle" data-i18n="thanks_title">¡Gracias por ayudarnos a mejorar FlowMint!</div>
+      <div class="thankyou-sub" id="thankSub">
+        Tu opinión ha sido registrada. Cada sugerencia nos ayuda a construir la mejor herramienta financiera para ti.
+      </div>
+      <button class="btn-back" onclick="goBack()">
+        <span data-i18n="btn_back">🌿 Volver a FlowMint</span>
+      </button>
+    </div><!-- /thankyouPanel -->
+
+  </div><!-- /card -->
+
+  <div class="footer-note" data-i18n="footer">Tu respuesta se guarda de forma local en este dispositivo · FlowMint © 2026</div>
+
+</div><!-- /page-wrap -->
+
+<script>
+  // ── Read language set by FlowMint (same localStorage key) ──
+  const lang = localStorage.getItem('flowmint_lang') || 'es';
+
+  // ── i18n dictionary ──
+  const i18n = {
+    es: {
+      title:          'Opinión y Sugerencias',
+      sub:            'Tu experiencia nos ayuda a hacer FlowMint mejor cada día. ¡Gracias por tomarte un momento!',
+      email_label:    'Correo electrónico',
+      email_placeholder: 'Tu correo electrónico para enterarte de novedades...',
+      q1_label:       '¿Cómo calificarías tu experiencia general?',
+      star_default:   'Selecciona una calificación',
+      star_hints:     ['', 'Muy mala experiencia', 'Podría mejorar', 'Aceptable', 'Buena experiencia', '¡Excelente!'],
+      q2_label:       '¿Qué función o categoría te gustaría ver en la próxima versión?',
+      q2_placeholder: 'Ej: Modo oscuro mejorado, más categorías, exportación a PDF, gráficos personalizados...',
+      q3_label:       '¿Recomendarías FlowMint a un amigo o colega?',
+      rec_yes:        '✅ Sí, sin duda',
+      rec_maybe:      '🤔 Tal vez',
+      rec_no:         '❌ No por ahora',
+      rec_labels:     { yes: 'Sí, sin duda', maybe: 'Tal vez', no: 'No por ahora' },
+      validation:     '⚠️ Por favor, califica tu experiencia antes de enviar.',
+      btn_send:       '💬 Enviar Opinión',
+      btn_sending:    '⏳ Enviando...',
+      thanks_title:   '¡Gracias por ayudarnos a mejorar FlowMint!',
+      thanks_sub: {
+        yes:           'Te valoramos un montón. ¡Comparte FlowMint con quienes lo necesiten!',
+        maybe:         'Tu opinión honesta es la que más nos ayuda a mejorar. ¡Seguiremos trabajando!',
+        no:            'Gracias por la sinceridad. Usaremos tu feedback para mejorar la experiencia.',
+        sin_respuesta: 'Cada sugerencia nos ayuda a construir la mejor herramienta financiera para ti.'
+      },
+      btn_back:       '🌿 Volver a FlowMint',
+      footer:         'Tu respuesta se guarda de forma local en este dispositivo · FlowMint © 2026',
+      err_server:     'El servidor rechazó el envío',
+      err_network:    'No se pudo conectar. Revisa tu conexión e inténtalo de nuevo.',
+      validation_email: '⚠️ Por favor, ingresa un correo electrónico válido.'
+    },
+    en: {
+      title:          'Feedback & Suggestions',
+      sub:            'Your experience helps us make FlowMint better every day. Thanks for taking a moment!',
+      email_label:    'Email address',
+      email_placeholder: 'Your email address to stay updated on what\'s new...',
+      q1_label:       'How would you rate your overall experience?',
+      star_default:   'Select a rating',
+      star_hints:     ['', 'Very poor experience', 'Could be better', 'Acceptable', 'Good experience', 'Excellent!'],
+      q2_label:       'What feature or category would you like to see in the next version?',
+      q2_placeholder: 'E.g.: Improved dark mode, more categories, PDF export, custom charts…',
+      q3_label:       'Would you recommend FlowMint to a friend or colleague?',
+      rec_yes:        '✅ Yes, definitely',
+      rec_maybe:      '🤔 Maybe',
+      rec_no:         '❌ Not right now',
+      rec_labels:     { yes: 'Yes, definitely', maybe: 'Maybe', no: 'Not right now' },
+      validation:     '⚠️ Please rate your experience before submitting.',
+      btn_send:       '💬 Send Feedback',
+      btn_sending:    '⏳ Sending...',
+      thanks_title:   'Thank you for helping us improve FlowMint!',
+      thanks_sub: {
+        yes:           'We appreciate it! Share FlowMint with those who need it.',
+        maybe:         'Your honest opinion is what helps us most. We\'ll keep improving!',
+        no:            'Thank you for the honesty. We\'ll use your feedback to improve the experience.',
+        sin_respuesta: 'Every suggestion helps us build the best financial tool for you.'
+      },
+      btn_back:       '🌿 Back to FlowMint',
+      footer:         'Your response is stored locally on this device · FlowMint © 2026',
+      err_server:     'The server rejected the submission',
+      err_network:    'Could not connect. Check your connection and try again.',
+      validation_email: '⚠️ Please enter a valid email address.'
+    }
+  };
+
+  const t = i18n[lang] || i18n.es;
+
+  // ── Apply translations to DOM ──
+  function applyTranslations() {
+    document.documentElement.lang = lang;
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if(t[key] !== undefined) el.textContent = t[key];
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const key = el.getAttribute('data-i18n-placeholder');
+      if(t[key] !== undefined) el.placeholder = t[key];
+    });
+    // Update page title
+    document.title = lang === 'en'
+      ? 'Feedback & Suggestions — FlowMint'
+      : 'Opinión y Sugerencias — FlowMint';
+  }
+
+  // ── Star rating state ──
+  let selectedRating = 0;
+  const thankEmojis  = ['', '😔', '😐', '🙂', '😊', '🎉'];
+
+  const stars  = document.querySelectorAll('#starRow .star');
+  const hintEl = document.getElementById('starHint');
+
+  function paintStars(upTo) {
+    stars.forEach(s => {
+      const v = parseInt(s.dataset.value);
+      s.classList.toggle('active', v <= upTo);
+    });
+  }
+
+  // Hover & click on stars
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => {
+      const v = parseInt(star.dataset.value);
+      paintStars(v);
+      hintEl.textContent = t.star_hints[v];
+      hintEl.style.color  = 'var(--gold)';
+    });
+    star.addEventListener('mouseleave', () => {
+      paintStars(selectedRating);
+      hintEl.textContent = selectedRating ? t.star_hints[selectedRating] : t.star_default;
+      hintEl.style.color  = selectedRating ? 'var(--gold)' : '';
+    });
+    star.addEventListener('click', () => {
+      selectedRating = parseInt(star.dataset.value);
+      paintStars(selectedRating);
+      hintEl.textContent = t.star_hints[selectedRating];
+      hintEl.style.color  = 'var(--gold)';
+      document.getElementById('validationMsg').classList.remove('show');
+    });
+    star.addEventListener('keydown', e => {
+      if(e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        selectedRating = parseInt(star.dataset.value);
+        paintStars(selectedRating);
+        hintEl.textContent = t.star_hints[selectedRating];
+        hintEl.style.color  = 'var(--gold)';
+      }
+    });
+  });
+
+  // ── Brevo endpoint ──
+  const BREVO_URL = 'https://1f0e6012.sibforms.com/serve/MUIFAGaFqLxjyHWPjEK8_JgspcSO_8cKISQN7DcnV9pojJ7m6AzNvfu1NtAV-qmXNhsy-UnnsV2BTNZTlQkKfuxGNyLbdPuoRc18Ded7cVK36tI41MLYt8-84ZESrT0sZnl59hH5cvh8GzYkwGRG8WyL-WFWPe5a5VY8Al9Oux1SvFBZOek8VJuoADftXHeVL0x3VrAA4EBnvYh9Ow==';
+
+  // ── Submit with Brevo Fetch ──
+  async function submitFeedback(e) {
+    if(e) e.preventDefault();
+
+    const emailInput = document.getElementById('userEmail');
+    if(!emailInput.value || !emailInput.checkValidity()) {
+      const el = document.getElementById('validationMsg');
+      el.textContent = t.validation_email;
+      el.classList.add('show');
+      emailInput.focus();
+      return;
+    }
+
+    if(!selectedRating) {
+      const el = document.getElementById('validationMsg');
+      el.textContent = t.validation;
+      el.classList.add('show');
+      document.getElementById('starRow').scrollIntoView({behavior:'smooth', block:'center'});
+      return;
+    }
+
+    const suggestion  = document.getElementById('suggestionText').value.trim();
+    const recommendEl = document.querySelector('input[name="recommend"]:checked');
+    const recommendValue = recommendEl ? recommendEl.value : 'sin_respuesta';
+    const recommendLabel = recommendEl ? (t.rec_labels[recommendEl.value] || recommendEl.value) : (lang === 'en' ? 'No answer' : 'Sin respuesta');
+
+    // Loading state
+    const btnSubmit  = document.getElementById('btnSubmit');
+    const btnLabel   = document.getElementById('btnLabel');
+    const btnSpinner = document.getElementById('btnSpinner');
+    btnSubmit.disabled       = true;
+    btnSubmit.style.opacity  = '0.7';
+    btnLabel.style.display   = 'none';
+    btnSpinner.style.display = 'inline';
+
+    // Build FormData for Brevo
+    const formData = new FormData();
+    formData.append('EMAIL',          emailInput.value);
+    formData.append('RATING',         `${selectedRating} / 5`);
+    formData.append('FEEDBACK',       suggestion || (lang === 'en' ? '(no comment)' : '(sin comentario)'));
+    formData.append('RECOMMENDATION', recommendLabel);
+    formData.append('LANGUAGE',       lang.toUpperCase());
+    formData.append('TIMESTAMP',      new Date().toLocaleString(lang === 'en' ? 'en-US' : 'es-ES'));
+
+    // Local backup in localStorage
+    try {
+      const prev = JSON.parse(localStorage.getItem('fm_feedback') || '[]');
+      prev.push({ timestamp: new Date().toISOString(), email: emailInput.value, rating: selectedRating, feedback_text: suggestion, recommendation: recommendValue, lang });
+      localStorage.setItem('fm_feedback', JSON.stringify(prev));
+    } catch(err) { console.warn('FlowMint: localStorage backup failed', err); }
+
+    // POST to Brevo
+    try {
+      const res = await fetch(BREVO_URL, {
+        method:  'POST',
+        body:    formData,
+        // Accept header can cause issues with some endpoints if they only return HTML, but we will leave it or handle opaque responses.
+      });
+
+      // sibforms might redirect or return an opaque response due to CORS if not explicitly configured for fetch.
+      // But typically, a 200/300 response means it was submitted.
+      if(res.ok || res.type === 'opaque') {
+        showThankYou(selectedRating, recommendValue);
+      } else {
+        const data = await res.json().catch(() => ({}));
+        const errMsg = (data.errors || []).map(e => e.message).join(', ') || `Error ${res.status}`;
+        showNetworkError(`${t.err_server}: ${errMsg}`);
+        resetButton();
+      }
+    } catch(networkErr) {
+      console.error('FlowMint Feedback: network error', networkErr);
+      showNetworkError(t.err_network);
+      resetButton();
+    }
+  }
+
+  function resetButton() {
+    const btnSubmit  = document.getElementById('btnSubmit');
+    const btnLabel   = document.getElementById('btnLabel');
+    const btnSpinner = document.getElementById('btnSpinner');
+    btnSubmit.disabled       = false;
+    btnSubmit.style.opacity  = '';
+    btnLabel.style.display   = 'inline';
+    btnSpinner.style.display = 'none';
+  }
+
+  function showNetworkError(msg) {
+    const el = document.getElementById('validationMsg');
+    el.textContent = `⚠️ ${msg}`;
+    el.classList.add('show');
+    el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function showThankYou(rating, recommend) {
+    document.getElementById('formPanel').style.display = 'none';
+    const thankPanel = document.getElementById('thankyouPanel');
+    document.getElementById('thankEmoji').textContent   = thankEmojis[rating] || '🎉';
+    document.getElementById('thankTitle').textContent   = t.thanks_title;
+    document.getElementById('thankSub').textContent     = t.thanks_sub[recommend] || t.thanks_sub['sin_respuesta'];
+    thankPanel.style.display   = 'flex';
+    thankPanel.style.animation = 'none';
+    setTimeout(() => { thankPanel.style.animation = ''; }, 10);
+  }
+
+  function goBack() {
+    if(window.opener) {
+      window.close();
+    } else if(window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = './flowmint.html';
+    }
+  }
+
+  // ── Wire up & init ──
+  document.getElementById('btnSubmit').addEventListener('click', submitFeedback);
+  applyTranslations();
+</script>
+
+</body>
+</html>

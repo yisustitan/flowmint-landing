@@ -1,0 +1,10 @@
+Supabase--Flowmint
+
+Project URL de Supabase :
+https://ldlnbqdhggmhknknjuni.supabase.co
+
+Este es el Project ID:ldlnbqdhggmhknknjuni
+
+anon Key:
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxkbG5icWRoZ2dtaGtua25qdW5pIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODY4Mzc1MzksImV4cCI6MjEwMjQxMzUzOX0.QsiDJ-PDPRJjlkJZQZeprtkYWMYjjkuJW3l3gjTqZVc
+

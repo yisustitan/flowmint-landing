@@ -1,0 +1,1512 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kit de Banners y Material Gráfico — Flowmint Reseller VIP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --mint:#10B981;
+    --mint-bright:#00FF88;
+    --mint-glow:rgba(0,255,136,0.25);
+    --gold:#F5A623;
+    --gold-bright:#FBBF24;
+    --bg:#0D1117;
+    --navy:#0D1117;
+    --navy2:#161B26;
+    --navy3:#1E2738;
+    --border:rgba(16,185,129,0.15);
+    --border-light:rgba(255,255,255,0.1);
+    --border-strong:rgba(16,185,129,0.35);
+    --card:#161B26;
+    --text:#F0F4FF;
+    --text-sec:#8FA79C;
+    --text-mute:#5D766C;
+    --radius:16px;
+    --font-display:'Space Grotesk', sans-serif;
+    --font-sans:'DM Sans', 'Inter', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:
+      radial-gradient(ellipse 900px 500px at 15% -10%, rgba(16,185,129,0.14), transparent 60%),
+      radial-gradient(ellipse 700px 500px at 100% 10%, rgba(245,166,35,0.06), transparent 55%),
+      var(--bg);
+    color:var(--text);
+    font-family:var(--font-sans);
+    line-height:1.6;
+    min-height:100vh;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* TOP NAVIGATION */
+  .top-nav{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(13,17,23,0.88);
+    backdrop-filter:blur(14px);
+    -webkit-backdrop-filter:blur(14px);
+    border-bottom:1px solid var(--border);
+    padding:16px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+  }
+  .brand-container{display:flex;align-items:center;gap:14px;text-decoration:none;}
+  .brand-logo{
+    width:38px;height:38px;
+    background:linear-gradient(135deg, #00FF88, #10B981);
+    border-radius:10px;
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 16px var(--mint-glow);
+  }
+  .brand-logo svg{width:20px;height:20px;stroke:#06231A;}
+  .brand-titles{display:flex;flex-direction:column;}
+  .brand-name{font-family:var(--font-display);font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.5px;line-height:1.1;}
+  .brand-subtitle{font-size:11px;color:var(--mint);letter-spacing:0.06em;text-transform:uppercase;font-weight:700;}
+  
+  .nav-actions{display:flex;align-items:center;gap:14px;}
+  .btn-back{
+    color:var(--text-sec);
+    font-family:var(--font-mono);
+    font-size:12.5px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:6px 12px;
+    border-radius:8px;
+    border:1px solid transparent;
+    transition:all .2s ease;
+  }
+  .btn-back:hover{
+    color:var(--mint-bright);
+    background:rgba(16,185,129,0.08);
+    border-color:var(--border);
+  }
+
+  /* LANGUAGE SWITCHER */
+  .lang-switch{
+    display:flex;
+    align-items:center;
+    gap:4px;
+    background:rgba(22,27,38,0.9);
+    border:1px solid var(--border-strong);
+    padding:4px 6px;
+    border-radius:100px;
+    font-family:var(--font-mono);
+    font-size:12px;
+    letter-spacing:0.04em;
+  }
+  .lang-switch .lang-option{
+    padding:4px 10px;
+    border-radius:100px;
+    color:var(--text-sec);
+    text-decoration:none;
+    transition:background .2s ease, color .2s ease;
+  }
+  .lang-switch .lang-option.active{
+    background:var(--mint);
+    color:#06231A;
+    font-weight:700;
+  }
+  .lang-switch .lang-option:hover:not(.active){
+    color:var(--mint-bright);
+  }
+  .lang-switch .lang-sep{
+    color:var(--text-mute);
+    opacity:0.4;
+  }
+
+  /* CONTAINER & HEADER */
+  .container{max-width:1080px;margin:0 auto;padding:48px 24px 90px;position:relative;z-index:1;}
+  .header-box{text-align:center;margin-bottom:36px;}
+  .badge{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-family:var(--font-mono);
+    font-size:11.5px;
+    letter-spacing:0.12em;
+    color:var(--mint-bright);
+    background:rgba(0,255,136,0.08);
+    border:1px solid var(--border-strong);
+    padding:5px 14px;
+    border-radius:100px;
+    margin-bottom:16px;
+  }
+  .badge::before{
+    content:'';
+    width:7px;height:7px;
+    background:var(--mint-bright);
+    border-radius:50%;
+    box-shadow:0 0 8px var(--mint-bright);
+  }
+  h1{
+    font-family:var(--font-display);
+    font-weight:800;
+    font-size:clamp(2rem, 4.5vw, 2.9rem);
+    letter-spacing:-0.02em;
+    background:linear-gradient(135deg, #FFFFFF 25%, #10B981 100%);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    margin-bottom:12px;
+  }
+  p.subtitle{
+    color:var(--text-sec);
+    font-size:15.5px;
+    max-width:640px;
+    margin:0 auto;
+  }
+
+  /* PACK DOWNLOAD BAR */
+  .pack-download-bar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    background:linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(22,27,38,0.95) 100%);
+    border:1px solid var(--border-strong);
+    border-radius:16px;
+    padding:24px 32px;
+    margin-bottom:48px;
+    flex-wrap:wrap;
+    box-shadow:0 8px 30px rgba(0,0,0,0.3);
+  }
+  .pack-info{flex:1;min-width:280px;}
+  .pack-info h3{
+    font-family:var(--font-display);
+    font-size:19px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:6px;
+  }
+  .pack-info p{color:var(--text-sec);font-size:14px;}
+  .btn-pack-dl{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:linear-gradient(135deg, #00FF88, #10B981);
+    color:#06231A;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:14.5px;
+    padding:14px 26px;
+    border-radius:10px;
+    text-decoration:none;
+    white-space:nowrap;
+    box-shadow:0 6px 20px -4px rgba(16,185,129,0.5);
+    transition:transform .2s ease, box-shadow .2s ease;
+  }
+  .btn-pack-dl:hover{
+    transform:translateY(-2px);
+    box-shadow:0 10px 28px -4px rgba(0,255,136,0.6);
+  }
+
+  /* CATEGORY SECTIONS */
+  .cat-section{margin-bottom:52px;}
+  .cat-header{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-bottom:24px;
+    padding-bottom:12px;
+    border-bottom:1px solid var(--border-light);
+  }
+  .cat-icon{font-size:22px;}
+  .cat-header h2{
+    font-family:var(--font-display);
+    font-size:21px;
+    font-weight:700;
+    color:var(--text);
+  }
+  .cat-header span.count{
+    font-family:var(--font-mono);
+    font-size:12px;
+    color:var(--mint);
+    background:rgba(16,185,129,0.12);
+    border:1px solid var(--border);
+    padding:2px 8px;
+    border-radius:6px;
+  }
+
+  /* BANNER GRID */
+  .banner-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+    gap:24px;
+  }
+  .banner-grid.stories-grid{
+    grid-template-columns:repeat(auto-fill, minmax(320px, 1fr));
+  }
+  .banner-grid.mockup-grid{
+    grid-template-columns:repeat(auto-fill, minmax(460px, 1fr));
+  }
+  @media (max-width:640px){
+    .banner-grid.mockup-grid{grid-template-columns:1fr;}
+    .pack-download-bar{padding:20px;flex-direction:column;align-items:flex-start;}
+    .btn-pack-dl{width:100%;justify-content:center;}
+  }
+
+  /* BANNER CARD */
+  .banner-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:var(--radius);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    transition:transform .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+  .banner-card:hover{
+    transform:translateY(-3px);
+    border-color:var(--border-strong);
+    box-shadow:0 12px 32px rgba(0,0,0,0.45);
+  }
+
+  /* BANNER PREVIEW CONTAINER */
+  .banner-preview{
+    width:100%;
+    aspect-ratio:1/1;
+    background:#08101a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:relative;
+    overflow:hidden;
+    border-bottom:1px solid var(--border);
+  }
+  .banner-preview.stories{
+    aspect-ratio:9/16;
+    max-height:480px;
+  }
+  .banner-preview.mockup{
+    aspect-ratio:16/9;
+  }
+  .banner-preview svg{
+    width:100%;
+    height:100%;
+    display:block;
+    object-fit:contain;
+  }
+
+  .banner-body{
+    padding:18px 20px 20px;
+    display:flex;
+    flex-direction:column;
+    flex-grow:1;
+  }
+  .banner-body h3{
+    font-family:var(--font-display);
+    font-size:16.5px;
+    font-weight:700;
+    color:#fff;
+    margin-bottom:8px;
+  }
+  .copy-text-box{
+    background:#0D1117;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:12px 14px;
+    color:var(--text-sec);
+    font-size:13px;
+    line-height:1.55;
+    margin-bottom:14px;
+    flex-grow:1;
+  }
+  .btn-row{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+  .btn-dl{
+    flex:1;
+    min-width:130px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:linear-gradient(135deg, #00FF88, #10B981);
+    color:#06231A;
+    border:none;
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-family:var(--font-display);
+    font-weight:700;
+    font-size:13px;
+    text-decoration:none;
+    transition:all .2s ease;
+  }
+  .btn-dl:hover{
+    transform:scale(1.02);
+    box-shadow:0 0 16px rgba(0,255,136,0.4);
+  }
+  .btn-copy-caption{
+    flex:1;
+    min-width:120px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    background:rgba(22,27,38,0.8);
+    border:1px solid var(--border-light);
+    color:var(--text);
+    padding:10px 14px;
+    border-radius:8px;
+    cursor:pointer;
+    font-family:var(--font-display);
+    font-size:13px;
+    font-weight:600;
+    transition:all .2s ease;
+  }
+  .btn-copy-caption:hover{
+    border-color:var(--mint);
+    color:var(--mint-bright);
+    background:rgba(16,185,129,0.08);
+  }
+
+  /* TOAST NOTIFICATION */
+  .toast-notification{
+    position:fixed;
+    bottom:28px;
+    right:28px;
+    background:#162236;
+    border:1px solid #10B981;
+    color:#fff;
+    padding:14px 22px;
+    border-radius:12px;
+    box-shadow:0 12px 35px rgba(0,0,0,0.6), 0 0 20px rgba(16,185,129,0.25);
+    font-family:var(--font-display);
+    font-size:14px;
+    font-weight:600;
+    display:flex;
+    align-items:center;
+    gap:10px;
+    z-index:99999;
+    transform:translateY(100px);
+    opacity:0;
+    transition:all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events:none;
+  }
+  .toast-notification.show{
+    transform:translateY(0);
+    opacity:1;
+  }
+  .toast-notification .icon{
+    width:22px;height:22px;
+    background:#10B981;
+    color:#06231A;
+    border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-weight:800;
+    font-size:13px;
+  }
+
+  footer{
+    text-align:center;
+    padding:32px 24px;
+    color:var(--text-mute);
+    font-size:12px;
+    font-family:var(--font-mono);
+    border-top:1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+  <!-- TOP NAV -->
+  <nav class="top-nav">
+    <a href="../index.html" class="brand-container">
+      <div class="brand-logo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="brand-titles">
+        <span class="brand-name">Flowmint</span>
+        <span class="brand-subtitle">Kit de Banners VIP</span>
+      </div>
+    </a>
+    <div class="nav-actions">
+      <a href="../index.html" class="btn-back">← Portal VIP</a>
+      <div class="lang-switch" role="navigation" aria-label="Selector de idioma">
+        <span class="lang-option active">ES</span>
+        <span class="lang-sep">|</span>
+        <a href="kit-banners-en.html" class="lang-option">EN</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+
+    <div class="header-box">
+      <span class="badge">GALERÍA INTERNA DE MATERIAL GRÁFICO</span>
+      <h1>Kit de Banners y Material Publicitario</h1>
+      <p class="subtitle">
+        Piezas visuales vectoriales en alta resolución listas para usar. Descarga artes individuales o el kit completo con sus copys publicitarios probados.
+      </p>
+    </div>
+
+    <!-- BOTÓN PACK COMPLETO -->
+    <div class="pack-download-bar">
+      <div class="pack-info">
+        <h3>Pack Completo — Kit de Banners Flowmint (.ZIP)</h3>
+        <p>Incluye Posts Cuadrados, Stories Verticales y Mockups de Dispositivos vectoriales listos para campaña.</p>
+      </div>
+      <a class="btn-pack-dl" href="./kit-banners-flowmint.zip" download>
+        📦 Descargar Pack Completo
+      </a>
+    </div>
+
+    <!-- ========================================== -->
+    <!-- CATEGORÍA 1: POSTS CUADRADOS (1080x1080)   -->
+    <!-- ========================================== -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">🟦</span>
+        <h2>Posts Cuadrados (1080 × 1080 px)</h2>
+        <span class="count">3 Banners</span>
+      </div>
+      <div class="banner-grid">
+
+        <!-- POST 01 — LANZAMIENTO -->
+        <div class="banner-card">
+          <div class="banner-preview">
+            <svg id="svg-post-01" viewBox="0 0 1080 1080" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="p1-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0D1117"/>
+                  <stop offset="50%" stop-color="#0E191F"/>
+                  <stop offset="100%" stop-color="#0A1512"/>
+                </linearGradient>
+                <radialGradient id="p1-glow" cx="50%" cy="30%" r="65%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.22"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </radialGradient>
+                <linearGradient id="p1-bar-grad" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#00FF88"/>
+                  <stop offset="100%" stop-color="#0F9B6C"/>
+                </linearGradient>
+                <filter id="p1-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="18" stdDeviation="24" flood-color="#000" flood-opacity="0.6"/>
+                </filter>
+                <filter id="p1-neon-glow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="8" result="glow"/>
+                  <feComposite in="SourceGraphic" in2="glow" operator="over"/>
+                </filter>
+              </defs>
+
+              <rect width="1080" height="1080" fill="url(#p1-bg)"/>
+              <rect width="1080" height="1080" fill="url(#p1-glow)"/>
+
+              <g opacity="0.05" stroke="#10B981" stroke-width="1.5">
+                <line x1="0" y1="180" x2="1080" y2="180"/><line x1="0" y1="360" x2="1080" y2="360"/><line x1="0" y1="540" x2="1080" y2="540"/><line x1="0" y1="720" x2="1080" y2="720"/><line x1="0" y1="900" x2="1080" y2="900"/>
+                <line x1="180" y1="0" x2="180" y2="1080"/><line x1="360" y1="0" x2="360" y2="1080"/><line x1="540" y1="0" x2="540" y2="1080"/><line x1="720" y1="0" x2="720" y2="1080"/><line x1="900" y1="0" x2="900" y2="1080"/>
+              </g>
+
+              <g transform="translate(100, 65)">
+                <rect width="220" height="42" rx="21" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+                <circle cx="24" cy="21" r="5" fill="#00FF88" filter="url(#p1-neon-glow)"/>
+                <text x="42" y="27" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" fill="#10B981" letter-spacing="2">FLOWMINT VIP</text>
+              </g>
+
+              <text x="100" y="170" font-family="'Space Grotesk', sans-serif" font-size="52" font-weight="800" fill="#FFFFFF" letter-spacing="-1">
+                ¿Sigues usando <tspan fill="#F87171" text-decoration="line-through">Excel</tspan>
+              </text>
+              <text x="100" y="235" font-family="'Space Grotesk', sans-serif" font-size="52" font-weight="800" fill="#FFFFFF" letter-spacing="-1">
+                para gestionar tus finanzas?
+              </text>
+
+              <g transform="translate(100, 290)" filter="url(#p1-shadow)">
+                <rect width="880" height="540" rx="24" fill="#161B26" stroke="rgba(16,185,129,0.3)" stroke-width="2"/>
+                <rect width="880" height="540" rx="24" fill="none" stroke="url(#p1-bar-grad)" stroke-width="1" opacity="0.3"/>
+
+                <text x="45" y="55" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="600" fill="#8FA79C" letter-spacing="1.5">MI BALANCE FINANCIERO</text>
+                
+                <rect x="650" y="32" width="185" height="36" rx="18" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1.5"/>
+                <circle cx="672" cy="50" r="4.5" fill="#00FF88"/>
+                <text x="688" y="56" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#00FF88">+18% ahorro</text>
+
+                <text x="45" y="135" font-family="'Space Grotesk', sans-serif" font-size="64" font-weight="800" fill="#FFFFFF" letter-spacing="-1">
+                  <tspan fill="#10B981">$</tspan>3,420<tspan font-size="40" fill="#8FA79C">.00</tspan>
+                </text>
+                <text x="365" y="130" font-family="'DM Sans', sans-serif" font-size="15" fill="#8FA79C">Disponible en tiempo real</text>
+
+                <line x1="45" y1="175" x2="835" y2="175" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+                <g stroke="rgba(255,255,255,0.06)" stroke-width="1" stroke-dasharray="4 4">
+                  <line x1="60" y1="235" x2="820" y2="235"/>
+                  <line x1="60" y1="315" x2="820" y2="315"/>
+                  <line x1="60" y1="395" x2="820" y2="395"/>
+                </g>
+
+                <rect x="90" y="340" width="70" height="85" rx="8" fill="rgba(255,255,255,0.1)"/>
+                <text x="125" y="455" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#8FA79C" text-anchor="middle">ENE</text>
+
+                <rect x="210" y="310" width="70" height="115" rx="8" fill="rgba(255,255,255,0.14)"/>
+                <text x="245" y="455" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#8FA79C" text-anchor="middle">FEB</text>
+
+                <rect x="330" y="275" width="70" height="150" rx="8" fill="rgba(16,185,129,0.3)"/>
+                <text x="365" y="455" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#8FA79C" text-anchor="middle">MAR</text>
+
+                <rect x="450" y="240" width="70" height="185" rx="8" fill="rgba(16,185,129,0.5)"/>
+                <text x="485" y="455" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#8FA79C" text-anchor="middle">ABR</text>
+
+                <rect x="570" y="200" width="70" height="225" rx="8" fill="url(#p1-bar-grad)"/>
+                <text x="605" y="455" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#10B981" font-weight="700" text-anchor="middle">MAY</text>
+
+                <rect x="690" y="160" width="70" height="265" rx="8" fill="url(#p1-bar-grad)" filter="url(#p1-neon-glow)"/>
+                <text x="725" y="455" font-family="'Space Grotesk', sans-serif" font-size="14" fill="#00FF88" font-weight="700" text-anchor="middle">JUN</text>
+
+                <path d="M 125 330 Q 245 295, 365 265 T 605 190 T 725 145" fill="none" stroke="#00FF88" stroke-width="3.5" filter="url(#p1-neon-glow)"/>
+                <circle cx="725" cy="145" r="7" fill="#FFFFFF" stroke="#00FF88" stroke-width="3"/>
+
+                <rect x="650" y="98" width="150" height="32" rx="8" fill="#11201B" stroke="#00FF88" stroke-width="1.2"/>
+                <text x="725" y="119" font-family="'Space Grotesk', sans-serif" font-size="12" font-weight="700" fill="#00FF88" text-anchor="middle">Récord Junio 🎯</text>
+              </g>
+
+              <g transform="translate(180, 915)">
+                <rect width="720" height="76" rx="38" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2" filter="url(#p1-shadow)"/>
+                <text x="360" y="47" font-family="'Space Grotesk', sans-serif" font-size="25" font-weight="800" fill="#00FF88" text-anchor="middle" letter-spacing="2.5">
+                  ⚡ PAGO ÚNICO • ACCESO VITALICIO
+                </text>
+              </g>
+            </svg>
+          </div>
+          <div class="banner-body">
+            <h3>Post 01 — Anuncio de Lanzamiento</h3>
+            <div class="copy-text-box" id="copy_post01">
+¿Sigues usando Excel para llevar tus finanzas? Existe una forma más inteligente. FlowMint te da el control total de tus ingresos y gastos en segundos, sin suscripciones y sin complicaciones. Acceso vitalicio por un único pago. 🟢 Link en bio.
+            </div>
+            <div class="btn-row">
+              <button class="btn-dl" onclick="downloadBannerSVG('svg-post-01', 'post-01-flowmint.svg')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Descargar SVG</span>
+              </button>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_post01')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- POST 02 — TESTIMONIO -->
+        <div class="banner-card">
+          <div class="banner-preview">
+            <svg id="svg-post-02" viewBox="0 0 1080 1080" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="p2-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0D1117"/>
+                  <stop offset="50%" stop-color="#121824"/>
+                  <stop offset="100%" stop-color="#0A1512"/>
+                </linearGradient>
+                <radialGradient id="p2-gold-glow" cx="50%" cy="35%" r="55%">
+                  <stop offset="0%" stop-color="#F5A623" stop-opacity="0.16"/>
+                  <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="p2-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="18" stdDeviation="26" flood-color="#000" flood-opacity="0.6"/>
+                </filter>
+                <filter id="p2-star-glow">
+                  <feGaussianBlur stdDeviation="4" result="glow"/>
+                  <feComposite in="SourceGraphic" in2="glow" operator="over"/>
+                </filter>
+              </defs>
+
+              <rect width="1080" height="1080" fill="url(#p2-bg)"/>
+              <rect width="1080" height="1080" fill="url(#p2-gold-glow)"/>
+
+              <g transform="translate(100, 65)">
+                <rect width="250" height="42" rx="21" fill="rgba(245,166,35,0.12)" stroke="#F5A623" stroke-width="1.5"/>
+                <text x="125" y="27" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" fill="#F5A623" letter-spacing="2" text-anchor="middle">CASOS REALES • TESTIMONIO</text>
+              </g>
+
+              <text x="120" y="310" font-family="'Georgia', serif" font-size="170" font-weight="bold" fill="rgba(245,166,35,0.1)" select-none="true">“</text>
+
+              <g transform="translate(100, 180)" filter="url(#p2-shadow)">
+                <rect width="880" height="700" rx="28" fill="#161B26" stroke="rgba(245,166,35,0.3)" stroke-width="2"/>
+
+                <!-- 5 Estrellas amarillas ⭐⭐⭐⭐⭐ -->
+                <g transform="translate(55, 55)" filter="url(#p2-star-glow)">
+                  <path d="M 22 2 L 28 15 L 43 17 L 32 28 L 35 43 L 22 36 L 9 43 L 12 28 L 1 17 L 16 15 Z" fill="#FBBF24"/>
+                  <path d="M 76 2 L 82 15 L 97 17 L 86 28 L 89 43 L 76 36 L 63 43 L 66 28 L 55 17 L 70 15 Z" fill="#FBBF24"/>
+                  <path d="M 130 2 L 136 15 L 151 17 L 140 28 L 143 43 L 130 36 L 117 43 L 120 28 L 109 17 L 124 15 Z" fill="#FBBF24"/>
+                  <path d="M 184 2 L 190 15 L 205 17 L 194 28 L 197 43 L 184 36 L 171 43 L 174 28 L 163 17 L 178 15 Z" fill="#FBBF24"/>
+                  <path d="M 238 2 L 244 15 L 259 17 L 248 28 L 251 43 L 238 36 L 225 43 L 228 28 L 217 17 L 232 15 Z" fill="#FBBF24"/>
+                </g>
+                <text x="335" y="90" font-family="'Space Grotesk', sans-serif" font-size="19" font-weight="700" fill="#FBBF24">5.0 / 5.0 CALIFICACIÓN VERIFICADA</text>
+
+                <text x="55" y="195" font-family="'Space Grotesk', sans-serif" font-size="46" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">
+                  “Ahorré <tspan fill="#10B981">$180</tspan> en mi primer
+                </text>
+                <text x="55" y="255" font-family="'Space Grotesk', sans-serif" font-size="46" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">
+                  mes sin cambiar mi estilo
+                </text>
+                <text x="55" y="315" font-family="'Space Grotesk', sans-serif" font-size="46" font-weight="800" fill="#FFFFFF" letter-spacing="-0.5">
+                  de vida.”
+                </text>
+
+                <text x="55" y="385" font-family="'DM Sans', sans-serif" font-size="20" fill="#9AABC4">
+                  Antes no sabía a dónde se iba mi dinero cada quincena. Con Flowmint
+                </text>
+                <text x="55" y="420" font-family="'DM Sans', sans-serif" font-size="20" fill="#9AABC4">
+                  detecté fugas en 3 minutos. Es la mejor inversión que he hecho.
+                </text>
+
+                <line x1="55" y1="475" x2="825" y2="475" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+                <g transform="translate(55, 515)">
+                  <circle cx="42" cy="42" r="42" fill="#11201B" stroke="#10B981" stroke-width="2"/>
+                  <text x="42" y="50" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="#00FF88" text-anchor="middle">CR</text>
+
+                  <text x="105" y="34" font-family="'Space Grotesk', sans-serif" font-size="23" font-weight="700" fill="#FFFFFF">Carlos R.</text>
+                  <text x="105" y="64" font-family="'DM Sans', sans-serif" font-size="15" fill="#8FA79C">Consultor Independiente &amp; Usuario VIP</text>
+                </g>
+
+                <!-- Badge de confianza: Usuario Verificado • Flowmint VIP -->
+                <g transform="translate(55, 620)">
+                  <rect width="360" height="46" rx="23" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1.8"/>
+                  <circle cx="32" cy="23" r="11" fill="#10B981"/>
+                  <path d="M 27 23 L 30 26 L 37 19" fill="none" stroke="#06231A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="54" y="29" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#00FF88">
+                    Usuario Verificado • Flowmint VIP
+                  </text>
+                </g>
+              </g>
+
+              <text x="540" y="955" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="#8FA79C" text-anchor="middle">
+                🚀 ÚNETE A MÁS DE 500+ RESELLERS Y CLIENTES ACTIVOS
+              </text>
+            </svg>
+          </div>
+          <div class="banner-body">
+            <h3>Post 02 — Testimonio de Cliente</h3>
+            <div class="copy-text-box" id="copy_post02">
+"Antes no sabía a dónde iba mi dinero. Con FlowMint llevo solo 3 semanas usándola y ya identifiqué más de $180 dólares de gastos que no necesitaba." — Usuario verificado. ¿Quieres el mismo resultado? Obtén tu acceso hoy. 👇
+            </div>
+            <div class="btn-row">
+              <button class="btn-dl" onclick="downloadBannerSVG('svg-post-02', 'post-02-flowmint.svg')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Descargar SVG</span>
+              </button>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_post02')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- POST 03 — BENEFICIOS -->
+        <div class="banner-card">
+          <div class="banner-preview">
+            <svg id="svg-post-03" viewBox="0 0 1080 1080" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="p3-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0A1512"/>
+                  <stop offset="50%" stop-color="#0D1117"/>
+                  <stop offset="100%" stop-color="#11201B"/>
+                </linearGradient>
+                <radialGradient id="p3-glow" cx="80%" cy="20%" r="55%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.22"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="p3-shadow">
+                  <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000" flood-opacity="0.5"/>
+                </filter>
+              </defs>
+
+              <rect width="1080" height="1080" fill="url(#p3-bg)"/>
+              <rect width="1080" height="1080" fill="url(#p3-glow)"/>
+
+              <g transform="translate(100, 65)">
+                <rect width="250" height="40" rx="20" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+                <text x="125" y="26" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" fill="#10B981" letter-spacing="2" text-anchor="middle">BENEFICIOS EXCLUSIVOS</text>
+              </g>
+
+              <!-- Titular -->
+              <text x="100" y="160" font-family="'Space Grotesk', sans-serif" font-size="50" font-weight="800" fill="#FFFFFF" letter-spacing="-1">
+                La forma más inteligente
+              </text>
+              <text x="100" y="222" font-family="'Space Grotesk', sans-serif" font-size="50" font-weight="800" fill="#10B981" letter-spacing="-1">
+                de controlar tu dinero
+              </text>
+
+              <!-- Lista con 4 checks neón (✓) -->
+              <g transform="translate(100, 270)">
+                <!-- Check 1: Sin suscripciones mensuales -->
+                <g transform="translate(0, 0)" filter="url(#p3-shadow)">
+                  <rect width="880" height="120" rx="20" fill="#161B26" stroke="rgba(16,185,129,0.3)" stroke-width="1.5"/>
+                  <circle cx="65" cy="60" r="28" fill="rgba(16,185,129,0.18)" stroke="#00FF88" stroke-width="2"/>
+                  <path d="M 54 60 L 62 68 L 77 51" fill="none" stroke="#00FF88" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="115" y="52" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Sin suscripciones mensuales</text>
+                  <text x="115" y="82" font-family="'DM Sans', sans-serif" font-size="16" fill="#8FA79C">Pagas una sola vez y obtienes acceso vitalicio sin cargos recurrentes.</text>
+                </g>
+
+                <!-- Check 2: 100% Privado (Tus datos bajo tu control) -->
+                <g transform="translate(0, 145)" filter="url(#p3-shadow)">
+                  <rect width="880" height="120" rx="20" fill="#161B26" stroke="rgba(16,185,129,0.3)" stroke-width="1.5"/>
+                  <circle cx="65" cy="60" r="28" fill="rgba(16,185,129,0.18)" stroke="#00FF88" stroke-width="2"/>
+                  <path d="M 54 60 L 62 68 L 77 51" fill="none" stroke="#00FF88" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="115" y="52" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">100% Privado (Tus datos bajo tu control)</text>
+                  <text x="115" y="82" font-family="'DM Sans', sans-serif" font-size="16" fill="#8FA79C">Toda tu información queda guardada en tu dispositivo sin servidores externos.</text>
+                </g>
+
+                <!-- Check 3: Funciona en Móvil, Tablet y PC -->
+                <g transform="translate(0, 290)" filter="url(#p3-shadow)">
+                  <rect width="880" height="120" rx="20" fill="#161B26" stroke="rgba(16,185,129,0.3)" stroke-width="1.5"/>
+                  <circle cx="65" cy="60" r="28" fill="rgba(16,185,129,0.18)" stroke="#00FF88" stroke-width="2"/>
+                  <path d="M 54 60 L 62 68 L 77 51" fill="none" stroke="#00FF88" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="115" y="52" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Funciona en Móvil, Tablet y PC</text>
+                  <text x="115" y="82" font-family="'DM Sans', sans-serif" font-size="16" fill="#8FA79C">Interfaz web ligera que abre en cualquier navegador en 2 segundos.</text>
+                </g>
+
+                <!-- Check 4: Configuración en menos de 60 segundos -->
+                <g transform="translate(0, 435)" filter="url(#p3-shadow)">
+                  <rect width="880" height="120" rx="20" fill="#161B26" stroke="rgba(16,185,129,0.3)" stroke-width="1.5"/>
+                  <circle cx="65" cy="60" r="28" fill="rgba(16,185,129,0.18)" stroke="#00FF88" stroke-width="2"/>
+                  <path d="M 54 60 L 62 68 L 77 51" fill="none" stroke="#00FF88" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  <text x="115" y="52" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="#FFFFFF">Configuración en menos de 60 segundos</text>
+                  <text x="115" y="82" font-family="'DM Sans', sans-serif" font-size="16" fill="#8FA79C">Sin curvas de aprendizaje complejas. Comienza a registrar gastos de inmediato.</text>
+                </g>
+              </g>
+
+              <g transform="translate(140, 920)">
+                <rect width="800" height="74" rx="37" fill="linear-gradient(90deg, #10B981, #00FF88)" filter="url(#p3-shadow)"/>
+                <text x="400" y="46" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="800" fill="#06231A" text-anchor="middle" letter-spacing="1">
+                  ⚡ ACCEDE HOY CON LICENCIA RESELLER VIP
+                </text>
+              </g>
+            </svg>
+          </div>
+          <div class="banner-body">
+            <h3>Post 03 — Lista de Beneficios</h3>
+            <div class="copy-text-box" id="copy_post03">
+Por qué más de 500 emprendedores eligieron FlowMint: ✅ Sin suscripciones mensuales. ✅ Funciona en cualquier dispositivo. ✅ Tus datos nunca salen de tu teléfono. ✅ Configúralo en menos de 60 segundos. ✅ Pago único, acceso vitalicio. ¿Cuándo empiezas? 🟢
+            </div>
+            <div class="btn-row">
+              <button class="btn-dl" onclick="downloadBannerSVG('svg-post-03', 'post-03-flowmint.svg')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Descargar SVG</span>
+              </button>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_post03')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- CATEGORÍA 2: STORIES & REELS (1080x1920 VERT)  -->
+    <!-- ============================================== -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">📱</span>
+        <h2>Stories &amp; Reels (1080 × 1920 px)</h2>
+        <span class="count">2 Formatos Verticales</span>
+      </div>
+      <div class="banner-grid stories-grid">
+
+        <!-- STORY 01 — OFERTA / VENTA -->
+        <div class="banner-card">
+          <div class="banner-preview stories">
+            <svg id="svg-story-01" viewBox="0 0 1080 1920" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="s1-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#0A1512"/>
+                  <stop offset="40%" stop-color="#0D1117"/>
+                  <stop offset="100%" stop-color="#11201B"/>
+                </linearGradient>
+                <radialGradient id="s1-phone-glow" cx="50%" cy="50%" r="50%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="s1-phone-shadow" x="-20%" y="-10%" width="140%" height="130%">
+                  <feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#000" flood-opacity="0.75"/>
+                  <feDropShadow dx="0" dy="0" stdDeviation="25" flood-color="#10B981" flood-opacity="0.25"/>
+                </filter>
+                <linearGradient id="s1-btn-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%" stop-color="#00FF88"/>
+                  <stop offset="100%" stop-color="#10B981"/>
+                </linearGradient>
+              </defs>
+
+              <rect width="1080" height="1920" fill="url(#s1-bg)"/>
+              
+              <g transform="translate(60, 50)" opacity="0.8">
+                <rect x="0" y="0" width="300" height="5" rx="3" fill="#FFFFFF"/>
+                <rect x="330" y="0" width="300" height="5" rx="3" fill="rgba(255,255,255,0.3)"/>
+                <rect x="660" y="0" width="300" height="5" rx="3" fill="rgba(255,255,255,0.3)"/>
+              </g>
+
+              <g transform="translate(60, 90)">
+                <circle cx="20" cy="20" r="18" fill="rgba(16,185,129,0.2)"/>
+                <text x="20" y="27" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="800" fill="#00FF88" text-anchor="middle">F</text>
+                <text x="50" y="27" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Flowmint VIP</text>
+                <rect x="180" y="8" width="95" height="25" rx="12" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1"/>
+                <text x="227" y="25" font-family="'DM Sans', sans-serif" font-size="11" font-weight="700" fill="#10B981" text-anchor="middle">OFERTA</text>
+              </g>
+
+              <!-- Gancho: ¡Toma el control de tus finanzas hoy mismo! -->
+              <text x="540" y="220" font-family="'Space Grotesk', sans-serif" font-size="62" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="-1">
+                ¡Toma el control
+              </text>
+              <text x="540" y="295" font-family="'Space Grotesk', sans-serif" font-size="62" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="-1">
+                de tus finanzas
+              </text>
+              <text x="540" y="370" font-family="'Space Grotesk', sans-serif" font-size="62" font-weight="800" fill="#00FF88" text-anchor="middle" letter-spacing="-1">
+                hoy mismo!
+              </text>
+              <text x="540" y="425" font-family="'DM Sans', sans-serif" font-size="22" fill="#8FA79C" text-anchor="middle">
+                La herramienta definitiva sin suscripciones recurrentes
+              </text>
+
+              <circle cx="540" cy="980" r="430" fill="url(#s1-phone-glow)"/>
+
+              <!-- Mockup vectorial smartphone -->
+              <g transform="translate(240, 480)" filter="url(#s1-phone-shadow)">
+                <rect width="600" height="1060" rx="60" fill="#0B1219" stroke="#2A3B4C" stroke-width="8"/>
+                <rect x="8" y="8" width="584" height="1044" rx="52" fill="#0D1117"/>
+                <rect x="18" y="18" width="564" height="1024" rx="44" fill="#0E1622"/>
+
+                <rect x="230" y="32" width="140" height="30" rx="15" fill="#000000"/>
+                <circle cx="345" cy="47" r="5" fill="#1A2634"/>
+
+                <!-- App UI inside -->
+                <g transform="translate(38, 85)">
+                  <text x="0" y="25" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">Flowmint Dashboard</text>
+                  <circle cx="490" cy="20" r="16" fill="rgba(16,185,129,0.2)"/>
+                  <circle cx="490" cy="20" r="6" fill="#00FF88"/>
+
+                  <rect x="0" y="50" width="508" height="175" rx="18" fill="#162236" stroke="rgba(16,185,129,0.3)" stroke-width="1.5"/>
+                  <text x="24" y="85" font-family="'JetBrains Mono', monospace" font-size="12" fill="#8FA79C">BALANCE TOTAL</text>
+                  <rect x="360" y="70" width="124" height="24" rx="12" fill="rgba(16,185,129,0.15)"/>
+                  <text x="422" y="86" font-family="'Space Grotesk', sans-serif" font-size="11" font-weight="700" fill="#10B981" text-anchor="middle">+24.5% mes</text>
+                  <text x="24" y="145" font-family="'Space Grotesk', sans-serif" font-size="42" font-weight="800" fill="#FFFFFF">
+                    $12,850<tspan font-size="26" fill="#8FA79C">.00</tspan>
+                  </text>
+                  <text x="24" y="190" font-family="'DM Sans', sans-serif" font-size="12" fill="#10B981">● 3 cuentas sincronizadas</text>
+
+                  <g transform="translate(0, 245)">
+                    <rect x="0" y="0" width="244" height="90" rx="14" fill="#161B26" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <text x="18" y="32" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">Ingresos</text>
+                    <text x="18" y="68" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="#00FF88">+$4,200</text>
+
+                    <rect x="264" y="0" width="244" height="90" rx="14" fill="#161B26" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <text x="282" y="32" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">Gastos</text>
+                    <text x="282" y="68" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="700" fill="#F87171">-$1,350</text>
+                  </g>
+
+                  <g transform="translate(0, 355)">
+                    <rect x="0" y="0" width="508" height="220" rx="18" fill="#161B26" stroke="rgba(16,185,129,0.2)" stroke-width="1.2"/>
+                    <text x="24" y="35" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">Rendimiento Semanal</text>
+                    <path d="M 24 160 Q 80 130, 140 145 T 260 110 T 380 90 T 484 65" fill="none" stroke="#00FF88" stroke-width="3"/>
+                    <path d="M 24 160 Q 80 130, 140 145 T 260 110 T 380 90 T 484 65 L 484 185 L 24 185 Z" fill="rgba(0,255,136,0.08)"/>
+                    <circle cx="484" cy="65" r="5" fill="#FFFFFF" stroke="#00FF88" stroke-width="2"/>
+                  </g>
+
+                  <g transform="translate(0, 595)">
+                    <rect x="0" y="0" width="508" height="70" rx="14" fill="#162236"/>
+                    <circle cx="35" cy="35" r="18" fill="rgba(16,185,129,0.2)"/>
+                    <text x="35" y="41" font-size="16" text-anchor="middle">⚡</text>
+                    <text x="70" y="33" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="600" fill="#FFFFFF">Venta Licencia Reseller</text>
+                    <text x="70" y="52" font-family="'DM Sans', sans-serif" font-size="11" fill="#8FA79C">Hoy, 14:32</text>
+                    <text x="475" y="42" font-family="'Space Grotesk', sans-serif" font-size="17" font-weight="700" fill="#00FF88" text-anchor="end">+$197.00</text>
+                  </g>
+                </g>
+
+                <rect x="230" y="1025" width="140" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+              </g>
+
+              <g transform="translate(100, 780)" filter="url(#s1-phone-shadow)">
+                <rect width="180" height="54" rx="27" fill="#162236" stroke="#10B981" stroke-width="1.8"/>
+                <text x="90" y="34" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#00FF88" text-anchor="middle">⚡ 1 Solo Pago</text>
+              </g>
+              <g transform="translate(800, 920)" filter="url(#s1-phone-shadow)">
+                <rect width="190" height="54" rx="27" fill="#162236" stroke="#10B981" stroke-width="1.8"/>
+                <text x="95" y="34" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#00FF88" text-anchor="middle">🔒 100% Seguro</text>
+              </g>
+
+              <!-- Botón flotante simulado: "HAZ CLIC AQUÍ ➔" -->
+              <g transform="translate(140, 1660)">
+                <rect width="800" height="110" rx="55" fill="url(#s1-btn-grad)" filter="url(#s1-phone-shadow)"/>
+                <text x="400" y="68" font-family="'Space Grotesk', sans-serif" font-size="36" font-weight="800" fill="#06231A" text-anchor="middle" letter-spacing="2">
+                  HAZ CLIC AQUÍ ➔
+                </text>
+              </g>
+
+              <text x="540" y="1830" font-family="'DM Sans', sans-serif" font-size="18" fill="#8FA79C" text-anchor="middle">
+                Desliza hacia arriba para empezar • Acceso Inmediato
+              </text>
+            </svg>
+          </div>
+          <div class="banner-body">
+            <h3>Story 01 — Oferta Especial</h3>
+            <div class="copy-text-box" id="copy_story01">
+¡Solo por hoy! Acceso vitalicio a FlowMint por un único pago. Sin letra pequeña, sin renovaciones. Desliza arriba y empieza a controlar tus finanzas hoy. ⬆️
+            </div>
+            <div class="btn-row">
+              <button class="btn-dl" onclick="downloadBannerSVG('svg-story-01', 'story-01-flowmint.svg')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Descargar SVG</span>
+              </button>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_story01')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STORY 02 — DEMO EXPRESS -->
+        <div class="banner-card">
+          <div class="banner-preview stories">
+            <svg id="svg-story-02" viewBox="0 0 1080 1920" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="s2-bg" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%" stop-color="#0A1512"/>
+                  <stop offset="35%" stop-color="#0D1117"/>
+                  <stop offset="100%" stop-color="#152720"/>
+                </linearGradient>
+                <radialGradient id="s2-glow" cx="50%" cy="40%" r="55%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.22"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="s2-shadow">
+                  <feDropShadow dx="0" dy="20" stdDeviation="30" flood-color="#000" flood-opacity="0.6"/>
+                </filter>
+              </defs>
+
+              <rect width="1080" height="1920" fill="url(#s2-bg)"/>
+              <rect width="1080" height="1920" fill="url(#s2-glow)"/>
+
+              <g transform="translate(60, 50)" opacity="0.8">
+                <rect x="0" y="0" width="300" height="5" rx="3" fill="#FFFFFF"/>
+                <rect x="330" y="0" width="300" height="5" rx="3" fill="#FFFFFF"/>
+                <rect x="660" y="0" width="300" height="5" rx="3" fill="rgba(255,255,255,0.3)"/>
+              </g>
+
+              <g transform="translate(60, 90)">
+                <rect width="200" height="38" rx="19" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+                <text x="100" y="24" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#10B981" text-anchor="middle">DEMO EXPRESS</text>
+              </g>
+
+              <!-- Gancho: Controla tus gastos en solo 3 clics -->
+              <text x="540" y="240" font-family="'Space Grotesk', sans-serif" font-size="64" font-weight="800" fill="#FFFFFF" text-anchor="middle" letter-spacing="-1">
+                Controla tus gastos
+              </text>
+              <text x="540" y="325" font-family="'Space Grotesk', sans-serif" font-size="64" font-weight="800" fill="#00FF88" text-anchor="middle" letter-spacing="-1">
+                en solo 3 clics
+              </text>
+              <text x="540" y="390" font-family="'DM Sans', sans-serif" font-size="22" fill="#8FA79C" text-anchor="middle">
+                Configura tu presupuesto sin fórmulas ni hojas de cálculo
+              </text>
+
+              <!-- Ilustración de tabla de presupuestos neón con categorías -->
+              <g transform="translate(90, 470)" filter="url(#s2-shadow)">
+                <rect width="900" height="1060" rx="32" fill="#161B26" stroke="rgba(16,185,129,0.3)" stroke-width="2"/>
+
+                <text x="50" y="65" font-family="'Space Grotesk', sans-serif" font-size="26" font-weight="700" fill="#FFFFFF">Presupuesto Mensual Activo</text>
+                <rect x="680" y="38" width="170" height="36" rx="18" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1"/>
+                <text x="765" y="62" font-family="'JetBrains Mono', monospace" font-size="13" font-weight="600" fill="#00FF88" text-anchor="middle">OCTUBRE 2026</text>
+
+                <line x1="50" y1="105" x2="850" y2="105" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+                <!-- Categoría 1: Alimentación & Supermercado -->
+                <g transform="translate(50, 140)">
+                  <rect width="800" height="230" rx="20" fill="#0D1117" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+                  <circle cx="50" cy="50" r="26" fill="rgba(16,185,129,0.15)"/>
+                  <text x="50" y="58" font-size="24" text-anchor="middle">🛒</text>
+                  <text x="95" y="46" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">Alimentación &amp; Supermercado</text>
+                  <text x="95" y="72" font-family="'DM Sans', sans-serif" font-size="15" fill="#8FA79C">Límite asignado: $600.00 / mes</text>
+                  <text x="750" y="55" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="800" fill="#10B981" text-anchor="end">$450.00</text>
+
+                  <g transform="translate(40, 115)">
+                    <rect width="720" height="20" rx="10" fill="rgba(255,255,255,0.08)"/>
+                    <rect width="540" height="20" rx="10" fill="#10B981"/>
+                  </g>
+                  <text x="40" y="175" font-family="'DM Sans', sans-serif" font-size="15" fill="#10B981" font-weight="700">✓ En Presupuesto (75% consumido)</text>
+                  <text x="760" y="175" font-family="'DM Sans', sans-serif" font-size="15" fill="#8FA79C" text-anchor="end">Resta: $150.00</text>
+                </g>
+
+                <!-- Categoría 2: Servicios & Hogar -->
+                <g transform="translate(50, 400)">
+                  <rect width="800" height="230" rx="20" fill="#0D1117" stroke="rgba(245,166,35,0.25)" stroke-width="1"/>
+                  <circle cx="50" cy="50" r="26" fill="rgba(245,166,35,0.15)"/>
+                  <text x="50" y="58" font-size="24" text-anchor="middle">⚡</text>
+                  <text x="95" y="46" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">Servicios &amp; Hogar</text>
+                  <text x="95" y="72" font-family="'DM Sans', sans-serif" font-size="15" fill="#8FA79C">Límite asignado: $300.00 / mes</text>
+                  <text x="750" y="55" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="800" fill="#F5A623" text-anchor="end">$280.00</text>
+
+                  <g transform="translate(40, 115)">
+                    <rect width="720" height="20" rx="10" fill="rgba(255,255,255,0.08)"/>
+                    <rect width="670" height="20" rx="10" fill="#F5A623"/>
+                  </g>
+                  <text x="40" y="175" font-family="'DM Sans', sans-serif" font-size="15" fill="#F5A623" font-weight="700">⚠ Casi al Límite (93% consumido)</text>
+                  <text x="760" y="175" font-family="'DM Sans', sans-serif" font-size="15" fill="#8FA79C" text-anchor="end">Resta: $20.00</text>
+                </g>
+
+                <!-- Categoría 3: Ahorro & Inversión -->
+                <g transform="translate(50, 660)">
+                  <rect width="800" height="230" rx="20" fill="#0D1117" stroke="rgba(0,255,136,0.3)" stroke-width="1"/>
+                  <circle cx="50" cy="50" r="26" fill="rgba(0,255,136,0.15)"/>
+                  <text x="50" y="58" font-size="24" text-anchor="middle">📈</text>
+                  <text x="95" y="46" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">Ahorro &amp; Inversión</text>
+                  <text x="95" y="72" font-family="'DM Sans', sans-serif" font-size="15" fill="#8FA79C">Meta mensual: $800.00</text>
+                  <text x="750" y="55" font-family="'Space Grotesk', sans-serif" font-size="24" font-weight="800" fill="#00FF88" text-anchor="end">$850.00</text>
+
+                  <g transform="translate(40, 115)">
+                    <rect width="720" height="20" rx="10" fill="rgba(255,255,255,0.08)"/>
+                    <rect width="720" height="20" rx="10" fill="linear-gradient(90deg, #10B981, #00FF88)"/>
+                  </g>
+                  <text x="40" y="175" font-family="'DM Sans', sans-serif" font-size="15" fill="#00FF88" font-weight="700">⭐ Meta Superada (+$50 ahorro extra)</text>
+                  <text x="760" y="175" font-family="'DM Sans', sans-serif" font-size="15" fill="#00FF88" text-anchor="end">106% alcanzado</text>
+                </g>
+
+                <!-- Total Ahorrado -->
+                <g transform="translate(50, 920)">
+                  <rect width="800" height="90" rx="16" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+                  <text x="40" y="54" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">Total Ahorrado Este Mes:</text>
+                  <text x="760" y="55" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="800" fill="#00FF88" text-anchor="end">+$850.00</text>
+                </g>
+              </g>
+
+              <g transform="translate(140, 1670)">
+                <rect width="800" height="105" rx="52" fill="linear-gradient(90deg, #00FF88, #10B981)" filter="url(#s2-shadow)"/>
+                <text x="400" y="65" font-family="'Space Grotesk', sans-serif" font-size="32" font-weight="800" fill="#06231A" text-anchor="middle" letter-spacing="1">
+                  VER DEMO EN VIVO ➔
+                </text>
+              </g>
+            </svg>
+          </div>
+          <div class="banner-body">
+            <h3>Story 02 — Demo en 60 Segundos</h3>
+            <div class="copy-text-box" id="copy_story02">
+Mira cómo funciona FlowMint en menos de 60 segundos. Sin complicaciones, sin instalaciones. Todo desde tu navegador. Pregúntame cómo obtener tu acceso. 💬
+            </div>
+            <div class="btn-row">
+              <button class="btn-dl" onclick="downloadBannerSVG('svg-story-02', 'story-02-flowmint.svg')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Descargar SVG</span>
+              </button>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_story02')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- CATEGORÍA 3: MOCKUPS DE DISPOSITIVOS (16:9)    -->
+    <!-- ============================================== -->
+    <div class="cat-section">
+      <div class="cat-header">
+        <span class="cat-icon">💻</span>
+        <h2>Mockups de Dispositivos (16:9 / Responsive)</h2>
+        <span class="count">2 Mockups Vectoriales</span>
+      </div>
+      <div class="banner-grid mockup-grid">
+
+        <!-- MOCKUP 01 — LAPTOP (ESTILO MACBOOK) Y SMARTPHONE -->
+        <div class="banner-card">
+          <div class="banner-preview mockup">
+            <svg id="svg-mockup-01" viewBox="0 0 1920 1080" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="m-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0A1512"/>
+                  <stop offset="50%" stop-color="#0D1117"/>
+                  <stop offset="100%" stop-color="#101E19"/>
+                </linearGradient>
+                <radialGradient id="m-glow" cx="45%" cy="50%" r="55%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.25"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="m-shadow" x="-10%" y="-10%" width="120%" height="120%">
+                  <feDropShadow dx="0" dy="24" stdDeviation="30" flood-color="#000" flood-opacity="0.7"/>
+                </filter>
+                <filter id="m-phone-shadow" x="-20%" y="-10%" width="140%" height="130%">
+                  <feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#000" flood-opacity="0.8"/>
+                  <feDropShadow dx="0" dy="0" stdDeviation="20" flood-color="#10B981" flood-opacity="0.25"/>
+                </filter>
+              </defs>
+
+              <rect width="1920" height="1080" fill="url(#m-bg)"/>
+              <rect width="1920" height="1080" fill="url(#m-glow)"/>
+
+              <g transform="translate(100, 60)">
+                <rect width="280" height="38" rx="19" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+                <text x="140" y="24" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" fill="#10B981" letter-spacing="2" text-anchor="middle">ECOSISTEMA MULTIDISPOSITIVO</text>
+                <text x="0" y="85" font-family="'Space Grotesk', sans-serif" font-size="44" font-weight="800" fill="#FFFFFF">
+                  Dashboard Flowmint <tspan fill="#00FF88">100% Sincronizado</tspan>
+                </text>
+                <text x="0" y="125" font-family="'DM Sans', sans-serif" font-size="18" fill="#8FA79C">
+                  Accede desde tu laptop o smartphone sin instalar nada, con tus datos bajo tu control.
+                </text>
+              </g>
+
+              <!-- LAPTOP (Estilo MacBook) -->
+              <g transform="translate(180, 230)" filter="url(#m-shadow)">
+                <rect x="0" y="0" width="1180" height="690" rx="24" fill="#131B26" stroke="#253547" stroke-width="3"/>
+                <circle cx="590" cy="14" r="3.5" fill="#374151"/>
+
+                <!-- Pantalla con Dashboard Flowmint -->
+                <rect x="20" y="28" width="1140" height="640" rx="12" fill="#0D1117"/>
+
+                <!-- Sidebar Desktop -->
+                <g transform="translate(20, 28)">
+                  <rect width="210" height="640" fill="#111823"/>
+                  <line x1="210" y1="0" x2="210" y2="640" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+
+                  <g transform="translate(24, 28)">
+                    <rect width="32" height="32" rx="8" fill="#10B981"/>
+                    <text x="16" y="23" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="800" fill="#06231A" text-anchor="middle">F</text>
+                    <text x="44" y="22" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Flowmint</text>
+                  </g>
+
+                  <g transform="translate(16, 90)">
+                    <rect x="0" y="0" width="178" height="40" rx="8" fill="rgba(16,185,129,0.15)"/>
+                    <text x="36" y="25" font-family="'DM Sans', sans-serif" font-size="13" font-weight="700" fill="#00FF88">📊 Dashboard</text>
+                    <text x="36" y="70" font-family="'DM Sans', sans-serif" font-size="13" fill="#8FA79C">💳 Transacciones</text>
+                    <text x="36" y="115" font-family="'DM Sans', sans-serif" font-size="13" fill="#8FA79C">🎯 Presupuestos</text>
+                    <text x="36" y="160" font-family="'DM Sans', sans-serif" font-size="13" fill="#8FA79C">📈 Reportes &amp; IA</text>
+                    <text x="36" y="205" font-family="'DM Sans', sans-serif" font-size="13" fill="#8FA79C">⚙️ Configuración</text>
+                  </g>
+
+                  <rect x="16" y="570" width="178" height="46" rx="8" fill="#162236"/>
+                  <text x="30" y="598" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">Licencia Reseller VIP</text>
+                </g>
+
+                <!-- Área Central Dashboard -->
+                <g transform="translate(250, 48)">
+                  <text x="20" y="28" font-family="'Space Grotesk', sans-serif" font-size="22" font-weight="700" fill="#FFFFFF">Panel Principal de Finanzas</text>
+                  <rect x="740" y="8" width="130" height="32" rx="16" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="1"/>
+                  <text x="805" y="29" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" fill="#00FF88" text-anchor="middle">En Línea ●</text>
+
+                  <!-- 3 Tarjetas KPI -->
+                  <g transform="translate(20, 55)">
+                    <rect x="0" y="0" width="265" height="110" rx="12" fill="#161B26" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+                    <text x="20" y="32" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">PATRIMONIO TOTAL</text>
+                    <text x="20" y="72" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="800" fill="#FFFFFF">$18,450<tspan font-size="18" fill="#8FA79C">.00</tspan></text>
+                    <text x="20" y="96" font-family="'DM Sans', sans-serif" font-size="12" fill="#10B981">+22% este mes</text>
+
+                    <rect x="285" y="0" width="265" height="110" rx="12" fill="#161B26" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <text x="305" y="32" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">INGRESOS</text>
+                    <text x="305" y="72" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="800" fill="#00FF88">+$6,200<tspan font-size="18" fill="#8FA79C">.00</tspan></text>
+                    <text x="305" y="96" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">4 fuentes activas</text>
+
+                    <rect x="570" y="0" width="280" height="110" rx="12" fill="#161B26" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <text x="590" y="32" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">AHORRO NETO</text>
+                    <text x="590" y="72" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="800" fill="#38BDF8">+$4,050<tspan font-size="18" fill="#8FA79C">.00</tspan></text>
+                    <text x="590" y="96" font-family="'DM Sans', sans-serif" font-size="12" fill="#38BDF8">Ratio: 65.3%</text>
+                  </g>
+
+                  <!-- Gráfica Neon en Laptop -->
+                  <g transform="translate(20, 185)">
+                    <rect width="850" height="395" rx="14" fill="#161B26" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+                    <text x="24" y="35" font-family="'Space Grotesk', sans-serif" font-size="16" font-weight="700" fill="#FFFFFF">Evolución de Flujo de Caja</text>
+
+                    <path d="M 40 310 Q 180 280, 280 240 T 480 190 T 640 120 T 800 80" fill="none" stroke="#00FF88" stroke-width="4"/>
+                    <path d="M 40 310 Q 180 280, 280 240 T 480 190 T 640 120 T 800 80 L 800 340 L 40 340 Z" fill="rgba(0,255,136,0.06)"/>
+
+                    <circle cx="800" cy="80" r="7" fill="#FFFFFF" stroke="#00FF88" stroke-width="3"/>
+                    <rect x="700" y="35" width="130" height="30" rx="8" fill="#11201B" stroke="#00FF88" stroke-width="1.2"/>
+                    <text x="765" y="55" font-family="'DM Sans', sans-serif" font-size="12" font-weight="700" fill="#00FF88" text-anchor="middle">$18,450.00</text>
+                  </g>
+                </g>
+
+                <!-- Base teclado Laptop -->
+                <path d="M -100 690 L 1280 690 L 1180 730 L -20 730 Z" fill="#1E293B" stroke="#334155" stroke-width="2"/>
+                <rect x="490" y="694" width="200" height="10" rx="4" fill="#0F172A"/>
+              </g>
+
+              <!-- SMARTPHONE (Superpuesto en esquina derecha) -->
+              <g transform="translate(1360, 350)" filter="url(#m-phone-shadow)">
+                <rect width="360" height="660" rx="46" fill="#0A1016" stroke="#253547" stroke-width="6"/>
+                <rect x="6" y="6" width="348" height="648" rx="40" fill="#0D1117"/>
+                <rect x="14" y="14" width="332" height="632" rx="34" fill="#0E1622"/>
+
+                <rect x="135" y="24" width="90" height="20" rx="10" fill="#000000"/>
+
+                <g transform="translate(30, 60)">
+                  <text x="0" y="20" font-family="'Space Grotesk', sans-serif" font-size="15" font-weight="700" fill="#FFFFFF">Flowmint Mobile</text>
+                  <circle cx="280" cy="15" r="10" fill="rgba(16,185,129,0.2)"/>
+                  <circle cx="280" cy="15" r="4" fill="#00FF88"/>
+
+                  <rect x="0" y="40" width="300" height="110" rx="12" fill="#162236" stroke="rgba(16,185,129,0.3)" stroke-width="1.2"/>
+                  <text x="16" y="65" font-family="'DM Sans', sans-serif" font-size="11" fill="#8FA79C">BALANCE HOY</text>
+                  <text x="16" y="105" font-family="'Space Grotesk', sans-serif" font-size="28" font-weight="800" fill="#FFFFFF">$18,450<tspan font-size="16" fill="#8FA79C">.00</tspan></text>
+                  <text x="16" y="132" font-family="'DM Sans', sans-serif" font-size="11" fill="#00FF88">+22% este mes</text>
+
+                  <g transform="translate(0, 165)">
+                    <rect x="0" y="0" width="300" height="52" rx="10" fill="#161B26"/>
+                    <text x="16" y="32" font-size="13">🛒 Alimentación</text>
+                    <text x="284" y="32" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#10B981" text-anchor="end">$450</text>
+
+                    <rect x="0" y="62" width="300" height="52" rx="10" fill="#161B26"/>
+                    <text x="16" y="94" font-size="13">⚡ Servicios</text>
+                    <text x="284" y="94" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#F5A623" text-anchor="end">$280</text>
+
+                    <rect x="0" y="124" width="300" height="52" rx="10" fill="#161B26"/>
+                    <text x="16" y="156" font-size="13">📈 Ahorro</text>
+                    <text x="284" y="156" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#00FF88" text-anchor="end">$850</text>
+                  </g>
+
+                  <g transform="translate(0, 360)">
+                    <rect x="0" y="0" width="300" height="135" rx="12" fill="#161B26" stroke="rgba(16,185,129,0.2)" stroke-width="1"/>
+                    <text x="16" y="28" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" fill="#FFFFFF">Tendencia Rápida</text>
+                    <path d="M 20 100 Q 80 80, 150 65 T 280 40" fill="none" stroke="#00FF88" stroke-width="3"/>
+                    <circle cx="280" cy="40" r="5" fill="#FFFFFF"/>
+                  </g>
+                </g>
+
+                <g transform="translate(-40, 560)">
+                  <rect width="180" height="42" rx="21" fill="#10B981" filter="url(#m-shadow)"/>
+                  <text x="90" y="27" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="800" fill="#06231A" text-anchor="middle">✓ 100% RESPONSIVE</text>
+                </g>
+              </g>
+            </svg>
+          </div>
+          <div class="banner-body">
+            <h3>Mockup Laptop &amp; Smartphone — Ecosistema Flowmint</h3>
+            <div class="copy-text-box" id="copy_mockup01">
+Tu panel de control financiero siempre a la vista. FlowMint en tu computadora y en tu móvil: rápido, limpio y sin distracciones. Disponible desde cualquier navegador. 🖥️📱
+            </div>
+            <div class="btn-row">
+              <button class="btn-dl" onclick="downloadBannerSVG('svg-mockup-01', 'mockup-laptop-flowmint.svg')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Descargar SVG</span>
+              </button>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_mockup01')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- MOCKUP 02 — MÓVIL EN ALTA DEFINICIÓN -->
+        <div class="banner-card">
+          <div class="banner-preview mockup">
+            <svg id="svg-mockup-02" viewBox="0 0 1920 1080" width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="m2-bg" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#0D1117"/>
+                  <stop offset="50%" stop-color="#111C27"/>
+                  <stop offset="100%" stop-color="#0A1512"/>
+                </linearGradient>
+                <radialGradient id="m2-glow" cx="65%" cy="50%" r="55%">
+                  <stop offset="0%" stop-color="#10B981" stop-opacity="0.22"/>
+                  <stop offset="100%" stop-color="#10B981" stop-opacity="0"/>
+                </radialGradient>
+                <filter id="m2-shadow">
+                  <feDropShadow dx="0" dy="25" stdDeviation="35" flood-color="#000" flood-opacity="0.75"/>
+                </filter>
+              </defs>
+
+              <rect width="1920" height="1080" fill="url(#m2-bg)"/>
+              <rect width="1920" height="1080" fill="url(#m2-glow)"/>
+
+              <g transform="translate(140, 200)">
+                <rect width="250" height="38" rx="19" fill="rgba(16,185,129,0.12)" stroke="#10B981" stroke-width="1.5"/>
+                <text x="125" y="24" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="700" fill="#10B981" letter-spacing="2" text-anchor="middle">MÓVIL &amp; PWA WEB</text>
+                
+                <text x="0" y="95" font-family="'Space Grotesk', sans-serif" font-size="52" font-weight="800" fill="#FFFFFF" letter-spacing="-1">
+                  Tus Finanzas en
+                </text>
+                <text x="0" y="165" font-family="'Space Grotesk', sans-serif" font-size="52" font-weight="800" fill="#00FF88" letter-spacing="-1">
+                  la Palma de tu Mano
+                </text>
+                <text x="0" y="225" font-family="'DM Sans', sans-serif" font-size="20" fill="#9AABC4">
+                  Control total desde cualquier smartphone. Sin tiendas de apps ni
+                </text>
+                <text x="0" y="260" font-family="'DM Sans', sans-serif" font-size="20" fill="#9AABC4">
+                  descargas pesadas. Carga instantánea en menos de 2 segundos.
+                </text>
+
+                <g transform="translate(0, 315)">
+                  <circle cx="20" cy="20" r="16" fill="rgba(16,185,129,0.15)"/>
+                  <path d="M 14 20 L 18 24 L 27 15" fill="none" stroke="#00FF88" stroke-width="2.5" stroke-linecap="round"/>
+                  <text x="50" y="26" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">100% Privado — Datos en tu dispositivo</text>
+
+                  <circle cx="20" cy="70" r="16" fill="rgba(16,185,129,0.15)"/>
+                  <path d="M 14 70 L 18 74 L 27 65" fill="none" stroke="#00FF88" stroke-width="2.5" stroke-linecap="round"/>
+                  <text x="50" y="76" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Funciona con o sin conexión a internet</text>
+
+                  <circle cx="20" cy="120" r="16" fill="rgba(16,185,129,0.15)"/>
+                  <path d="M 14 120 L 18 124 L 27 115" fill="none" stroke="#00FF88" stroke-width="2.5" stroke-linecap="round"/>
+                  <text x="50" y="126" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="700" fill="#FFFFFF">Exporta reportes y copias de seguridad en 1 clic</text>
+                </g>
+
+                <g transform="translate(0, 500)">
+                  <rect width="360" height="60" rx="30" fill="rgba(16,185,129,0.15)" stroke="#10B981" stroke-width="2"/>
+                  <text x="180" y="37" font-family="'Space Grotesk', sans-serif" font-size="18" font-weight="800" fill="#00FF88" text-anchor="middle">
+                    LICENCIA RESELLER VIP
+                  </text>
+                </g>
+              </g>
+
+              <g transform="translate(1220, 110)" filter="url(#m2-shadow)">
+                <rect width="480" height="880" rx="56" fill="#0B1219" stroke="#253547" stroke-width="8"/>
+                <rect x="10" y="10" width="460" height="860" rx="48" fill="#0D1117"/>
+                <rect x="20" y="20" width="440" height="840" rx="40" fill="#0E1622"/>
+
+                <rect x="180" y="32" width="120" height="24" rx="12" fill="#000000"/>
+
+                <g transform="translate(45, 80)">
+                  <text x="0" y="25" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="700" fill="#FFFFFF">Flowmint VIP</text>
+                  <circle cx="350" cy="20" r="14" fill="rgba(16,185,129,0.2)"/>
+                  <circle cx="350" cy="20" r="5" fill="#00FF88"/>
+
+                  <rect x="0" y="45" width="350" height="150" rx="16" fill="#162236" stroke="rgba(16,185,129,0.3)" stroke-width="1.5"/>
+                  <text x="20" y="76" font-family="'DM Sans', sans-serif" font-size="12" fill="#8FA79C">DISPONIBLE TOTAL</text>
+                  <text x="20" y="125" font-family="'Space Grotesk', sans-serif" font-size="36" font-weight="800" fill="#FFFFFF">
+                    $7,840<tspan font-size="20" fill="#8FA79C">.50</tspan>
+                  </text>
+                  <text x="20" y="160" font-family="'DM Sans', sans-serif" font-size="12" fill="#10B981">● Meta de Ahorro: 88%</text>
+
+                  <rect x="0" y="215" width="350" height="190" rx="16" fill="#161B26" stroke="rgba(255,255,200,0.06)" stroke-width="1"/>
+                  <text x="20" y="245" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#FFFFFF">Flujo Semanal</text>
+                  <path d="M 20 350 Q 80 320, 150 330 T 260 290 T 330 260" fill="none" stroke="#00FF88" stroke-width="3.5"/>
+                  <path d="M 20 350 Q 80 320, 150 330 T 260 290 T 330 260 L 330 380 L 20 380 Z" fill="rgba(0,255,136,0.08)"/>
+                  <circle cx="330" cy="260" r="5" fill="#FFFFFF" stroke="#00FF88" stroke-width="2"/>
+
+                  <g transform="translate(0, 425)">
+                    <rect x="0" y="0" width="350" height="54" rx="12" fill="#162236"/>
+                    <text x="18" y="33" font-size="14">🛒</text>
+                    <text x="44" y="32" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Alimentación</text>
+                    <text x="330" y="33" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#10B981" text-anchor="end">$450.00</text>
+
+                    <rect x="0" y="66" width="350" height="54" rx="12" fill="#162236"/>
+                    <text x="18" y="99" font-size="14">📈</text>
+                    <text x="44" y="98" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Inversiones</text>
+                    <text x="330" y="99" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#00FF88" text-anchor="end">+$850.00</text>
+
+                    <rect x="0" y="132" width="350" height="54" rx="12" fill="#162236"/>
+                    <text x="18" y="165" font-size="14">⚡</text>
+                    <text x="44" y="164" font-family="'Space Grotesk', sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Servicios</text>
+                    <text x="330" y="165" font-family="'Space Grotesk', sans-serif" font-size="14" font-weight="700" fill="#F5A623" text-anchor="end">$280.00</text>
+                  </g>
+                </g>
+
+                <rect x="180" y="845" width="120" height="4" rx="2" fill="rgba(255,255,255,0.4)"/>
+              </g>
+            </svg>
+          </div>
+          <div class="banner-body">
+            <h3>Mockup Móvil — Smartphone VIP</h3>
+            <div class="copy-text-box" id="copy_mockup02">
+Controla tus finanzas desde donde estés. FlowMint en tu celular: carga en 2 segundos, sin instalar nada. Tus datos, en tu bolsillo. 📱
+            </div>
+            <div class="btn-row">
+              <button class="btn-dl" onclick="downloadBannerSVG('svg-mockup-02', 'mockup-mobile-flowmint.svg')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span>Descargar SVG</span>
+              </button>
+              <button class="btn-copy-caption" onclick="copyCaption('copy_mockup02')">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <span>Copiar Copy</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <span>FLOWMINT RESELLER NETWORK — MATERIAL GRÁFICO OFICIAL</span>
+  </footer>
+
+  <!-- TOAST NOTIFICACIÓN -->
+  <div id="flowmintToast" class="toast-notification">
+    <div class="icon">✓</div>
+    <div id="toastMessage">¡Copy copiado al portapapeles!</div>
+  </div>
+
+<script>
+function showToast(msg) {
+  const toast = document.getElementById('flowmintToast');
+  const msgEl = document.getElementById('toastMessage');
+  if (msgEl) msgEl.innerText = msg;
+  toast.classList.add('show');
+  clearTimeout(window._toastTimeout);
+  window._toastTimeout = setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2600);
+}
+
+function copyCaption(id) {
+  const el = document.getElementById(id);
+  const text = el ? el.innerText.trim() : '';
+  if (!text) return;
+  
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(() => {
+      showToast('¡Copy copiado al portapapeles!');
+    }).catch(() => {
+      fallbackCopy(text);
+    });
+  } else {
+    fallbackCopy(text);
+  }
+}
+
+function fallbackCopy(text) {
+  const ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.focus();
+  ta.select();
+  try {
+    document.execCommand('copy');
+    showToast('¡Copy copiado al portapapeles!');
+  } catch (e) {
+    alert('No se pudo copiar automáticamente. Por favor copia manualmente.');
+  }
+  document.body.removeChild(ta);
+}
+
+function downloadBannerSVG(svgId, filename) {
+  const svgEl = document.getElementById(svgId);
+  if (!svgEl) return;
+  const serializer = new XMLSerializer();
+  let source = serializer.serializeToString(svgEl);
+  if (!source.match(/^<svg[^>]+xmlns="http:\/\/www\.w3\.org\/2000\/svg"/)) {
+    source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+  }
+  const blob = new Blob([source], {type: 'image/svg+xml;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  setTimeout(() => URL.revokeObjectURL(url), 2000);
+  showToast('Descarga iniciada: ' + filename);
+}
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,449 @@
+
+Comando para generar el guión del video con CHAT GPT
+
+Escríbeme un guión narrativo para un video de unas 2,200 palabras (15 minutos aprox) sobre finanzas personales.
+Usa un tono simple, conversacional y motivador, como si le hablaras a una sola persona.
+El guión debe tener una introducción llamativa, desarrollo con ejemplos reales y conclusión inspiradora con un llamado de acción.
+En el desarrollo, explica cómo manejar mejor el dinero, evitar deudas, invertir desde cero y generar ingresos pasivos.
+No uses tecnicismos, quiero que cualquiera pueda entenderlo.
+Que sea perfecto para usar con voz artificial y animaciones (sin mostrar rostro). No añadas viñetas ni secciones, y además incluye el título del vídeo.
+
+Actúa como un guionista profesional de YouTube especializado en vídeos de tecnología.  
+Tu tarea es crear un guión completo basado en el siguiente artículo: [AQUÍ PEGA EL LINK DEL ARTÍCULO].  
+
+El vídeo debe tener una duración aproximada de 15 minutos y estar redactado en formato narrativo, sin viñetas ni secciones.  
+Debe sonar natural, entretenido y fácil de entender, como si fuera contado por un narrador profesional que mantiene la atención del espectador de principio a fin.  
+
+Evita tecnicismos complejos, pero mantén la información precisa y actualizada.  
+
+Incluye datos curiosos, comparaciones, ejemplos y pequeñas frases de impacto que despierten emoción o sorpresa.  
+No repitas ideas ni frases.  
+
+No incluyas llamados a la acción ni menciones de redes sociales.  
+Solo redacta el guión completo, con un inicio que capte la atención, un desarrollo fluido y un cierre que deje una reflexión o conclusión clara.  
+
+Usa un tono humano, cálido y cercano, similar al de un video narrativo de reseñas tecnológicas en YouTube.  
+El objetivo es que el espectador sienta que está escuchando una historia interesante y no solo una lista de especificaciones técnicas.
+
+Todo número escríbelo en letras, no añadas fuentes ni viñetas. 
+
+Comando para pedirle a Chat GPT que te diga qué material visual buscar
+
+Quiero que analices este guión que acabas de generar y me digas exactamente qué debo buscar en YouTube y Google para conseguir el material visual que necesito para mi video.
+Haz una lista con las palabras o frases que debo usar para encontrar clips o imágenes libres de derechos, relacionadas con lo que se menciona en el guión.
+Por ejemplo, si se habla de celulares Samsung, quiero que me digas qué modelos, qué tomas o escenas específicas debería buscar (por ejemplo: “Samsung Galaxy S25 unboxing”, “cámara Samsung prueba de noche”, “comparativa Samsung vs iPhone”).
+No quiero enlaces, solo las frases exactas para buscar en YouTube o Google.
+*************************************************  
+Crea un guión de 2500 palabras basado en el título [TÍTULO], en tono sencillo, conversacional y cercano. Explica todo de manera detallada, como si le hablaras a una sola persona que no tiene experiencia previa, usando ejemplos reales, analogías fáciles de entender y un lenguaje fluido. No uses viñetas, subtítulos ni secciones, solo texto corrido, tipo narración. Quiero que el guión sea atractivo desde la primera línea, con un inicio que capte la atención y un cierre motivador que invite a tomar acción.
+****************************************************** 
+Comando a usar en Gamma para crear la guía digital
+
+Crea una guía digital titulada En tu mente con ansiedad (y cómo superarla), dividida en 10 capítulos breves, prácticos y fáciles de entender. Quiero que el tono sea empático, calmado y esperanzador, con explicaciones sencillas sobre qué es la ansiedad, por qué aparece y cómo manejarla. Incluye ejercicios prácticos de respiración, escritura y enfoque mental, así como afirmaciones diarias y estrategias para reducir el estrés y mejorar el bienestar emocional. Al final, agrega una sección de recursos y hábitos que puedan ayudar a mantener la calma en el día a día.
+
+
+Comando para generar el guión de un video de YouTube con Gemini
+
+Crea un guión completo para un video de YouTube titulado ‘En tu mente con ansiedad (y cómo superarla)’. Tiene que tener unas 2500 palabras.
+El tono debe ser empático, calmado y con ritmo narrativo tipo storytelling.
+Quiero que comience con una frase impactante que despierte curiosidad, luego explique de forma sencilla qué es la ansiedad, cómo se manifiesta en la mente y el cuerpo, y finalmente incluya 3 ejercicios prácticos para reducirla (uno de respiración, uno de escritura y uno de enfoque mental).
+Al final, debe invitar a descargar una guía llamada ‘Tu mente con ansiedad (y cómo superarla)’ que contiene más ejercicios y estrategias.
+No quiero tecnicismos, debe sonar natural, humano y cercano, como si alguien hablara desde su experiencia.
+
+No añadas viñetas, separaciones, enumeraciones o secciones. Solo dame el texto completo por favor. 
+
+
+Comando para las escenas visuales del video
+
+Divide este guión en escenas visuales de entre 5 y 10 segundos cada una. Explica qué debería mostrarse en cada parte de forma sencilla y simbólica. Por ejemplo, una persona respirando, alguien mirando por la ventana, una mano escribiendo, una taza de café humeando, lluvia, naturaleza, etc. Usa descripciones cinematográficas pero suaves, con enfoque emocional y colores cálidos. Devuélveme la lista numerada con una descripción detallada de cada escena, para crear animaciones basadas en lo que debería verse dentro del video.
+
+
+
+Comando para generar la miniatura en Nano Banana
+
+Crea una miniatura al estilo animación digital, inspirada en un 80% en la imagen que te acabo de subir (mantén los mismos colores base, la composición general y el enfoque emocional).
+En el texto principal escribe en tipografía clara y moderna y que sea GRANDE:  ‘Tu mente con ansiedad’ y debajo, más pequeño:  ‘Y cómo superarla’
+Asegúrate de que el texto sea legible incluso en pantallas pequeñas, con contraste fuerte entre fondo y letras.
+
+Si este video te ayudó a entender mejor tu mente, en mi guía ‘Tu mente con ansiedad’ encontrarás ejercicios prácticos y estrategias que te acompañarán día a día. Encuéntrala aquí 👇
+********************************************************** 
+Comando para generar el guión del video de YouTube con GEM:
+Quiero que me generes un guión completo basado únicamente en el primer título de la lista de ideas que me acabas de dar. Usa ese primer título como tema principal. El guión debe estar escrito en lenguaje sencillo, directo y fácil de entender, sin viñetas, sin secciones, sin subtítulos ni divisiones. Solo un texto fluido, corrido y completamente narrado. Mantén un tono claro, útil y educativo, enfocado en resolver la duda o problema que plantea el título. El guión debe ser lo más similar posible al estilo de los creadores de contenido que hacen videos sin mostrar el rostro.
+********************************************** 
+Comando para generar ebook en Gamma AI
+
+“Crea un ebook de recetas caseras fáciles, pensado para personas que quieren cocinar rápido o emprender con postres. Hazlo visual, con fotos, pasos claros, ingredientes simples y un tono amigable. Incluye mínimo veinte recetas variadas (postres, desayunos, meriendas). Hazlo en formato profesional listo para vender.”
+*************************************************** 
+Comando para crear el PDF con Chat GPT
+
+Créame un documento PDF de aproximadamente 25 páginas sobre hábitos y desarrollo personal. El contenido debe estar escrito en un lenguaje claro, motivador y fácil de entender, como si estuvieras explicando a alguien que nunca ha leído sobre este tema, pero con autoridad y credibilidad. Debe incluir ejemplos prácticos que las personas puedan aplicar en su vida diaria, historias reales o casos de estudio, estadísticas relevantes cuando sea posible, ejercicios y recomendaciones concretas.
+El PDF debe estar organizado en capítulos o secciones, cada uno con un título llamativo que enganche al lector, pero sin usar viñetas; todo en formato narrativo y fluido. Por ejemplo, secciones como: ‘Cómo empezar a cambiar un hábito hoy mismo’, ‘Los hábitos de personas exitosas’, ‘Errores comunes al crear hábitos’ y ‘Cómo mantener la disciplina a largo plazo’. Incluye también consejos sobre motivación, manejo del tiempo, productividad, enfoque mental y bienestar emocional.
+Cada capítulo debe contener entre 1 y 2 páginas de contenido sólido, con subtítulos claros dentro de cada sección que ayuden a estructurar la información, y ejemplos prácticos que se puedan leer y aplicar directamente. El tono debe ser amigable, inspirador y persuasivo, como si estuvieras hablando directamente con alguien que quiere mejorar su vida y necesita guía paso a paso.
+Al final del documento, agrega una conclusión motivadora que resuma los aprendizajes principales y anime al lector a ponerlos en práctica de inmediato. Asegúrate de que el contenido sea original, bien redactado y coherente, listo para exportarse como PDF y convertirse en un audiolibro profesional, con suficiente contenido para durar aproximadamente 4 a 5 horas de audio narrado. No agregues secciones de viñetas ni listas de pasos separados; todo debe ser narrativo y fácil de convertir en voz
+************************************************* 
+Comando para generar el guión del video con Chat GPT
+
+Créame un guion completamente nuevo, original y distinto, de entre 1 y 2 minutos, basado únicamente en la idea general del siguiente video, sin copiar frases, sin repetir estructuras y sin sonar parecido. Quiero un tono espiritual, místico, emocional y poderoso, que mantenga a la persona viendo el video hasta el final. Habla en segunda persona singular. No incluyas saludos ni despedidas. Aquí está el enlace del video que estoy modelando: [pegar link del video aquí]. No uses viñetas ni secciones. Entrégame un texto corrido listo para narración.
+************************************************* 
+Comando para crear la presentación (checklist) en Gamma AI
+
+TÍTULO: Checklist de limpieza profunda mensual 
+OBJETIVO: Crear una presentación visual, profesional y lista para exportar a PDF que funcione como producto digital (checklist imprimible + guía rápida). Debe ser clara, accionable y enfocada en transformar una casa desordenada en un hogar organizado en 30 días. Incluir diseño limpio, iconos y espacio para imprimir. Formato: 16:9 (tradicional).
+
+REQUISITOS DE TONO Y ESTILO:
+- Habla directo a una persona ("tú"), tono cercano, práctico y sin tecnicismos.
+- Frases cortas, listas con viñetas, pasos numerados.
+- Diseño minimal, fondos blancos o neutros, tipografía legible grande.
+- Incluir imágenes de stock realistas (before/after, manos organizando, cajas, estantes, cocina organizada).
+- Añadir íconos para cada sección (reloj, caja, lista, calendario).
+- Incluir una diapositiva imprimible A4 (checklist en una sola columna fácil de imprimir).
+
+ESTRUCTURA DE DIAPOSITIVAS (CREAR 10-12 DIAPOS):
+1. Portada — Título grande + subtítulo: "Checklist de limpieza profunda mensual" + 1 línea: "Transforma tu hogar en 30 días".
+2. Introducción breve (por qué funciona) — 3 bullets: menos estrés, más tiempo, espacio usable.
+3. Cómo usar este checklist — instrucciones de 3 pasos (leer, planear, ejecutar).
+4. Suministros esenciales — lista con íconos y tiempos estimados (limpiador multiusos, paños, bolsas).
+5. Calendario mensual (plantilla visual) — divide 4 semanas con foco por zonas.
+6. Semana 1: Cocina — pasos detallados (despejar, limpiar, organizar, etiquetar) con tiempos (ej: 45-60 min).
+7. Semana 2: Sala y áreas comunes — pasos con tips rápidos.
+8. Semana 3: Dormitorios y closets — método "3 cajas" (guardar, donar, tirar).
+9. Semana 4: Baños y detalles finales + revisión general.
+10. Diapositiva: Mantenimiento semanal express (checklist pequeño).
+11. Diapositiva imprimible: Checklist en formato A4 (una columna, casillas para marcar).
+12. Slide final — Oferta: "Consigue el pack completo con plantillas editables" + CTA (link + código descuento) + breve testimonio ficticio (1 línea).
+
+ELEMENTOS FUNCIONALES:
+- Añadir botones/áreas para enlaces (URL del producto).
+- Generar versión descargable PDF optimizada para impresión (A4).
+- Generar versión “mini” para redes (16:9, 9:16 si pides después).
+- Exportar assets: 1 PDF completo, 1 PDF imprimible (A4), 1 imagen PNG de portada.
+
+META: Que el producto luzca PREMIUM, sea fácil de usar y convierta (venta de 5-15 USD).
+
+INSTRUCCIONES ADICIONALES:
+- Prioriza la claridad visual para que una persona lo use en 30 minutos.  
+- Incluye CTA claro en la última diapositiva: "Compra el pack completo aquí" y un texto corto de 1 línea que explique beneficios adicionales (plantillas editables, calendario, lista de compras).
+- Genera además 5 variaciones de la diapositiva imprimible con distintos títulos (ej: "Familias", "Solteros", "Departamentos pequeños").
+
+
+Comando para crear el guión del video con Chat GPT
+
+“Crea un guión para un video de YouTube de aproximadamente 2500 palabras titulado: Los 7 secretos japoneses para evitar el caos en tu hogar.
+Quiero un estilo narrativo calmado, minimalista, reflexivo y muy visual, parecido al contenido de canales como ‘Mente Serena’, pero sin copiar nada.
+Divide el contenido en una introducción corta que enganche, una transición suave y luego desarrolla los 7 secretos de forma profunda, práctica y agradable de escuchar.
+Usa ejemplos cotidianos, metáforas y explicaciones fáciles de entender.
+Añade una pequeña reflexión al final y un llamado a la acción muy natural que invite a descargar una guía o checklist para mantener el orden del hogar.
+NO menciones marcas, NO des datos inventados, NO uses lenguaje complejo.
+Debe sentirse como un video que relaja, enseña y motiva a tener un estilo de vida más ordenado. Y dame un texto completo sin viñetas ni secciones” 
+
+
+Comando para pedirle a Chat GPT que te dé los prompts de las escenas visuales del video
+
+“Dame 25 prompts detallados, visuales y coherentes para generar imágenes con IA basadas en el guión que acabas de crear. Las escenas deben representar lo que se está narrando y mantener el mismo estilo visual.”
+*************************************************** 
+Comando para preguntarle a Gemini 3 cuál es el producto digital con alto potencial de venta
+
+¿Cuál es el producto digital más buscado para el próximo año según Google Trends y datos de Google? Dame 3 ideas, ordenadas por potencial, y dime por qué cada una tiene demanda.
+
+Dame ideas simples, fáciles de entender y sin tecnicismos sobre nichos dentro de esta categoría. Explícamelas como si yo fuera principiante y recomiéndame exactamente qué producto digital debería crear para cada idea y en qué nicho.
+****************************************** 
+Pedirle a Gemini que analice la estructura del video a modelar
+
+Analiza este video y dame un resumen completo de su estructura narrativa. Quiero que me expliques cómo está construido: cómo comienza, cómo mantiene la atención,  qué estilo de narración utiliza, cómo presenta los datos históricos y cómo cierra la historia. 
+No necesito que transcribas el video ni que copies su contenido. 
+Solo quiero que identifiques el estilo, el ritmo, el tipo de frases que utiliza  y la forma en la que cuenta la historia. 
+Aquí tienes el enlace:
+[PEGA AQUÍ EL LINK DEL VIDEO]
+
+
+Una vez que hizo el resumen, le pides que cree el guión con este comando
+
+Ahora, usando la estructura narrativa que acabas de analizar, crea un guión completamente nuevo para un YouTube Short de entre uno y dos minutos. Quiero que tú elijas el tema basándote en las tendencias actuales y en los temas históricos que están siendo más virales. Dame una historia impactante, sorprendente y de alto potencial de viralidad que siga la misma intensidad del video que acabas de estudiar, pero completamente original. Dame el texto completo listo para narrar, sin viñetas, secciones o enumeraciones. Y asegúrate que esté enfocado en el nicho de la historia militar, específicamente los nazis.
+
+
+Para que Gemini te de una lista con las escenas detalladas del video
+
+“Genérame una lista detallada de todas las escenas visuales necesarias para convertir este guion en un YouTube Short de uno a dos minutos. Describe cada escena con precisión, incluyendo personajes, vestimenta, expresiones, objetos importantes, ambientación, época, entorno histórico, movimientos y cualquier elemento visual que deba aparecer para que el video sea claro, impactante y coherente. No inventes historia nueva: usa exactamente el guión que acabas de crear basado en tendencias. Al final, todas deben incluir formato 9:16.”
+*************************************************************** 
+Comando para pedirle a Gemini 3 que redacte el guión del vídeo basado en la idea que elegiste
+
+Crea un guión completo para un video de YouTube de aproximadamente 2500 palabras sobre este tema: (aquí pegas la idea que gemini te dió). Quiero que el guión esté escrito en un formato completamente narrativo, sin viñetas, sin secciones, sin subtítulos y sin listas. Escríbelo como si fuera una historia contada de principio a fin, con un tono conversacional, fluido, sencillo, fácil de entender para cualquier persona, incluso principiantes. Mantén el ritmo dinámico, con frases claras, cortas y directas, optimizadas para mantener la atención y la retención de la audiencia desde los primeros segundos. Incluye ganchos naturales dentro del guión para mantener al espectador interesado y evita explicaciones técnicas o complicadas. Quiero que el guión esté totalmente listo para narrar tal cual, sin que yo tenga que reorganizar nada. Asegúrate de que el contenido sea informativo, entretenido y que haga que una persona quiera ver el video completo hasta el final.
+
+
+Comando para pedirle a Gemini 3 que te entregue los comandos para crear las imágenes que aparecerán en tu video
+
+
+Ahora toma el guión completo que acabas de crear y genera una lista de prompts ultra detallados para producir imágenes animadas estilo ilustración profesional. Quiero que dividas el guión en escenas visuales, desde la primera frase hasta la última, de forma cronológica y organizada. Para cada escena crea un prompt específico, incluyendo: estilo animado de alta calidad, detalles del ambiente, iluminación, colores, perspectiva, emociones, atmósfera, elementos clave que deben aparecer, y cualquier detalle visual que ayude a contar la historia de forma clara. Cada prompt debe describir exactamente lo que debería verse en la imagen correspondiente. No hagas viñetas ni listas numéricas simples: describe cada escena como un bloque separado, indicando ‘Escena 1’, ‘Escena 2’, ‘Escena 3’ y así sucesivamente. Asegúrate de que todas las imágenes tengan coherencia visual entre sí para que el video se vea profesional. El objetivo es crear imágenes realistas, llamativas, animadas y listas para ser usadas en un video de YouTube faceless. No omitas ninguna parte del guion. Hazlo todo de forma muy descriptiva y muy detallada.
+************************************************** 
+Comando para que Gemini te genere un nuevo guión basado en el video viral + un título optimizado para SEO
+
+Con toda la información que acabas de analizar del video anterior, créame un guión totalmente nuevo, original y diferente, usando la misma estructura ganadora pero adaptado al nicho de terror y misterio.
+Quiero un guión para un video largo de YouTube de aproximadamente 2500 palabras, escrito como una narración continua, atrapante, oscura y con ritmo.
+No uses enumeraciones, ni viñetas, ni dividas por secciones.
+Solo quiero un guion fluido, listo para narrar.
+Al final, dame un título optimizado para SEO en YouTube basado en lo que está funcionando actualmente en el nicho de terror y misterio.
+
+
+Comando para que Gemini te genere las escenas del video
+
+Créame cada escena del video basada en este guión, dividida en descripciones visuales (comandos/prompts) claros y cinematográficos, aptas para generar clips con IA. No numeres nada, no uses viñetas, solo dame las escenas una debajo de la otra.
+************************************************** 
+Comando para pedirle a Gemini que actúe como investigador de mercados
+
+“Actúa como un investigador de mercados especializado en productos digitales.
+ Analiza tendencias de búsqueda y contenido en YouTube y dime:
+5 nichos rentables donde las personas estén buscando soluciones de forma constante.
+
+
+Dentro de cada nicho, dame 5 problemas específicos y reales que la gente quiera resolver.
+
+
+Para cada problema, dime qué tipo de persona lo sufre y qué resultado concreto quiere lograr.
+
+
+Indícame cuáles de esos problemas son ideales para crear un producto digital sencillo (guía, ebook o paso a paso).”
+
+Comando para pedirle a Gemini te ayude a crear el producto digital
+
+“Ayúdame a crear una plantilla de Excel pensada para jóvenes profesionales que dicen: ‘no sé en qué se me va el dinero’.
+La plantilla debe ser visual, automática y fácil de usar, sin términos técnicos.
+Indica:
+– qué hojas debe tener el Excel
+– qué columnas incluir en cada hoja
+– qué fórmulas básicas se necesitan
+– cómo debe usarse paso a paso, explicado de forma sencilla
+El objetivo es que la persona pueda controlar sus gastos sin estrés desde el primer día.”
+
+
+
+
+Comando para que Gemini te ayude a crear el nombre de la página + la descripción
+“Actúa como estratega de marcas digitales. Voy a crear una página web en Hostinger usando su creador con IA. Mi nicho es organización financiera para jóvenes profesionales.
+ Necesito:
+5 opciones de nombre de marca simples y memorables
+
+
+Una descripción clara del sitio web enfocada en ayudar a las personas a organizar su dinero sin estrés
+
+
+El mensaje principal de la página (qué problema resuelve y para quién es)
+ Usa un lenguaje sencillo, sin tecnicismos y orientado a vender un producto digital.”
+************************************************* 
+Comando para pedirle a Perplexity que busque productos digitales con demanda
+
+Muéstrame los productos digitales, ebooks o guías más populares que los padres buscan actualmente sobre crianza y maternidad. Dime qué temas cubren y qué problemas resuelven.
+
+Basado en los productos digitales, ebooks o guías más populares que los padres buscan actualmente sobre disciplina positiva, muéstrame una sola idea de ebook que tenga alta demanda. Incluye: el título sugerido, el tema que cubre, los problemas específicos que resuelve, y un resumen detallado de la información que debería incluir. Devuélvelo de forma organizada para que pueda usarlo como base para crear mi propio ebook.
+
+
+Comando para pedirle a ChatGPT que te ayude a generar TODO el contenido de tu ebook (listo para copiar y pegar)
+
+Quiero que me ayudes a crear un ebook completo basado en esta información. Organízalo en secciones y capítulos claros, incluye ejemplos prácticos, consejos aplicables, lenguaje sencillo para que cualquier padre o madre pueda entenderlo y usarlo. Devuélvelo listo para copiar y pegar.
+
+
+Comando para pedirle a ChatGPT que te genere el guión + las escenas del YouTube Shorts
+
+
+“Basado en el video de YouTube [pega aquí el link del video], crea un guión completamente nuevo para un Short de aproximadamente 1 minuto. Mantén el mismo tema educativo sobre crianza, enfocado en consejos prácticos para padres, pero con frases y ejemplos totalmente diferentes, dame el guión listo para narrar sin sugerencias de tiempos, viñetas o secciones. Además, al final genera una lista de escenas visuales estilo caricatura para cada segmento del video, incluyendo personajes, fondos y elementos gráficos que representen cada consejo. Devuélvelo en formato listo para usar: [Escena: descripción + diálogo o texto en pantalla]."
+Si quieres aprender más sobre crianza respetuosa y obtener consejos prácticos que realmente funcionen, adquiere mi ebook completo en el link de la descripción 👇
+
+********************************************************** 
+Comando para pedirle a Gemini 3 que cree la portada
+del producto
+Crea una portada para una meditación guiada enfocada en reducir el estrés digital. Estilo minimalista, relajante, colores suaves, sensación de calma y bienestar. Formato cuadrado.
+
+Comando para pedirle a Gemini 3 que cree el guión del video de YouTube
+
+Escribe un guión completo para un video de YouTube de aproximadamente 2000 palabras sobre una meditación guiada para dormir profundamente.
+
+El guión debe:
+- Estar escrito en un solo bloque de texto, sin títulos, sin secciones y sin viñetas.
+- Tener un tono calmado, cercano y tranquilizador, como si le hablaras a una sola persona antes de dormir.
+- Usar lenguaje simple, pausado y fácil de entender.
+- Fluir de forma natural, con frases suaves y transiciones lentas.
+- Estar diseñado para retener a la persona escuchando hasta el final.
+- No mencionar técnicas complejas ni términos difíciles.
+- No incluir llamadas a la acción ni referencias a productos.
+- Estar listo para ser narrado en voz, con ritmo de meditación real.
+
+La meditación debe ayudar a:
+- Relajar el cuerpo poco a poco
+- Calmar la mente
+- Reducir el estrés
+- Facilitar el sueño profundo
+
+Imagina que el guión se usará con un fondo visual de naturaleza y música ambiental suave.
+
+CTA (llamado a la acción): Si esta meditación te ayudó a relajarte, aquí puedes obtener la versión completa en audio y acceder a más meditaciones guiadas.
+********************************************************** 
+Comando para Chat GPT (ideas de herramientas que resuelvan problemas)
+
+Quiero crear una herramienta (aplicación sencilla) que resuelva un problema común que muchas personas tienen en su día a día. No soy experto, no sé programar y quiero algo simple, útil y fácil de entender. Necesito que me ayudes con lo siguiente, paso a paso:
+
+Primero, dame una lista de problemas reales y comunes que las personas suelen tener, especialmente relacionados con dinero, organización, hábitos, productividad o toma de decisiones.
+
+Segundo, para cada problema, sugiere una herramienta sencilla que podría ayudar a resolverlo, como una calculadora, un organizador, un estimador o una evaluación simple.
+
+Tercero, dime cuál de esas ideas es la mejor para empezar como principiante y explícame por qué.
+
+Cuarto, dame una descripción clara y simple de esa herramienta, explicada como si se la contaras a alguien que no sabe nada de tecnología.
+
+Quinto, dime cómo esta herramienta podría conectarse con videos de YouTube, es decir, qué tipo de videos se podrían crear para atraer personas interesadas en usarla. Quiero que todo esté explicado con palabras simples, sin tecnicismos y de forma que pueda pasar directamente a la acción.
+
+
+
+
+Comando para crear la herramienta en Google AI Studio
+
+Quiero una aplicación web sencilla para trabajadores independientes. La herramienta debe ayudar a organizar el día. La persona debe poder escribir sus tareas, asignarles una hora y marcarlas como completadas. Quiero que sea simple, clara y fácil de usar
+
+
+Respuestas para crear la página web con Wix 
+
+1️⃣ “¿De qué se trata tu sitio web?”
+👉 Respuesta EXACTA:
+Es una página web que ofrece una herramienta digital para ayudar a las personas a organizar mejor su tiempo y sus tareas diarias de forma simple y práctica.
+
+2️⃣ “¿Cuál es el objetivo principal de tu sitio?”
+👉 Respuesta:
+Vender una herramienta digital que ayude a planificar el día y mejorar la productividad personal.
+(Si Wix te da opciones, elige: Vender un producto digital)
+
+3️⃣ “¿Para quién es este sitio?”
+👉 Respuesta:
+Para trabajadores independientes, freelancers y personas que trabajan por su cuenta y sienten que no les alcanza el tiempo.
+
+4️⃣ “¿Qué tipo de producto vas a vender?”
+👉 Respuesta:
+Un producto digital.
+Si te pide especificar:
+Herramienta online
+
+
+Aplicación web sencilla
+
+
+
+5️⃣ “¿Cómo se entregará el producto?”
+👉 Respuesta:
+Acceso online a una herramienta web después del pago.
+(Esto es CLAVE. No descargable. Acceso por link.)
+
+6️⃣ “¿Qué secciones quieres en tu sitio?”
+👉 Marca estas:
+Página de inicio
+
+
+Producto
+
+
+Pago / Checkout
+
+
+Contacto
+
+
+
+7️⃣ “¿Qué estilo de diseño prefieres?”
+👉 Respuesta:
+Minimalista, claro y fácil de entender.
+Si hay ejemplos visuales:
+limpio
+
+
+profesional
+
+
+simple
+
+
+enfocado en conversión
+
+
+
+8️⃣ “¿Quieres usar inteligencia artificial para crear el sitio?”
+👉 Respuesta: SÍ, usar IA
+Esto hará que Wix:
+escriba los textos base
+
+
+cree la estructura
+
+
+prepare la página para vender
+
+
+Luego tú ajustas y pegas tu herramienta.
+
+9️⃣ ¿Precio de la herramienta? (si te lo pregunta)
+👉 Recomendación para empezar:
+Pago único bajo
+
+
+Algo accesible
+
+
+Por ejemplo:
+$5 dólares
+
+
+$7 dólares
+
+
+$9 dólares
+
+
+
+Comando para crear el guión de un video viral para YouTube
+
+ Quiero que escribas el guión completo para un video de YouTube basado en el título:
+ “8 Hábitos de JAPÓN que Occidente IGNORA (y cambian tu vida)”
+El guión debe cumplir con lo siguiente:
+– Estar escrito para una sola persona, en tono cercano y fácil de entender.
+ – No usar lenguaje técnico ni palabras complicadas.
+ – Tener un inicio muy fuerte que rompa el scroll y despierte curiosidad.
+ – Explicar cada hábito con ejemplos simples de la vida diaria.
+ – Mantener un ritmo dinámico, ideal para un video animado.
+ – No mencionar marcas, canales ni referencias externas.
+ – No mostrar opiniones extremas ni exageradas, solo observaciones claras.
+ – Cerrar el video con una reflexión final que invite a pensar, no a vender.
+El guión debe ser texto continuo, listo para narrar, sin listas numeradas visibles ni formato tipo blog. Duración aproximada: entre siete y nueve minutos.
+****************************************************** 
+Comando para pedirle a Chat GPT que investigue nichos y productos con demanda
+
+Quiero construir un negocio digital simple y real usando inteligencia artificial.
+No tengo experiencia previa, no sé programar y no quiero mostrar mi rostro ni grabar mi voz.
+Mi objetivo es crear un producto digital sencillo (como un ebook o guía práctica) y usar YouTube como fuente automática de tráfico, sin marca personal.
+Necesito que me ayudes paso a paso con lo siguiente:
+Primero: dime qué nichos tienen demanda real actualmente y seguirán teniendo demanda el próximo año. Enfócate en nichos donde la gente tenga problemas urgentes y esté dispuesta a pagar (por ejemplo productividad, dinero, organización, hábitos, trabajo, estudio, etc.).
+Segundo: para cada nicho, dime un problema específico y común que las personas sufran en su día a día.
+Tercero: sugiéreme un producto digital simple que pueda resolver ese problema (preferiblemente un ebook corto o una guía práctica).
+Cuarto: dime cuál es la mejor opción para empezar como principiante y explícame claramente por qué.
+Quinto: crea la estructura completa del ebook (título, capítulos y qué se explica en cada uno), usando palabras simples y sin relleno.
+Sexto: dime qué tipo de videos de YouTube podría crear para atraer personas interesadas en ese problema, sin mostrar rostro y sin grabar voz.
+Séptimo: explícame cómo conectar esos videos con el producto, es decir, cómo llevar a la persona del video al enlace de compra.
+Quiero que todo esté explicado de forma clara, práctica y accionable, sin tecnicismos, como si se lo explicaras a alguien que está empezando desde cero.
+
+
+
+Comando para pedirle a Chat GPT que actúe como un creador de productos digitales experto
+
+
+Actúa como un creador de productos digitales experto, pero piensa como si estuvieras ayudando a un principiante sin experiencia. No soy nutricionista ni experto en alimentación. Quiero crear un ebook simple y práctico para personas que quieren comer barato y saludable sin complicarse.
+Crea la estructura completa de un ebook con un plan semanal de comidas económicas y saludables. Incluye introducción simple, explicación clara del problema, menús semanales fáciles, lista de compras optimizada para ahorrar dinero, consejos prácticos para organizarse y mantener el hábito. Usa lenguaje sencillo, directo y fácil de entender. El objetivo del ebook es resolver un problema real y que pueda venderse como producto digital.
+
+
+Comando para preguntarle a Chat GPT  dónde
+y en cuánto vender el producto digital
+
+He creado un ebook sencillo sobre comidas baratas y saludables, pensado para personas sin tiempo y con bajo presupuesto. No tengo experiencia vendiendo productos digitales. Dime en qué plataforma debería venderlo, cuál sería un precio inicial inteligente para empezar, cómo justificar ese precio y qué estrategia simple puedo usar para generar ventas usando YouTube sin mostrar mi rostro ni grabar mi voz.
+*********************************************************
+After careful review of your Network Profile details, we have decided to limit your access to new programs via the PartnerStack Marketplace.
+
+This decision has been made for the following reason:
+
+We are working on expanding our Network. Your profile is not a great fit, but may be in the future.
+If you would like us to re-evaluate your Network Profile based on new or corrected information, you will be able to reapply through the dashboard. You will not be able to join any new programs through our marketplace until your Network Profile has been approved into our network.
+
+Your existing partnerships that you have on PartnerStack will not be impacted by this decision.
+
+
