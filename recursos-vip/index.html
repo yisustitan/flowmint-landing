@@ -506,6 +506,22 @@ textarea.form-control{ resize:vertical; min-height:100px; }
   text-align:center;
   margin-bottom:14px;
 }
+
+.validation-msg{
+  display:none;
+  font-size:12.5px;
+  color:#ff6b6b;
+  background:rgba(255,107,107,0.1);
+  border:1px solid rgba(255,107,107,0.25);
+  padding:9px 12px;
+  border-radius:8px;
+  margin-bottom:14px;
+  text-align:left;
+}
+.validation-msg.show{
+  display:block;
+}
+
 </style>
 </head>
 <body>
@@ -702,7 +718,10 @@ textarea.form-control{ resize:vertical; min-height:100px; }
       ✓ Mensaje enviado con éxito a hola@centraliaportal.com. Te responderemos pronto.
     </div>
 
-    <form id="supportForm" onsubmit="submitSupportForm(event)">
+        <form id="supportForm" onsubmit="submitSupportForm(event)">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_captcha" value="false">
+
       <div class="form-group">
         <label for="supportEmail">Tu Correo Electrónico *</label>
         <input type="email" id="supportEmail" name="email" class="form-control" placeholder="tu@correo.com" required autocomplete="email">
@@ -710,13 +729,15 @@ textarea.form-control{ resize:vertical; min-height:100px; }
 
       <div class="form-group">
         <label for="supportSubject">Asunto (Opcional)</label>
-        <input type="text" id="supportSubject" name="subject" class="form-control" placeholder="Ej: Consulta sobre licencias o entrega">
+        <input type="text" id="supportSubject" name="_subject" class="form-control" placeholder="Ej: Consulta sobre licencias o entrega">
       </div>
 
       <div class="form-group">
         <label for="supportMessage">Mensaje o Consulta *</label>
         <textarea id="supportMessage" name="message" class="form-control" placeholder="Describe brevemente en qué podemos ayudarte..." required></textarea>
       </div>
+
+      <div class="validation-msg" id="supportValidationMsg"></div>
 
       <div class="modal-actions">
         <button type="button" class="btn-cancel" onclick="closeSupportModal()">Cancelar</button>
@@ -730,8 +751,13 @@ textarea.form-control{ resize:vertical; min-height:100px; }
 function openSupportModal() {
   const modal = document.getElementById('supportModal');
   const successMsg = document.getElementById('supportSuccessMsg');
+  const valMsg = document.getElementById('supportValidationMsg');
   const form = document.getElementById('supportForm');
   if (successMsg) successMsg.style.display = 'none';
+  if (valMsg) {
+    valMsg.textContent = '';
+    valMsg.classList.remove('show');
+  }
   if (form) form.style.display = 'block';
   modal.classList.add('active');
   modal.setAttribute('aria-hidden', 'false');
@@ -741,6 +767,11 @@ function openSupportModal() {
 
 function closeSupportModal() {
   const modal = document.getElementById('supportModal');
+  const valMsg = document.getElementById('supportValidationMsg');
+  if (valMsg) {
+    valMsg.textContent = '';
+    valMsg.classList.remove('show');
+  }
   modal.classList.remove('active');
   modal.setAttribute('aria-hidden', 'true');
   document.body.style.overflow = '';
@@ -757,31 +788,98 @@ document.addEventListener('keydown', function(e) {
 });
 
 async function submitSupportForm(e) {
-  e.preventDefault();
+  if (e) e.preventDefault();
+
+  const emailInput = document.getElementById('supportEmail');
+  const subjectInput = document.getElementById('supportSubject');
+  const messageInput = document.getElementById('supportMessage');
+  const valMsg = document.getElementById('supportValidationMsg');
   const btn = document.getElementById('btnSubmitSupport');
-  const email = document.getElementById('supportEmail').value;
-  const subject = document.getElementById('supportSubject').value || 'Consulta Soporte Reseller VIP';
-  const message = document.getElementById('supportMessage').value;
-  
+  const successMsg = document.getElementById('supportSuccessMsg');
+  const form = document.getElementById('supportForm');
+
+  if (!emailInput.value.trim() || !emailInput.checkValidity()) {
+    if (valMsg) {
+      valMsg.textContent = '⚠️ Por favor, ingresa un correo electrónico válido.';
+      valMsg.classList.add('show');
+    }
+    emailInput.focus();
+    return;
+  }
+
+  if (!messageInput.value.trim()) {
+    if (valMsg) {
+      valMsg.textContent = '⚠️ Por favor, describe tu consulta en el mensaje.';
+      valMsg.classList.add('show');
+    }
+    messageInput.focus();
+    return;
+  }
+
+  if (valMsg) {
+    valMsg.textContent = '';
+    valMsg.classList.remove('show');
+  }
+
+  const email = emailInput.value.trim();
+  const subject = (subjectInput && subjectInput.value.trim()) || 'Consulta Soporte Reseller VIP';
+  const message = messageInput.value.trim();
+
   btn.disabled = true;
   btn.innerText = 'Enviando...';
 
+  // Respaldo local de seguridad
   try {
-    await fetch('https://formsubmit.co/ajax/hola@centraliaportal.com', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({ email: email, _subject: subject, message: message, _template: 'table' })
+    const prev = JSON.parse(localStorage.getItem('fm_vip_support') || '[]');
+    prev.push({
+      timestamp: new Date().toISOString(),
+      email: email,
+      subject: subject,
+      message: message
     });
+    localStorage.setItem('fm_vip_support', JSON.stringify(prev));
   } catch (err) {
-    // Fallback UI
-  } finally {
-    document.getElementById('supportSuccessMsg').style.display = 'block';
-    document.getElementById('supportForm').reset();
-    setTimeout(() => {
-      closeSupportModal();
+    console.warn('Backup local warning', err);
+  }
+
+  const formData = new FormData();
+  formData.append('email', email);
+  formData.append('_subject', subject);
+  formData.append('message', message);
+  formData.append('_template', 'table');
+  formData.append('_captcha', 'false');
+
+  try {
+    const res = await fetch('https://formsubmit.co/ajax/hola@centraliaportal.com', {
+      method: 'POST',
+      body: formData
+    });
+    const data = await res.json();
+
+    if (data.success === 'true' || data.success === true) {
+      if (successMsg) successMsg.style.display = 'block';
+      form.reset();
+      setTimeout(() => {
+        closeSupportModal();
+        btn.disabled = false;
+        btn.innerText = 'Enviar Consulta';
+      }, 2500);
+    } else {
+      // Fallback tradicional FormSubmit
+      form.action = 'https://formsubmit.co/hola@centraliaportal.com';
+      form.method = 'POST';
+      form.submit();
+    }
+  } catch (err) {
+    try {
+      form.action = 'https://formsubmit.co/hola@centraliaportal.com';
+      form.method = 'POST';
+      form.submit();
+    } catch (e2) {
+      alert('Error al enviar el mensaje. Inténtalo de nuevo.');
       btn.disabled = false;
       btn.innerText = 'Enviar Consulta';
-    }, 2500);
+    }
   }
 }
 </script>

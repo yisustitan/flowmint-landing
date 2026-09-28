@@ -1,0 +1,45 @@
+﻿# =====================================================
+# FLOWMINT - .gitignore
+# =====================================================
+
+# Carpetas personales / respaldos que NO van al repo
+Backups de Flowmint/
+Copias de la App/
+Nueva Flowmint/
+Proceso para Limite de 2 Licencias/
+Words de Flowmint-Combo/
+Mapa de flowmintApp(main)/
+
+# Imágenes sueltas de trabajo (capturas, notas visuales)
+*.png
+*.jpg
+*.jpeg
+
+# Archivos de texto / guiones / notas personales sueltos en raíz
+*.txt
+*.svg
+
+# Documentos Word / PDFs sueltos en raíz
+*.doc
+*.docx
+*.pdf
+
+# Archivos temporales de Microsoft Office
+~$*
+~WRL*.tmp
+
+# Archivos temporales del sistema
+*.tmp
+Thumbs.db
+.DS_Store
+
+# Copias HTML de la app (no son el portal web)
+flowmint*.html
+reset-bolsillos.html
+
+# Carpeta de auditoría
+Auditoria/
+
+# Carpeta de tutoriales con versiones de trabajo (mantener solo la oficial)
+recursos-vip/tutoriales/Nuevos/
+recursos-vip/tutoriales/Ultimo con Video Tutorial Modulo 1/
