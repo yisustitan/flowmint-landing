@@ -15,7 +15,7 @@ Mapa de flowmintApp(main)/
 *.jpg
 *.jpeg
 
-# Archivos de texto / guiones / notas personales sueltos en raíz
+# Archivos de texto / guiones / notas personales sueltos
 *.txt
 *.svg
 
@@ -33,13 +33,8 @@ Mapa de flowmintApp(main)/
 Thumbs.db
 .DS_Store
 
-# Copias HTML de la app (no son el portal web)
-flowmint*.html
+# Copias y versiones temporales de la app (archivos con paréntesis en el nombre)
+flowmint (*).html
+flowmint_v11*.html
 reset-bolsillos.html
-
-# Carpeta de auditoría
-Auditoria/
-
-# Carpeta de tutoriales con versiones de trabajo (mantener solo la oficial)
-recursos-vip/tutoriales/Nuevos/
-recursos-vip/tutoriales/Ultimo con Video Tutorial Modulo 1/
+flowmint.html
