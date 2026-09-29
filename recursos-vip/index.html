@@ -842,17 +842,17 @@ async function submitSupportForm(e) {
     console.warn('Backup local warning', err);
   }
 
-  const formData = new FormData();
-  formData.append('email', email);
-  formData.append('_subject', subject);
-  formData.append('message', message);
-  formData.append('_template', 'table');
-  formData.append('_captcha', 'false');
+    const payload = {
+    email: email,
+    subject: subject,
+    message: message
+  };
 
   try {
     const res = await fetch('/api/webhook', {
       method: 'POST',
-      body: formData
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
     });
     const data = await res.json();
 
@@ -865,18 +865,17 @@ async function submitSupportForm(e) {
         btn.innerText = 'Enviar Consulta';
       }, 2500);
     } else {
-      // Fallback tradicional FormSubmit
-      alert('Error al enviar el mensaje por fallback. Por favor intenta más tarde.'); btn.disabled = false; btn.innerText = 'Enviar Consulta';
-    }
-  } catch (err) {
-    try {
-      alert('Error al enviar el mensaje por fallback. Por favor intenta más tarde.'); btn.disabled = false; btn.innerText = 'Enviar Consulta';
-    } catch (e2) {
-      alert('Error al enviar el mensaje. Inténtalo de nuevo.');
+      alert('Error: ' + (data.message || 'Inténtalo de nuevo más tarde.'));
       btn.disabled = false;
       btn.innerText = 'Enviar Consulta';
     }
+  } catch (err) {
+    console.error('Error de fetch:', err);
+    alert('Error al enviar el mensaje. Revisa tu conexión e inténtalo de nuevo.');
+    btn.disabled = false;
+    btn.innerText = 'Enviar Consulta';
   }
+}
 }
 </script>
 
