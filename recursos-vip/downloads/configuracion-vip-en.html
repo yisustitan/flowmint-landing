@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flowmint VIP Setup — Technical deployment for $29</title>
+<style>
+:root{--bg:#0D1117;--card:#161B26;--line:#252D3D;--neon:#00FF88;--tx:#E8EDF5;--mut:#8D99AE}
+*{box-sizing:border-box;margin:0}
+body{background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--neon);outline-offset:3px}
+.wrap{max-width:980px;margin:0 auto;padding:0 20px}
+.top{display:flex;justify-content:space-between;align-items:center;padding:18px 0}
+.top a{text-decoration:none;font-size:14px;color:var(--mut)}
+.top a:hover{color:var(--neon)}
+.hero{text-align:center;padding:56px 0 64px;background:radial-gradient(ellipse 60% 55% at 50% 0,rgba(0,255,136,.13),transparent 70%)}
+.badge{display:inline-block;border:1px solid var(--neon);color:var(--neon);padding:6px 16px;border-radius:99px;font-size:13px;font-weight:600;letter-spacing:.04em;box-shadow:0 0 18px rgba(0,255,136,.2)}
+h1{font-size:clamp(2rem,5.6vw,3.5rem);line-height:1.1;letter-spacing:-.02em;max-width:800px;margin:24px auto 18px}
+h1 em{font-style:normal;color:var(--neon);text-shadow:0 0 26px rgba(0,255,136,.35)}
+.sub{color:var(--mut);font-size:1.1rem;max-width:600px;margin:0 auto 26px}
+.price{display:inline-block;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 20px;font-weight:700;font-size:1.15rem;margin-bottom:26px}
+.cta{display:inline-flex;align-items:center;justify-content:center;background:var(--neon);color:#04140B;font-weight:800;font-size:1.05rem;padding:16px 32px;border-radius:12px;text-decoration:none;box-shadow:0 8px 32px rgba(0,255,136,.3);transition:transform .15s,box-shadow .15s}
+.cta:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,255,136,.45)}
+section{padding:44px 0}
+h2{font-size:clamp(1.5rem,3.6vw,2rem);letter-spacing:-.01em;margin-bottom:26px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px}
+.card svg{width:30px;height:30px;stroke:var(--neon);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;margin-bottom:12px}
+.card h3{font-size:1.02rem;margin-bottom:6px}
+.card p{color:var(--mut);font-size:.94rem}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;counter-reset:s}
+.step{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:22px;counter-increment:s}
+.step:before{content:counter(s);display:flex;align-items:center;justify-content:center;width:34px;height:34px;border-radius:50%;background:var(--neon);color:#04140B;font-weight:800;margin-bottom:12px}
+.step h3{font-size:1.02rem;margin-bottom:4px}
+.step p{color:var(--mut);font-size:.94rem}
+.guar{display:flex;gap:20px;align-items:center;background:linear-gradient(135deg,rgba(0,255,136,.09),var(--card));border:1px solid rgba(0,255,136,.4);border-radius:16px;padding:28px}
+.guar svg{flex:none;width:56px;height:56px;stroke:var(--neon);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.guar h2{font-size:1.35rem;margin-bottom:6px}
+.guar p{color:var(--mut)}
+details{background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px}
+details[open]{border-color:rgba(0,255,136,.4)}
+summary{cursor:pointer;padding:16px 20px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:12px}
+summary::-webkit-details-marker{display:none}
+summary:after{content:"+";color:var(--neon);font-size:1.3rem;line-height:1}
+details[open] summary:after{content:"−"}
+details p{padding:0 20px 18px;color:var(--mut)}
+.end{text-align:center;padding:56px 20px;margin:20px 0 40px;background:radial-gradient(ellipse 70% 90% at 50% 100%,rgba(0,255,136,.13),transparent 70%),var(--card);border:1px solid var(--line);border-radius:20px}
+.end h2{margin-bottom:10px}
+.end p{color:var(--mut);margin-bottom:24px}
+footer{text-align:center;color:var(--mut);font-size:13px;padding:0 0 36px}
+@media(max-width:600px){.guar{flex-direction:column;text-align:center}.cta{width:100%}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+</style></head><body>
+<div class="wrap">
+<nav class="top"><a href="https://flowmint.centraliaportal.com/recursos-vip/index.html">← Back to VIP Portal</a><a href="configuracion-vip.html" hreflang="es">Español</a></nav>
+<header class="hero">
+<span class="badge">⚡ VIP TECHNICAL DEPLOYMENT SERVICE</span>
+<h1>We get your Flowmint App <em>100% ready to operate</em></h1>
+<p class="sub">Forget the technical side. Save time, avoid setup errors and start selling without complications.</p>
+<div class="price">$29 USD (One-Time Payment)</div><br>
+<a class="cta" href="https://pay.hotmart.com/S106873189Y?off=3yr2r405" target="_blank" rel="noopener noreferrer">⚙️ Request VIP Setup ($29)</a>
+</header>
+<section><h2>What does your VIP Setup include?</h2><div class="grid"><div class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="2"/><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M7 7h.01M7 17h.01"/></svg><h3>Complete hosting and technical deployment</h3><p>We upload your app and get it running on a production-ready server.</p></div><div class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg><h3>Your own domain with SSL certificate (HTTPS)</h3><p>Your app opens on your domain, with the security padlock and no browser warnings.</p></div><div class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6M4 12v6c0 1.7 3.6 3 8 3s8-1.3 8-3v-6"/></svg><h3>Database and license system setup</h3><p>We configure license registration so you can sell and activate customers.</p></div><div class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8 12 3 3 5-6"/></svg><h3>Pre-delivery verification tests</h3><p>We check that everything works before handing it over: nothing arrives half-done.</p></div><div class="card"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg><h3>Fast delivery in 24-48 hours</h3><p>We start once we have your payment and your domain.</p></div></div></section>
+<section><h2>How it works in 3 steps</h2><div class="steps"><div class="step"><h3>You make your secure payment</h3><p>One-time payment of $29 USD, no monthly fees.</p></div><div class="step"><h3>You send us your domain name</h3><p>By email to hola@centraliaportal.com, with the domain you want to use.</p></div><div class="step"><h3>You get your app ready to bill</h3><p>Installed, tested and running on your domain.</p></div></div></section>
+<section><div class="guar"><svg viewBox="0 0 24 24"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg><div><h2>100% technical satisfaction guarantee</h2><p>If anything in your installation doesn't work the way we delivered it, we fix it at no extra cost until your app runs correctly.</p></div></div></section>
+<section><h2>Frequently asked questions</h2><details><summary>Which domains can I use?</summary><p>Any domain you already own (.com, .net, .org, .co, etc.) or a subdomain of one you own. You just need to be the owner or have access to its settings.</p></details><details><summary>Do I need to give you access to my DNS?</summary><p>The domain has to point to your app. We give you the exact DNS records to add yourself, or you can give us temporary access to your domain panel if you'd rather we do it.</p></details><details><summary>How long does delivery take?</summary><p>Between 24 and 48 hours from when we receive your payment and your domain name.</p></details><details><summary>Is there anything else to pay?</summary><p>The service is $29 USD, one-time. If you don't have a domain yet, you buy it separately from the provider you prefer.</p></details></section>
+<div class="end"><h2>Start selling without fighting the technical side</h2><p>Your app installed, on your domain and ready to bill in 24-48 hours.</p><a class="cta" href="https://pay.hotmart.com/S106873189Y?off=3yr2r405" target="_blank" rel="noopener noreferrer">⚙️ Request VIP Setup ($29)</a></div>
+<footer>Flowmint Reseller Network</footer>
+</div></body></html>
