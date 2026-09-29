@@ -850,7 +850,7 @@ async function submitSupportForm(e) {
   formData.append('_captcha', 'false');
 
   try {
-    const res = await fetch('https://formsubmit.co/ajax/hola@centraliaportal.com', {
+    const res = await fetch('/api/webhook', {
       method: 'POST',
       body: formData
     });
@@ -866,15 +866,11 @@ async function submitSupportForm(e) {
       }, 2500);
     } else {
       // Fallback tradicional FormSubmit
-      form.action = 'https://formsubmit.co/hola@centraliaportal.com';
-      form.method = 'POST';
-      form.submit();
+      alert('Error al enviar el mensaje por fallback. Por favor intenta más tarde.'); btn.disabled = false; btn.innerText = 'Enviar Consulta';
     }
   } catch (err) {
     try {
-      form.action = 'https://formsubmit.co/hola@centraliaportal.com';
-      form.method = 'POST';
-      form.submit();
+      alert('Error al enviar el mensaje por fallback. Por favor intenta más tarde.'); btn.disabled = false; btn.innerText = 'Enviar Consulta';
     } catch (e2) {
       alert('Error al enviar el mensaje. Inténtalo de nuevo.');
       btn.disabled = false;
