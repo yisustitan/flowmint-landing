@@ -39,3 +39,13 @@ flowmint_v11*.html
 reset-bolsillos.html
 # Archivos de entorno y secretos
 .env
+
+# Subcarpetas de trabajo/video que no van al repo
+recursos-vip/tutoriales/Nuevos/
+"recursos-vip/tutoriales/Ultimo con Video Tutorial Modulo 1/"
+
+# Scripts de generacion de zips
+create_zip.py
+
+# Archivos de texto sueltos dentro de carpetas del repo
+recursos-vip/**/*.txt
