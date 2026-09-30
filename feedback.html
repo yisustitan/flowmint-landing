@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -569,10 +569,7 @@
     });
   });
 
-  // ── Brevo endpoint ──
-  const BREVO_URL = 'https://1f0e6012.sibforms.com/serve/MUIFAGaFqLxjyHWPjEK8_JgspcSO_8cKISQN7DcnV9pojJ7m6AzNvfu1NtAV-qmXNhsy-UnnsV2BTNZTlQkKfuxGNyLbdPuoRc18Ded7cVK36tI41MLYt8-84ZESrT0sZnl59hH5cvh8GzYkwGRG8WyL-WFWPe5a5VY8Al9Oux1SvFBZOek8VJuoADftXHeVL0x3VrAA4EBnvYh9Ow==';
-
-  // ── Submit with Brevo Fetch ──
+  // ── Submit via /api/webhook (tipo: 'rating') ──
   async function submitFeedback(e) {
     if(e) e.preventDefault();
 
@@ -607,38 +604,26 @@
     btnLabel.style.display   = 'none';
     btnSpinner.style.display = 'inline';
 
-    // Build FormData for Brevo
-    const formData = new FormData();
-    formData.append('EMAIL',          emailInput.value);
-    formData.append('RATING',         `${selectedRating} / 5`);
-    formData.append('FEEDBACK',       suggestion || (lang === 'en' ? '(no comment)' : '(sin comentario)'));
-    formData.append('RECOMMENDATION', recommendLabel);
-    formData.append('LANGUAGE',       lang.toUpperCase());
-    formData.append('TIMESTAMP',      new Date().toLocaleString(lang === 'en' ? 'en-US' : 'es-ES'));
+    // Payload para /api/webhook
+    const payload = {
+      nombre: emailInput.value,
+      email: emailInput.value,
+      mensaje: suggestion || (lang === 'en' ? '(no comment)' : '(sin comentario)'),
+      tipo: 'rating',
+      estrellas: selectedRating
+    };
 
-    // Local backup in localStorage
     try {
-      const prev = JSON.parse(localStorage.getItem('fm_feedback') || '[]');
-      prev.push({ timestamp: new Date().toISOString(), email: emailInput.value, rating: selectedRating, feedback_text: suggestion, recommendation: recommendValue, lang });
-      localStorage.setItem('fm_feedback', JSON.stringify(prev));
-    } catch(err) { console.warn('FlowMint: localStorage backup failed', err); }
-
-    // POST to Brevo
-    try {
-      const res = await fetch(BREVO_URL, {
-        method:  'POST',
-        body:    formData,
-        // Accept header can cause issues with some endpoints if they only return HTML, but we will leave it or handle opaque responses.
+      const res = await fetch('/api/webhook', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
       });
-
-      // sibforms might redirect or return an opaque response due to CORS if not explicitly configured for fetch.
-      // But typically, a 200/300 response means it was submitted.
-      if(res.ok || res.type === 'opaque') {
+      const data = await res.json();
+      if (data.success) {
         showThankYou(selectedRating, recommendValue);
       } else {
-        const data = await res.json().catch(() => ({}));
-        const errMsg = (data.errors || []).map(e => e.message).join(', ') || `Error ${res.status}`;
-        showNetworkError(`${t.err_server}: ${errMsg}`);
+        showNetworkError(t.err_server + ': ' + (data.message || ''));
         resetButton();
       }
     } catch(networkErr) {
@@ -648,7 +633,7 @@
     }
   }
 
-  function resetButton() {
+    function resetButton() {
     const btnSubmit  = document.getElementById('btnSubmit');
     const btnLabel   = document.getElementById('btnLabel');
     const btnSpinner = document.getElementById('btnSpinner');

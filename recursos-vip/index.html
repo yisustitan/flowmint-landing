@@ -843,9 +843,10 @@ async function submitSupportForm(e) {
   }
 
     const payload = {
+    nombre: email,
     email: email,
-    subject: subject,
-    message: message
+    mensaje: message + (subject ? ' [Asunto: ' + subject + ']' : ''),
+    tipo: 'soporte'
   };
 
   try {

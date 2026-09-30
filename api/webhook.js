@@ -3,7 +3,7 @@
     return res.status(405).json({ message: 'Método no permitido' });
   }
 
-  // 1. Validar si es un Webhook de Hotmart (por el token)
+  // ── 1. Webhook de Hotmart (token propio) ──────────────────────────────────
   const hottokHeader = req.headers['x-hotmart-hottok'] || (req.body && req.body.hottok);
   const MY_HOTTOK = process.env.HOTMART_HOTTOK;
 
@@ -14,65 +14,92 @@
     return res.status(200).json({ success: true, message: 'Webhook de FlowMint recibido con éxito' });
   }
 
-  // 2. Si no es de Hotmart, validar que sea del formulario de soporte
-  const { email, subject, message } = req.body || {};
+  // ── 2. Formularios del frontend ───────────────────────────────────────────
+  const { nombre, email, mensaje, tipo, estrellas } = req.body || {};
 
-  if (email && message) {
-    try {
-      const BREVO_API_KEY = process.env.BREVO_API_KEY;
-      if (!BREVO_API_KEY) {
-        return res.status(500).json({ success: false, message: 'Falta configurar BREVO_API_KEY en el servidor.' });
-      }
+  // Validación mínima
+  if (!email) {
+    return res.status(400).json({ success: false, message: 'Falta el campo email.' });
+  }
 
-      const brevoPayload = {
-        sender: { name: "Soporte FlowMint", email: "hola@centraliaportal.com" },
-        to: [{ email: "hola@centraliaportal.com" }],
+  const BREVO_API_KEY = process.env.BREVO_API_KEY;
+  if (!BREVO_API_KEY) {
+    return res.status(500).json({ success: false, message: 'Falta configurar BREVO_API_KEY en el servidor.' });
+  }
+
+  const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
+  const brevoHeaders = {
+    'api-key': BREVO_API_KEY,
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  };
+
+  try {
+    // ── A) SOPORTE / CONTACTO → Envío doble (Promise.all) ────────────────────
+    if (tipo === 'soporte' || tipo === 'contacto') {
+      const nombreDisplay = nombre || email;
+      const mensajeHtml = (mensaje || '(sin mensaje)').replace(/\n/g, '<br>');
+
+      // 1. Notificación interna de ticket al equipo
+      const ticketPayload = {
+        sender: { name: 'Soporte FlowMint', email: 'hola@centraliaportal.com' },
+        to: [{ email: 'hola@centraliaportal.com' }],
         replyTo: { email: email },
-        subject: subject || "Consulta Soporte Reseller VIP",
-        htmlContent: <p><strong>Email del cliente:</strong> +email+</p><p><strong>Mensaje:</strong></p><p>+message.replace(/\n/g, '<br>')+</p>
+        subject: `[Ticket ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}] Nueva consulta de ${nombreDisplay}`,
+        htmlContent: `<p><strong>Nombre:</strong> ${nombreDisplay}</p><p><strong>Email:</strong> ${email}</p><p><strong>Tipo:</strong> ${tipo}</p><hr><p><strong>Mensaje:</strong></p><p>${mensajeHtml}</p>`
       };
 
-      const response = await fetch('https://api.brevo.com/v3/smtp/email', {
+      // 2. Auto-confirmación inmediata al cliente
+      const autoReplyPayload = {
+        sender: { name: 'Soporte FlowMint', email: 'hola@centraliaportal.com' },
+        to: [{ email: email }],
+        subject: 'Hemos recibido tu consulta - Flowmint',
+        htmlContent: `<p>Hola ${nombreDisplay},</p><p>Hemos recibido tu consulta correctamente. Nuestro equipo de soporte te responderá directamente a este correo a la brevedad posible.</p><p>Atentamente,<br>El equipo de Flowmint</p>`
+      };
+
+      await Promise.all([
+        fetch(BREVO_ENDPOINT, { method: 'POST', headers: brevoHeaders, body: JSON.stringify(ticketPayload) }),
+        fetch(BREVO_ENDPOINT, { method: 'POST', headers: brevoHeaders, body: JSON.stringify(autoReplyPayload) })
+      ]);
+
+      return res.status(200).json({ success: true, message: 'Consulta recibida. Te hemos enviado una confirmación.' });
+    }
+
+    // ── B) FEEDBACK / SUGERENCIA / RATING → Envío único (solo equipo) ────────
+    if (tipo === 'feedback' || tipo === 'sugerencia' || tipo === 'rating') {
+      const nombreDisplay = nombre || email;
+      const mensajeHtml = (mensaje || '(sin comentario)').replace(/\n/g, '<br>');
+      const valoracion = estrellas ? `${estrellas} / 5` : 'No especificada';
+
+      const feedbackPayload = {
+        sender: { name: 'FlowMint Feedback', email: 'hola@centraliaportal.com' },
+        to: [{ email: 'hola@centraliaportal.com' }],
+        replyTo: { email: email },
+        subject: `[${tipo.charAt(0).toUpperCase() + tipo.slice(1)}] Valoracion de ${nombreDisplay} — ${valoracion}`,
+        htmlContent: `<p><strong>Usuario:</strong> ${nombreDisplay} (${email})</p><p><strong>Tipo:</strong> ${tipo}</p><p><strong>Valoracion:</strong> ${valoracion}</p><hr><p><strong>Comentario:</strong></p><p>${mensajeHtml}</p>`
+      };
+
+      const response = await fetch(BREVO_ENDPOINT, {
         method: 'POST',
-        headers: {
-          'api-key': BREVO_API_KEY,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(brevoPayload)
+        headers: brevoHeaders,
+        body: JSON.stringify(feedbackPayload)
       });
 
       if (!response.ok) {
         const errorData = await response.text();
-        console.error('Brevo Error:', errorData);
-        return res.status(response.status).json({ success: false, message: 'Error enviando correo por Brevo', error: errorData });
+        console.error('Brevo Error (feedback):', errorData);
+        return res.status(response.status).json({ success: false, message: 'Error enviando feedback por Brevo', error: errorData });
       }
 
-      // Enviar template al cliente como respuesta automática
-      const autoReplyPayload = {
-        sender: { name: "Soporte FlowMint", email: "hola@centraliaportal.com" },
-        to: [{ email: email }],
-        subject: "Hemos recibido tu solicitud de soporte",
-        htmlContent: <p>Hola,</p><p>Hemos recibido tu consulta de soporte: <strong>+subject+</strong>.</p><p>Nuestro equipo lo revisará y te contactará a la brevedad posible a través de este correo.</p><p>Mensaje enviado:<br/><em>+message.replace(/\n/g, '<br>')+</em></p><p>Saludos,<br/>El equipo de FlowMint</p>
-      };
-      
-      await fetch('https://api.brevo.com/v3/smtp/email', {
-        method: 'POST',
-        headers: {
-          'api-key': BREVO_API_KEY,
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify(autoReplyPayload)
-      });
-
-      return res.status(200).json({ success: true, message: 'Correo de soporte enviado con éxito por Brevo' });
-    } catch (err) {
-      console.error('Webhook error:', err);
-      return res.status(500).json({ success: false, message: 'Error interno del servidor.' });
+      // NO se envia correo al cliente — HTTP 200 para mostrar agradecimiento en pantalla
+      return res.status(200).json({ success: true, message: 'Gracias por tu valoracion!' });
     }
-  }
 
-  // 3. Fallback
-  return res.status(400).json({ success: false, message: 'Petición no reconocida' });
+    // ── C) Tipo no reconocido ─────────────────────────────────────────────────
+    return res.status(400).json({ success: false, message: `Tipo de formulario no reconocido: "${tipo || 'undefined'}"` });
+
+  } catch (err) {
+    console.error('Webhook error:', err);
+    return res.status(500).json({ success: false, message: 'Error interno del servidor.' });
+  }
 }

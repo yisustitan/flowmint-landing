@@ -1,0 +1,19 @@
+
+VIDEO TUTORIAL PUESTO EN AMERICA TE OYE:
+https://youtu.be/sd62XHH-exw
+
+
+VIDEO TUTORIAL PUESTO EN cancionesjrt:
+https://youtu.be/hdAi2phMU7I
+
+******************************************
+
+Hola Claude. Ya subí el video del Módulo 1 a YouTube en modo oculto.
+
+El enlace de mi video es: [https://youtu.be/hdAi2phMU7I]
+
+Por favor, realiza lo siguiente en la página de la Guía Oficial de Usuario:
+1. Ubica el reproductor de video principal y la tarjeta del Módulo 1.
+2. Convierte mi enlace de YouTube al formato embed (https://www.youtube.com/embed/ID_DEL_VIDEO) y asígnalo como la fuente por defecto del reproductor principal para el Módulo 1.
+3. Asegúrate de que el iframe del reproductor sea responsive (100% de ancho) y encaje perfectamente en el contenedor oscuro con bordes redondeados.
+4. Si la página tiene un script para alternar videos al hacer clic en los Módulos 1, 2 y 3, deja asignado el enlace del Módulo 1 para que reproduzca este video inmediatamente al cargar la página.

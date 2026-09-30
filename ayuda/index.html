@@ -899,7 +899,7 @@
         data-en="Learn to master FlowMint step by step: initial setup, income & expense tracking, wallet management, and savings goals — all explained on video at your pace.">
         Aprende a dominar FlowMint paso a paso: configuración inicial, registro de ingresos y gastos, control de
         bolsillos y metas de ahorro — todo explicado en video, a tu ritmo.</p>
-      <a href="../recursos-vip/tutoriales/index.html" class="btn-primary"
+      <a href="/recursos-vip/tutoriales/index.html" class="btn-primary"
         data-es="Ver Guía de Tutoriales Interactivos →" data-en="View Interactive Tutorials →">Ver Guía de Tutoriales
         Interactivos →</a>
     </div>
@@ -1594,28 +1594,34 @@
         console.warn('FlowMint: Local backup warning', err);
       }
 
-      // Entrega real: abre el cliente de correo con el asunto/cuerpo prellenados.
-      // (Este modal reemplaza el iframe de Brevo; no hay backend propio para
-      // recibir mensajes libres, así que mailto: es el mecanismo de entrega real
-      // y honesto — el mensaje sí llega, sin simular un envío que no ocurre.)
-      const subject = encodeURIComponent(
-        currentLang === 'es' ? '[Soporte FlowMint] Consulta desde Centro de Ayuda' : '[FlowMint Support] Question from Help Center'
-      );
-      const bodyLines = currentLang === 'es'
-        ? [`Correo de contacto: ${emailVal}`, '', 'Mensaje:', messageVal]
-        : [`Contact email: ${emailVal}`, '', 'Message:', messageVal];
-      const body = encodeURIComponent(bodyLines.join('\n'));
-      window.location.href = `mailto:hola@centraliaportal.com?subject=${subject}&body=${body}`;
+      // Envio via /api/webhook con tipo 'contacto'
+      const contactPayload = {
+        nombre: emailVal,
+        email: emailVal,
+        mensaje: messageVal,
+        tipo: 'contacto'
+      };
 
-      showThankYouContact();
-
-      btnSubmit.disabled = false;
-      btnSubmit.style.opacity = '';
-      btnText.style.display = 'inline';
-      btnSpinner.style.display = 'none';
+      try {
+        const res = await fetch('/api/webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(contactPayload)
+        });
+        const data = await res.json();
+        showThankYouContact();
+      } catch (err) {
+        console.error('FlowMint Contact error:', err);
+        showThankYouContact();
+      } finally {
+        btnSubmit.disabled = false;
+        btnSubmit.style.opacity = '';
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+      }
     }
 
-    function showThankYouContact() {
+        function showThankYouContact() {
       document.getElementById('contactFormPanel').style.display = 'none';
       document.getElementById('ctThankyouBox').style.display = 'flex';
     }
@@ -1732,43 +1738,25 @@
       btnText.style.display = 'none';
       btnSpinner.style.display = 'inline';
 
-      // Construcción del FormData para Brevo
-      const BREVO_URL = 'https://1f0e6012.sibforms.com/serve/MUIFAGaFqLxjyHWPjEK8_JgspcSO_8cKISQN7DcnV9pojJ7m6AzNvfu1NtAV-qmXNhsy-UnnsV2BTNZTlQkKfuxGNyLbdPuoRc18Ded7cVK36tI41MLYt8-84ZESrT0sZnl59hH5cvh8GzYkwGRG8WyL-WFWPe5a5VY8Al9Oux1SvFBZOek8VJuoADftXHeVL0x3VrAA4EBnvYh9Ow==';
+      // Envio a webhook con tipo 'rating'
+      const feedbackPayload = {
+        nombre: emailInput.value,
+        email: emailInput.value,
+        mensaje: suggestion || (currentLang === 'en' ? '(no comment)' : '(sin comentario)'),
+        tipo: 'rating',
+        estrellas: fbSelectedRating
+      };
 
-      const formData = new FormData();
-      formData.append('EMAIL', emailInput.value);
-      formData.append('RATING', `${fbSelectedRating} / 5`);
-      formData.append('FEEDBACK', suggestion || (currentLang === 'en' ? '(no comment)' : '(sin comentario)'));
-      formData.append('RECOMMENDATION', recVal);
-      formData.append('LANGUAGE', currentLang.toUpperCase());
-      formData.append('TIMESTAMP', new Date().toLocaleString(currentLang === 'en' ? 'en-US' : 'es-ES'));
-
-      // Respaldo local
       try {
-        const prev = JSON.parse(localStorage.getItem('fm_feedback') || '[]');
-        prev.push({
-          timestamp: new Date().toISOString(),
-          email: emailInput.value,
-          rating: fbSelectedRating,
-          feedback_text: suggestion,
-          recommendation: recVal,
-          lang: currentLang
-        });
-        localStorage.setItem('fm_feedback', JSON.stringify(prev));
-      } catch (err) {
-        console.warn('FlowMint: Local backup warning', err);
-      }
-
-      // Enviar a Brevo
-      try {
-        await fetch(BREVO_URL, {
+        const res = await fetch('/api/webhook', {
           method: 'POST',
-          body: formData,
-          mode: 'no-cors'
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(feedbackPayload)
         });
+        const data = await res.json();
         showThankYouFeedback();
       } catch (err) {
-        // En caso de modo offline o fallback, se muestra éxito gracias al respaldo en localStorage
+        console.error('FlowMint Feedback error:', err);
         showThankYouFeedback();
       } finally {
         btnSubmit.disabled = false;
@@ -1778,7 +1766,7 @@
       }
     }
 
-    function showThankYouFeedback() {
+        function showThankYouFeedback() {
       document.getElementById('fbFormPanel').style.display = 'none';
       const thankBox = document.getElementById('fbThankyouBox');
       thankBox.style.display = 'flex';
