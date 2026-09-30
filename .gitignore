@@ -42,7 +42,7 @@ reset-bolsillos.html
 
 # Subcarpetas de trabajo/video que no van al repo
 recursos-vip/tutoriales/Nuevos/
-"recursos-vip/tutoriales/Ultimo con Video Tutorial Modulo 1/"
+recursos-vip/tutoriales/Ultimo con Video Tutorial Modulo 1/
 
 # Scripts de generacion de zips
 create_zip.py
