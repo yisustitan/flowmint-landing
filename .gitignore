@@ -11,18 +11,18 @@ Words de Flowmint-Combo/
 Mapa de flowmintApp(main)/
 
 # Imágenes sueltas de trabajo (capturas, notas visuales)
-*.png
-*.jpg
-*.jpeg
+/*.png
+/*.jpg
+/*.jpeg
 
 # Archivos de texto / guiones / notas personales sueltos
-*.txt
-*.svg
+/*.txt
+/*.svg
 
 # Documentos Word / PDFs sueltos en raíz
-*.doc
-*.docx
-*.pdf
+/*.doc
+/*.docx
+/*.pdf
 
 # Archivos temporales de Microsoft Office
 ~$*
