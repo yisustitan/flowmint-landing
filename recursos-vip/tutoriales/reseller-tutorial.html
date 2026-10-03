@@ -68,6 +68,10 @@
     .module-play{font-size:18px;color:var(--text-sec);transition:color .2s;}
 
     footer{text-align:center;padding:28px 24px;color:var(--text-sec);font-size:12px;font-family:var(--font-mono);border-top:1px solid var(--border);}
+    .btn-action-dl{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--mint);color:var(--text);padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;transition:all .2s;}
+    .btn-action-dl:hover{background:rgba(0,200,150,0.1);color:#fff;transform:translateY(-1px);}
+    .btn-action-support{display:inline-flex;align-items:center;gap:8px;background:var(--mint);border:none;color:#06231a;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;box-shadow:0 0 16px rgba(0,200,150,0.25);}
+    .btn-action-support:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(0,200,150,0.45);}
   </style>
 </head>
 <body>
@@ -141,19 +145,25 @@
     </div>
 
     <!-- TEMARIO INTERACTIVO CON seekToTimestamp -->
-    <h2 class="section-subtitle" data-i18n data-es="Temario del Entrenamiento" data-en="Training Syllabus">Temario del Entrenamiento</h2>
+    <h2 class="section-subtitle" data-i18n data-es="Capítulos del Entrenamiento" data-en="Training Chapters">Capítulos del Entrenamiento</h2>
     <p style="color:var(--text-sec);font-size:13.5px;margin-bottom:18px;" data-i18n
       data-es="Haz clic en cualquier módulo para saltar directamente a ese momento del video."
       data-en="Click any module to jump directly to that point in the video.">
       Haz clic en cualquier módulo para saltar directamente a ese momento del video.
     </p>
 
+    
+    <div style="display:flex; gap:16px; margin-bottom:30px; flex-wrap:wrap;">
+      <a href="../downloads/guia-operativa.pdf" target="_blank" class="btn-action-dl" data-i18n data-es="📄 Descargar Guía Operativa PDF" data-en="📄 Download Operating Guide PDF">📄 Descargar Guía Operativa PDF</a>
+      <button onclick="openSupportModal()" class="btn-action-support" data-i18n data-es="💬 Contactar Soporte VIP" data-en="💬 Contact VIP Support">💬 Contactar Soporte VIP</button>
+    </div>
+
     <div class="modules-list">
 
       <!-- Módulo 1 → segundo 0 (00:00) -->
       <div class="module-item" onclick="seekToTimestamp(0)" title="Ir al inicio">
         <div class="module-info">
-          <h3 data-i18n data-es="Módulo 1: Entrega de Licencias y Enlace Neutro" data-en="Module 1: License Delivery & Neutral Link">Módulo 1: Entrega de Licencias y Enlace Neutro</h3>
+          <h3 data-i18n data-es="Capítulo 1: Introducción y Entrega" data-en="Chapter 1: Intro & Delivery">Capítulo 1: Introducción y Entrega</h3>
           <p data-i18n
             data-es="Cómo suministrar el acceso limpio a tu cliente final sin logos ni intermediarios."
             data-en="How to provide clean web app access to your end client with zero logos or friction.">
@@ -169,7 +179,7 @@
       <!-- Módulo 2 → segundo 320 (05:20) -->
       <div class="module-item" onclick="seekToTimestamp(320)" title="Ir al minuto 05:20">
         <div class="module-info">
-          <h3 data-i18n data-es="Módulo 2: Estructura de Precios y Cobro Único" data-en="Module 2: Pricing Strategy & One-Time Fee">Módulo 2: Estructura de Precios y Cobro Único</h3>
+          <h3 data-i18n data-es="Capítulo 2: Estrategia de Precios" data-en="Chapter 2: Pricing Strategy">Capítulo 2: Estrategia de Precios</h3>
           <p data-i18n
             data-es="Estrategias probadas de precio ($17 - $47 USD) para maximizar conversiones y ventas inmediatas."
             data-en="Proven pricing tiers ($17 - $47 USD) to maximize checkout conversions and upfront revenue.">
@@ -185,7 +195,7 @@
       <!-- Módulo 3 → segundo 845 (14:05 = 320+525) -->
       <div class="module-item" onclick="seekToTimestamp(845)" title="Ir al minuto 14:05">
         <div class="module-info">
-          <h3 data-i18n data-es="Módulo 3: Servicio Done-For-You y Soporte" data-en="Module 3: Done-For-You Setup & Support">Módulo 3: Servicio Done-For-You y Soporte</h3>
+          <h3 data-i18n data-es="Capítulo 3: Soporte y Done-For-You" data-en="Chapter 3: Support & Done-For-You">Capítulo 3: Soporte y Done-For-You</h3>
           <p data-i18n
             data-es="Cómo coordinar instalaciones personalizadas o resolver dudas frecuentes con tu soporte VIP."
             data-en="How to coordinate custom deployments or handle common end-user questions with VIP support.">
@@ -207,14 +217,15 @@
   </footer>
 
 <script>
+const VIDEO_ID_ES = 'U0cyGMUpsWA';
+const VIDEO_ID_EN = 'PLACEHOLDER_EN';
 let currentLang = localStorage.getItem('flowmint_lang') || 'es';
-
-// ── Reemplaza U0cyGMUpsWA con el ID real del video de Reseller ────────
 
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('flowmint_lang', lang);
   document.documentElement.lang = lang;
+  
   const btnText = document.getElementById('langBtnText');
   if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
 
@@ -229,6 +240,16 @@ function setLanguage(lang) {
 
   const pill = document.getElementById('videoLangPill');
   if (pill) pill.innerText = '🌐 ' + lang.toUpperCase();
+  
+  const player = document.getElementById('resellerPlayer');
+  if (player) {
+    const currentVideoId = lang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
+    const baseSrc = https://www.youtube.com/embed/?rel=0&enablejsapi=1&modestbranding=1&color=white;
+    // Only update if different
+    if (!player.src.includes(currentVideoId)) {
+      player.src = baseSrc;
+    }
+  }
 }
 
 function toggleLanguage() {
@@ -253,6 +274,92 @@ function seekToTimestamp(seconds) {
 document.addEventListener('DOMContentLoaded', () => {
   setLanguage(currentLang);
 });
+</script>
+
+
+<!-- MODAL DE SOPORTE INTERACTIVO -->
+<style>
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:99999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:fadeIn .2s ease-out;}
+.modal-backdrop.active{display:flex;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal-box{background:var(--card);border:1px solid var(--mint);box-shadow:0 0 35px rgba(0,200,150,0.22);padding:32px;border-radius:16px;max-width:460px;width:100%;position:relative;animation:slideUp .25s ease-out;}
+@keyframes slideUp{from{transform:translateY(18px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--text-sec);font-size:22px;cursor:pointer;line-height:1;transition:color .2s;}
+.modal-close:hover{color:var(--mint);}
+.modal-header{margin-bottom:20px;}
+.modal-header h3{font-family:var(--font-display);font-size:21px;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.modal-header p{color:var(--text-sec);font-size:13.5px;}
+.form-group{margin-bottom:16px;text-align:left;}
+.form-group label{display:block;font-family:var(--font-mono);font-size:12px;color:var(--text-sec);margin-bottom:6px;}
+.form-control{width:100%;padding:12px 14px;background:var(--navy2);border:1px solid var(--border);border-radius:8px;color:#fff;font-family:var(--font-sans);font-size:14px;transition:border-color .2s,box-shadow .2s;}
+.form-control:focus{outline:none;border-color:var(--mint);box-shadow:0 0 10px rgba(0,200,150,0.25);}
+textarea.form-control{resize:vertical;min-height:100px;}
+.modal-actions{display:flex;gap:10px;margin-top:20px;}
+.btn-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text-sec);padding:12px;border-radius:8px;cursor:pointer;transition:background .2s,color .2s;}
+.btn-cancel:hover{background:var(--navy3);color:#fff;}
+.btn-submit{flex:2;background:var(--mint);border:none;color:#06231a;font-weight:700;padding:12px;border-radius:8px;cursor:pointer;box-shadow:0 0 16px rgba(0,200,150,0.3);transition:transform .2s;}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(0,200,150,0.45);}
+.success-msg{display:none;background:rgba(0,200,150,0.12);border:1px solid var(--mint);color:var(--mint);font-size:13.5px;padding:12px;border-radius:8px;text-align:center;margin-bottom:14px;}
+.validation-msg{display:none;font-size:12.5px;color:#ff6b6b;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.25);padding:9px 12px;border-radius:8px;margin-bottom:14px;}
+.validation-msg.show{display:block;}
+</style>
+<div id="supportModal" class="modal-backdrop" onclick="handleBackdropClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSupportModal()">&times;</button>
+    <div class="modal-header">
+      <h3 data-i18n data-es="Soporte VIP FlowMint" data-en="FlowMint VIP Support">Soporte VIP FlowMint</h3>
+      <p data-i18n data-es="Escribe tu consulta y te responderemos a la brevedad." data-en="Write your inquiry and we will respond shortly.">Escribe tu consulta y te responderemos a la brevedad.</p>
+    </div>
+    <div id="supportSuccessMsg" class="success-msg">✓ Mensaje enviado.</div>
+    <form id="supportForm" onsubmit="submitSupportForm(event)">
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="supportEmail" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label data-i18n data-es="Mensaje *" data-en="Message *">Mensaje *</label>
+        <textarea id="supportMessage" class="form-control" required></textarea>
+      </div>
+      <div class="validation-msg" id="supportValidationMsg"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeSupportModal()" data-i18n data-es="Cancelar" data-en="Cancel">Cancelar</button>
+        <button type="submit" class="btn-submit" id="btnSubmitSupport" data-i18n data-es="Enviar Consulta" data-en="Send Inquiry">Enviar Consulta</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+function openSupportModal(){
+  const m=document.getElementById('supportModal');
+  m.classList.add('active');
+}
+function closeSupportModal(){
+  document.getElementById('supportModal').classList.remove('active');
+}
+function handleBackdropClick(e){
+  if(e.target===document.getElementById('supportModal')) closeSupportModal();
+}
+async function submitSupportForm(e){
+  e.preventDefault();
+  const btn = document.getElementById('btnSubmitSupport');
+  const msg = document.getElementById('supportMessage').value;
+  const email = document.getElementById('supportEmail').value;
+  btn.innerText = 'Enviando...';
+  btn.disabled = true;
+  try {
+    await fetch('/api/webhook', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email, mensaje:msg, tipo:'soporte'})
+    });
+    document.getElementById('supportSuccessMsg').style.display='block';
+    document.getElementById('supportForm').reset();
+    setTimeout(closeSupportModal, 2000);
+  } catch(err) {
+    alert('Error');
+  }
+  btn.disabled = false;
+  btn.innerText = 'Enviar Consulta';
+}
 </script>
 
 </body>
