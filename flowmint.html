@@ -4147,6 +4147,44 @@
       return key.toUpperCase().startsWith('HP') || key.length >= 8;
     }
 
+    function resetLicenseActions() {
+      const actionsEl = document.querySelector('#licenseModalOverlay .license-actions');
+      if (actionsEl) {
+        actionsEl.innerHTML = `
+          <button class="btn-license-activate" onclick="submitLicenseKey()" data-i18n="license.btn_activate">⚡ Activar Licencia</button>
+          <a href="https://pay.hotmart.com/S106873189Y?checkoutMode=10" target="_blank" class="btn-buy-license" data-i18n="license.btn_buy">🛒 Comprar Licencia ($19 USD)</a>
+        `;
+      }
+    }
+
+    function showLicenseLimitReached() {
+      const err = document.getElementById('licenseErrorMsg');
+      if (err) {
+        err.innerHTML = '⚠️ Has alcanzado el límite de 2 equipos vinculados a tu clave de licencia HP.';
+        err.style.display = 'block';
+        err.style.color = '#F5A623';
+        err.style.background = 'rgba(245, 166, 35, 0.12)';
+        err.style.border = '1px solid rgba(245, 166, 35, 0.35)';
+        err.style.borderRadius = '10px';
+        err.style.padding = '10px 14px';
+        err.style.marginTop = '12px';
+        err.style.fontSize = '13px';
+        err.style.lineHeight = '1.45';
+      }
+
+      const actionsEl = document.querySelector('#licenseModalOverlay .license-actions');
+      if (actionsEl) {
+        actionsEl.innerHTML = `
+          <a href="https://pay.hotmart.com/S106873189Y?checkoutMode=10" target="_blank" class="btn-primary" style="width:100%; text-decoration:none; justify-content:center; display:flex; align-items:center; padding:14px; font-weight:700; font-size:14.5px; border-radius:12px; background:linear-gradient(135deg, #00C896, #00A67A); color:#0F1B2D; box-shadow:0 4px 16px rgba(0,200,150,0.35); text-align:center;">
+            ➕ Añadir Dispositivo Extra ($10 USD)
+          </a>
+          <button class="btn-ghost" style="width:100%; padding:12px; border-radius:12px; border:1px solid rgba(0,200,150,0.4); color:#00C896; font-weight:600; font-size:14px; cursor:pointer; background:transparent;" onclick="submitLicenseKey()">
+            ⚡ Reintentar Activación
+          </button>
+        `;
+      }
+    }
+
     function openLicenseModal() {
       const overlay = document.getElementById('licenseModalOverlay');
       if (overlay) {
@@ -4154,13 +4192,21 @@
         const inp = document.getElementById('licenseKeyInput');
         if (inp) { inp.value = ''; inp.focus(); }
         const err = document.getElementById('licenseErrorMsg');
-        if (err) { err.style.display = 'none'; err.textContent = ''; }
+        if (err) {
+          err.style.display = 'none';
+          err.textContent = '';
+          err.style.background = '';
+          err.style.border = '';
+          err.style.padding = '';
+        }
+        resetLicenseActions();
       }
     }
 
     function closeLicenseModal() {
       const overlay = document.getElementById('licenseModalOverlay');
       if (overlay) overlay.style.display = 'none';
+      resetLicenseActions();
     }
 
     // ══════════════════════════════════════════
@@ -4204,7 +4250,7 @@
 
         if (!response.ok) {
           if (data.reason === 'limit_reached') {
-            alert('Esta licencia ya está vinculada al máximo de 2 dispositivos permitidos.');
+            showLicenseLimitReached();
           } else if (data.reason === 'invalid_license') {
             alert('La licencia ingresada no existe o es incorrecta.');
           } else if (data.reason === 'license_revoked') {
@@ -4264,7 +4310,7 @@
 
         // C. Verificar si ya se alcanzó el límite de 2 dispositivos
         if (currentDevices.length >= 2) {
-          alert('ACCESO DENEGADO: Esta licencia ya está vinculada al máximo permitido de 2 dispositivos.');
+          showLicenseLimitReached();
           return false;
         }
 
@@ -4290,7 +4336,11 @@
           return true;
         } else {
           const errData = await updateResponse.json();
-          alert('Error al registrar dispositivo: ' + (errData.message || 'Límite alcanzado'));
+          if (errData.message && errData.message.toLowerCase().includes('limit')) {
+            showLicenseLimitReached();
+          } else {
+            alert('Error al registrar dispositivo: ' + (errData.message || 'Límite alcanzado'));
+          }
           return false;
         }
 
@@ -5029,7 +5079,8 @@
       const ctaArea = document.getElementById('upsellCtaArea');
       if (ctaArea) {
         if (offer.active) {
-          ctaArea.innerHTML = `<button class="btn-primary" style="width:100%; margin-top:10px;" onclick="goToUpsellCheckout()">${pickOfferText(offer.primaryBtnText)}</button>`;
+          const btnText = pickOfferText(offer.primaryBtnText) || offer.primaryBtnText;
+          ctaArea.innerHTML = `<a href="${offer.primaryBtnUrl}" target="_blank" class="btn-primary" style="width:100%; text-decoration:none; justify-content:center; display:flex; align-items:center; margin-top:10px; padding:14px;">${btnText}</a>`;
         } else {
           ctaArea.innerHTML = `<div class="upsell-coming-soon">${translate('upsell.coming_soon')}</div>`;
         }
