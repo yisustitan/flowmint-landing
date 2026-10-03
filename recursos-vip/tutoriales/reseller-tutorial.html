@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n data-es="FlowMint — Tutorial Operativo Reseller VIP" data-en="FlowMint — VIP Reseller Operations Tutorial">FlowMint — Tutorial Operativo Reseller VIP</title>
+  <title data-i18n data-es="FlowMint — Guía Operativa Reseller VIP" data-en="FlowMint — VIP Reseller Operations Guide">FlowMint — Guía Operativa Reseller VIP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -38,12 +38,10 @@
     .hero-title{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.7rem);color:#fff;margin-bottom:10px;}
     .hero-desc{color:var(--text-sec);font-size:15px;max-width:600px;margin:0 auto;}
 
-    /* TABS */
     .tab-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
     .btn-tab{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .2s ease;}
     .btn-tab:hover,.btn-tab.active{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.08);box-shadow:0 0 14px rgba(0,200,150,0.2);}
 
-    /* VIDEO CARD */
     .video-card{background:var(--card);border:1px solid var(--border-light);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:36px;}
     .video-title-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
     .video-title-bar h3{font-family:var(--font-display);font-size:18px;color:#fff;}
@@ -51,7 +49,6 @@
     .video-wrap{position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#050e18;}
     .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
-    /* MODULES — Clickable to seek */
     .section-subtitle{font-family:var(--font-display);font-size:22px;color:#fff;margin-bottom:18px;}
     .modules-list{display:flex;flex-direction:column;gap:14px;margin-bottom:40px;}
     .module-item{
@@ -100,7 +97,7 @@
 
     <div class="hero-header">
       <span class="hero-badge" data-i18n data-es="TUTORIAL OPERATIVO EXCLUSIVO" data-en="EXCLUSIVE OPERATIONS TUTORIAL">TUTORIAL OPERATIVO EXCLUSIVO</span>
-      <h1 class="hero-title" data-i18n data-es="Operación y Despliegue Reseller" data-en="Reseller Deployment & Operations">Operación y Despliegue Reseller</h1>
+      <h1 class="hero-title" data-i18n data-es="Guía Operativa — Reseller VIP" data-en="Reseller Operations Guide">Guía Operativa — Reseller VIP</h1>
       <p class="hero-desc" data-i18n
         data-es="Domina la entrega de licencias, fijación de precios, entrega con marca blanca y atención a clientes."
         data-en="Master license fulfillment, pricing structure, white-label client handoff, and customer onboarding.">
@@ -108,7 +105,6 @@
       </p>
     </div>
 
-    <!-- TABS DE NAVEGACIÓN CLIENTE / RESELLER -->
     <div class="tab-row">
       <a class="btn-tab" id="tabCliente"
          href="index.html?from=reseller"
@@ -126,17 +122,16 @@
       </a>
     </div>
 
-    <!-- REPRODUCTOR YOUTUBE RESELLER -->
     <div class="video-card">
       <div class="video-title-bar">
-        <h3 id="videoTitle" data-i18n data-es="Masterclass Operativa — Reseller VIP" data-en="Operations Masterclass — VIP Reseller">Masterclass Operativa — Reseller VIP</h3>
+        <h3 id="videoTitle" data-i18n data-es="Guía Operativa — Reseller VIP" data-en="Reseller Operations Guide">Guía Operativa — Reseller VIP</h3>
         <span class="video-lang-pill" id="videoLangPill">🌐 ES</span>
       </div>
       <div class="video-wrap">
         <iframe
           id="resellerPlayer"
           src="https://www.youtube.com/embed/U0cyGMUpsWA?rel=0&enablejsapi=1&modestbranding=1&color=white"
-          title="FlowMint Reseller Operations Tutorial"
+          title="FlowMint Reseller Operations Guide"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -144,15 +139,13 @@
       </div>
     </div>
 
-    <!-- TEMARIO INTERACTIVO CON seekToTimestamp -->
-    <h2 class="section-subtitle" data-i18n data-es="Capítulos del Entrenamiento" data-en="Training Chapters">Capítulos del Entrenamiento</h2>
+    <h2 class="section-subtitle" data-i18n data-es="Etapas del Entrenamiento" data-en="Training Stages">Etapas del Entrenamiento</h2>
     <p style="color:var(--text-sec);font-size:13.5px;margin-bottom:18px;" data-i18n
-      data-es="Haz clic en cualquier módulo para saltar directamente a ese momento del video."
-      data-en="Click any module to jump directly to that point in the video.">
-      Haz clic en cualquier módulo para saltar directamente a ese momento del video.
+      data-es="Haz clic en cualquier etapa para saltar directamente a ese momento del video."
+      data-en="Click any stage to jump directly to that point in the video.">
+      Haz clic en cualquier etapa para saltar directamente a ese momento del video.
     </p>
 
-    
     <div style="display:flex; gap:16px; margin-bottom:30px; flex-wrap:wrap;">
       <a href="../downloads/guia-operativa.pdf" target="_blank" class="btn-action-dl" data-i18n data-es="📄 Descargar Guía Operativa PDF" data-en="📄 Download User Guide PDF" data-es-href="../downloads/guia-operativa.pdf" data-en-href="https://flowmint.centraliaportal.com/recursos-vip/downloads/user-guide.pdf">📄 Descargar Guía Operativa PDF</a>
       <button onclick="openSupportModal()" class="btn-action-support" data-i18n data-es="💬 Contactar Soporte VIP" data-en="💬 Contact VIP Support">💬 Contactar Soporte VIP</button>
@@ -160,14 +153,14 @@
 
     <div class="modules-list">
 
-      <!-- Módulo 1 → segundo 0 (00:00) -->
+      <!-- Etapa 1 — 00:00 (start=0) -->
       <div class="module-item" onclick="seekToTimestamp(0)" title="Ir al inicio">
         <div class="module-info">
-          <h3 data-i18n data-es="Capítulo 1: Introducción y Entrega" data-en="Chapter 1: Intro & Delivery">Capítulo 1: Introducción y Entrega</h3>
+          <h3 data-i18n data-es="Etapa 1: Reglas de Licencia y Opciones de Entrega" data-en="Stage 1: License Rules &amp; Delivery Options">Etapa 1: Reglas de Licencia y Opciones de Entrega</h3>
           <p data-i18n
-            data-es="Cómo suministrar el acceso limpio a tu cliente final sin logos ni intermediarios."
-            data-en="How to provide clean web app access to your end client with zero logos or friction.">
-            Cómo suministrar el acceso limpio a tu cliente final sin logos ni intermediarios.
+            data-es="Alcance de tu Licencia Máster VIP y cómo entregar el acceso a tus clientes (enlace neutro o hosting propio)."
+            data-en="Scope of your VIP Master License and how to deliver access to your clients (neutral link or self-hosting).">
+            Alcance de tu Licencia Máster VIP y cómo entregar el acceso a tus clientes (enlace neutro o hosting propio).
           </p>
         </div>
         <div class="module-right">
@@ -176,34 +169,50 @@
         </div>
       </div>
 
-      <!-- Módulo 2 → segundo 320 (05:20) -->
-      <div class="module-item" onclick="seekToTimestamp(320)" title="Ir al minuto 05:20">
+      <!-- Etapa 2 — 02:46 (start=166) -->
+      <div class="module-item" onclick="seekToTimestamp(166)" title="Ir al minuto 02:46">
         <div class="module-info">
-          <h3 data-i18n data-es="Capítulo 2: Estrategia de Precios" data-en="Chapter 2: Pricing Strategy">Capítulo 2: Estrategia de Precios</h3>
+          <h3 data-i18n data-es="Etapa 2: Argumentos de Venta y Modo Demo" data-en="Stage 2: Sales Arguments &amp; Demo Mode">Etapa 2: Argumentos de Venta y Modo Demo</h3>
           <p data-i18n
-            data-es="Estrategias probadas de precio ($17 - $47 USD) para maximizar conversiones y ventas inmediatas."
-            data-en="Proven pricing tiers ($17 - $47 USD) to maximize checkout conversions and upfront revenue.">
-            Estrategias probadas de precio ($17 - $47 USD) para maximizar conversiones y ventas inmediatas.
+            data-es="Protección con límite de 2 dispositivos y cómo utilizar la Demo interactiva para cerrar ventas."
+            data-en="Protection with 2-device limit and how to use the interactive Demo to close sales.">
+            Protección con límite de 2 dispositivos y cómo utilizar la Demo interactiva para cerrar ventas.
           </p>
         </div>
         <div class="module-right">
-          <span class="module-tag">05:20 min</span>
+          <span class="module-tag">02:46 min</span>
           <span class="module-play">▶</span>
         </div>
       </div>
 
-      <!-- Módulo 3 → segundo 845 (14:05 = 320+525) -->
-      <div class="module-item" onclick="seekToTimestamp(845)" title="Ir al minuto 14:05">
+      <!-- Etapa 3 — 03:50 (start=230) -->
+      <div class="module-item" onclick="seekToTimestamp(230)" title="Ir al minuto 03:50">
         <div class="module-info">
-          <h3 data-i18n data-es="Capítulo 3: Soporte y Done-For-You" data-en="Chapter 3: Support & Done-For-You">Capítulo 3: Soporte y Done-For-You</h3>
+          <h3 data-i18n data-es="Etapa 3: Panel Secreto de Anuncios" data-en="Stage 3: Secret Announcements Panel">Etapa 3: Panel Secreto de Anuncios</h3>
           <p data-i18n
-            data-es="Cómo coordinar instalaciones personalizadas o resolver dudas frecuentes con tu soporte VIP."
-            data-en="How to coordinate custom deployments or handle common end-user questions with VIP support.">
-            Cómo coordinar instalaciones personalizadas o resolver dudas frecuentes con tu soporte VIP.
+            data-es="Acceso oculto mediante 3 clics en el logo para publicar ofertas directas en la app de tus clientes."
+            data-en="Hidden access via 3 clicks on the logo to publish direct offers in your clients' app.">
+            Acceso oculto mediante 3 clics en el logo para publicar ofertas directas en la app de tus clientes.
           </p>
         </div>
         <div class="module-right">
-          <span class="module-tag">14:05 min</span>
+          <span class="module-tag">03:50 min</span>
+          <span class="module-play">▶</span>
+        </div>
+      </div>
+
+      <!-- Etapa 4 — 04:59 (start=299) -->
+      <div class="module-item" onclick="seekToTimestamp(299)" title="Ir al minuto 04:59">
+        <div class="module-info">
+          <h3 data-i18n data-es="Etapa 4: Automatización y Plan de Acción" data-en="Stage 4: Automation &amp; Immediate Action Plan">Etapa 4: Automatización y Plan de Acción</h3>
+          <p data-i18n
+            data-es="Flujo automatizado con Hotmart y Brevo, 4 estrategias de monetización y pasos para lanzar hoy."
+            data-en="Automated flow with Hotmart and Brevo, 4 monetization strategies and steps to launch today.">
+            Flujo automatizado con Hotmart y Brevo, 4 estrategias de monetización y pasos para lanzar hoy.
+          </p>
+        </div>
+        <div class="module-right">
+          <span class="module-tag">04:59 min</span>
           <span class="module-play">▶</span>
         </div>
       </div>
@@ -229,7 +238,6 @@ function setLanguage(lang) {
   const btnText = document.getElementById('langBtnText');
   if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
 
-  // Update all data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const text = el.getAttribute('data-' + lang);
     if (text) el.innerHTML = text;
@@ -239,11 +247,9 @@ function setLanguage(lang) {
     if (src) el.setAttribute('src', src);
   });
 
-  // Language pill on video card
   const pill = document.getElementById('videoLangPill');
   if (pill) pill.innerText = '🌐 ' + lang.toUpperCase();
 
-  // Swap YouTube video for the selected language
   const player = document.getElementById('resellerPlayer');
   if (player) {
     const vid = lang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
@@ -270,8 +276,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
-
-<!-- MODAL DE SOPORTE INTERACTIVO -->
 <style>
 .modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:99999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:fadeIn .2s ease-out;}
 .modal-backdrop.active{display:flex;}
@@ -358,4 +362,3 @@ async function submitSupportForm(e){
 
 </body>
 </html>
-
