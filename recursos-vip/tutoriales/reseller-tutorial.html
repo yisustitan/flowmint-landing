@@ -225,10 +225,11 @@ function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('flowmint_lang', lang);
   document.documentElement.lang = lang;
-  
+
   const btnText = document.getElementById('langBtnText');
   if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
 
+  // Update all data-i18n elements
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const text = el.getAttribute('data-' + lang);
     if (text) el.innerHTML = text;
@@ -238,16 +239,16 @@ function setLanguage(lang) {
     if (src) el.setAttribute('src', src);
   });
 
+  // Language pill on video card
   const pill = document.getElementById('videoLangPill');
   if (pill) pill.innerText = '🌐 ' + lang.toUpperCase();
-  
+
+  // Swap YouTube video for the selected language
   const player = document.getElementById('resellerPlayer');
   if (player) {
-    const currentVideoId = lang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
-    const baseSrc = https://www.youtube.com/embed/?rel=0&enablejsapi=1&modestbranding=1&color=white;
-    // Only update if different
-    if (!player.src.includes(currentVideoId)) {
-      player.src = baseSrc;
+    const vid = lang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
+    if (!player.src.includes(vid)) {
+      player.src = 'https://www.youtube.com/embed/' + vid + '?rel=0&enablejsapi=1&modestbranding=1&color=white';
     }
   }
 }
@@ -256,18 +257,11 @@ function toggleLanguage() {
   setLanguage(currentLang === 'es' ? 'en' : 'es');
 }
 
-/**
- * Salta al segundo indicado recargando el src del iframe con ?start=N&autoplay=1.
- * @param {number} seconds - Segundo de inicio en el video
- */
 function seekToTimestamp(seconds) {
   const player = document.getElementById('resellerPlayer');
   if (!player) return;
-
-  const baseSrc = player.src.split('?')[0];
-  player.src = `${baseSrc}?start=${seconds}&autoplay=1&rel=0&modestbranding=1`;
-
-  // Scroll suave directamente al iframe
+  const vid = currentLang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
+  player.src = 'https://www.youtube.com/embed/' + vid + '?start=' + seconds + '&autoplay=1&rel=0&modestbranding=1';
   player.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
