@@ -3224,16 +3224,16 @@
     aria-label="Verificación de Administrador">
     <div class="admin-pin-box">
       <div class="admin-pin-icon">🔐</div>
-      <div class="admin-pin-title">Acceso Restringido — Administrador</div>
-      <div class="admin-pin-sub">Ingresa el PIN para acceder al Panel de Control</div>
+      <div class="admin-pin-title" data-i18n="admin.pin.title">Acceso Restringido — Administrador</div>
+      <div class="admin-pin-sub" data-i18n="admin.pin.sub">Ingresa el PIN para acceder al Panel de Control</div>
       <input type="password" id="adminPinInput" class="admin-pin-input" placeholder="••••" maxlength="12"
         autocomplete="off"
         onkeydown="if(event.key==='Enter') verifyAdminPin(); if(event.key==='Escape') closeAdminPinModal();"
         oninput="document.getElementById('adminPinInput').classList.remove('pin-error'); document.getElementById('adminPinErrorMsg').textContent='';">
       <div class="admin-pin-error-msg" id="adminPinErrorMsg"></div>
       <div class="admin-pin-actions">
-        <button class="admin-pin-btn-cancel" onclick="closeAdminPinModal()">Cancelar</button>
-        <button class="admin-pin-btn-verify" onclick="verifyAdminPin()">🔓 Verificar</button>
+        <button class="admin-pin-btn-cancel" onclick="closeAdminPinModal()" data-i18n="admin.pin.btn.cancel">Cancelar</button>
+        <button class="admin-pin-btn-verify" onclick="verifyAdminPin()"><span data-i18n="admin.pin.btn.verify">🔓 Verificar</span></button>
       </div>
     </div>
   </div>
@@ -3245,14 +3245,13 @@
   <div class="modal-overlay" id="adminOfferModalOverlay">
     <div class="modal" style="max-width: 520px; max-height: 88vh; overflow-y: auto;">
       <div class="modal-header">
-        <h2 class="modal-title">🛠️ Panel de Control — Oferta / Novedades</h2>
+        <h2 class="modal-title" data-i18n="admin.panel.title">🛠️ Panel de Control — Oferta / Novedades</h2>
         <button class="modal-close" onclick="closeAdminOfferModal()">✕</button>
       </div>
 
       <div class="form-group"
         style="display:flex; align-items:center; justify-content:space-between; background:var(--navy3); border:1px solid var(--border-light); border-radius:var(--radius-sm); padding:12px 14px;">
-        <label class="form-label" for="adminOfferActive" style="margin-bottom:0; cursor:pointer;">🟢 Oferta Activa &amp;
-          Bombillo Encendido</label>
+        <label class="form-label" for="adminOfferActive" style="margin-bottom:0; cursor:pointer;" data-i18n="admin.panel.active">🟢 Oferta Activa &amp; Bombillo Encendido</label>
         <label class="toggle-switch">
           <input type="checkbox" id="adminOfferActive">
           <span class="toggle-slider"></span>
@@ -3260,40 +3259,40 @@
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="adminOfferId">📝 ID de Oferta / Campaña</label>
+        <label class="form-label" for="adminOfferId" data-i18n="admin.panel.id">📝 ID de Oferta / Campaña</label>
         <input type="text" class="form-input" id="adminOfferId" placeholder="ej: fase_2_v1, miniapp_impuestos">
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="adminOfferBadge">🏷️ Texto del Badge</label>
+        <label class="form-label" for="adminOfferBadge" data-i18n="admin.panel.badge">🏷️ Texto del Badge</label>
         <input type="text" class="form-input" id="adminOfferBadge" placeholder="ej: 🚀 PRÓXIMO LANZAMIENTO, 🔥 NUEVO">
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="adminOfferTitle">✏️ Título de la Oferta</label>
+        <label class="form-label" for="adminOfferTitle" data-i18n="admin.panel.offer_title">✏️ Título de la Oferta</label>
         <input type="text" class="form-input" id="adminOfferTitle" placeholder="ej: Próximamente en FlowMint PRO">
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="adminOfferDescription">📄 Descripción</label>
+        <label class="form-label" for="adminOfferDescription" data-i18n="admin.panel.desc">📄 Descripción</label>
         <textarea class="form-input" id="adminOfferDescription" rows="3"
           placeholder="ej: Estamos construyendo nuevas herramientas financieras inteligentes."></textarea>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="adminOfferFeatures">📋 Características (separadas por coma)</label>
+        <label class="form-label" for="adminOfferFeatures" data-i18n="admin.panel.features">📋 Características (separadas por coma)</label>
         <textarea class="form-input" id="adminOfferFeatures" rows="3"
           placeholder="ej: Registro por Voz, Asistente IA, Reportes PDF"></textarea>
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="adminOfferBtnText">🔘 Texto del Botón Principal</label>
+        <label class="form-label" for="adminOfferBtnText" data-i18n="admin.panel.btn_text">🔘 Texto del Botón Principal</label>
         <input type="text" class="form-input" id="adminOfferBtnText"
           placeholder="ej: Obtener Actualización por $10 USD">
       </div>
 
       <div class="form-group">
-        <label class="form-label" for="adminOfferBtnUrl">🔗 URL de Checkout Hotmart</label>
+        <label class="form-label" for="adminOfferBtnUrl" data-i18n="admin.panel.btn_url">🔗 URL de Checkout Hotmart</label>
         <input type="text" class="form-input" id="adminOfferBtnUrl" placeholder="https://pay.hotmart.com/...">
       </div>
 
@@ -3301,16 +3300,16 @@
       <div class="form-group" style="border-top:1px solid var(--border);padding-top:16px;margin-top:4px">
         <label class="form-label" for="adminNewPin"
           style="color:var(--text-muted);display:flex;align-items:center;gap:6px">
-          🔑 Nuevo PIN de Administrador
-          <span style="font-size:11px;font-weight:400;color:var(--text-muted)">(dejar vacío para no cambiar)</span>
+          <span data-i18n="admin.panel.new_pin">🔑 Nuevo PIN de Administrador</span>
+          <span style="font-size:11px;font-weight:400;color:var(--text-muted)" data-i18n="admin.panel.new_pin.hint">(dejar vacío para no cambiar)</span>
         </label>
         <input type="password" class="form-input" id="adminNewPin" placeholder="••••" maxlength="12"
           autocomplete="new-password" style="letter-spacing:6px;font-size:18px;width:140px">
       </div>
 
       <div class="modal-actions">
-        <button class="btn-ghost" onclick="closeAdminOfferModal()">Cancelar</button>
-        <button class="btn-primary" onclick="saveAdminOfferConfig()">💾 Guardar y Aplicar Cambios</button>
+        <button class="btn-ghost" onclick="closeAdminOfferModal()" data-i18n="admin.pin.btn.cancel">Cancelar</button>
+        <button class="btn-primary" onclick="saveAdminOfferConfig()" data-i18n="admin.panel.btn.save">💾 Guardar y Aplicar Cambios</button>
       </div>
     </div>
   </div>
@@ -3687,7 +3686,29 @@
         'modal.tx.bypass_duplicate': 'Crear de todas formas',
         'modal.budget.title_annual': 'Editar Límites de Presupuesto Anual',
         'alert.budget_exceeded': '<strong>Límite superado</strong> en <strong>{cat}</strong> ({curr}/{limit})',
-        'alert.budget_warning': '<strong>Cerca del límite</strong> en <strong>{cat}</strong> ({curr}/{limit})'
+        'alert.budget_warning': '<strong>Cerca del límite</strong> en <strong>{cat}</strong> ({curr}/{limit})',
+        
+        'admin.pin.title': 'Acceso Restringido — Administrador',
+        'admin.pin.sub': 'Ingresa el PIN para acceder al Panel de Control',
+        'admin.pin.btn.cancel': 'Cancelar',
+        'admin.pin.btn.verify': '🔓 Verificar',
+        'admin.pin.error': 'PIN de Administrador incorrecto. Intenta de nuevo.',
+        'admin.pin.success': 'Acceso de Administrador concedido',
+        
+        'admin.panel.title': '🛠️ Panel de Control — Oferta / Novedades',
+        'admin.panel.active': '🟢 Oferta Activa & Bombillo Encendido',
+        'admin.panel.id': '📝 ID de Oferta / Campaña',
+        'admin.panel.badge': '🏷️ Texto del Badge',
+        'admin.panel.offer_title': '✏️ Título de la Oferta',
+        'admin.panel.desc': '📄 Descripción',
+        'admin.panel.features': '📋 Características (separadas por coma)',
+        'admin.panel.btn_text': '🔘 Texto del Botón Principal',
+        'admin.panel.btn_url': '🔗 URL de Checkout Hotmart',
+        'admin.panel.new_pin': '🔑 Nuevo PIN de Administrador',
+        'admin.panel.new_pin.hint': '(dejar vacío para no cambiar)',
+        'admin.panel.btn.save': '💾 Guardar y Aplicar Cambios',
+        'admin.panel.toast.saved_pin': 'Configuración guardada · PIN actualizado',
+        'admin.panel.toast.saved': 'Configuración de oferta guardada'
       },
       en: {
         'logo.sub': 'Your money, in control',
@@ -4019,7 +4040,29 @@
         'modal.tx.bypass_duplicate': 'Delete previous duplicate recurrence in this category upon saving',
         'modal.budget.title_annual': 'Edit Annual Budget Limits',
         'alert.budget_exceeded': '<strong>Limit exceeded</strong> in <strong>{cat}</strong> ({curr}/{limit})',
-        'alert.budget_warning': '<strong>Close to limit</strong> in <strong>{cat}</strong> ({curr}/{limit})'
+        'alert.budget_warning': '<strong>Close to limit</strong> in <strong>{cat}</strong> ({curr}/{limit})',
+        
+        'admin.pin.title': 'Restricted Access — Administrator',
+        'admin.pin.sub': 'Enter PIN to access Control Panel',
+        'admin.pin.btn.cancel': 'Cancel',
+        'admin.pin.btn.verify': '🔓 Verify',
+        'admin.pin.error': 'Incorrect Admin PIN. Try again.',
+        'admin.pin.success': 'Admin access granted',
+        
+        'admin.panel.title': '🛠️ Control Panel — Offer / News',
+        'admin.panel.active': '🟢 Active Offer & Lightbulb On',
+        'admin.panel.id': '📝 Offer / Campaign ID',
+        'admin.panel.badge': '🏷️ Badge Text',
+        'admin.panel.offer_title': '✏️ Offer Title',
+        'admin.panel.desc': '📄 Description',
+        'admin.panel.features': '📋 Features (comma separated)',
+        'admin.panel.btn_text': '🔘 Primary Button Text',
+        'admin.panel.btn_url': '🔗 Checkout URL (Hotmart)',
+        'admin.panel.new_pin': '🔑 New Admin PIN',
+        'admin.panel.new_pin.hint': '(leave empty to keep current)',
+        'admin.panel.btn.save': '💾 Save and Apply Changes',
+        'admin.panel.toast.saved_pin': 'Settings saved · PIN updated',
+        'admin.panel.toast.saved': 'Offer settings saved'
       }
     };
 
@@ -4042,17 +4085,20 @@
     const CURRENT_OFFER = {
       active: false, // true = enciende el bombillo 💡 y activa la oferta; false = muestra aviso "Próximamente"
       offerId: "fase_2_pro", // ID único de la campaña (sirve para localStorage)
-      badge: "🚀 PRÓXIMO LANZAMIENTO",
-      title: "Próximamente en FlowMint PRO",
-      description: "Estamos construyendo nuevas herramientas financieras inteligentes.",
+      badge: {es: "🚀 PRÓXIMO LANZAMIENTO", en: "🚀 COMING SOON"},
+      title: {es: "Próximamente en FlowMint PRO", en: "Coming soon to FlowMint PRO"},
+      description: {
+        es: "Estamos construyendo nuevas herramientas financieras inteligentes.",
+        en: "We are building new smart financial tools."
+      },
       features: [
-        "Registro por Voz (Speech-to-Text)",
-        "Asistente Financiero con IA",
-        "Reportes Exportables Ejecutivos"
+        {es: "Registro por Voz (Speech-to-Text)", en: "Voice Entry (Speech-to-Text)"},
+        {es: "Asistente Financiero con IA", en: "AI Financial Assistant"},
+        {es: "Reportes Exportables Ejecutivos", en: "Exportable Executive Reports"}
       ],
-      primaryBtnText: "Obtener Actualización por $10 USD",
+      primaryBtnText: {es: "Obtener Actualización por $10 USD", en: "Get PRO Upgrade for $10 USD"},
       primaryBtnUrl: "https://pay.hotmart.com/S106873189Y?checkoutMode=10",
-      secondaryBtnText: "Mantener versión actual"
+      secondaryBtnText: {es: "Mantener versión actual", en: "Keep current version"}
     };
 
     // ── Cargar configuración guardada por el Admin (si existe) ──
@@ -4147,44 +4193,6 @@
       return key.toUpperCase().startsWith('HP') || key.length >= 8;
     }
 
-    function resetLicenseActions() {
-      const actionsEl = document.querySelector('#licenseModalOverlay .license-actions');
-      if (actionsEl) {
-        actionsEl.innerHTML = `
-          <button class="btn-license-activate" onclick="submitLicenseKey()" data-i18n="license.btn_activate">⚡ Activar Licencia</button>
-          <a href="https://pay.hotmart.com/S106873189Y?checkoutMode=10" target="_blank" class="btn-buy-license" data-i18n="license.btn_buy">🛒 Comprar Licencia ($19 USD)</a>
-        `;
-      }
-    }
-
-    function showLicenseLimitReached() {
-      const err = document.getElementById('licenseErrorMsg');
-      if (err) {
-        err.innerHTML = '⚠️ Has alcanzado el límite de 2 equipos vinculados a tu clave de licencia HP.';
-        err.style.display = 'block';
-        err.style.color = '#F5A623';
-        err.style.background = 'rgba(245, 166, 35, 0.12)';
-        err.style.border = '1px solid rgba(245, 166, 35, 0.35)';
-        err.style.borderRadius = '10px';
-        err.style.padding = '10px 14px';
-        err.style.marginTop = '12px';
-        err.style.fontSize = '13px';
-        err.style.lineHeight = '1.45';
-      }
-
-      const actionsEl = document.querySelector('#licenseModalOverlay .license-actions');
-      if (actionsEl) {
-        actionsEl.innerHTML = `
-          <a href="https://pay.hotmart.com/I107882402Y?off=9auaay8c" target="_blank" class="btn-primary" style="width:100%; text-decoration:none; justify-content:center; display:flex; align-items:center; padding:14px; font-weight:700; font-size:14.5px; border-radius:12px; background:linear-gradient(135deg, #00C896, #00A67A); color:#0F1B2D; box-shadow:0 4px 16px rgba(0,200,150,0.35); text-align:center;">
-            ➕ Añadir Dispositivo Extra ($10 USD)
-          </a>
-          <button class="btn-ghost" style="width:100%; padding:12px; border-radius:12px; border:1px solid rgba(0,200,150,0.4); color:#00C896; font-weight:600; font-size:14px; cursor:pointer; background:transparent;" onclick="submitLicenseKey()">
-            ⚡ Reintentar Activación
-          </button>
-        `;
-      }
-    }
-
     function openLicenseModal() {
       const overlay = document.getElementById('licenseModalOverlay');
       if (overlay) {
@@ -4192,21 +4200,13 @@
         const inp = document.getElementById('licenseKeyInput');
         if (inp) { inp.value = ''; inp.focus(); }
         const err = document.getElementById('licenseErrorMsg');
-        if (err) {
-          err.style.display = 'none';
-          err.textContent = '';
-          err.style.background = '';
-          err.style.border = '';
-          err.style.padding = '';
-        }
-        resetLicenseActions();
+        if (err) { err.style.display = 'none'; err.textContent = ''; }
       }
     }
 
     function closeLicenseModal() {
       const overlay = document.getElementById('licenseModalOverlay');
       if (overlay) overlay.style.display = 'none';
-      resetLicenseActions();
     }
 
     // ══════════════════════════════════════════
@@ -4250,7 +4250,7 @@
 
         if (!response.ok) {
           if (data.reason === 'limit_reached') {
-            showLicenseLimitReached();
+            alert('Esta licencia ya está vinculada al máximo de 2 dispositivos permitidos.');
           } else if (data.reason === 'invalid_license') {
             alert('La licencia ingresada no existe o es incorrecta.');
           } else if (data.reason === 'license_revoked') {
@@ -4310,7 +4310,7 @@
 
         // C. Verificar si ya se alcanzó el límite de 2 dispositivos
         if (currentDevices.length >= 2) {
-          showLicenseLimitReached();
+          alert('ACCESO DENEGADO: Esta licencia ya está vinculada al máximo permitido de 2 dispositivos.');
           return false;
         }
 
@@ -4336,11 +4336,7 @@
           return true;
         } else {
           const errData = await updateResponse.json();
-          if (errData.message && errData.message.toLowerCase().includes('limit')) {
-            showLicenseLimitReached();
-          } else {
-            alert('Error al registrar dispositivo: ' + (errData.message || 'Límite alcanzado'));
-          }
+          alert('Error al registrar dispositivo: ' + (errData.message || 'Límite alcanzado'));
           return false;
         }
 
@@ -5079,8 +5075,7 @@
       const ctaArea = document.getElementById('upsellCtaArea');
       if (ctaArea) {
         if (offer.active) {
-          const btnText = pickOfferText(offer.primaryBtnText) || offer.primaryBtnText;
-          ctaArea.innerHTML = `<a href="${offer.primaryBtnUrl}" target="_blank" class="btn-primary" style="width:100%; text-decoration:none; justify-content:center; display:flex; align-items:center; margin-top:10px; padding:14px;">${btnText}</a>`;
+          ctaArea.innerHTML = `<button class="btn-primary" style="width:100%; margin-top:10px;" onclick="goToUpsellCheckout()">${pickOfferText(offer.primaryBtnText)}</button>`;
         } else {
           ctaArea.innerHTML = `<div class="upsell-coming-soon">${translate('upsell.coming_soon')}</div>`;
         }
@@ -5197,7 +5192,7 @@
       if (entered === getAdminPin()) {
         // PIN correcto
         closeAdminPinModal();
-        showAdminToast('Acceso de Administrador concedido');
+        showAdminToast(translate('admin.pin.success'));
         openAdminOfferModal();
       } else {
         // PIN incorrecto
@@ -5207,8 +5202,8 @@
           input.value = '';
           input.focus();
         }
-        if (errMsg) errMsg.textContent = 'PIN de Administrador incorrecto. Intenta de nuevo.';
-        showAdminToast('PIN de Administrador incorrecto', true);
+        if (errMsg) errMsg.textContent = translate('admin.pin.error');
+        showAdminToast(translate('admin.pin.error'), true);
       }
     }
 
@@ -5278,9 +5273,9 @@
       const newPinFld = document.getElementById('adminNewPin');
       if (newPinFld && newPinFld.value.trim().length > 0) {
         safeSetItem('flowmint_admin_pin', newPinFld.value.trim());
-        showAdminToast('Configuración guardada · PIN actualizado');
+        showAdminToast(translate('admin.panel.toast.saved_pin'));
       } else {
-        showAdminToast('Configuración de oferta guardada');
+        showAdminToast(translate('admin.panel.toast.saved'));
       }
 
       closeAdminOfferModal();
