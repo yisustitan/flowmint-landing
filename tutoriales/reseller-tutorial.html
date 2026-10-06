@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title data-i18n data-es="FlowMint — Tutorial Operativo Reseller VIP" data-en="FlowMint — VIP Reseller Operations Tutorial">FlowMint — Tutorial Operativo Reseller VIP</title>
+  <title data-i18n data-es="FlowMint — Guía Operativa Reseller VIP" data-en="FlowMint — VIP Reseller Operations Guide">FlowMint — Guía Operativa Reseller VIP</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <style>
@@ -38,12 +38,10 @@
     .hero-title{font-family:var(--font-display);font-size:clamp(1.9rem,4vw,2.7rem);color:#fff;margin-bottom:10px;}
     .hero-desc{color:var(--text-sec);font-size:15px;max-width:600px;margin:0 auto;}
 
-    /* TABS */
     .tab-row{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-bottom:24px;}
     .btn-tab{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--border-light);color:var(--text-sec);font-size:13.5px;font-weight:600;padding:10px 20px;border-radius:100px;cursor:pointer;text-decoration:none;transition:all .2s ease;}
     .btn-tab:hover,.btn-tab.active{border-color:var(--mint);color:var(--mint);background:rgba(0,200,150,0.08);box-shadow:0 0 14px rgba(0,200,150,0.2);}
 
-    /* VIDEO CARD */
     .video-card{background:var(--card);border:1px solid var(--border-light);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);margin-bottom:36px;}
     .video-title-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:8px;}
     .video-title-bar h3{font-family:var(--font-display);font-size:18px;color:#fff;}
@@ -51,7 +49,6 @@
     .video-wrap{position:relative;width:100%;padding-bottom:56.25%;height:0;border-radius:12px;overflow:hidden;border:1px solid var(--border);background:#050e18;}
     .video-wrap iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;}
 
-    /* MODULES — Clickable to seek */
     .section-subtitle{font-family:var(--font-display);font-size:22px;color:#fff;margin-bottom:18px;}
     .modules-list{display:flex;flex-direction:column;gap:14px;margin-bottom:40px;}
     .module-item{
@@ -68,6 +65,10 @@
     .module-play{font-size:18px;color:var(--text-sec);transition:color .2s;}
 
     footer{text-align:center;padding:28px 24px;color:var(--text-sec);font-size:12px;font-family:var(--font-mono);border-top:1px solid var(--border);}
+    .btn-action-dl{display:inline-flex;align-items:center;gap:8px;background:var(--navy2);border:1px solid var(--mint);color:var(--text);padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;font-size:14px;transition:all .2s;}
+    .btn-action-dl:hover{background:rgba(0,200,150,0.1);color:#fff;transform:translateY(-1px);}
+    .btn-action-support{display:inline-flex;align-items:center;gap:8px;background:var(--mint);border:none;color:#06231a;padding:10px 18px;border-radius:8px;font-weight:700;font-size:14px;cursor:pointer;transition:all .2s;box-shadow:0 0 16px rgba(0,200,150,0.25);}
+    .btn-action-support:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(0,200,150,0.45);}
   </style>
 </head>
 <body>
@@ -96,7 +97,7 @@
 
     <div class="hero-header">
       <span class="hero-badge" data-i18n data-es="TUTORIAL OPERATIVO EXCLUSIVO" data-en="EXCLUSIVE OPERATIONS TUTORIAL">TUTORIAL OPERATIVO EXCLUSIVO</span>
-      <h1 class="hero-title" data-i18n data-es="Operación y Despliegue Reseller" data-en="Reseller Deployment & Operations">Operación y Despliegue Reseller</h1>
+      <h1 class="hero-title" data-i18n data-es="Guía Operativa — Reseller VIP" data-en="Reseller Operations Guide">Guía Operativa — Reseller VIP</h1>
       <p class="hero-desc" data-i18n
         data-es="Domina la entrega de licencias, fijación de precios, entrega con marca blanca y atención a clientes."
         data-en="Master license fulfillment, pricing structure, white-label client handoff, and customer onboarding.">
@@ -104,7 +105,6 @@
       </p>
     </div>
 
-    <!-- TABS DE NAVEGACIÓN CLIENTE / RESELLER -->
     <div class="tab-row">
       <a class="btn-tab" id="tabCliente"
          href="index.html?from=reseller"
@@ -122,17 +122,16 @@
       </a>
     </div>
 
-    <!-- REPRODUCTOR YOUTUBE RESELLER -->
     <div class="video-card">
       <div class="video-title-bar">
-        <h3 id="videoTitle" data-i18n data-es="Masterclass Operativa — Reseller VIP" data-en="Operations Masterclass — VIP Reseller">Masterclass Operativa — Reseller VIP</h3>
+        <h3 id="videoTitle" data-i18n data-es="Guía Operativa — Reseller VIP" data-en="Reseller Operations Guide">Guía Operativa — Reseller VIP</h3>
         <span class="video-lang-pill" id="videoLangPill">🌐 ES</span>
       </div>
       <div class="video-wrap">
         <iframe
           id="resellerPlayer"
-          src="https://www.youtube.com/embed/YOUTUBE_ID_RESELLER?rel=0&enablejsapi=1&modestbranding=1&color=white"
-          title="FlowMint Reseller Operations Tutorial"
+          src="https://www.youtube.com/embed/U0cyGMUpsWA?rel=0&enablejsapi=1&modestbranding=1&color=white"
+          title="FlowMint Reseller Operations Guide"
           frameborder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowfullscreen>
@@ -140,24 +139,28 @@
       </div>
     </div>
 
-    <!-- TEMARIO INTERACTIVO CON seekToTimestamp -->
-    <h2 class="section-subtitle" data-i18n data-es="Temario del Entrenamiento" data-en="Training Syllabus">Temario del Entrenamiento</h2>
+    <h2 class="section-subtitle" data-i18n data-es="Etapas del Entrenamiento" data-en="Training Stages">Etapas del Entrenamiento</h2>
     <p style="color:var(--text-sec);font-size:13.5px;margin-bottom:18px;" data-i18n
-      data-es="Haz clic en cualquier módulo para saltar directamente a ese momento del video."
-      data-en="Click any module to jump directly to that point in the video.">
-      Haz clic en cualquier módulo para saltar directamente a ese momento del video.
+      data-es="Haz clic en cualquier etapa para saltar directamente a ese momento del video."
+      data-en="Click any stage to jump directly to that point in the video.">
+      Haz clic en cualquier etapa para saltar directamente a ese momento del video.
     </p>
+
+    <div style="display:flex; gap:16px; margin-bottom:30px; flex-wrap:wrap;">
+      <a href="../downloads/guia-operativa.pdf" target="_blank" class="btn-action-dl" data-i18n data-es="📄 Descargar Guía Operativa PDF" data-en="📄 Download User Guide PDF" data-es-href="../downloads/guia-operativa.pdf" data-en-href="https://flowmint.centraliaportal.com/recursos-vip/downloads/user-guide.pdf">📄 Descargar Guía Operativa PDF</a>
+      <button onclick="openSupportModal()" class="btn-action-support" data-i18n data-es="💬 Contactar Soporte VIP" data-en="💬 Contact VIP Support">💬 Contactar Soporte VIP</button>
+    </div>
 
     <div class="modules-list">
 
-      <!-- Módulo 1 → segundo 0 (00:00) -->
+      <!-- Etapa 1 — 00:00 (start=0) -->
       <div class="module-item" onclick="seekToTimestamp(0)" title="Ir al inicio">
         <div class="module-info">
-          <h3 data-i18n data-es="Módulo 1: Entrega de Licencias y Enlace Neutro" data-en="Module 1: License Delivery & Neutral Link">Módulo 1: Entrega de Licencias y Enlace Neutro</h3>
+          <h3 data-i18n data-es="Etapa 1: Reglas de Licencia y Opciones de Entrega" data-en="Stage 1: License Rules &amp; Delivery Options">Etapa 1: Reglas de Licencia y Opciones de Entrega</h3>
           <p data-i18n
-            data-es="Cómo suministrar el acceso limpio a tu cliente final sin logos ni intermediarios."
-            data-en="How to provide clean web app access to your end client with zero logos or friction.">
-            Cómo suministrar el acceso limpio a tu cliente final sin logos ni intermediarios.
+            data-es="Alcance de tu Licencia Máster VIP y cómo entregar el acceso a tus clientes (enlace neutro o hosting propio)."
+            data-en="Scope of your VIP Master License and how to deliver access to your clients (neutral link or self-hosting).">
+            Alcance de tu Licencia Máster VIP y cómo entregar el acceso a tus clientes (enlace neutro o hosting propio).
           </p>
         </div>
         <div class="module-right">
@@ -166,34 +169,50 @@
         </div>
       </div>
 
-      <!-- Módulo 2 → segundo 320 (05:20) -->
-      <div class="module-item" onclick="seekToTimestamp(320)" title="Ir al minuto 05:20">
+      <!-- Etapa 2 — 02:46 (start=166) -->
+      <div class="module-item" onclick="seekToTimestamp(166)" title="Ir al minuto 02:46">
         <div class="module-info">
-          <h3 data-i18n data-es="Módulo 2: Estructura de Precios y Cobro Único" data-en="Module 2: Pricing Strategy & One-Time Fee">Módulo 2: Estructura de Precios y Cobro Único</h3>
+          <h3 data-i18n data-es="Etapa 2: Argumentos de Venta y Modo Demo" data-en="Stage 2: Sales Arguments &amp; Demo Mode">Etapa 2: Argumentos de Venta y Modo Demo</h3>
           <p data-i18n
-            data-es="Estrategias probadas de precio ($17 - $47 USD) para maximizar conversiones y ventas inmediatas."
-            data-en="Proven pricing tiers ($17 - $47 USD) to maximize checkout conversions and upfront revenue.">
-            Estrategias probadas de precio ($17 - $47 USD) para maximizar conversiones y ventas inmediatas.
+            data-es="Protección con límite de 2 dispositivos y cómo utilizar la Demo interactiva para cerrar ventas."
+            data-en="Protection with 2-device limit and how to use the interactive Demo to close sales.">
+            Protección con límite de 2 dispositivos y cómo utilizar la Demo interactiva para cerrar ventas.
           </p>
         </div>
         <div class="module-right">
-          <span class="module-tag">05:20 min</span>
+          <span class="module-tag">02:46 min</span>
           <span class="module-play">▶</span>
         </div>
       </div>
 
-      <!-- Módulo 3 → segundo 845 (14:05 = 320+525) -->
-      <div class="module-item" onclick="seekToTimestamp(845)" title="Ir al minuto 14:05">
+      <!-- Etapa 3 — 03:50 (start=230) -->
+      <div class="module-item" onclick="seekToTimestamp(230)" title="Ir al minuto 03:50">
         <div class="module-info">
-          <h3 data-i18n data-es="Módulo 3: Servicio Done-For-You y Soporte" data-en="Module 3: Done-For-You Setup & Support">Módulo 3: Servicio Done-For-You y Soporte</h3>
+          <h3 data-i18n data-es="Etapa 3: Panel Secreto de Anuncios" data-en="Stage 3: Secret Announcements Panel">Etapa 3: Panel Secreto de Anuncios</h3>
           <p data-i18n
-            data-es="Cómo coordinar instalaciones personalizadas o resolver dudas frecuentes con tu soporte VIP."
-            data-en="How to coordinate custom deployments or handle common end-user questions with VIP support.">
-            Cómo coordinar instalaciones personalizadas o resolver dudas frecuentes con tu soporte VIP.
+            data-es="Acceso oculto mediante 3 clics en el logo para publicar ofertas directas en la app de tus clientes."
+            data-en="Hidden access via 3 clicks on the logo to publish direct offers in your clients' app.">
+            Acceso oculto mediante 3 clics en el logo para publicar ofertas directas en la app de tus clientes.
           </p>
         </div>
         <div class="module-right">
-          <span class="module-tag">14:05 min</span>
+          <span class="module-tag">03:50 min</span>
+          <span class="module-play">▶</span>
+        </div>
+      </div>
+
+      <!-- Etapa 4 — 04:59 (start=299) -->
+      <div class="module-item" onclick="seekToTimestamp(299)" title="Ir al minuto 04:59">
+        <div class="module-info">
+          <h3 data-i18n data-es="Etapa 4: Automatización y Plan de Acción" data-en="Stage 4: Automation &amp; Immediate Action Plan">Etapa 4: Automatización y Plan de Acción</h3>
+          <p data-i18n
+            data-es="Flujo automatizado con Hotmart y Brevo, 4 estrategias de monetización y pasos para lanzar hoy."
+            data-en="Automated flow with Hotmart and Brevo, 4 monetization strategies and steps to launch today.">
+            Flujo automatizado con Hotmart y Brevo, 4 estrategias de monetización y pasos para lanzar hoy.
+          </p>
+        </div>
+        <div class="module-right">
+          <span class="module-tag">04:59 min</span>
           <span class="module-play">▶</span>
         </div>
       </div>
@@ -207,14 +226,15 @@
   </footer>
 
 <script>
+const VIDEO_ID_ES = 'U0cyGMUpsWA';
+const VIDEO_ID_EN = 'Vfz_8ZPA0BQ';
 let currentLang = localStorage.getItem('flowmint_lang') || 'es';
-
-// ── Reemplaza YOUTUBE_ID_RESELLER con el ID real del video de Reseller ────────
 
 function setLanguage(lang) {
   currentLang = lang;
   localStorage.setItem('flowmint_lang', lang);
   document.documentElement.lang = lang;
+
   const btnText = document.getElementById('langBtnText');
   if (btnText) btnText.innerText = (lang === 'es') ? 'EN | English' : 'ES | Español';
 
@@ -229,30 +249,115 @@ function setLanguage(lang) {
 
   const pill = document.getElementById('videoLangPill');
   if (pill) pill.innerText = '🌐 ' + lang.toUpperCase();
+
+  const player = document.getElementById('resellerPlayer');
+  if (player) {
+    const vid = lang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
+    if (!player.src.includes(vid)) {
+      player.src = 'https://www.youtube.com/embed/' + vid + '?rel=0&enablejsapi=1&modestbranding=1&color=white';
+    }
+  }
 }
 
 function toggleLanguage() {
   setLanguage(currentLang === 'es' ? 'en' : 'es');
 }
 
-/**
- * Salta al segundo indicado recargando el src del iframe con ?start=N&autoplay=1.
- * @param {number} seconds - Segundo de inicio en el video
- */
 function seekToTimestamp(seconds) {
   const player = document.getElementById('resellerPlayer');
   if (!player) return;
-
-  const baseSrc = player.src.split('?')[0];
-  player.src = `${baseSrc}?start=${seconds}&autoplay=1&rel=0&modestbranding=1`;
-
-  // Scroll suave directamente al iframe
+  const vid = currentLang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
+  player.src = 'https://www.youtube.com/embed/' + vid + '?start=' + seconds + '&autoplay=1&rel=0&modestbranding=1';
   player.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 document.addEventListener('DOMContentLoaded', () => {
   setLanguage(currentLang);
 });
+</script>
+
+<style>
+.modal-backdrop{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:99999;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);animation:fadeIn .2s ease-out;}
+.modal-backdrop.active{display:flex;}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.modal-box{background:var(--card);border:1px solid var(--mint);box-shadow:0 0 35px rgba(0,200,150,0.22);padding:32px;border-radius:16px;max-width:460px;width:100%;position:relative;animation:slideUp .25s ease-out;}
+@keyframes slideUp{from{transform:translateY(18px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.modal-close{position:absolute;top:16px;right:18px;background:none;border:none;color:var(--text-sec);font-size:22px;cursor:pointer;line-height:1;transition:color .2s;}
+.modal-close:hover{color:var(--mint);}
+.modal-header{margin-bottom:20px;}
+.modal-header h3{font-family:var(--font-display);font-size:21px;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.modal-header p{color:var(--text-sec);font-size:13.5px;}
+.form-group{margin-bottom:16px;text-align:left;}
+.form-group label{display:block;font-family:var(--font-mono);font-size:12px;color:var(--text-sec);margin-bottom:6px;}
+.form-control{width:100%;padding:12px 14px;background:var(--navy2);border:1px solid var(--border);border-radius:8px;color:#fff;font-family:var(--font-sans);font-size:14px;transition:border-color .2s,box-shadow .2s;}
+.form-control:focus{outline:none;border-color:var(--mint);box-shadow:0 0 10px rgba(0,200,150,0.25);}
+textarea.form-control{resize:vertical;min-height:100px;}
+.modal-actions{display:flex;gap:10px;margin-top:20px;}
+.btn-cancel{flex:1;background:transparent;border:1px solid var(--border);color:var(--text-sec);padding:12px;border-radius:8px;cursor:pointer;transition:background .2s,color .2s;}
+.btn-cancel:hover{background:var(--navy3);color:#fff;}
+.btn-submit{flex:2;background:var(--mint);border:none;color:#06231a;font-weight:700;padding:12px;border-radius:8px;cursor:pointer;box-shadow:0 0 16px rgba(0,200,150,0.3);transition:transform .2s;}
+.btn-submit:hover{transform:translateY(-1px);box-shadow:0 0 22px rgba(0,200,150,0.45);}
+.success-msg{display:none;background:rgba(0,200,150,0.12);border:1px solid var(--mint);color:var(--mint);font-size:13.5px;padding:12px;border-radius:8px;text-align:center;margin-bottom:14px;}
+.validation-msg{display:none;font-size:12.5px;color:#ff6b6b;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.25);padding:9px 12px;border-radius:8px;margin-bottom:14px;}
+.validation-msg.show{display:block;}
+</style>
+<div id="supportModal" class="modal-backdrop" onclick="handleBackdropClick(event)">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeSupportModal()">&times;</button>
+    <div class="modal-header">
+      <h3 data-i18n data-es="Soporte VIP FlowMint" data-en="FlowMint VIP Support">Soporte VIP FlowMint</h3>
+      <p data-i18n data-es="Escribe tu consulta y te responderemos a la brevedad." data-en="Write your inquiry and we will respond shortly.">Escribe tu consulta y te responderemos a la brevedad.</p>
+    </div>
+    <div id="supportSuccessMsg" class="success-msg">✓ Mensaje enviado.</div>
+    <form id="supportForm" onsubmit="submitSupportForm(event)">
+      <div class="form-group">
+        <label>Email *</label>
+        <input type="email" id="supportEmail" class="form-control" required>
+      </div>
+      <div class="form-group">
+        <label data-i18n data-es="Mensaje *" data-en="Message *">Mensaje *</label>
+        <textarea id="supportMessage" class="form-control" required></textarea>
+      </div>
+      <div class="validation-msg" id="supportValidationMsg"></div>
+      <div class="modal-actions">
+        <button type="button" class="btn-cancel" onclick="closeSupportModal()" data-i18n data-es="Cancelar" data-en="Cancel">Cancelar</button>
+        <button type="submit" class="btn-submit" id="btnSubmitSupport" data-i18n data-es="Enviar Consulta" data-en="Send Inquiry">Enviar Consulta</button>
+      </div>
+    </form>
+  </div>
+</div>
+<script>
+function openSupportModal(){
+  const m=document.getElementById('supportModal');
+  m.classList.add('active');
+}
+function closeSupportModal(){
+  document.getElementById('supportModal').classList.remove('active');
+}
+function handleBackdropClick(e){
+  if(e.target===document.getElementById('supportModal')) closeSupportModal();
+}
+async function submitSupportForm(e){
+  e.preventDefault();
+  const btn = document.getElementById('btnSubmitSupport');
+  const msg = document.getElementById('supportMessage').value;
+  const email = document.getElementById('supportEmail').value;
+  btn.innerText = 'Enviando...';
+  btn.disabled = true;
+  try {
+    await fetch('/api/webhook', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({email, mensaje:msg, tipo:'soporte'})
+    });
+    document.getElementById('supportSuccessMsg').style.display='block';
+    document.getElementById('supportForm').reset();
+    setTimeout(closeSupportModal, 2000);
+  } catch(err) {
+    alert('Error');
+  }
+  btn.disabled = false;
+  btn.innerText = 'Enviar Consulta';
+}
 </script>
 
 </body>
