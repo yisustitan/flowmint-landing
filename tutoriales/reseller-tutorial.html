@@ -228,6 +228,22 @@
 <script>
 const VIDEO_ID_ES = 'U0cyGMUpsWA';
 const VIDEO_ID_EN = 'Vfz_8ZPA0BQ';
+const videoConfig = {
+  en: {
+    youtubeId: 'Vfz_8ZPA0BQ',
+    duration: '6:55',
+    chapters: [
+      { title: "01. Introduction & VIP Deliverables Hub", time: "0:00", seconds: 0 },
+      { title: "02. Reseller License Rules & Scope", time: "1:00", seconds: 60 },
+      { title: "03. Deployment Options (Direct & Hosting)", time: "1:44", seconds: 104 },
+      { title: "04. Licensing Security & Interactive Demo", time: "2:40", seconds: 160 },
+      { title: "05. Secret Admin & Announcements Panel", time: "3:28", seconds: 208 },
+      { title: "06. Automated Workflow & Tech Stack", time: "4:26", seconds: 266 },
+      { title: "07. 4 Monetization Strategies", time: "5:20", seconds: 320 },
+      { title: "08. Action Plan & Next Steps", time: "6:07", seconds: 367 }
+    ]
+  }
+};
 let currentLang = localStorage.getItem('flowmint_lang') || 'es';
 
 function setLanguage(lang) {
@@ -252,9 +268,42 @@ function setLanguage(lang) {
 
   const player = document.getElementById('resellerPlayer');
   if (player) {
-    const vid = lang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
+    const vid = lang === 'es' ? VIDEO_ID_ES : videoConfig.en.youtubeId;
     if (!player.src.includes(vid)) {
       player.src = 'https://www.youtube.com/embed/' + vid + '?rel=0&enablejsapi=1&modestbranding=1&color=white';
+    }
+  }
+
+  renderChapters(lang);
+}
+
+function renderChapters(lang) {
+  const container = document.querySelector('.modules-list');
+  if (!container) return;
+  
+  if (lang === 'en' && videoConfig.en) {
+    if (!window.originalEsChapters) {
+      window.originalEsChapters = container.innerHTML;
+    }
+    let html = '';
+    videoConfig.en.chapters.forEach(ch => {
+      html += `
+      <div class="module-item" onclick="seekToTimestamp(${ch.seconds})" title="Go to ${ch.time}">
+        <div class="module-info">
+          <h3 style="color:#fff;">${ch.title}</h3>
+          <p style="color:var(--text-sec);font-size:13.5px;">FlowMint Reseller VIP - Stage</p>
+        </div>
+        <div class="module-right">
+          <span class="module-tag">${ch.time} min</span>
+          <span class="module-play">▶</span>
+        </div>
+      </div>
+      `;
+    });
+    container.innerHTML = html;
+  } else {
+    if (window.originalEsChapters) {
+      container.innerHTML = window.originalEsChapters;
     }
   }
 }
@@ -266,8 +315,8 @@ function toggleLanguage() {
 function seekToTimestamp(seconds) {
   const player = document.getElementById('resellerPlayer');
   if (!player) return;
-  const vid = currentLang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
-  player.src = `https://www.youtube.com/embed/${vid}?start=${seconds}&autoplay=1&rel=0&modestbranding=1`;
+  const vid = currentLang === 'es' ? VIDEO_ID_ES : videoConfig.en.youtubeId;
+  player.src = 'https://www.youtube.com/embed/' + vid + '?start=' + seconds + '&autoplay=1&rel=0&modestbranding=1';
   player.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
