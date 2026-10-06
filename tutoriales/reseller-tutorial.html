@@ -267,7 +267,7 @@ function seekToTimestamp(seconds) {
   const player = document.getElementById('resellerPlayer');
   if (!player) return;
   const vid = currentLang === 'es' ? VIDEO_ID_ES : VIDEO_ID_EN;
-  player.src = 'https://www.youtube.com/embed/' + vid + '?start=' + seconds + '&autoplay=1&rel=0&modestbranding=1';
+  player.src = `https://www.youtube.com/embed/${vid}?start=${seconds}&autoplay=1&rel=0&modestbranding=1`;
   player.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
