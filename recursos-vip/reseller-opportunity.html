@@ -924,6 +924,7 @@
         <a href="#caracteristicas" class="nav-link" data-i18n="nav-features">El Software</a>
         <a href="#privacidad" class="nav-link" data-i18n="nav-privacy">Privacidad</a>
         <a href="#precios" class="nav-link" data-i18n="nav-pricing">Licencia</a>
+        <a id="nav-terms-link" href="TERMINOS_Y_CONDICIONES_SOCIO_VIP.md" target="_blank" class="nav-link" data-i18n="nav-terms">Términos</a>
       </nav>
       <div class="header-actions">
         <select class="lang-switcher" onchange="changeLanguage(this.value)" id="langSelect">
@@ -1308,6 +1309,11 @@
         </a>
         <p style="font-size: 11px; color: var(--text-muted); margin-top: 14px;" data-i18n="price-guarantee">Pago 100%
           seguro. Acceso inmediato a todos los activos.</p>
+        <div style="margin-top: 18px; text-align: center;">
+          <a id="pricing-terms-link" href="TERMINOS_Y_CONDICIONES_SOCIO_VIP.md" target="_blank" style="color: var(--mint); text-decoration: underline; font-size: 13px; font-weight: 500; display: inline-flex; align-items: center; gap: 6px;" data-i18n="section-terms-btn">
+            📜 Ver Términos y Condiciones de Licencia VIP
+          </a>
+        </div>
       </div>
 
     </section>
@@ -1321,6 +1327,7 @@
         <a href="#caracteristicas" data-i18n="nav-features">El Software</a>
         <a href="#privacidad" data-i18n="nav-privacy">Privacidad</a>
         <a href="flowmint.html" target="_blank" data-i18n="footer-demo">Probar Demo</a>
+        <a id="footer-terms-link" href="recursos-vip/TERMINOS_Y_CONDICIONES_SOCIO_VIP.md" target="_blank" data-i18n="footer-terms">Términos y Condiciones VIP</a>
       </div>
       <p id="footer-copyright">© 2026 FlowMint Reseller. Todos los derechos reservados.
       </p>
@@ -1337,6 +1344,9 @@
         "nav-features": "El Software",
         "nav-privacy": "Privacidad",
         "nav-pricing": "Licencia",
+        "nav-terms": "Términos",
+        "footer-terms": "Términos y Condiciones VIP",
+        "section-terms-btn": "📜 Ver Términos y Condiciones de Licencia VIP",
         "nav-getbtn": "Obtener Licencia",
         "hero-badge": "🔥 Licencia Comercial · 100% Ganancia",
         "hero-title": "Revende FlowMint y Quedate con el <span>100% de la Ganancia</span>",
@@ -1430,6 +1440,9 @@
         "nav-features": "Software",
         "nav-privacy": "Privacy",
         "nav-pricing": "License",
+        "nav-terms": "Terms",
+        "footer-terms": "VIP Terms & Conditions",
+        "section-terms-btn": "📜 View VIP License Terms & Conditions",
         "nav-getbtn": "Get License",
         "hero-badge": "🔥 Commercial License · 100% Profits",
         "hero-title": "Resell FlowMint & Keep <span>100% of Every Sale</span>",
@@ -1583,6 +1596,22 @@
       if (copyrightElem) {
         copyrightElem.textContent = translations[lang]['copyright'];
       }
+
+      const isInRecursosVip = window.location.pathname.includes('recursos-vip');
+      const basePath = isInRecursosVip ? '' : 'recursos-vip/';
+      const termsDoc = lang === 'es'
+        ? 'TERMINOS_Y_CONDICIONES_SOCIO_VIP.md'
+        : 'VIP_RESELLER_TERMS_AND_CONDITIONS.md';
+      const termsHref = basePath + termsDoc;
+
+      const navTerms = document.getElementById('nav-terms-link');
+      if (navTerms) navTerms.href = termsHref;
+
+      const pricingTerms = document.getElementById('pricing-terms-link');
+      if (pricingTerms) pricingTerms.href = termsHref;
+
+      const footerTerms = document.getElementById('footer-terms-link');
+      if (footerTerms) footerTerms.href = termsHref;
     }
 
     // --- 3. ENLACE DE COBRO (Licencia de Revendedor $149) ---
