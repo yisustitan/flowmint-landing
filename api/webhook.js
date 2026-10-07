@@ -1,4 +1,4 @@
-﻿export default async function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Método no permitido' });
   }
@@ -27,7 +27,8 @@
     return res.status(500).json({ success: false, message: 'Falta configurar BREVO_API_KEY en el servidor.' });
   }
 
-  const BREVO_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
+  const BREVO_EMAIL_ENDPOINT = 'https://api.brevo.com/v3/smtp/email';
+  const BREVO_CONTACTS_ENDPOINT = 'https://api.brevo.com/v3/contacts';
   const brevoHeaders = {
     'api-key': BREVO_API_KEY,
     'Content-Type': 'application/json',
@@ -35,68 +36,67 @@
   };
 
   try {
-    // ── A) SOPORTE / CONTACTO → Envío doble (Promise.all) ────────────────────
-    if (tipo === 'soporte' || tipo === 'contacto') {
-      const nombreDisplay = nombre || email;
-      const mensajeHtml = (mensaje || '(sin mensaje)').replace(/\n/g, '<br>');
+    const nombreDisplay = nombre || email;
+    const mensajeHtml = (mensaje || '(sin mensaje)').replace(/\n/g, '<br>');
+    const valoracion = estrellas ? `${estrellas} / 5` : '';
 
-      // 1. Notificación interna de ticket al equipo
-      const ticketPayload = {
-        sender: { name: 'Soporte FlowMint', email: 'hola@centraliaportal.com' },
-        to: [{ email: 'hola@centraliaportal.com' }],
-        replyTo: { email: email },
-        subject: `[Ticket ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}] Nueva consulta de ${nombreDisplay}`,
-        htmlContent: `<p><strong>Nombre:</strong> ${nombreDisplay}</p><p><strong>Email:</strong> ${email}</p><p><strong>Tipo:</strong> ${tipo}</p><hr><p><strong>Mensaje:</strong></p><p>${mensajeHtml}</p>`
-      };
+    // ── 1. Registro en Brevo Contacts ──────────────────────────────────────
+    let origen = 'Contacto_General';
+    if (tipo === 'soporte') origen = 'Soporte_VIP';
+    else if (tipo === 'feedback' || tipo === 'rating' || tipo === 'sugerencia') origen = 'Feedback_App';
 
-      // 2. Auto-confirmación inmediata al cliente
-      const autoReplyPayload = {
-        sender: { name: 'Soporte FlowMint', email: 'hola@centraliaportal.com' },
-        to: [{ email: email }],
-        subject: 'Hemos recibido tu consulta - Flowmint',
-        htmlContent: `<p>Hola ${nombreDisplay},</p><p>Hemos recibido tu consulta correctamente. Nuestro equipo de soporte te responderá directamente a este correo a la brevedad posible.</p><p>Atentamente,<br>El equipo de Flowmint</p>`
-      };
+    let attributes = {
+      NOMBRE: nombre || '',
+      ORIGEN: origen
+    };
+    if (estrellas) attributes.RATING = estrellas.toString();
 
-      await Promise.all([
-        fetch(BREVO_ENDPOINT, { method: 'POST', headers: brevoHeaders, body: JSON.stringify(ticketPayload) }),
-        fetch(BREVO_ENDPOINT, { method: 'POST', headers: brevoHeaders, body: JSON.stringify(autoReplyPayload) })
-      ]);
+    const contactPayload = {
+      email: email,
+      attributes: attributes,
+      updateEnabled: true
+    };
 
-      return res.status(200).json({ success: true, message: 'Consulta recibida. Te hemos enviado una confirmación.' });
+    // ── 2. Notificación Interna ─────────────────────────────────────────────
+    let subjectInterno = `[Ticket ${tipo.charAt(0).toUpperCase() + tipo.slice(1)}] Nueva consulta de ${nombreDisplay}`;
+    let htmlInterno = `<p><strong>Nombre:</strong> ${nombreDisplay}</p><p><strong>Email:</strong> ${email}</p><p><strong>Tipo:</strong> ${tipo}</p>`;
+    if (valoracion) htmlInterno += `<p><strong>Valoracion:</strong> ${valoracion}</p>`;
+    htmlInterno += `<hr><p><strong>Mensaje:</strong></p><p>${mensajeHtml}</p>`;
+
+    const ticketPayload = {
+      sender: { name: 'Sistema FlowMint', email: 'hola@centraliaportal.com' },
+      to: [{ email: 'hola@centraliaportal.com' }],
+      replyTo: { email: email },
+      subject: subjectInterno,
+      htmlContent: htmlInterno
+    };
+
+    // ── 3. Autorrespuesta al Usuario ─────────────────────────────────────────
+    let subjectAuto = 'Hemos recibido tu solicitud - Flowmint';
+    let htmlAuto = `<p>Hola ${nombreDisplay},</p><p>Hemos recibido tu mensaje correctamente.</p>`;
+    
+    if (origen === 'Soporte_VIP' || origen === 'Contacto_General') {
+      htmlAuto += `<p>Nuestro equipo de soporte te responderá directamente a este correo a la brevedad posible.</p>`;
+    } else {
+      htmlAuto += `<p>Agradecemos mucho tus comentarios y valoración. Tu opinión nos ayuda a construir la mejor herramienta para ti.</p>`;
     }
+    htmlAuto += `<p>Atentamente,<br>El equipo de Flowmint</p>`;
 
-    // ── B) FEEDBACK / SUGERENCIA / RATING → Envío único (solo equipo) ────────
-    if (tipo === 'feedback' || tipo === 'sugerencia' || tipo === 'rating') {
-      const nombreDisplay = nombre || email;
-      const mensajeHtml = (mensaje || '(sin comentario)').replace(/\n/g, '<br>');
-      const valoracion = estrellas ? `${estrellas} / 5` : 'No especificada';
+    const autoReplyPayload = {
+      sender: { name: 'Soporte FlowMint', email: 'hola@centraliaportal.com' },
+      to: [{ email: email }],
+      subject: subjectAuto,
+      htmlContent: htmlAuto
+    };
 
-      const feedbackPayload = {
-        sender: { name: 'FlowMint Feedback', email: 'hola@centraliaportal.com' },
-        to: [{ email: 'hola@centraliaportal.com' }],
-        replyTo: { email: email },
-        subject: `[${tipo.charAt(0).toUpperCase() + tipo.slice(1)}] Valoracion de ${nombreDisplay} — ${valoracion}`,
-        htmlContent: `<p><strong>Usuario:</strong> ${nombreDisplay} (${email})</p><p><strong>Tipo:</strong> ${tipo}</p><p><strong>Valoracion:</strong> ${valoracion}</p><hr><p><strong>Comentario:</strong></p><p>${mensajeHtml}</p>`
-      };
+    // Ejecutar las 3 peticiones en paralelo
+    await Promise.all([
+      fetch(BREVO_CONTACTS_ENDPOINT, { method: 'POST', headers: brevoHeaders, body: JSON.stringify(contactPayload) }).catch(e => console.error('Error creando contacto', e)),
+      fetch(BREVO_EMAIL_ENDPOINT, { method: 'POST', headers: brevoHeaders, body: JSON.stringify(ticketPayload) }).catch(e => console.error('Error ticket interno', e)),
+      fetch(BREVO_EMAIL_ENDPOINT, { method: 'POST', headers: brevoHeaders, body: JSON.stringify(autoReplyPayload) }).catch(e => console.error('Error autorespuesta', e))
+    ]);
 
-      const response = await fetch(BREVO_ENDPOINT, {
-        method: 'POST',
-        headers: brevoHeaders,
-        body: JSON.stringify(feedbackPayload)
-      });
-
-      if (!response.ok) {
-        const errorData = await response.text();
-        console.error('Brevo Error (feedback):', errorData);
-        return res.status(response.status).json({ success: false, message: 'Error enviando feedback por Brevo', error: errorData });
-      }
-
-      // NO se envia correo al cliente — HTTP 200 para mostrar agradecimiento en pantalla
-      return res.status(200).json({ success: true, message: 'Gracias por tu valoracion!' });
-    }
-
-    // ── C) Tipo no reconocido ─────────────────────────────────────────────────
-    return res.status(400).json({ success: false, message: `Tipo de formulario no reconocido: "${tipo || 'undefined'}"` });
+    return res.status(200).json({ success: true, message: 'Solicitud procesada correctamente.' });
 
   } catch (err) {
     console.error('Webhook error:', err);
