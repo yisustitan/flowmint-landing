@@ -49,3 +49,5 @@ create_zip.py
 
 # Archivos de texto sueltos dentro de carpetas del repo
 recursos-vip/**/*.txt
+supabase/.temp/
+
