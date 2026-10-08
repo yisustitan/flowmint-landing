@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowMint — Licencia de Revendedor (Reseller)</title>
+  <title>FlowMint — Domina tus Finanzas con Control Absoluto</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link
     href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap"
@@ -488,6 +488,182 @@
       color: var(--mint);
     }
 
+    /* --- SECCIÓN UPSELL --- */
+    .upsell-section {
+      padding: 80px 20px;
+      background: radial-gradient(circle at center, rgba(147, 51, 234, 0.05) 0%, transparent 70%);
+      display: flex;
+      justify-content: center;
+    }
+
+    .upsell-container {
+      max-width: 900px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .upsell-badge {
+      background: linear-gradient(135deg, #ef4444, #f59e0b);
+      color: #fff;
+      padding: 6px 16px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      display: inline-block;
+      margin-bottom: 20px;
+      letter-spacing: 1px;
+      box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3);
+    }
+
+    .upsell-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 15px;
+      line-height: 1.2;
+    }
+
+    .upsell-title .text-gradient {
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .upsell-subtitle {
+      color: #9ca3af;
+      font-size: 1.1rem;
+      max-width: 700px;
+      margin: 0 auto 40px auto;
+    }
+
+    /* Tarjeta Glassmorphic Especial */
+    .upsell-card {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(147, 51, 234, 0.3);
+      border-radius: 24px;
+      padding: 40px;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 40px;
+      text-align: left;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .upsell-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      right: -50%;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .upsell-features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .upsell-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 15px;
+      color: #e5e7eb;
+      font-size: 1.05rem;
+    }
+
+    .upsell-features svg {
+      color: #10b981;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* Caja de Precios y Botón */
+    .upsell-pricing {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      border-left: 1px solid rgba(255, 255, 255, 0.1);
+      padding-left: 40px;
+      text-align: center;
+    }
+
+    .price-box {
+      margin-bottom: 25px;
+    }
+
+    .old-price {
+      display: block;
+      color: #6b7280;
+      text-decoration: line-through;
+      font-size: 1.2rem;
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+
+    .current-price {
+      display: block;
+      color: #fff;
+      font-size: 3.5rem;
+      font-weight: 800;
+      line-height: 1;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .price-note {
+      color: #9ca3af;
+      font-size: 0.85rem;
+      margin-top: 10px;
+    }
+
+    .upsell-btn {
+      width: 100%;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px 24px;
+      font-weight: 700;
+    }
+
+    .checkout-hint {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
+    /* Responsivo */
+    @media (max-width: 768px) {
+      .upsell-card {
+        grid-template-columns: 1fr;
+        gap: 30px;
+        padding: 30px 20px;
+      }
+
+      .upsell-pricing {
+        border-left: none;
+        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding-left: 0;
+        padding-top: 30px;
+      }
+
+      .upsell-title {
+        font-size: 2rem;
+      }
+    }
+
     .feature-card h3 {
       font-size: 20px;
       margin-bottom: 12px;
@@ -585,7 +761,7 @@
       background: linear-gradient(180deg, var(--navy2) 0%, rgba(22, 34, 54, 0.7) 100%);
       border: 1px solid var(--border-light);
       border-radius: var(--radius);
-      max-width: 550px;
+      max-width: 500px;
       margin: 0 auto;
       padding: 48px;
       text-align: center;
@@ -619,6 +795,22 @@
       margin-right: 8px;
     }
 
+    .guarantee-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(0, 200, 150, 0.08);
+      border: 1px solid rgba(0, 200, 150, 0.25);
+      color: var(--mint);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      margin: 18px 0 4px;
+      line-height: 1.4;
+    }
+
     .pricing-features {
       text-align: left;
       list-style: none;
@@ -642,17 +834,67 @@
       font-weight: bold;
     }
 
-    /* Option/Standard Section */
-    .standard-option {
-      margin-top: 60px;
-      padding: 30px;
-      background: rgba(255, 255, 255, 0.02);
-      border: 1px dashed var(--border-light);
-      border-radius: 16px;
-      text-align: center;
-      max-width: 550px;
-      margin-left: auto;
-      margin-right: auto;
+    /* FAQ Accordion */
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item[open] {
+      border-color: rgba(0, 200, 150, 0.3);
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 15.5px;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(0, 200, 150, 0.1);
+      color: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item[open] .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 24px 22px;
+      color: var(--text-sec);
+      font-size: 14.5px;
+      line-height: 1.65;
     }
 
     /* Footer */
@@ -827,20 +1069,22 @@
     <header>
       <a href="#" class="logo">
         <div class="logo-icon">🌿</div>
-        <div class="logo-text">Flow<span>Mint</span> Reseller</div>
+        <div class="logo-text">Flow<span>Mint</span></div>
       </a>
       <nav>
-        <a href="#ventajas" class="nav-link" data-i18n="nav-problem">Ventajas</a>
-        <a href="#caracteristicas" class="nav-link" data-i18n="nav-features">El Software</a>
+        <a href="#problema" class="nav-link" data-i18n="nav-problem">El Problema</a>
+        <a href="#caracteristicas" class="nav-link" data-i18n="nav-features">Características</a>
         <a href="#privacidad" class="nav-link" data-i18n="nav-privacy">Privacidad</a>
-        <a href="#precios" class="nav-link" data-i18n="nav-pricing">Licencia</a>
+        <a href="#precios" class="nav-link" data-i18n="nav-pricing">Precios</a>
+        <a href="#faq" class="nav-link" data-i18n="nav-help">Ayuda / FAQs</a>
       </nav>
       <div class="header-actions">
+        <!-- Switch de Idioma Dropdown -->
         <select class="lang-switcher" onchange="changeLanguage(this.value)" id="langSelect">
           <option value="es">🇪🇸 ES</option>
           <option value="en">🇺🇸 EN</option>
         </select>
-        <a href="#precios" class="btn btn-primary" data-i18n="nav-getbtn">Obtener Licencia</a>
+        <a href="#precios" class="btn btn-primary" data-i18n="nav-getbtn">Obtener App</a>
       </div>
     </header>
   </div>
@@ -848,16 +1092,17 @@
   <!-- ── HERO SECTION ── -->
   <div class="container">
     <section class="hero">
-      <span class="badge" data-i18n="hero-badge">🔥 Licencia Comercial · 100% Ganancia</span>
-      <h1 data-i18n="hero-title">Revende FlowMint y Quedate con el <span>100% de la Ganancia</span></h1>
+      <span class="badge" data-i18n="hero-badge">🔥 Acceso de por vida · Pago único</span>
+      <h1 data-i18n="hero-title">Toma el Control Absoluto de tu <span>Dinero</span></h1>
       <p class="hero-sub" data-i18n="hero-sub">
-        Adquiere la Licencia Comercial Completa para revender FlowMint, utilizar nuestros embudos de venta y generar
-        ingresos recurrentes vendiendo un software financiero de alta demanda.
+        Una aplicación de finanzas personales diseñada para personas reales. Administra tus ingresos, gastos,
+        inversiones y metas en una interfaz visualmente impresionante y 100% privada.
       </p>
       <div class="hero-actions">
-        <a href="#precios" class="btn btn-primary btn-lg" data-i18n="hero-cta1">Comprar Licencia ($149 USD)</a>
-        <a href="flowmint.html" target="_blank" class="btn btn-outline btn-lg" data-i18n="hero-cta2">Ver Demo de la App
-          →</a>
+        <a href="#precios" class="btn btn-primary btn-lg" data-i18n="hero-cta1">Comprar Acceso de por
+          Vida</a>
+        <a href="flowmint.html" target="_blank" class="btn btn-outline btn-lg" data-i18n="hero-cta2">Ver Demo
+          Interactiva →</a>
       </div>
 
       <!-- Interactive Mockup Showcase -->
@@ -866,8 +1111,7 @@
           <div class="mockup-dot red"></div>
           <div class="mockup-dot yellow"></div>
           <div class="mockup-dot green"></div>
-          <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">FlowMint Finance - Local App
-            System</span>
+          <span style="font-size: 11px; color: var(--text-muted); margin-left: 8px;">FlowMint Finance - Local App</span>
         </div>
         <div class="ui-showcase-grid">
           <div class="ui-card">
@@ -930,7 +1174,7 @@
             <div id="ui-alert-box"
               style="padding: 10px; background: rgba(0, 200, 150, 0.05); border: 1px solid rgba(0, 200, 150, 0.15); border-radius: 8px; font-size: 11px; color: var(--mint); text-align: center; margin-top: 10px;"
               data-i18n="ui-alert">
-              🎉 ¡Negocio Llave en Mano Listo para Revender!
+              🎉 ¡Tasa de ahorro al 76% este mes!
             </div>
           </div>
         </div>
@@ -938,45 +1182,43 @@
     </section>
   </div>
 
-  <!-- ── VENTAJAS DE REVENDEDOR ── -->
-  <div id="ventajas"
+  <!-- ── EL PROBLEMA ── -->
+  <div id="problema"
     style="background: var(--navy2); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
     <div class="container">
       <section>
         <div class="problem-grid">
           <div>
-            <h2 style="font-size: 40px; margin-bottom: 20px;" data-i18n="prob-title">¿Por qué adquirir la Licencia de
-              Revendedor?</h2>
+            <h2 style="font-size: 40px; margin-bottom: 20px;" data-i18n="prob-title">Por qué la mayoría de las personas
+              fallan al organizar sus finanzas</h2>
             <p style="color: var(--text-sec); margin-bottom: 24px;" data-i18n="prob-desc">
-              Desarrollar un software desde cero requiere meses y miles de dólares. Con esta licencia obtienes un
-              producto digital comprobado, un embudo de ventas funcional y el derecho legal de revenderlo cobrando
-              directo a tu cuenta.
+              Las hojas de cálculo son confusas de mantener en el celular y las aplicaciones tradicionales te obligan a
+              pagar molestas suscripciones mensuales o, peor aún, te obligan a compartir tus contraseñas bancarias y
+              venden tus datos a anunciantes.
             </p>
-            <a href="#precios" class="btn btn-primary" data-i18n="prob-cta">Quiero la Licencia de Revendedor</a>
+            <a href="#precios" class="btn btn-primary" data-i18n="prob-cta">Quiero Controlar mis Finanzas</a>
           </div>
           <div class="pain-list">
             <div class="pain-item">
-              <div class="pain-icon">💰</div>
+              <div class="pain-icon">❌</div>
               <div class="pain-text">
-                <h3 data-i18n="pain1-t">100% de Beneficios</h3>
-                <p data-i18n="pain1-d">Cada venta va directo a tu procesador de pagos. Sin comisiones compartidas ni
-                  mensualidades.</p>
+                <h3 data-i18n="pain1-t">Suscripciones Abusivas</h3>
+                <p data-i18n="pain1-d">Terminas pagando $5, $10 o más al mes por software que apenas usas.</p>
               </div>
             </div>
             <div class="pain-item">
-              <div class="pain-icon">📦</div>
+              <div class="pain-icon">😰</div>
               <div class="pain-text">
-                <h3 data-i18n="pain2-t">Material Comercial Listo</h3>
-                <p data-i18n="pain2-d">Incluye copys de ventas, recursos gráficos y embudos optimizados listos para
-                  lanzar.</p>
+                <h3 data-i18n="pain2-t">Cero Privacidad</h3>
+                <p data-i18n="pain2-d">Tus cuentas bancarias y patrones de consumo son analizados por terceros.</p>
               </div>
             </div>
             <div class="pain-item">
-              <div class="pain-icon">⚡</div>
+              <div class="pain-icon">🤯</div>
               <div class="pain-text">
-                <h3 data-i18n="pain3-t">Despliegue Rápido</h3>
-                <p data-i18n="pain3-d">Subes el código a GitHub o Vercel y comienzas a vender inmediatamente sin
-                  configuraciones complejas.</p>
+                <h3 data-i18n="pain3-t">Hojas de Cálculo Complejas</h3>
+                <p data-i18n="pain3-d">Diseñar macros y fórmulas es aburrido y se rompen fácilmente en pantallas
+                  pequeñas.</p>
               </div>
             </div>
           </div>
@@ -985,60 +1227,69 @@
     </div>
   </div>
 
-  <!-- ── CARACTERÍSTICAS DEL SOFTWARE ── -->
+  <!-- ── CARACTERÍSTICAS ── -->
   <div id="caracteristicas" class="container">
     <section>
       <div class="sec-header">
-        <h2 data-i18n="feat-header-t">El Software que Tus Clientes Amarán</h2>
-        <p data-i18n="feat-header-d">FlowMint ofrece una experiencia de gestión financiera local, rápida y privada que
-          tus usuarios disfrutarán desde el primer día.</p>
+        <h2 data-i18n="feat-header-t">Todo lo que necesitas para tu libertad financiera</h2>
+        <p data-i18n="feat-header-d">FlowMint centraliza tu flujo de dinero, tus metas de ahorro y tu patrimonio neto en
+          un panel interactivo.</p>
       </div>
 
       <div class="features-grid">
+        <!-- Feature 1 -->
         <div class="feature-card">
           <div class="feature-icon">📊</div>
           <h3 data-i18n="f1-t">Dashboard en Tiempo Real</h3>
-          <p data-i18n="f1-d">KPIs de ingresos, gastos, balance de caja y portafolio de inversiones actualizados al
-            instante.</p>
+          <p data-i18n="f1-d">KPIs de ingresos, gastos, balance de caja y portafolio de inversiones que se actualizan de
+            forma instantánea al registrar cualquier movimiento.</p>
         </div>
+        <!-- Feature 2 -->
         <div class="feature-card">
           <div class="feature-icon">⚖️</div>
           <h3 data-i18n="f2-t">Control de Presupuestos</h3>
-          <p data-i18n="f2-d">Límites mensuales personalizables con alertas en colores según los presupuestos fijados.
-          </p>
+          <p data-i18n="f2-d">Define límites de gastos mensuales por categorías. Recibe alertas visuales en colores
+            cuando te acerques al límite para evitar compras impulsivas.</p>
         </div>
+        <!-- Feature 3 -->
         <div class="feature-card">
           <div class="feature-icon">📈</div>
           <h3 data-i18n="f3-t">Gestión de Inversiones</h3>
-          <p data-i18n="f3-d">Sigue activos en Bolsa, ETFs y Criptomonedas con visualización gráfica del rendimiento.
-          </p>
+          <p data-i18n="f3-d">Controla tus activos (Acciones, ETFs, Crypto). Registra compras, sigue el rendimiento de
+            tu portafolio y visualiza la distribución en gráficos dinámicos.</p>
         </div>
+        <!-- Feature 4 -->
         <div class="feature-card">
           <div class="feature-icon">🎯</div>
           <h3 data-i18n="f4-t">Metas con Proyección</h3>
-          <p data-i18n="f4-d">Cálculo automático de ahorro mensual necesario para cumplir cualquier objetivo financiero.
-          </p>
+          <p data-i18n="f4-d">Configura objetivos de ahorro. La app calcula automáticamente cuánto necesitas ahorrar mes
+            a mes para cumplir tu meta a tiempo.</p>
         </div>
+        <!-- Feature 5 -->
         <div class="feature-card">
           <div class="feature-icon">🔍</div>
           <h3 data-i18n="f5-t">Buscador Inteligente</h3>
-          <p data-i18n="f5-d">Filtrado inmediato de historial por notas o categorías sin depender de macros complejas.
+          <p data-i18n="f5-d">Encuentra cualquier movimiento pasado al instante. Filtra tu historial por descripción,
+            notas o categorías en tiempo real, sin perderte en las filas infinitas y confusas de un Excel tradicional.
           </p>
         </div>
+        <!-- Feature 6 -->
         <div class="feature-card">
           <div class="feature-icon">📥</div>
           <h3 data-i18n="f6-t">Copia de Seguridad Local</h3>
-          <p data-i18n="f6-d">Exportación completa a archivos JSON en un clic. Propiedad total del usuario sobre sus
-            datos.</p>
+          <p data-i18n="f6-d">Exporta tu historial completo en un archivo JSON en un solo clic e impórtalo cuando
+            quieras. Tus datos te pertenecen y los controlas tú.</p>
         </div>
       </div>
 
+      <!-- Privacy Feature Banner -->
       <div id="privacidad" class="privacy-banner">
         <div class="privacy-info">
-          <h3 data-i18n="priv-banner-t">🔒 Privacidad Total y Almacenamiento Local</h3>
+          <h3 data-i18n="priv-banner-t">🔒 Tus finanzas son privadas. De verdad.</h3>
           <p data-i18n="priv-banner-d">
-            FlowMint funciona 100% en el navegador del usuario utilizando LocalStorage. No requiere mantener servidores
-            ni bases de datos costosas para atender a tus clientes.
+            FlowMint funciona de forma 100% local en tu navegador utilizando el almacenamiento del sistema
+            (LocalStorage). Tus saldos, ingresos y deudas jamás tocan un servidor externo ni son visibles para nadie más
+            que para ti. Sin nubes, sin rastreadores.
           </p>
         </div>
         <div style="font-size: 60px; filter: drop-shadow(0 10px 10px rgba(0,0,0,0.3));">🛡️</div>
@@ -1051,49 +1302,49 @@
     <div class="container">
       <section>
         <div class="sec-header">
-          <h2 data-i18n="testi-header-t">Lo que Opinan Quienes Ya Revenden</h2>
-          <p data-i18n="testi-header-d">Emprendedores digitales impulsando sus ventas con Licencias Comerciales.</p>
+          <h2 data-i18n="testi-header-t">Lo que dicen nuestros usuarios</h2>
+          <p data-i18n="testi-header-d">Más personas toman el control de sus finanzas locales sin suscripciones.</p>
         </div>
         <div class="testimonials-grid">
           <div class="testi-card">
             <div class="testi-stars">★★★★★</div>
             <p class="testi-text" data-i18n="t1-text">
-              "Compré la licencia Reseller y en mi primera semana recuperé totalmente la inversión realizando 3 ventas
-              directa en mi checkout."
+              "Buscaba algo simple para controlar mis gastos diarios y cartera de acciones sin pagar suscripción.
+              FlowMint es visualmente hermoso, rápido y local. ¡Me encanta!"
             </p>
             <div class="testi-author">
               <div class="testi-avatar">AM</div>
               <div>
                 <div class="testi-name">Alejandro Medina</div>
-                <div class="testi-role" data-i18n="t1-role">Marketer Digital</div>
+                <div class="testi-role" data-i18n="t1-role">Inversor Particular</div>
               </div>
             </div>
           </div>
           <div class="testi-card">
             <div class="testi-stars">★★★★★</div>
             <p class="testi-text" data-i18n="t2-text">
-              "El kit de marketing incluido ahorra semanas de trabajo. Solo ajusté mis enlaces en el panel y conecté mi
-              plataforma de pago."
+              "La proyección de metas es lo que más uso. Configuré mi fondo para vacaciones y me dice exactamente cuánto
+              apartar al mes. El diseño es increíblemente premium."
             </p>
             <div class="testi-author">
               <div class="testi-avatar">CP</div>
               <div>
                 <div class="testi-name">Camila Pons</div>
-                <div class="testi-role" data-i18n="t2-role">Creadora de Contenido</div>
+                <div class="testi-role" data-i18n="t2-role">Diseñadora UX / Freelancer</div>
               </div>
             </div>
           </div>
           <div class="testi-card">
             <div class="testi-stars">★★★★★</div>
             <p class="testi-text" data-i18n="t3-text">
-              "Al ser un software local sin costo de servidores por cliente, mi margen de beneficio es literalmente del
-              100%."
+              "Me da tranquilidad mental saber que mis datos no están flotando en la nube de alguna startup financiera.
+              Hago una copia JSON semanal en mi disco duro y listo."
             </p>
             <div class="testi-author">
               <div class="testi-avatar">RG</div>
               <div>
                 <div class="testi-name">Roberto Gómez</div>
-                <div class="testi-role" data-i18n="t3-role">Emprendedor Web</div>
+                <div class="testi-role" data-i18n="t3-role">Desarrollador de Software</div>
               </div>
             </div>
           </div>
@@ -1102,53 +1353,94 @@
     </div>
   </div>
 
-  <!-- ── OFERTA PRINCIPAL DE REVENDEDOR ($149) ── -->
+  <!-- ── PRECIOS ── -->
   <div id="precios" class="container">
-    <section style="padding-bottom: 60px;">
+    <section style="padding-bottom: 120px;">
       <div class="sec-header">
-        <h2 data-i18n="price-header-t">Consigue la Licencia Comercial de Revendedor</h2>
-        <p data-i18n="price-header-d">Pago único de lanzamiento. Quedate con el 100% de cada venta que realices.</p>
+        <h2 data-i18n="price-header-t">Una pequeña inversión, control de por vida</h2>
+        <p data-i18n="price-header-d">Olvídate de las cuotas recurrentes. Obtén acceso completo para siempre por un
+          único pago único de lanzamiento.</p>
       </div>
 
       <div class="pricing-card">
         <div class="badge"
           style="background: rgba(245, 166, 35, 0.08); border-color: rgba(245, 166, 35, 0.2); color: var(--gold);"
           data-i18n="price-badge">
-          OFERTA ESPECIAL RESELLER</div>
-        <h3 style="font-size: 28px; margin-top: 12px;" data-i18n="price-card-t">Licencia de Revendedor Completa</h3>
-        <p style="color: var(--text-sec); font-size: 14px; margin-top: 8px;" data-i18n="price-card-d">Derechos de
-          reventa ilimitados + Kit de Marketing</p>
+          Oferta Especial de Lanzamiento</div>
+        <h3 style="font-size: 28px; margin-top: 12px;" data-i18n="price-card-t">Acceso Completo de Por Vida</h3>
+        <p style="color: var(--text-sec); font-size: 14px; margin-top: 8px;" data-i18n="price-card-d">Software local sin
+          límites de registros</p>
 
         <div class="price">
-          <span>$299</span>$149 <span
+          <span>$49</span>$19 <span
             style="font-size: 24px; text-decoration: none; color: var(--mint); font-family: 'DM Sans', sans-serif;">USD</span>
         </div>
-        <p style="color: var(--mint); font-size: 12px; font-weight: 600;" data-i18n="price-note">⚠️ Pago único. Sin
-          regalías ni mensualidades.</p>
+        <p style="color: var(--mint); font-size: 12px; font-weight: 600;" data-i18n="price-note">⚠️ Precio por única
+          vez. Sin mensualidades.</p>
+
+        <div class="guarantee-badge" data-i18n="price-guarantee-badge">🛡️ Garantía incondicional de 7 días respaldada por Hotmart</div>
 
         <ul class="pricing-features" id="main-features-list">
           <!-- Se renderizan dinámicamente según el idioma -->
         </ul>
 
-        <a href="https://pay.hotmart.com/G106875530I?bid=1791428210491" target="_blank" rel="noopener noreferrer"
-          onclick="openResellerUrl(event)" class="btn btn-primary btn-lg buy-reseller-link"
-          style="width: 100%; font-weight: 700;" data-i18n="price-btn">
-          Adquirir Licencia de Revendedor ($149 USD)
+        <a href="https://pay.hotmart.com/S106873189Y?checkoutMode=10" target="_blank" rel="noopener noreferrer"
+          class="btn btn-primary btn-lg buy-checkout-link" style="width: 100%;" data-i18n="price-btn">
+          Comprar y Descargar Ahora
         </a>
         <p style="font-size: 11px; color: var(--text-muted); margin-top: 14px;" data-i18n="price-guarantee">Pago 100%
-          seguro. Acceso inmediato a todos los activos.</p>
+          seguro. Garantía de reembolso de 7 días.</p>
       </div>
+    </section>
+  </div>
 
-      <!-- DOWNSELL / OPCIÓN INDIVIDUAL ($19) -->
-      <div class="standard-option">
-        <p style="font-size: 14px; color: var(--text-sec);" data-i18n="std-desc">
-          ¿Solo te interesa usar la aplicación para tu uso personal sin derechos de reventa?
-        </p>
-        <a href="https://pay.hotmart.com/S106873189Y?checkoutMode=10" target="_blank" rel="noopener noreferrer"
-          onclick="openCheckoutUrl(event)" class="btn btn-outline" style="margin-top: 15px;"
-          data-i18n="std-btn">
-          Comprar solo la App Individual ($19 USD)
-        </a>
+  <!-- SECCIÓN UPSELL: LICENCIA DE REVENDEDOR -->
+  <section class="upsell-section">
+    <div class="upsell-container">
+      <div class="upsell-badge" data-i18n="up-badge">🔥 MEJORA TU ORDEN (OPCIONAL)</div>
+      <h2 class="upsell-title"><span data-i18n="up-title-1">¡Multiplica tus ingresos con la</span> <span
+          class="text-gradient" data-i18n="up-title-2">Licencia de Revendedor</span>!</h2>
+      <p class="upsell-subtitle" data-i18n="up-subtitle">Obtén los derechos exclusivos para revender FlowMint, quedarte
+        con el 100% de las ganancias y usar todo nuestro material de marketing.</p>
+
+      <div class="upsell-card">
+        <div class="upsell-content">
+          <ul class="upsell-features" id="upsell-features-list">
+            <!-- Se renderizan dinámicamente según el idioma -->
+          </ul>
+        </div>
+
+        <div class="upsell-pricing">
+          <div class="price-box">
+            <span class="old-price">$299 USD</span>
+            <span class="current-price">$149 USD</span>
+            <p class="price-note" data-i18n="up-note">Pago único. Sin regalías ni mensualidades.</p>
+          </div>
+          <a href="https://pay.hotmart.com/G106875530I?bid=1791428210491" target="_blank" rel="noopener noreferrer" id="resellerCheckoutLink" class="btn btn-primary upsell-btn"
+            onclick="openResellerUrl(event)">
+            <span data-i18n="up-btn">Adquirir Licencia de Revendedor</span>
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+              class="feather feather-arrow-right">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          <p class="checkout-hint" data-i18n="up-checkout-note">🔒 Irás al checkout principal. Asegúrate de marcar la casilla "Flowmint Reseller VIP" para añadir la licencia a tu orden.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FAQ SECTION ── -->
+  <div id="faq" class="container">
+    <section>
+      <div class="sec-header">
+        <h2 data-i18n="faq-header-t">Preguntas Frecuentes</h2>
+        <p data-i18n="faq-header-d">Todo lo que necesitas saber antes de empezar a controlar tus finanzas.</p>
+      </div>
+      <div class="faq-list" id="faqList">
+        <!-- Se renderiza dinámicamente según el idioma -->
       </div>
     </section>
   </div>
@@ -1157,12 +1449,13 @@
   <div class="container">
     <footer>
       <div class="footer-links">
-        <a href="#ventajas" data-i18n="nav-problem">Ventajas</a>
-        <a href="#caracteristicas" data-i18n="nav-features">El Software</a>
+        <a href="#problema" data-i18n="nav-problem">El Problema</a>
+        <a href="#caracteristicas" data-i18n="nav-features">Características</a>
         <a href="#privacidad" data-i18n="nav-privacy">Privacidad</a>
+        <a href="#faq" data-i18n="nav-help">Ayuda / FAQs</a>
         <a href="flowmint.html" target="_blank" data-i18n="footer-demo">Probar Demo</a>
       </div>
-      <p id="footer-copyright">© 2026 FlowMint Reseller. Todos los derechos reservados.
+      <p id="footer-copyright">© 2026 FlowMint. Todos los derechos reservados. Diseñado para tu bienestar financiero.
       </p>
     </footer>
   </div>
@@ -1173,17 +1466,19 @@
     <div class="config-panel" id="configPanel">
       <div class="config-title" data-i18n="cfg-title">⚙️ Ajustes de Checkout</div>
       <p style="font-size: 11px; color: var(--text-sec); margin-bottom: 14px;" data-i18n="cfg-desc">
-        Configura tus URLs de cobro para actualizar los botones en vivo:
+        Configura aquí tus URLs de cobro para actualizar todos los botones del sitio en vivo de forma local:
       </p>
 
       <div class="config-field">
-        <label for="resellerUrlInput" data-i18n="cfg-reseller-label">URL Licencia de Revendedor ($149)</label>
-        <input type="text" class="config-input" id="resellerUrlInput" placeholder="https://pay.hotmart.com/...">
+        <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL Checkout Principal</label>
+        <input type="text" class="config-input" id="checkoutUrlInput"
+          placeholder="https://pay.hotmart.com/S106873189Y?checkoutMode=10">
       </div>
 
       <div class="config-field" style="margin-top: 10px;">
-        <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL App Personal ($19)</label>
-        <input type="text" class="config-input" id="checkoutUrlInput" placeholder="https://pay.hotmart.com/...">
+        <label for="resellerUrlInput" data-i18n="cfg-reseller-label">URL Licencia de Revendedor</label>
+        <input type="text" class="config-input" id="resellerUrlInput"
+          placeholder="https://pay.hotmart.com/G106875530I?bid=1791428210491">
       </div>
 
       <button class="btn btn-primary" onclick="saveAllUrls()"
@@ -1194,21 +1489,22 @@
     </div>
   </div>
 
-  <!-- ── TRADUCCIONES Y LÓGICA DE NEGOCIO ── -->
+  <!-- --- TRADUCCIONES Y LÓGICA DE NEGOCIO --- -->
   <script>
     // --- 1. DICCIONARIO DE TRADUCCIONES (I18N) ---
     const translations = {
       es: {
-        "nav-problem": "Ventajas",
-        "nav-features": "El Software",
+        "nav-problem": "El Problema",
+        "nav-features": "Características",
         "nav-privacy": "Privacidad",
-        "nav-pricing": "Licencia",
-        "nav-getbtn": "Obtener Licencia",
-        "hero-badge": "🔥 Licencia Comercial · 100% Ganancia",
-        "hero-title": "Revende FlowMint y Quedate con el <span>100% de la Ganancia</span>",
-        "hero-sub": "Adquiere la Licencia Comercial Completa para revender FlowMint, utilizar nuestros embudos de venta y generar ingresos recurrentes vendiendo un software financiero de alta demanda.",
-        "hero-cta1": "Comprar Licencia ($149 USD)",
-        "hero-cta2": "Ver Demo de la App →",
+        "nav-pricing": "Precios",
+        "nav-help": "Ayuda / FAQs",
+        "nav-getbtn": "Obtener App",
+        "hero-badge": "🔥 Acceso de por vida · Pago único",
+        "hero-title": "Toma el Control Absoluto de tu <span>Dinero</span>",
+        "hero-sub": "Una aplicación de finanzas personales diseñada para personas reales. Administra tus ingresos, gastos, inversiones y metas en una interfaz visualmente impresionante y 100% privada.",
+        "hero-cta1": "Comprar Acceso de por Vida",
+        "hero-cta2": "Ver Demo Interactiva →",
         "ui-income": "Ingresos",
         "ui-expenses": "Gastos",
         "ui-portfolio": "Portafolio",
@@ -1219,69 +1515,78 @@
         "ui-goals": "Metas de Ahorro",
         "ui-g1": "🛡 Fondo de Emergencia",
         "ui-g2": "✈️ Vacaciones Europa",
-        "ui-alert": "🎉 ¡Negocio Llave en Mano Listo para Revender!",
-        "prob-title": "¿Por qué adquirir la Licencia de Revendedor?",
-        "prob-desc": "Desarrollar un software desde cero requiere meses y miles de dólares. Con esta licencia obtienes un producto digital comprobado, un embudo de ventas funcional y el derecho legal de revenderlo cobrando directo a tu cuenta.",
-        "prob-cta": "Quiero la Licencia de Revendedor",
-        "pain1-t": "100% de Beneficios",
-        "pain1-d": "Cada venta va directo a tu procesador de pagos. Sin comisiones compartidas ni mensualidades.",
-        "pain2-t": "Material Comercial Listo",
-        "pain2-d": "Incluye copys de ventas, recursos gráficos y embudos optimizados listos para lanzar.",
-        "pain3-t": "Despliegue Rápido",
-        "pain3-d": "Subes el código a GitHub o Vercel y comienzas a vender inmediatamente sin configuraciones complejas.",
-        "feat-header-t": "El Software que Tus Clientes Amarán",
-        "feat-header-d": "FlowMint ofrece una experiencia de gestión financiera local, rápida y privada que tus usuarios disfrutarán desde el primer día.",
+        "ui-alert": "🎉 ¡Tasa de ahorro al 76% este mes!",
+        "prob-title": "Por qué la mayoría de las personas fallan al organizar sus finanzas",
+        "prob-desc": "Las hojas de cálculo son confusas de mantener en el celular y las aplicaciones tradicionales te obligan a pagar molestas suscripciones mensuales o, peor aún, te obligan a compartir tus contraseñas bancarias y venden tus datos a anunciantes.",
+        "prob-cta": "Quiero Controlar mis Finanzas",
+        "pain1-t": "Suscripciones Abusivas",
+        "pain1-d": "Terminas pagando $5, $10 o más al mes por software que apenas usas.",
+        "pain2-t": "Cero Privacidad",
+        "pain2-d": "Tus cuentas bancarias y patrones de consumo son analizados por terceros.",
+        "pain3-t": "Hojas de Cálculo Complejas",
+        "pain3-d": "Diseñar macros y fórmulas es aburrido y se rompen fácilmente en pantallas pequeñas.",
+        "feat-header-t": "Todo lo que necesitas para tu libertad financiera",
+        "feat-header-d": "FlowMint centraliza tu flujo de dinero, tus metas de ahorro y tu patrimonio neto en un panel interactivo.",
         "f1-t": "Dashboard en Tiempo Real",
-        "f1-d": "KPIs de ingresos, gastos, balance de caja y portafolio de inversiones actualizados al instante.",
+        "f1-d": "KPIs de ingresos, gastos, balance de caja y portafolio de inversiones que se actualizan de forma instantánea al registrar cualquier movimiento.",
         "f2-t": "Control de Presupuestos",
-        "f2-d": "Límites mensuales personalizables con alertas en colores según los presupuestos fijados.",
+        "f2-d": "Define límites de gastos mensuales por categorías. Recibe alertas visuales en colores cuando te acerques al límite para evitar compras impulsivas.",
         "f3-t": "Gestión de Inversiones",
-        "f3-d": "Sigue activos en Bolsa, ETFs y Criptomonedas con visualización gráfica del rendimiento.",
+        "f3-d": "Controla tus activos (Acciones, ETFs, Crypto). Registra compras, sigue el rendimiento de tu portafolio y visualiza la distribución en gráficos dinámicos.",
         "f4-t": "Metas con Proyección",
-        "f4-d": "Cálculo automático de ahorro mensual necesario para cumplir cualquier objetivo financiero.",
+        "f4-d": "Configura objetivos de ahorro. La app calcula automáticamente cuánto necesitas ahorrar mes a mes para cumplir tu meta a tiempo.",
         "f5-t": "Buscador Inteligente",
-        "f5-d": "Filtrado inmediato de historial por notas o categorías sin depender de macros complejas.",
+        "f5-d": "Encuentra cualquier movimiento pasado al instante. Filtra tu historial por descripción, notas o categorías en tiempo real, sin perderte en las filas infinitas y confusas de un Excel tradicional.",
         "f6-t": "Copia de Seguridad Local",
-        "f6-d": "Exportación completa a archivos JSON en un clic. Propiedad total del usuario sobre sus datos.",
-        "priv-banner-t": "🔒 Privacidad Total y Almacenamiento Local",
-        "priv-banner-d": "FlowMint funciona 100% en el navegador del usuario utilizando LocalStorage. No requiere mantener servidores ni bases de datos costosas para atender a tus clientes.",
-        "testi-header-t": "Lo que Opinan Quienes Ya Revenden",
-        "testi-header-d": "Emprendedores digitales impulsando sus ventas con Licencias Comerciales.",
-        "t1-text": '"Compré la licencia Reseller y en mi primera semana recuperé totalmente la inversión realizando 3 ventas directa en mi checkout."',
-        "t1-role": "Marketer Digital",
-        "t2-text": '"El kit de marketing incluido ahorra semanas de trabajo. Solo ajusté mis enlaces en el panel y conecté mi plataforma de pago."',
-        "t2-role": "Creadora de Contenido",
-        "t3-text": '"Al ser un software local sin costo de servidores por cliente, mi margen de beneficio es literalmente del 100%."',
-        "t3-role": "Emprendedor Web",
-        "price-header-t": "Consigue la Licencia Comercial de Revendedor",
-        "price-header-d": "Pago único de lanzamiento. Quedate con el 100% de cada venta que realices.",
-        "price-badge": "OFERTA ESPECIAL RESELLER",
-        "price-card-t": "Licencia de Revendedor Completa",
-        "price-card-d": "Derechos de reventa ilimitados + Kit de Marketing",
-        "price-note": "⚠️ Pago único. Sin regalías ni mensualidades.",
-        "price-btn": "Adquirir Licencia de Revendedor ($149 USD)",
-        "price-guarantee": "Pago 100% seguro. Acceso inmediato a todos los activos.",
-        "std-desc": "¿Solo te interesa usar la aplicación para tu uso personal sin derechos de reventa?",
-        "std-btn": "Comprar solo la App Individual ($19 USD)",
+        "f6-d": "Exporta tu historial completo en un archivo JSON o genera reportes estructurados en Excel formateado en un clic. Tus datos te pertenecen y los controlas tú.",
+        "priv-banner-t": "🔒 Tus finanzas son privadas. De verdad.",
+        "priv-banner-d": "FlowMint funciona de forma 100% local en tu navegador utilizando el almacenamiento del sistema (LocalStorage). Tus saldos, ingresos y deudas jamás tocan un servidor externo ni son visibles para nadie más que para ti. Sin nubes, sin rastreadores.",
+        "testi-header-t": "Lo que dicen nuestros usuarios",
+        "testi-header-d": "Más personas toman el control de sus finanzas locales sin suscripciones.",
+        "t1-text": '"Buscaba algo simple para controlar mis gastos diarios y cartera de acciones sin pagar suscripción. FlowMint es visualmente hermoso, rápido y local. ¡Me encanta!"',
+        "t1-role": "Inversor Particular",
+        "t2-text": '"La proyección de metas es lo que más uso. Configuré mi fondo para vacaciones y me dice exactamente cuánto apartar al mes. El diseño es increíblemente premium."',
+        "t2-role": "Diseñadora UX / Freelancer",
+        "t3-text": '"Me da tranquilidad mental saber que mis datos no están flotando en la nube de alguna startup financiera. Hago una copia JSON semanal en mi disco duro y listo."',
+        "t3-role": "Desarrollador de Software",
+        "price-header-t": "Una pequeña inversión, control de por vida",
+        "price-header-d": "Olvídate de las cuotas recurrentes. Obtén acceso completo para siempre por un único pago único de lanzamiento.",
+        "price-badge": "Oferta Especial de Lanzamiento",
+        "price-card-t": "Acceso Completo de Por Vida",
+        "price-card-d": "Software local sin límites de registros",
+        "price-note": "⚠️ Precio por única vez. Sin mensualidades.",
+        "price-guarantee-badge": "🛡️ Garantía incondicional de 7 días respaldada por Hotmart",
+        "price-btn": "Comprar y Descargar Ahora",
+        "price-guarantee": "Pago 100% seguro. Garantía de reembolso de 7 días.",
+        "up-badge": "🔥 MEJORA TU ORDEN (OPCIONAL)",
+        "up-title-1": "¡Multiplica tus ingresos con la",
+        "up-title-2": "Licencia de Revendedor",
+        "up-subtitle": "Obtén los derechos exclusivos para revender FlowMint, quedarte con el 100% de las ganancias y usar todo nuestro material de marketing.",
+        "up-note": "Pago único. Sin regalías ni mensualidades.",
+        "up-btn": "Adquirir Licencia de Revendedor",
+        "up-checkout-note": "🔒 Irás al checkout principal. Asegúrate de marcar la casilla \"Flowmint Reseller VIP\" para añadir la licencia a tu orden.",
         "footer-demo": "Probar Demo",
-        "copyright": "© 2026 FlowMint Reseller. Todos los derechos reservados.",
+        "faq-header-t": "Preguntas Frecuentes",
+        "faq-header-d": "Todo lo que necesitas saber antes de empezar a controlar tus finanzas.",
+        "copyright": "© 2026 FlowMint. Todos los derechos reservados. Diseñado para tu bienestar financiero.",
         "cfg-title": "⚙️ Ajustes de Checkout",
-        "cfg-desc": "Configura tus URLs de cobro para actualizar los botones en vivo:",
-        "cfg-main-label": "URL App Personal ($19)",
-        "cfg-reseller-label": "URL Licencia de Revendedor ($149)",
+        "cfg-desc": "Configura aquí tus URLs de cobro para actualizar todos los botones del sitio en vivo de forma local:",
+        "cfg-main-label": "URL Checkout Principal",
+        "cfg-reseller-label": "URL Licencia de Revendedor",
         "cfg-save-btn": "Guardar Todo"
       },
       en: {
-        "nav-problem": "Benefits",
-        "nav-features": "Software",
+        "nav-problem": "The Problem",
+        "nav-features": "Features",
         "nav-privacy": "Privacy",
-        "nav-pricing": "License",
-        "nav-getbtn": "Get License",
-        "hero-badge": "🔥 Commercial License · 100% Profits",
-        "hero-title": "Resell FlowMint & Keep <span>100% of Every Sale</span>",
-        "hero-sub": "Acquire full commercial reseller rights for FlowMint, utilize our turnkey sales funnels, and generate recurring income selling high-demand financial software.",
-        "hero-cta1": "Get Reseller License ($149 USD)",
-        "hero-cta2": "View App Demo →",
+        "nav-pricing": "Pricing",
+        "nav-help": "Help / FAQs",
+        "nav-getbtn": "Get App",
+        "hero-badge": "🔥 Lifetime access · One-time payment",
+        "hero-title": "Take Absolute Control of Your <span>Money</span>",
+        "hero-sub": "A personal finance app designed for real people. Manage your income, expenses, investments, and financial goals in a visually stunning and 100% private interface.",
+        "hero-cta1": "Buy Lifetime Access",
+        "hero-cta2": "View Interactive Demo →",
         "ui-income": "Income",
         "ui-expenses": "Expenses",
         "ui-portfolio": "Portfolio",
@@ -1292,89 +1597,134 @@
         "ui-goals": "Savings Goals",
         "ui-g1": "🛡 Emergency Fund",
         "ui-g2": "✈️ Europe Vacation",
-        "ui-alert": "🎉 Turnkey Business Ready to Resell!",
-        "prob-title": "Why Acquire the Reseller License?",
-        "prob-desc": "Building software from scratch costs months and thousands of dollars. With this license, you get a proven digital product, a high-converting sales funnel, and full commercial distribution rights.",
-        "prob-cta": "I Want the Reseller License",
-        "pain1-t": "100% Profit Margins",
-        "pain1-d": "Every sale goes straight to your payment processor. No revenue splitting or hidden fees.",
-        "pain2-t": "Complete Marketing Assets",
-        "pain2-d": "Includes ad copy, sales scripts, graphic designs, and pre-built conversion funnels.",
-        "pain3-t": "Instant Deployment",
-        "pain3-d": "Host on GitHub or Vercel and start generating sales immediately with zero setup friction.",
-        "feat-header-t": "Software Your Customers Will Love",
-        "feat-header-d": "FlowMint delivers a local, fast, and completely private personal finance system users love.",
+        "ui-alert": "🎉 76% savings rate achieved this month!",
+        "prob-title": "Why most people fail to organize their finances",
+        "prob-desc": "Spreadsheets are clunky to maintain on a phone, and traditional apps lock you into annoying monthly fees or, worse, force you to share your bank credentials and sell your data to tracking advertisers.",
+        "prob-cta": "I Want to Control My Finances",
+        "pain1-t": "Abusive Subscriptions",
+        "pain1-d": "You end up paying $5, $10 or more every month for software you barely open.",
+        "pain2-t": "Zero Privacy",
+        "pain2-d": "Your bank balances and personal spending habits are analyzed by corporations.",
+        "pain3-t": "Complex Spreadsheets",
+        "pain3-d": "Building macros and writing formulas is tedious, and they break easily on mobile screens.",
+        "feat-header-t": "Everything you need for financial freedom",
+        "feat-header-d": "FlowMint centralizes your cash flow, savings targets, and net worth within an interactive local dashboard.",
         "f1-t": "Real-Time Dashboard",
-        "f1-d": "Instant KPI tracking for cash flows, monthly balances, and investment portfolios.",
+        "f1-d": "Income, expenses, cash balance, and investment portfolio metrics update instantly the moment you log a entry.",
         "f2-t": "Budget Enforcements",
-        "f2-d": "Customizable monthly thresholds with active visual alerts to control spending.",
+        "f2-d": "Set monthly spending limits across custom categories. Get color-coded warnings as you approach limits to stop impulse purchases.",
         "f3-t": "Investment Management",
-        "f3-d": "Track stocks, ETFs, and cryptocurrencies with integrated portfolio allocation charts.",
+        "f3-d": "Track your portfolio (Stocks, ETFs, Crypto). Register buys, evaluate returns, and visualize asset allocations with dynamic charts.",
         "f4-t": "Target Projections",
-        "f4-d": "Automated savings progress calculators to keep financial deadlines on track.",
+        "f4-d": "Establish long-term savings goals. The application automatically tracks how much you need to save monthly to reach deadlines.",
         "f5-t": "Smart Explorer",
-        "f5-d": "Instant search filtering for historical entries without reliance on complex macros.",
-        "f6-t": "Local Backup System",
-        "f6-d": "One-click JSON file exports. Full user data ownership without cloud dependencies.",
-        "priv-banner-t": "🔒 Total Privacy & Local Browser Storage",
-        "priv-banner-d": "FlowMint operates 100% inside local client browser storage via LocalStorage. Zero backend servers or database costs to manage for your buyers.",
-        "testi-header-t": "Trusted by Active Resellers",
-        "testi-header-d": "Digital entrepreneurs building steady revenue with commercial software licenses.",
-        "t1-text": '"I purchased the Reseller License and recovered my entire investment in week one with 3 direct sales through my gateway."',
-        "t1-role": "Digital Marketer",
-        "t2-text": '"The marketing kit saved me weeks of production. I just swapped in my payment URLs and went live immediately."',
-        "t2-role": "Content Creator",
-        "t3-text": '"Since it runs locally with zero hosting overhead per customer, my profit margins are literally 100%."',
-        "t3-role": "Web Entrepreneur",
-        "price-header-t": "Get Full Commercial Reseller Rights",
-        "price-header-d": "One-time payment structure. Keep 100% of all generated customer revenue.",
-        "price-badge": "SPECIAL RESELLER OFFER",
-        "price-card-t": "Full Commercial Reseller License",
-        "price-card-d": "Unlimited re-distribution rights + Turnkey Marketing Kit",
-        "price-note": "⚠️ One-time payment. No royalties or recurring costs.",
-        "price-btn": "Acquire Reseller License ($149 USD)",
-        "price-guarantee": "100% secure purchase. Immediate access to source files and assets.",
-        "std-desc": "Looking to buy the software for personal use only without reseller rights?",
-        "std-btn": "Buy Personal App License ($19 USD)",
+        "f5-d": "Find any previous transaction instantly. Filter logs by description, notes, or tags in real-time, leaving messy Excel rows behind.",
+        "f6-t": "Local Backup Ecosystem",
+        "f6-d": "Export your entire history to a JSON file or generate structured, formatted Excel reports in one click. Your data belongs to you.",
+        "priv-banner-t": "🔒 Your finances are private. Truly.",
+        "priv-banner-d": "FlowMint functions 100% locally on your computer storage via LocalStorage. Your cash flows and metrics never touch external clouds, and are hidden from everyone. No servers, no ad trackers.",
+        "testi-header-t": "Loved by real users",
+        "testi-header-d": "See how our community manages their local wealth without software subscriptions.",
+        "t1-text": '"I wanted a simple layout to control daily expenses and stock positions without overhead fees. FlowMint is visually elegant, fast, and local. I absolutely love it!"',
+        "t1-role": "Private Retail Investor",
+        "t2-text": '"The target projection module is stellar. I set up my vacation budget and it tells me exactly what to save. The interface feels premium."',
+        "t2-role": "UX Designer / Freelancer",
+        "t3-text": '"It grants me peace of mind knowing my financial logs aren\'t floating in a modern banking startup cloud. I download my weekly JSON and I\'m set."',
+        "t3-role": "Software Engineer",
+        "price-header-t": "A small investment, lifetime command",
+        "price-header-d": "Forget recurring statements. Secure unrestricted lifetime access for a single, small early launch fee.",
+        "price-badge": "Special Early Launch Value",
+        "price-card-t": "Full Lifetime Membership",
+        "price-card-d": "Local application framework with unlimited entries",
+        "price-note": "⚠️ One-time payment structure. No monthly invoices.",
+        "price-guarantee-badge": "🛡️ 7-day unconditional money-back guarantee backed by Hotmart",
+        "price-btn": "Buy and Download Now",
+        "price-guarantee": "100% secure checkout. 7-day hassle-free refund guarantee.",
+        "up-badge": "🔥 UPGRADE YOUR ORDER (OPTIONAL)",
+        "up-title-1": "Multiply your revenue with a",
+        "up-title-2": "Reseller License",
+        "up-subtitle": "Acquire exclusive operational distribution rights to resell FlowMint, keep 100% of all profits, and deploy our pre-built marketing funnels.",
+        "up-note": "Single payment framework. No royalties or recurring bills.",
+        "up-btn": "Acquire Reseller License",
+        "up-checkout-note": "🔒 Goes to main checkout. Make sure to check the \"Flowmint Reseller VIP\" box to add the license to your order.",
         "footer-demo": "Try Demo",
-        "copyright": "© 2026 FlowMint Reseller. All rights reserved.",
+        "faq-header-t": "Frequently Asked Questions",
+        "faq-header-d": "Everything you need to know before taking control of your finances.",
+        "copyright": "© 2026 FlowMint. All rights reserved. Built for your absolute financial peace of mind.",
         "cfg-title": "⚙️ Checkout Settings",
-        "cfg-desc": "Configure your payment gateway links to update live site buttons:",
-        "cfg-main-label": "Personal App URL ($19)",
-        "cfg-reseller-label": "Reseller License URL ($149)",
+        "cfg-desc": "Set your payment URLs here to update all site buttons live and locally:",
+        "cfg-main-label": "Main Checkout URL",
+        "cfg-reseller-label": "Reseller License URL",
         "cfg-save-btn": "Save All"
       }
     };
 
     const listFeaturesTranslations = {
       es: [
-        "<strong>Derechos de Reventa Ilimitados:</strong> Revende el producto cuantas veces quieras.",
-        "<strong>100% de la Ganancia:</strong> Todos los cobros van directo a tu procesador de pagos.",
-        "<strong>Kit de Marketing Completo:</strong> Copys de venta, correos y diseños listos.",
-        "<strong>Software FlowMint Completo:</strong> Archivos fuente de la aplicación web.",
-        "<strong>Despliegue Llave en Mano:</strong> Compatible con Vercel, Netlify y GitHub Pages.",
-        "<strong>Sin Gastos de Servidor:</strong> Funciona 100% local en el navegador del usuario.",
-        "<strong>Soporte para Actualizaciones:</strong> Acceso a mejoras y refactorizaciones del código.",
-        "<strong>Uso Comercial Bilingüe:</strong> Plantillas en Español e Inglés incluidas."
+        "Dashboard financiero completo e interactivo",
+        "Presupuestos y límites mensuales editables",
+        "Controlador de portafolio de inversiones y dividendos",
+        "Metas de ahorro automáticas con proyecciones",
+        "Módulo de análisis, reportes y divisa variable",
+        "Copias de seguridad ilimitadas en formato JSON",
+        "Privacidad 100%: los datos nunca salen de tu PC",
+        "Actualizaciones gratis para siempre"
       ],
       en: [
-        "<strong>Unlimited Resale Rights:</strong> Sell the software as many times as you want.",
-        "<strong>100% Profit Margins:</strong> Customer payments route directly to your account.",
-        "<strong>Turnkey Marketing Kit:</strong> High-converting copys, email swipes, and ad templates.",
-        "<strong>Full FlowMint Source Files:</strong> Complete local application codebase.",
-        "<strong>Instant Cloud Deployment:</strong> Optimized for Vercel, Netlify, and GitHub Pages.",
-        "<strong>Zero Backend Overhead:</strong> 100% client-side local browser execution.",
-        "<strong>Future Code Updates:</strong> Free access to core framework enhancements.",
-        "<strong>Bilingual Deployment Assets:</strong> Spanish and English landing templates included."
+        "Comprehensive and fully interactive financial dashboard",
+        "Editable monthly budgets and custom thresholds",
+        "Robust investment portfolio and dividend tracker",
+        "Automated savings targets with timeline projections",
+        "Comprehensive analytics module and multi-currency support",
+        "Unlimited manual backups via secure JSON storage",
+        "100% Absolute Privacy: logs never leave your personal computer",
+        "Free application updates and refinements forever"
+      ]
+    };
+
+    const upsellFeaturesTranslations = {
+      es: [
+        "<strong>100% de Comisión:</strong> Cada venta que hagas va directo a tu cuenta.",
+        "<strong>Material de Marketing Incluido:</strong> Copys, imágenes y embudos listos para usar.",
+        "<strong>Soporte Técnico de por vida:</strong> Nosotros nos encargamos de tus clientes."
+      ],
+      en: [
+        "<strong>100% Profit Margins:</strong> Every customer sale processes directly into your payout processor.",
+        "<strong>Marketing Assets Included:</strong> Copywriting files, media banners, and optimized funnels.",
+        "<strong>Lifetime Client Assistance:</strong> Our core support team handles all technical client issues."
+      ]
+    };
+
+    const faqTranslations = {
+      es: [
+        { q: "¿Necesito conexión a Internet para usar FlowMint?", a: "No. FlowMint funciona 100% de forma local en tu navegador utilizando LocalStorage. Tus datos nunca se envían a servidores externos." },
+        { q: "¿Mis datos financieros están seguros y privados?", a: "Totalmente. Sin nubes, sin rastreadores y sin conexiones bancarias de terceros. Toda la información permanece guardada únicamente en tu dispositivo." },
+        { q: "¿Es un pago único o hay cobros mensuales?", a: "Es un pago único de $19 USD. Obtienes acceso de por vida sin suscripciones recurrentes ni tarifas ocultas." },
+        { q: "¿Cómo recibo el acceso a la aplicación tras la compra?", a: "Al completar el pago, Hotmart te enviará un correo automático con tu clave de licencia y las instrucciones de activación rápida." },
+        { q: "¿Puedo exportar mis finanzas a Excel?", a: "Sí. Puedes hacer respaldos completos en formato JSON y exportar tus movimientos a plantillas de Excel profesionalmente diseñadas." },
+        { q: "¿Qué pasa si cambio de computadora o de navegador?", a: "Solo debes descargar una copia de seguridad en formato JSON desde tu app antigua e importarla en tu nueva computadora en un solo clic." },
+        { q: "¿El producto tiene garantía?", a: "Sí, cuentas con 7 días de garantía de satisfacción. Si no estás satisfecho, puedes solicitar el reembolso del 100% directamente desde Hotmart." },
+        { q: "¿Qué incluye la Licencia de Revendedor ($149 USD)?", a: "Te otorga los derechos de reventa exclusivos para comercializar FlowMint, quedándote con el 100% de las ganancias, además de acceso a todo nuestro material de marketing. (Recuerda marcar la casilla correspondiente en el checkout para incluirla)." }
+      ],
+      en: [
+        { q: "Do I need an Internet connection to use FlowMint?", a: "No. FlowMint runs 100% locally in your browser using LocalStorage. Your data is never sent to external servers." },
+        { q: "Is my financial data secure and private?", a: "Completely. No clouds, no trackers, and no third-party bank connections. All information stays saved exclusively on your device." },
+        { q: "Is it a one-time payment or are there monthly charges?", a: "It's a one-time payment of $19 USD. You get lifetime access with no recurring subscriptions or hidden fees." },
+        { q: "How do I get access to the app after purchasing?", a: "Once payment is complete, Hotmart will automatically email you your license key along with quick activation instructions." },
+        { q: "Can I export my finances to Excel?", a: "Yes. You can create full backups in JSON format and export your transactions to professionally designed Excel templates." },
+        { q: "What happens if I switch computers or browsers?", a: "Just download a JSON backup from your old app and import it into your new computer in one click." },
+        { q: "Does the product come with a guarantee?", a: "Yes, you get a 7-day satisfaction guarantee. If you're not satisfied, you can request a 100% refund directly through Hotmart." },
+        { q: "What's included in the Reseller License ($149 USD)?", a: "It grants you exclusive resale rights to sell FlowMint, keeping 100% of the profits, plus access to all of our marketing material. (Remember to check the corresponding box at checkout to include it)." }
       ]
     };
 
     // --- 2. GESTIÓN DE IDIOMA ---
-    let currentLang = localStorage.getItem('fm_reseller_lang') || 'es';
+    let currentLang = localStorage.getItem('fm_landing_lang') || 'es';
 
     function changeLanguage(lang) {
       currentLang = lang;
-      localStorage.setItem('fm_reseller_lang', lang);
+      localStorage.setItem('fm_landing_lang', lang);
+
       const langSel = document.getElementById('langSelect');
       if (langSel) {
         Array.from(langSel.options).forEach(opt => {
@@ -1383,88 +1733,128 @@
       }
       document.documentElement.lang = lang;
 
+      // Traducir elementos con data-i18n
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key] !== undefined) {
           if (key === 'hero-title') {
             elem.innerHTML = lang === 'es'
-              ? 'Revende FlowMint y Quedate con el <span>100% de la Ganancia</span>'
-              : 'Resell FlowMint & Keep <span>100% of Every Sale</span>';
+              ? 'Toma el Control Absoluto de tu <span>Dinero</span>'
+              : 'Take Absolute Control of Your <span>Money</span>';
           } else {
             elem.textContent = translations[lang][key];
           }
         }
       });
 
+      // Traducir listas dinámicas
       const mainList = document.getElementById('main-features-list');
       if (mainList) {
         mainList.innerHTML = listFeaturesTranslations[lang].map(item => `<li>${item}</li>`).join('');
       }
 
-      const copyrightElem = document.getElementById('footer-copyright');
-      if (copyrightElem) {
-        copyrightElem.textContent = translations[lang]['copyright'];
+      const upsellList = document.getElementById('upsell-features-list');
+      if (upsellList) {
+        upsellList.innerHTML = upsellFeaturesTranslations[lang].map(item => `
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>${item}</span>
+        </li>
+      `).join('');
       }
+
+      renderFAQ(lang);
     }
 
-    // --- 3. GESTIÓN DE ENLACES DE COBRO ---
-    const MAIN_CHECKOUT_URL = 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
-    const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
+    // Renderiza el acordeón de FAQ para el idioma dado.
+    // Se reconstruye por completo en cada cambio de idioma (igual que las
+    // otras listas dinámicas), preservando cuál pregunta estaba abierta.
+    function renderFAQ(lang) {
+      const faqListEl = document.getElementById('faqList');
+      if (!faqListEl || !faqTranslations[lang]) return;
 
-    function sanitize(url, fallback) {
-      return (url && url.includes('hotmart.com')) ? url : fallback;
+      const openIndexes = Array.from(faqListEl.querySelectorAll('details.faq-item'))
+        .map((el, i) => el.hasAttribute('open') ? i : -1)
+        .filter(i => i !== -1);
+
+      faqListEl.innerHTML = faqTranslations[lang].map((item, i) => `
+        <details class="faq-item"${openIndexes.includes(i) ? ' open' : ''}>
+          <summary>
+            <span>${item.q}</span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div class="faq-answer">${item.a}</div>
+        </details>
+      `).join('');
     }
 
-    let resellerUrl = sanitize(localStorage.getItem('fm_landing_reseller_url'), OFFICIAL_RESELLER_URL);
-    let checkoutUrl = sanitize(localStorage.getItem('fm_landing_checkout_url'), MAIN_CHECKOUT_URL);
-
-    window.addEventListener('DOMContentLoaded', () => {
-      document.getElementById('resellerUrlInput').value = resellerUrl;
-      document.getElementById('checkoutUrlInput').value = checkoutUrl;
-
-      changeLanguage(currentLang);
-    });
-
+    // --- 3. WIDGET Y CONFIGURACIÓN DE URLS ---
     function toggleConfigPanel() {
-      document.getElementById('configPanel').classList.toggle('open');
+      const panel = document.getElementById('configPanel');
+      if (panel) panel.classList.toggle('open');
     }
 
     function saveAllUrls() {
-      const mainVal = document.getElementById('checkoutUrlInput').value.trim();
-      const resellerVal = document.getElementById('resellerUrlInput').value.trim();
+      const mainUrl = document.getElementById('checkoutUrlInput').value.trim();
+      const resellerUrl = document.getElementById('resellerUrlInput').value.trim();
 
-      if (mainVal && resellerVal) {
-        checkoutUrl = mainVal;
-        resellerUrl = resellerVal;
+      if (mainUrl) localStorage.setItem('fm_checkout_url', mainUrl);
+      if (resellerUrl) localStorage.setItem('fm_reseller_url', resellerUrl);
 
-        localStorage.setItem('fm_landing_checkout_url', checkoutUrl);
-        localStorage.setItem('fm_landing_reseller_url', resellerUrl);
+      applySavedUrls();
+      alert('URLs guardadas correctamente en LocalStorage.');
+    }
 
-        alert(currentLang === 'es' ? '¡Todos los enlaces de pago actualizados!' : 'All checkout links updated successfully!');
-        toggleConfigPanel();
-      } else {
-        alert(currentLang === 'es' ? 'Por favor, rellena ambos campos con URLs válidas.' : 'Please fill out both fields with valid URLs.');
-      }
+    const MAIN_CHECKOUT_URL = 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
+    const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
+
+    function applySavedUrls() {
+      const mainUrl = localStorage.getItem('fm_checkout_url') || MAIN_CHECKOUT_URL;
+      const resellerUrl = localStorage.getItem('fm_reseller_url') || OFFICIAL_RESELLER_URL;
+
+      // Limpiar valores corruptos (ej. lovable.app o URLs de prueba)
+      const cleanMain = mainUrl.includes('hotmart.com') ? mainUrl : MAIN_CHECKOUT_URL;
+      const cleanReseller = resellerUrl.includes('hotmart.com') ? resellerUrl : OFFICIAL_RESELLER_URL;
+
+      document.querySelectorAll('.buy-checkout-link').forEach(a => {
+        a.href = cleanMain;
+        a.target = '_blank';
+      });
+
+      const checkoutInput = document.getElementById('checkoutUrlInput');
+      if (checkoutInput) checkoutInput.value = cleanMain;
+
+      const resellerInput = document.getElementById('resellerUrlInput');
+      if (resellerInput) resellerInput.value = cleanReseller;
+
+      const resellerBtn = document.getElementById('resellerCheckoutLink');
+      if (resellerBtn) resellerBtn.href = cleanReseller;
     }
 
     function openResellerUrl(e) {
       if (e) e.preventDefault();
-      window.open(resellerUrl, '_blank');
+      const resellerUrl = localStorage.getItem('fm_reseller_url') || OFFICIAL_RESELLER_URL;
+      const cleanUrl = resellerUrl.includes('hotmart.com') ? resellerUrl : OFFICIAL_RESELLER_URL;
+      window.open(cleanUrl, '_blank');
     }
 
-    function openCheckoutUrl(e) {
-      if (e) e.preventDefault();
-      window.open(checkoutUrl, '_blank');
-    }
-
+    // --- 4. CIERRE DE PANEL AL HACER CLIC FUERA ---
     document.addEventListener('click', (e) => {
       const panel = document.getElementById('configPanel');
       const widget = document.querySelector('.config-widget');
+
       if (!panel || !panel.classList.contains('open')) return;
       if (!widget) return;
       if (widget.contains(e.target)) return;
       if (e.target.closest('a, button, input, select, label')) return;
+
       panel.classList.remove('open');
+    });
+
+    // --- 5. INICIALIZACIÓN ---
+    document.addEventListener('DOMContentLoaded', () => {
+      changeLanguage(currentLang);
+      applySavedUrls();
     });
   </script>
 </body>
