@@ -636,6 +636,14 @@
       font-weight: 700;
     }
 
+    .checkout-hint {
+      font-size: 11.5px;
+      color: var(--text-muted);
+      text-align: center;
+      margin-top: 12px;
+      line-height: 1.5;
+    }
+
     /* Responsivo */
     @media (max-width: 768px) {
       .upsell-card {
@@ -787,6 +795,22 @@
       margin-right: 8px;
     }
 
+    .guarantee-badge {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: rgba(0, 200, 150, 0.08);
+      border: 1px solid rgba(0, 200, 150, 0.25);
+      color: var(--mint);
+      font-size: 12.5px;
+      font-weight: 600;
+      padding: 10px 16px;
+      border-radius: var(--radius-sm);
+      margin: 18px 0 4px;
+      line-height: 1.4;
+    }
+
     .pricing-features {
       text-align: left;
       list-style: none;
@@ -808,6 +832,69 @@
       content: '✓';
       color: var(--mint);
       font-weight: bold;
+    }
+
+    /* FAQ Accordion */
+    .faq-list {
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .faq-item[open] {
+      border-color: rgba(0, 200, 150, 0.3);
+    }
+
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-weight: 600;
+      font-size: 15.5px;
+    }
+
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .faq-icon {
+      flex-shrink: 0;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: rgba(0, 200, 150, 0.1);
+      color: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 700;
+      transition: transform 0.3s ease;
+    }
+
+    .faq-item[open] .faq-icon {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      padding: 0 24px 22px;
+      color: var(--text-sec);
+      font-size: 14.5px;
+      line-height: 1.65;
     }
 
     /* Footer */
@@ -970,21 +1057,21 @@
     }
   </style>
   <style>
-  /* Ocultar absolutamente todo panel flotante o tuerca en la esquina inferior derecha */
-  div[style*="fixed"],
-  div[style*="absolute"],
-  button[style*="fixed"],
-  button[style*="absolute"],
-  [class*="config"],
-  [class*="settings"],
-  [id*="config"],
-  [id*="settings"] {
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
-  }
-</style>
+    /* Ocultar absolutamente todo panel flotante o tuerca en la esquina inferior derecha */
+    div[style*="fixed"],
+    div[style*="absolute"],
+    button[style*="fixed"],
+    button[style*="absolute"],
+    [class*="config"],
+    [class*="settings"],
+    [id*="config"],
+    [id*="settings"] {
+      display: none !important;
+      visibility: hidden !important;
+      opacity: 0 !important;
+      pointer-events: none !important;
+    }
+  </style>
 </head>
 
 <body>
@@ -1005,6 +1092,7 @@
         <a href="#caracteristicas" class="nav-link" data-i18n="nav-features">Características</a>
         <a href="#privacidad" class="nav-link" data-i18n="nav-privacy">Privacidad</a>
         <a href="#precios" class="nav-link" data-i18n="nav-pricing">Precios</a>
+        <a href="#faq" class="nav-link" data-i18n="nav-help">Ayuda / FAQs</a>
       </nav>
       <div class="header-actions">
         <!-- Switch de Idioma Dropdown -->
@@ -1306,6 +1394,8 @@
         <p style="color: var(--mint); font-size: 12px; font-weight: 600;" data-i18n="price-note">⚠️ Precio por única
           vez. Sin mensualidades.</p>
 
+        <div class="guarantee-badge" data-i18n="price-guarantee-badge">🛡️ Garantía incondicional de 7 días respaldada por Hotmart</div>
+
         <ul class="pricing-features" id="main-features-list">
           <!-- Se renderizan dinámicamente según el idioma -->
         </ul>
@@ -1342,7 +1432,8 @@
             <span class="current-price">$149 USD</span>
             <p class="price-note" data-i18n="up-note">Pago único. Sin regalías ni mensualidades.</p>
           </div>
-          <a href="javascript:void(0)" id="resellerCheckoutLink" class="btn btn-primary upsell-btn" onclick="openResellerUrl()">
+          <a href="javascript:void(0)" id="resellerCheckoutLink" class="btn btn-primary upsell-btn"
+            onclick="openResellerUrl()">
             <span data-i18n="up-btn">Adquirir Licencia de Revendedor</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1351,10 +1442,24 @@
               <polyline points="12 5 19 12 12 19"></polyline>
             </svg>
           </a>
+          <p class="checkout-hint" data-i18n="up-checkout-note">🔒 Irás al checkout principal. Asegúrate de marcar la casilla "Flowmint Reseller VIP" para añadir la licencia a tu orden.</p>
         </div>
       </div>
     </div>
   </section>
+
+  <!-- ── FAQ SECTION ── -->
+  <div id="faq" class="container">
+    <section>
+      <div class="sec-header">
+        <h2 data-i18n="faq-header-t">Preguntas Frecuentes</h2>
+        <p data-i18n="faq-header-d">Todo lo que necesitas saber antes de empezar a controlar tus finanzas.</p>
+      </div>
+      <div class="faq-list" id="faqList">
+        <!-- Se renderiza dinámicamente según el idioma -->
+      </div>
+    </section>
+  </div>
 
   <!-- Footer -->
   <div class="container">
@@ -1363,6 +1468,7 @@
         <a href="#problema" data-i18n="nav-problem">El Problema</a>
         <a href="#caracteristicas" data-i18n="nav-features">Características</a>
         <a href="#privacidad" data-i18n="nav-privacy">Privacidad</a>
+        <a href="#faq" data-i18n="nav-help">Ayuda / FAQs</a>
         <a href="flowmint.html" target="_blank" data-i18n="footer-demo">Probar Demo</a>
       </div>
       <p id="footer-copyright">© 2026 FlowMint. Todos los derechos reservados. Diseñado para tu bienestar financiero.
@@ -1381,7 +1487,8 @@
 
       <div class="config-field">
         <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL Checkout Principal</label>
-        <input type="text" class="config-input" id="checkoutUrlInput" placeholder="https://checkout.kirvhttps://pay.hotmart.com/S106873189Y?checkoutMode=10...">
+        <input type="text" class="config-input" id="checkoutUrlInput"
+          placeholder="https://checkout.kirvhttps://pay.hotmart.com/S106873189Y?checkoutMode=10...">
       </div>
 
       <div class="config-field" style="margin-top: 10px;">
@@ -1398,7 +1505,7 @@
     </div>
   </div>
 
-  <!-- ── TRADUCCIONES Y LÓGICA DE NEGOCIO ── -->
+  <!-- --- TRADUCCIONES Y LÓGICA DE NEGOCIO --- -->
   <script>
     // --- 1. DICCIONARIO DE TRADUCCIONES (I18N) ---
     const translations = {
@@ -1407,6 +1514,7 @@
         "nav-features": "Características",
         "nav-privacy": "Privacidad",
         "nav-pricing": "Precios",
+        "nav-help": "Ayuda / FAQs",
         "nav-getbtn": "Obtener App",
         "hero-badge": "🔥 Acceso de por vida · Pago único",
         "hero-title": "Toma el Control Absoluto de tu <span>Dinero</span>",
@@ -1446,16 +1554,16 @@
         "f5-t": "Buscador Inteligente",
         "f5-d": "Encuentra cualquier movimiento pasado al instante. Filtra tu historial por descripción, notas o categorías en tiempo real, sin perderte en las filas infinitas y confusas de un Excel tradicional.",
         "f6-t": "Copia de Seguridad Local",
-        "f6-d": "Exporta tu historial completo en un archivo JSON en un solo clic e impórtalo cuando quieras. Tus datos te pertenecen y los controlas tú.",
+        "f6-d": "Exporta tu historial completo en un archivo JSON o genera reportes estructurados en Excel formateado en un clic. Tus datos te pertenecen y los controlas tú.",
         "priv-banner-t": "🔒 Tus finanzas son privadas. De verdad.",
         "priv-banner-d": "FlowMint funciona de forma 100% local en tu navegador utilizando el almacenamiento del sistema (LocalStorage). Tus saldos, ingresos y deudas jamás tocan un servidor externo ni son visibles para nadie más que para ti. Sin nubes, sin rastreadores.",
         "testi-header-t": "Lo que dicen nuestros usuarios",
         "testi-header-d": "Más personas toman el control de sus finanzas locales sin suscripciones.",
-        "t1-text": '\"Buscaba algo simple para controlar mis gastos diarios y cartera de acciones sin pagar suscripción. FlowMint es visualmente hermoso, rápido y local. ¡Me encanta!\"',
+        "t1-text": '"Buscaba algo simple para controlar mis gastos diarios y cartera de acciones sin pagar suscripción. FlowMint es visualmente hermoso, rápido y local. ¡Me encanta!"',
         "t1-role": "Inversor Particular",
-        "t2-text": '\"La proyección de metas es lo que más uso. Configuré mi fondo para vacaciones y me dice exactamente cuánto apartar al mes. El diseño es increíblemente premium.\"',
+        "t2-text": '"La proyección de metas es lo que más uso. Configuré mi fondo para vacaciones y me dice exactamente cuánto apartar al mes. El diseño es increíblemente premium."',
         "t2-role": "Diseñadora UX / Freelancer",
-        "t3-text": '\"Me da tranquilidad mental saber que mis datos no están flotando en la nube de alguna startup financiera. Hago una copia JSON semanal en mi disco duro y listo.\"',
+        "t3-text": '"Me da tranquilidad mental saber que mis datos no están flotando en la nube de alguna startup financiera. Hago una copia JSON semanal en mi disco duro y listo."',
         "t3-role": "Desarrollador de Software",
         "price-header-t": "Una pequeña inversión, control de por vida",
         "price-header-d": "Olvídate de las cuotas recurrentes. Obtén acceso completo para siempre por un único pago único de lanzamiento.",
@@ -1463,6 +1571,7 @@
         "price-card-t": "Acceso Completo de Por Vida",
         "price-card-d": "Software local sin límites de registros",
         "price-note": "⚠️ Precio por única vez. Sin mensualidades.",
+        "price-guarantee-badge": "🛡️ Garantía incondicional de 7 días respaldada por Hotmart",
         "price-btn": "Comprar y Descargar Ahora",
         "price-guarantee": "Pago 100% seguro. Garantía de reembolso de 7 días.",
         "up-badge": "🔥 MEJORA TU ORDEN (OPCIONAL)",
@@ -1471,9 +1580,11 @@
         "up-subtitle": "Obtén los derechos exclusivos para revender FlowMint, quedarte con el 100% de las ganancias y usar todo nuestro material de marketing.",
         "up-note": "Pago único. Sin regalías ni mensualidades.",
         "up-btn": "Adquirir Licencia de Revendedor",
+        "up-checkout-note": "🔒 Irás al checkout principal. Asegúrate de marcar la casilla \"Flowmint Reseller VIP\" para añadir la licencia a tu orden.",
         "footer-demo": "Probar Demo",
+        "faq-header-t": "Preguntas Frecuentes",
+        "faq-header-d": "Todo lo que necesitas saber antes de empezar a controlar tus finanzas.",
         "copyright": "© 2026 FlowMint. Todos los derechos reservados. Diseñado para tu bienestar financiero.",
-        "config-reseller-label": "URL Licencia de Revendedor",
         "cfg-title": "⚙️ Ajustes de Checkout",
         "cfg-desc": "Configura aquí tus URLs de cobro para actualizar todos los botones del sitio en vivo de forma local:",
         "cfg-main-label": "URL Checkout Principal",
@@ -1485,6 +1596,7 @@
         "nav-features": "Features",
         "nav-privacy": "Privacy",
         "nav-pricing": "Pricing",
+        "nav-help": "Help / FAQs",
         "nav-getbtn": "Get App",
         "hero-badge": "🔥 Lifetime access · One-time payment",
         "hero-title": "Take Absolute Control of Your <span>Money</span>",
@@ -1524,7 +1636,7 @@
         "f5-t": "Smart Explorer",
         "f5-d": "Find any previous transaction instantly. Filter logs by description, notes, or tags in real-time, leaving messy Excel rows behind.",
         "f6-t": "Local Backup Ecosystem",
-        "f6-d": "Export your entire financial history into a standard JSON file in one click. Your financial records belong solely to you.",
+        "f6-d": "Export your entire history to a JSON file or generate structured, formatted Excel reports in one click. Your data belongs to you.",
         "priv-banner-t": "🔒 Your finances are private. Truly.",
         "priv-banner-d": "FlowMint functions 100% locally on your computer storage via LocalStorage. Your cash flows and metrics never touch external clouds, and are hidden from everyone. No servers, no ad trackers.",
         "testi-header-t": "Loved by real users",
@@ -1541,6 +1653,7 @@
         "price-card-t": "Full Lifetime Membership",
         "price-card-d": "Local application framework with unlimited entries",
         "price-note": "⚠️ One-time payment structure. No monthly invoices.",
+        "price-guarantee-badge": "🛡️ 7-day unconditional money-back guarantee backed by Hotmart",
         "price-btn": "Buy and Download Now",
         "price-guarantee": "100% secure checkout. 7-day hassle-free refund guarantee.",
         "up-badge": "🔥 UPGRADE YOUR ORDER (OPTIONAL)",
@@ -1549,9 +1662,11 @@
         "up-subtitle": "Acquire exclusive operational distribution rights to resell FlowMint, keep 100% of all profits, and deploy our pre-built marketing funnels.",
         "up-note": "Single payment framework. No royalties or recurring bills.",
         "up-btn": "Acquire Reseller License",
+        "up-checkout-note": "🔒 Goes to main checkout. Make sure to check the \"Flowmint Reseller VIP\" box to add the license to your order.",
         "footer-demo": "Try Demo",
+        "faq-header-t": "Frequently Asked Questions",
+        "faq-header-d": "Everything you need to know before taking control of your finances.",
         "copyright": "© 2026 FlowMint. All rights reserved. Built for your absolute financial peace of mind.",
-        "config-reseller-label": "URL Reseller License",
         "cfg-title": "⚙️ Checkout Settings",
         "cfg-desc": "Set your payment URLs here to update all site buttons live and locally:",
         "cfg-main-label": "Main Checkout URL",
@@ -1596,39 +1711,59 @@
       ]
     };
 
+    const faqTranslations = {
+      es: [
+        { q: "¿Necesito conexión a Internet para usar FlowMint?", a: "No. FlowMint funciona 100% de forma local en tu navegador utilizando LocalStorage. Tus datos nunca se envían a servidores externos." },
+        { q: "¿Mis datos financieros están seguros y privados?", a: "Totalmente. Sin nubes, sin rastreadores y sin conexiones bancarias de terceros. Toda la información permanece guardada únicamente en tu dispositivo." },
+        { q: "¿Es un pago único o hay cobros mensuales?", a: "Es un pago único de $19 USD. Obtienes acceso de por vida sin suscripciones recurrentes ni tarifas ocultas." },
+        { q: "¿Cómo recibo el acceso a la aplicación tras la compra?", a: "Al completar el pago, Hotmart te enviará un correo automático con tu clave de licencia y las instrucciones de activación rápida." },
+        { q: "¿Puedo exportar mis finanzas a Excel?", a: "Sí. Puedes hacer respaldos completos en formato JSON y exportar tus movimientos a plantillas de Excel profesionalmente diseñadas." },
+        { q: "¿Qué pasa si cambio de computadora o de navegador?", a: "Solo debes descargar una copia de seguridad en formato JSON desde tu app antigua e importarla en tu nueva computadora en un solo clic." },
+        { q: "¿El producto tiene garantía?", a: "Sí, cuentas con 7 días de garantía de satisfacción. Si no estás satisfecho, puedes solicitar el reembolso del 100% directamente desde Hotmart." },
+        { q: "¿Qué incluye la Licencia de Revendedor ($149 USD)?", a: "Te otorga los derechos de reventa exclusivos para comercializar FlowMint, quedándote con el 100% de las ganancias, además de acceso a todo nuestro material de marketing. (Recuerda marcar la casilla correspondiente en el checkout para incluirla)." }
+      ],
+      en: [
+        { q: "Do I need an Internet connection to use FlowMint?", a: "No. FlowMint runs 100% locally in your browser using LocalStorage. Your data is never sent to external servers." },
+        { q: "Is my financial data secure and private?", a: "Completely. No clouds, no trackers, and no third-party bank connections. All information stays saved exclusively on your device." },
+        { q: "Is it a one-time payment or are there monthly charges?", a: "It's a one-time payment of $19 USD. You get lifetime access with no recurring subscriptions or hidden fees." },
+        { q: "How do I get access to the app after purchasing?", a: "Once payment is complete, Hotmart will automatically email you your license key along with quick activation instructions." },
+        { q: "Can I export my finances to Excel?", a: "Yes. You can create full backups in JSON format and export your transactions to professionally designed Excel templates." },
+        { q: "What happens if I switch computers or browsers?", a: "Just download a JSON backup from your old app and import it into your new computer in one click." },
+        { q: "Does the product come with a guarantee?", a: "Yes, you get a 7-day satisfaction guarantee. If you're not satisfied, you can request a 100% refund directly through Hotmart." },
+        { q: "What's included in the Reseller License ($149 USD)?", a: "It grants you exclusive resale rights to sell FlowMint, keeping 100% of the profits, plus access to all of our marketing material. (Remember to check the corresponding box at checkout to include it)." }
+      ]
+    };
+
     // --- 2. GESTIÓN DE IDIOMA ---
     let currentLang = localStorage.getItem('fm_landing_lang') || 'es';
 
     function changeLanguage(lang) {
       currentLang = lang;
       localStorage.setItem('fm_landing_lang', lang);
-      // Set the dropdown visually — iterate options to set selected reliably across all browsers
+
       const langSel = document.getElementById('langSelect');
-      Array.from(langSel.options).forEach(opt => {
-        opt.selected = (opt.value === lang);
-      });
+      if (langSel) {
+        Array.from(langSel.options).forEach(opt => {
+          opt.selected = (opt.value === lang);
+        });
+      }
       document.documentElement.lang = lang;
 
-      // Traducir atributos i18n estándar
+      // Traducir elementos con data-i18n
       document.querySelectorAll('[data-i18n]').forEach(elem => {
         const key = elem.getAttribute('data-i18n');
         if (translations[lang] && translations[lang][key] !== undefined) {
           if (key === 'hero-title') {
-            // Hero title needs inner <span> preserved for gradient styling
             elem.innerHTML = lang === 'es'
               ? 'Toma el Control Absoluto de tu <span>Dinero</span>'
               : 'Take Absolute Control of Your <span>Money</span>';
-          } else if (key === 'up-title-2') {
-            // Reseller license title — the <span> wrapping is in the parent h2,
-            // this element IS the span, so just set its textContent directly
-            elem.textContent = translations[lang][key];
           } else {
             elem.textContent = translations[lang][key];
           }
         }
       });
 
-      // Traducir Listas Dinámicas
+      // Traducir listas dinámicas
       const mainList = document.getElementById('main-features-list');
       if (mainList) {
         mainList.innerHTML = listFeaturesTranslations[lang].map(item => `<li>${item}</li>`).join('');
@@ -1637,89 +1772,92 @@
       const upsellList = document.getElementById('upsell-features-list');
       if (upsellList) {
         upsellList.innerHTML = upsellFeaturesTranslations[lang].map(item => `
-          <li>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
-            <span>${item}</span>
-          </li>
-        `).join('');
+        <li>
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+          <span>${item}</span>
+        </li>
+      `).join('');
       }
 
-      // Traducir pie de página
-      document.getElementById('footer-copyright').textContent = translations[lang]['copyright'];
+      renderFAQ(lang);
     }
 
+    // Renderiza el acordeón de FAQ para el idioma dado.
+    // Se reconstruye por completo en cada cambio de idioma (igual que las
+    // otras listas dinámicas), preservando cuál pregunta estaba abierta.
+    function renderFAQ(lang) {
+      const faqListEl = document.getElementById('faqList');
+      if (!faqListEl || !faqTranslations[lang]) return;
 
-    // --- 3. CONFIGURACIÓN DINÁMICA DE ENLACES DE CHEKOUT ---
-    let checkoutUrl = localStorage.getItem('fm_landing_checkout_url') || 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
-    let resellerUrl = localStorage.getItem('fm_landing_reseller_url') || 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
+      const openIndexes = Array.from(faqListEl.querySelectorAll('details.faq-item'))
+        .map((el, i) => el.hasAttribute('open') ? i : -1)
+        .filter(i => i !== -1);
 
-    window.addEventListener('DOMContentLoaded', () => {
-      // Iniciar inputs en el panel de control
-      document.getElementById('checkoutUrlInput').value = checkoutUrl;
-      document.getElementById('resellerUrlInput').value = resellerUrl;
+      faqListEl.innerHTML = faqTranslations[lang].map((item, i) => `
+        <details class="faq-item"${openIndexes.includes(i) ? ' open' : ''}>
+          <summary>
+            <span>${item.q}</span>
+            <span class="faq-icon">+</span>
+          </summary>
+          <div class="faq-answer">${item.a}</div>
+        </details>
+      `).join('');
+    }
 
-      // Aplicar el idioma guardado
-      changeLanguage(currentLang);
-
-      // Aplicar las URLs
-      applyUrls();
-    });
-
+    // --- 3. WIDGET Y CONFIGURACIÓN DE URLS ---
     function toggleConfigPanel() {
-      document.getElementById('configPanel').classList.toggle('open');
+      const panel = document.getElementById('configPanel');
+      if (panel) panel.classList.toggle('open');
     }
 
     function saveAllUrls() {
-      const mainVal = document.getElementById('checkoutUrlInput').value.trim();
-      const resellerVal = document.getElementById('resellerUrlInput').value.trim();
+      const mainUrl = document.getElementById('checkoutUrlInput').value.trim();
+      const resellerUrl = document.getElementById('resellerUrlInput').value.trim();
 
-      if (mainVal && resellerVal) {
-        checkoutUrl = mainVal;
-        resellerUrl = resellerVal;
+      if (mainUrl) localStorage.setItem('fm_checkout_url', mainUrl);
+      if (resellerUrl) localStorage.setItem('fm_reseller_url', resellerUrl);
 
-        localStorage.setItem('fm_landing_checkout_url', checkoutUrl);
-        localStorage.setItem('fm_landing_reseller_url', resellerUrl);
+      applySavedUrls();
+      alert('URLs guardadas correctamente en LocalStorage.');
+    }
 
-        applyUrls();
-        alert(currentLang === 'es' ? '¡Todos los enlaces de pago actualizados!' : 'All checkout links updated successfully!');
-        toggleConfigPanel();
-      } else {
-        alert(currentLang === 'es' ? 'Por favor, rellena ambos campos con URLs válidas.' : 'Please fill out both fields with valid URLs.');
+    function applySavedUrls() {
+      const mainUrl = localStorage.getItem('fm_checkout_url');
+      const resellerUrl = localStorage.getItem('fm_reseller_url');
+
+      if (mainUrl) {
+        document.querySelectorAll('.buy-checkout-link').forEach(a => a.href = mainUrl);
+        const input = document.getElementById('checkoutUrlInput');
+        if (input) input.value = mainUrl;
+      }
+      if (resellerUrl) {
+        const input = document.getElementById('resellerUrlInput');
+        if (input) input.value = resellerUrl;
       }
     }
 
     function openResellerUrl() {
+      const resellerUrl = localStorage.getItem('fm_reseller_url') || 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
       window.open(resellerUrl, '_blank');
     }
 
-    function applyUrls() {
-      // Main checkout buttons — set both href AND onclick for maximum compatibility
-      const checkoutLinks = document.querySelectorAll('.buy-checkout-link');
-      checkoutLinks.forEach(link => {
-        link.href = checkoutUrl;
-        link.target = '_blank';
-        link.onclick = function(e) {
-          e.preventDefault();
-          window.open(checkoutUrl, '_blank');
-        };
-      });
-
-      // Reseller button — already uses openResellerUrl() onclick, just keep resellerUrl updated
-      // (the onclick="openResellerUrl()" in HTML reads the resellerUrl variable directly)
-    }
-
-    // Config panel closes when clicking outside — scoped only to non-interactive elements
+    // --- 4. CIERRE DE PANEL AL HACER CLIC FUERA ---
     document.addEventListener('click', (e) => {
       const panel = document.getElementById('configPanel');
       const widget = document.querySelector('.config-widget');
-      // Only close if panel is open AND click was completely outside the widget
-      // Never interfere with buttons, links, or inputs
+
       if (!panel || !panel.classList.contains('open')) return;
       if (!widget) return;
       if (widget.contains(e.target)) return;
-      // Don't interfere with any interactive element
       if (e.target.closest('a, button, input, select, label')) return;
+
       panel.classList.remove('open');
+    });
+
+    // --- 5. INICIALIZACIÓN ---
+    document.addEventListener('DOMContentLoaded', () => {
+      changeLanguage(currentLang);
+      applySavedUrls();
     });
   </script>
 </body>
