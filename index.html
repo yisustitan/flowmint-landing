@@ -1400,7 +1400,7 @@
           <!-- Se renderizan dinámicamente según el idioma -->
         </ul>
 
-        <a href="https://exacto-display-art.lovable.app" target="_blank"
+        <a href="https://pay.hotmart.com/S106873189Y?checkoutMode=10" target="_blank" rel="noopener noreferrer"
           class="btn btn-primary btn-lg buy-checkout-link" style="width: 100%;" data-i18n="price-btn">
           Comprar y Descargar Ahora
         </a>
@@ -1488,7 +1488,7 @@
       <div class="config-field">
         <label for="checkoutUrlInput" data-i18n="cfg-main-label">URL Checkout Principal</label>
         <input type="text" class="config-input" id="checkoutUrlInput"
-          placeholder="https://checkout.kirvhttps://pay.hotmart.com/S106873189Y?checkoutMode=10...">
+          placeholder="https://pay.hotmart.com/S106873189Y?checkoutMode=10">
       </div>
 
       <div class="config-field" style="margin-top: 10px;">
@@ -1821,38 +1821,37 @@
       alert('URLs guardadas correctamente en LocalStorage.');
     }
 
+    const MAIN_CHECKOUT_URL = 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
+    const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
+
     function applySavedUrls() {
-      const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
-      const mainUrl = localStorage.getItem('fm_checkout_url');
-      let resellerUrl = localStorage.getItem('fm_reseller_url');
+      const mainUrl = localStorage.getItem('fm_checkout_url') || MAIN_CHECKOUT_URL;
+      const resellerUrl = localStorage.getItem('fm_reseller_url') || OFFICIAL_RESELLER_URL;
 
-      if (!resellerUrl || resellerUrl.includes('S106873189Y')) {
-        resellerUrl = OFFICIAL_RESELLER_URL;
-        localStorage.setItem('fm_reseller_url', OFFICIAL_RESELLER_URL);
-      }
+      // Limpiar valores corruptos (ej. lovable.app o URLs de prueba)
+      const cleanMain = mainUrl.includes('hotmart.com') ? mainUrl : MAIN_CHECKOUT_URL;
+      const cleanReseller = resellerUrl.includes('hotmart.com') ? resellerUrl : OFFICIAL_RESELLER_URL;
 
-      if (mainUrl) {
-        document.querySelectorAll('.buy-checkout-link').forEach(a => a.href = mainUrl);
-        const input = document.getElementById('checkoutUrlInput');
-        if (input) input.value = mainUrl;
-      }
-      if (resellerUrl) {
-        const input = document.getElementById('resellerUrlInput');
-        if (input) input.value = resellerUrl;
-        const resellerBtn = document.getElementById('resellerCheckoutLink');
-        if (resellerBtn) resellerBtn.href = resellerUrl;
-      }
+      document.querySelectorAll('.buy-checkout-link').forEach(a => {
+        a.href = cleanMain;
+        a.target = '_blank';
+      });
+
+      const checkoutInput = document.getElementById('checkoutUrlInput');
+      if (checkoutInput) checkoutInput.value = cleanMain;
+
+      const resellerInput = document.getElementById('resellerUrlInput');
+      if (resellerInput) resellerInput.value = cleanReseller;
+
+      const resellerBtn = document.getElementById('resellerCheckoutLink');
+      if (resellerBtn) resellerBtn.href = cleanReseller;
     }
 
     function openResellerUrl(e) {
       if (e) e.preventDefault();
-      const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
-      let resellerUrl = localStorage.getItem('fm_reseller_url');
-      if (!resellerUrl || resellerUrl.includes('S106873189Y')) {
-        resellerUrl = OFFICIAL_RESELLER_URL;
-        localStorage.setItem('fm_reseller_url', OFFICIAL_RESELLER_URL);
-      }
-      window.open(resellerUrl, '_blank');
+      const resellerUrl = localStorage.getItem('fm_reseller_url') || OFFICIAL_RESELLER_URL;
+      const cleanUrl = resellerUrl.includes('hotmart.com') ? resellerUrl : OFFICIAL_RESELLER_URL;
+      window.open(cleanUrl, '_blank');
     }
 
     // --- 4. CIERRE DE PANEL AL HACER CLIC FUERA ---

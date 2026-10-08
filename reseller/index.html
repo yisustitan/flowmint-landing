@@ -1130,7 +1130,8 @@
           <!-- Se renderizan dinámicamente según el idioma -->
         </ul>
 
-        <a href="javascript:void(0)" onclick="openResellerUrl()" class="btn btn-primary btn-lg buy-reseller-link"
+        <a href="https://pay.hotmart.com/G106875530I?bid=1791428210491" target="_blank" rel="noopener noreferrer"
+          onclick="openResellerUrl(event)" class="btn btn-primary btn-lg buy-reseller-link"
           style="width: 100%; font-weight: 700;" data-i18n="price-btn">
           Adquirir Licencia de Revendedor ($149 USD)
         </a>
@@ -1143,7 +1144,8 @@
         <p style="font-size: 14px; color: var(--text-sec);" data-i18n="std-desc">
           ¿Solo te interesa usar la aplicación para tu uso personal sin derechos de reventa?
         </p>
-        <a href="javascript:void(0)" onclick="openCheckoutUrl()" class="btn btn-outline" style="margin-top: 15px;"
+        <a href="https://pay.hotmart.com/S106873189Y?checkoutMode=10" target="_blank" rel="noopener noreferrer"
+          onclick="openCheckoutUrl(event)" class="btn btn-outline" style="margin-top: 15px;"
           data-i18n="std-btn">
           Comprar solo la App Individual ($19 USD)
         </a>
@@ -1406,8 +1408,15 @@
     }
 
     // --- 3. GESTIÓN DE ENLACES DE COBRO ---
-    let resellerUrl = localStorage.getItem('fm_landing_reseller_url') || 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
-    let checkoutUrl = localStorage.getItem('fm_landing_checkout_url') || 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
+    const MAIN_CHECKOUT_URL = 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
+    const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
+
+    function sanitize(url, fallback) {
+      return (url && url.includes('hotmart.com')) ? url : fallback;
+    }
+
+    let resellerUrl = sanitize(localStorage.getItem('fm_landing_reseller_url'), OFFICIAL_RESELLER_URL);
+    let checkoutUrl = sanitize(localStorage.getItem('fm_landing_checkout_url'), MAIN_CHECKOUT_URL);
 
     window.addEventListener('DOMContentLoaded', () => {
       document.getElementById('resellerUrlInput').value = resellerUrl;
@@ -1438,11 +1447,13 @@
       }
     }
 
-    function openResellerUrl() {
+    function openResellerUrl(e) {
+      if (e) e.preventDefault();
       window.open(resellerUrl, '_blank');
     }
 
-    function openCheckoutUrl() {
+    function openCheckoutUrl(e) {
+      if (e) e.preventDefault();
       window.open(checkoutUrl, '_blank');
     }
 
