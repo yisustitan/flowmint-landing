@@ -1432,8 +1432,8 @@
             <span class="current-price">$149 USD</span>
             <p class="price-note" data-i18n="up-note">Pago único. Sin regalías ni mensualidades.</p>
           </div>
-          <a href="javascript:void(0)" id="resellerCheckoutLink" class="btn btn-primary upsell-btn"
-            onclick="openResellerUrl()">
+          <a href="https://pay.hotmart.com/G106875530I?bid=1791428210491" target="_blank" rel="noopener noreferrer" id="resellerCheckoutLink" class="btn btn-primary upsell-btn"
+            onclick="openResellerUrl(event)">
             <span data-i18n="up-btn">Adquirir Licencia de Revendedor</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
               stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
@@ -1494,7 +1494,7 @@
       <div class="config-field" style="margin-top: 10px;">
         <label for="resellerUrlInput" data-i18n="cfg-reseller-label">URL Licencia de Revendedor</label>
         <input type="text" class="config-input" id="resellerUrlInput"
-          placeholder="https://pay.hotmart.com/S106873189Y?checkoutMode=10...">
+          placeholder="https://pay.hotmart.com/G106875530I?bid=1791428210491">
       </div>
 
       <button class="btn btn-primary" onclick="saveAllUrls()"
@@ -1822,8 +1822,14 @@
     }
 
     function applySavedUrls() {
+      const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
       const mainUrl = localStorage.getItem('fm_checkout_url');
-      const resellerUrl = localStorage.getItem('fm_reseller_url');
+      let resellerUrl = localStorage.getItem('fm_reseller_url');
+
+      if (!resellerUrl || resellerUrl.includes('S106873189Y')) {
+        resellerUrl = OFFICIAL_RESELLER_URL;
+        localStorage.setItem('fm_reseller_url', OFFICIAL_RESELLER_URL);
+      }
 
       if (mainUrl) {
         document.querySelectorAll('.buy-checkout-link').forEach(a => a.href = mainUrl);
@@ -1833,11 +1839,19 @@
       if (resellerUrl) {
         const input = document.getElementById('resellerUrlInput');
         if (input) input.value = resellerUrl;
+        const resellerBtn = document.getElementById('resellerCheckoutLink');
+        if (resellerBtn) resellerBtn.href = resellerUrl;
       }
     }
 
-    function openResellerUrl() {
-      const resellerUrl = localStorage.getItem('fm_reseller_url') || 'https://pay.hotmart.com/S106873189Y?checkoutMode=10';
+    function openResellerUrl(e) {
+      if (e) e.preventDefault();
+      const OFFICIAL_RESELLER_URL = 'https://pay.hotmart.com/G106875530I?bid=1791428210491';
+      let resellerUrl = localStorage.getItem('fm_reseller_url');
+      if (!resellerUrl || resellerUrl.includes('S106873189Y')) {
+        resellerUrl = OFFICIAL_RESELLER_URL;
+        localStorage.setItem('fm_reseller_url', OFFICIAL_RESELLER_URL);
+      }
       window.open(resellerUrl, '_blank');
     }
 
