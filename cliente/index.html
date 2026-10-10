@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Flowmint — Portal de Bienvenida y Entrega Oficial</title>
+  <meta name="description" content="Acceso oficial y entrega de recursos para usuarios de Flowmint. Aplicación web, manual operativo y tutoriales paso a paso.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2300ff88' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'><path d='M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6'/></svg>">
+
+  <style>
+    :root {
+      --bg: #07100d;
+      --bg-alt: #0b1814;
+      --surface: #10221c;
+      --surface-hover: #152c24;
+      --surface-border: rgba(0, 255, 136, 0.16);
+      --surface-border-strong: rgba(0, 255, 136, 0.35);
+      --mint: #00ff88;
+      --mint-deep: #0da672;
+      --mint-dim: rgba(0, 255, 136, 0.1);
+      --mint-glow: rgba(0, 255, 136, 0.25);
+      --gold: #e4b57a;
+      --gold-dim: rgba(228, 181, 122, 0.12);
+      --text: #f0f7f3;
+      --text-sec: #95ada2;
+      --text-muted: #5e7a6d;
+      --radius-lg: 18px;
+      --radius-md: 12px;
+      --radius-sm: 8px;
+      --radius-pill: 9999px;
+      --font-display: 'Space Grotesk', -apple-system, sans-serif;
+      --font-body: 'Inter', -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --shadow-card: 0 12px 36px -10px rgba(0, 0, 0, 0.6);
+      --shadow-glow: 0 0 35px rgba(0, 255, 136, 0.18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg);
+      background-image: 
+        radial-gradient(ellipse 900px 520px at 15% -8%, rgba(0, 255, 136, 0.14), transparent 60%),
+        radial-gradient(ellipse 750px 480px at 90% 15%, rgba(228, 181, 122, 0.08), transparent 55%),
+        radial-gradient(circle 600px at 50% 90%, rgba(0, 255, 136, 0.06), transparent 70%);
+      color: var(--text);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ::selection {
+      background: var(--mint);
+      color: #04140e;
+    }
+
+    /* Ambient background grid lines */
+    .bg-grid {
+      position: fixed;
+      inset: 0;
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.015) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.015) 1px, transparent 1px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* ===== TOP BAR / TICKER ===== */
+    .top-ticker {
+      position: relative;
+      z-index: 10;
+      background: rgba(11, 24, 20, 0.85);
+      border-bottom: 1px solid var(--surface-border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      padding: 8px 16px;
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      text-align: center;
+      color: var(--text-sec);
+    }
+
+    .ticker-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(0, 255, 136, 0.12);
+      color: var(--mint);
+      border: 1px solid rgba(0, 255, 136, 0.25);
+      padding: 2px 8px;
+      border-radius: var(--radius-pill);
+      font-weight: 600;
+    }
+
+    .ticker-dot {
+      width: 6px;
+      height: 6px;
+      background: var(--mint);
+      border-radius: 50%;
+      box-shadow: 0 0 6px var(--mint);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    @keyframes pulseDot {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.85); }
+    }
+
+    /* ===== NAVBAR ===== */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      background: rgba(7, 16, 13, 0.82);
+      border-bottom: 1px solid var(--surface-border);
+      padding: 16px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      cursor: pointer;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0, 255, 136, 0.2), rgba(13, 166, 114, 0.4));
+      border: 1px solid var(--surface-border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px var(--mint-glow);
+    }
+
+    .brand-icon svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--mint);
+    }
+
+    .brand-info {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-title {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.01em;
+      color: #ffffff;
+      line-height: 1.1;
+    }
+
+    .brand-tag {
+      font-family: var(--font-mono);
+      font-size: 10.5px;
+      color: var(--mint);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* ===== DYNAMIC LANGUAGE TOGGLE ===== */
+    .lang-switcher {
+      display: inline-flex;
+      align-items: center;
+      background: rgba(16, 34, 28, 0.9);
+      border: 1px solid var(--surface-border-strong);
+      border-radius: var(--radius-pill);
+      padding: 4px;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    }
+
+    .lang-btn {
+      border: none;
+      background: transparent;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: var(--text-sec);
+      padding: 6px 14px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .lang-btn:hover:not(.active) {
+      color: #ffffff;
+    }
+
+    .lang-btn.active {
+      background: var(--mint);
+      color: #04140e;
+      font-weight: 700;
+      box-shadow: 0 0 16px rgba(0, 255, 136, 0.4);
+    }
+
+    /* ===== MAIN CONTENT WRAPPER ===== */
+    .main-wrap {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+      flex-grow: 1;
+    }
+
+    /* ===== HERO SECTION ===== */
+    .hero {
+      text-align: center;
+      margin-bottom: 56px;
+      position: relative;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mint);
+      background: var(--mint-dim);
+      border: 1px solid var(--surface-border-strong);
+      padding: 7px 18px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 22px;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.12);
+    }
+
+    .hero-badge .pulse-ring {
+      width: 7px;
+      height: 7px;
+      background: var(--mint);
+      border-radius: 50%;
+      box-shadow: 0 0 8px var(--mint);
+      animation: pulseDot 1.8s infinite ease-in-out;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      margin-bottom: 18px;
+      background: linear-gradient(135deg, #ffffff 30%, var(--mint) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-desc {
+      font-size: clamp(15.5px, 2vw, 18px);
+      color: var(--text-sec);
+      max-width: 680px;
+      margin: 0 auto 28px;
+      line-height: 1.65;
+    }
+
+    /* Notice banner */
+    .notice-card {
+      max-width: 760px;
+      margin: 0 auto;
+      background: rgba(16, 34, 28, 0.6);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-md);
+      padding: 14px 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      font-size: 13.5px;
+      color: var(--text-sec);
+      backdrop-filter: blur(8px);
+    }
+
+    .notice-card .notice-icon {
+      color: var(--gold);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+
+    .notice-card strong {
+      color: #ffffff;
+    }
+
+    /* ===== RESOURCE CARDS SECTION ===== */
+    .section-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .section-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--mint);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.015em;
+      color: #ffffff;
+    }
+
+    .badge-counter {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      padding: 4px 12px;
+      border-radius: var(--radius-pill);
+    }
+
+    /* The 3 Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 22px;
+      margin-bottom: 60px;
+    }
+
+    @media (max-width: 960px) {
+      .cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 580px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.28s ease, border-color 0.28s ease, box-shadow 0.28s ease, background 0.28s ease;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--mint), transparent);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+      border-color: var(--surface-border-strong);
+      box-shadow: var(--shadow-glow), var(--shadow-card);
+      background: var(--surface-hover);
+    }
+
+    .card:hover::before {
+      opacity: 1;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .card-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(0, 255, 136, 0.08);
+      border: 1px solid rgba(0, 255, 136, 0.22);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--mint);
+      transition: transform 0.25s ease, background 0.25s ease;
+    }
+
+    .card:hover .card-icon {
+      transform: scale(1.06);
+      background: rgba(0, 255, 136, 0.16);
+      box-shadow: 0 0 18px rgba(0, 255, 136, 0.3);
+    }
+
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .card-step-badge {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--mint);
+      background: rgba(0, 255, 136, 0.08);
+      border: 1px solid rgba(0, 255, 136, 0.2);
+      padding: 4px 10px;
+      border-radius: var(--radius-pill);
+      letter-spacing: 0.05em;
+    }
+
+    .card-tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--mint);
+      margin-bottom: 8px;
+    }
+
+    .card-title {
+      font-family: var(--font-display);
+      font-size: 20px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      color: var(--text-sec);
+      line-height: 1.6;
+      margin-bottom: 22px;
+      flex-grow: 1;
+    }
+
+    /* Feature points */
+    .card-features {
+      list-style: none;
+      margin-bottom: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding-top: 16px;
+    }
+
+    .card-features li {
+      font-size: 12.5px;
+      color: var(--text-sec);
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+
+    .card-features li svg {
+      width: 14px;
+      height: 14px;
+      color: var(--mint);
+      flex-shrink: 0;
+    }
+
+    /* Primary CTA Button on Cards */
+    .card-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-family: var(--font-display);
+      font-size: 13.5px;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      padding: 13px 18px;
+      border-radius: var(--radius-md);
+      transition: all 0.22s ease;
+      cursor: pointer;
+      position: relative;
+    }
+
+    /* Card 1: Highlighted Main App Button */
+    .card-btn-primary {
+      background: linear-gradient(135deg, #00ff88 0%, #0da672 100%);
+      color: #04140e;
+      box-shadow: 0 4px 18px rgba(0, 255, 136, 0.35);
+      border: 1px solid #00ff88;
+    }
+
+    .card-btn-primary:hover {
+      box-shadow: 0 6px 26px rgba(0, 255, 136, 0.55);
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    /* Card 2 & 3: Sleek Secondary Neon Buttons */
+    .card-btn-secondary {
+      background: rgba(11, 24, 20, 0.95);
+      border: 1px solid var(--surface-border-strong);
+      color: #ffffff;
+    }
+
+    .card-btn-secondary:hover {
+      border-color: var(--mint);
+      color: var(--mint);
+      background: rgba(0, 255, 136, 0.08);
+      box-shadow: 0 4px 18px rgba(0, 255, 136, 0.2);
+      transform: translateY(-2px);
+    }
+
+    .card-btn .btn-arrow {
+      transition: transform 0.2s ease;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+    }
+
+    .card-btn:hover .btn-arrow {
+      transform: translateX(4px);
+    }
+
+    /* Special card badge for card 1 */
+    .pill-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: #04140e;
+      background: var(--mint);
+      padding: 3px 10px;
+      border-radius: var(--radius-pill);
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    /* ===== QUICK START STEPS SECTION ===== */
+    .steps-section {
+      background: rgba(16, 34, 28, 0.45);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-lg);
+      padding: 36px 32px;
+      margin-bottom: 60px;
+      backdrop-filter: blur(8px);
+    }
+
+    .steps-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .steps-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .steps-desc {
+      font-size: 14px;
+      color: var(--text-sec);
+      max-width: 540px;
+      margin: 0 auto;
+    }
+
+    .steps-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      position: relative;
+    }
+
+    @media (max-width: 768px) {
+      .steps-row {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .step-item {
+      background: rgba(7, 16, 13, 0.6);
+      border: 1px solid rgba(0, 255, 136, 0.1);
+      border-radius: var(--radius-md);
+      padding: 22px 20px;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--mint-dim);
+      border: 1px solid rgba(0, 255, 136, 0.25);
+      color: var(--mint);
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+    }
+
+    .step-heading {
+      font-family: var(--font-display);
+      font-size: 16px;
+      font-weight: 600;
+      color: #ffffff;
+      margin-bottom: 8px;
+    }
+
+    .step-text {
+      font-size: 13px;
+      color: var(--text-sec);
+      line-height: 1.55;
+    }
+
+    /* ===== FOOTER SUPPORT SECTION ===== */
+    .support-footer-card {
+      background: linear-gradient(180deg, rgba(16, 34, 28, 0.8) 0%, rgba(11, 24, 20, 0.95) 100%);
+      border: 1px solid var(--surface-border-strong);
+      border-radius: var(--radius-lg);
+      padding: 40px 32px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+    }
+
+    .support-footer-card::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 320px;
+      height: 100px;
+      background: radial-gradient(ellipse, rgba(0, 255, 136, 0.18), transparent 70%);
+      pointer-events: none;
+    }
+
+    .support-icon {
+      width: 52px;
+      height: 52px;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid var(--surface-border-strong);
+      border-radius: 50%;
+      color: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 18px;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.2);
+    }
+
+    .support-icon svg {
+      width: 26px;
+      height: 26px;
+    }
+
+    .support-title {
+      font-family: var(--font-display);
+      font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .support-text {
+      font-size: 15px;
+      color: var(--text-sec);
+      max-width: 620px;
+      margin: 0 auto 24px;
+      line-height: 1.6;
+    }
+
+    .support-email-box {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(7, 16, 13, 0.85);
+      border: 1px solid var(--surface-border-strong);
+      border-radius: var(--radius-pill);
+      padding: 10px 22px;
+      margin-bottom: 22px;
+      transition: all 0.22s ease;
+      max-width: 100%;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .support-email-box:hover {
+      border-color: var(--mint);
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.25);
+    }
+
+    .support-email-link {
+      font-family: var(--font-mono);
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--mint);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .btn-copy {
+      background: rgba(0, 255, 136, 0.12);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      color: var(--mint);
+      font-family: var(--font-mono);
+      font-size: 11.5px;
+      font-weight: 600;
+      padding: 5px 12px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-copy:hover {
+      background: var(--mint);
+      color: #04140e;
+    }
+
+    .support-note {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    /* ===== FOOTER BOTTOM ===== */
+    .site-footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      padding: 30px 24px;
+      text-align: center;
+      font-size: 12.5px;
+      color: var(--text-muted);
+      position: relative;
+      z-index: 10;
+    }
+
+    .footer-inner {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    @media (max-width: 600px) {
+      .footer-inner {
+        flex-direction: column;
+        text-align: center;
+      }
+      .navbar {
+        padding: 12px 18px;
+      }
+      .main-wrap {
+        padding: 32px 16px 60px;
+      }
+    }
+
+    .footer-copy {
+      font-family: var(--font-mono);
+    }
+
+    .footer-brand {
+      color: var(--text-sec);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="bg-grid" aria-hidden="true"></div>
+
+  <!-- Top Announcement Bar -->
+  <aside class="top-ticker" aria-label="Announcement">
+    <span class="ticker-pill">
+      <span class="ticker-dot"></span>
+      <span id="tickerBadge">ACCESO CONFIRMADO</span>
+    </span>
+    <span id="tickerText">Entrega oficial para compradores de la versión Cliente Final ($19 USD)</span>
+  </aside>
+
+  <!-- Sticky Header & Language Switcher -->
+  <header class="navbar">
+    <div class="brand">
+      <div class="brand-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+        </svg>
+      </div>
+      <div class="brand-info">
+        <span class="brand-title">Flowmint</span>
+        <span class="brand-tag" id="brandTag">PORTAL DE CLIENTE</span>
+      </div>
+    </div>
+
+    <!-- Switch Dinámico de Idioma (ES | EN) -->
+    <nav class="lang-switcher" aria-label="Selector de idioma / Language selector">
+      <button type="button" class="lang-btn active" id="btnEs" onclick="switchLanguage('es')" aria-label="Cambiar idioma a Español">
+        <span>🇪🇸</span> ES
+      </button>
+      <button type="button" class="lang-btn" id="btnEn" onclick="switchLanguage('en')" aria-label="Switch language to English">
+        <span>🇺🇸</span> EN
+      </button>
+    </nav>
+  </header>
+
+  <!-- Main Container -->
+  <main class="main-wrap">
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-badge">
+        <span class="pulse-ring" aria-hidden="true"></span>
+        <span id="heroBadgeText">TU COMPRA ESTÁ LISTA · CLIENTE OFICIAL</span>
+      </div>
+      <h1 class="hero-title" id="heroTitle">¡Te damos la bienvenida a Flowmint!</h1>
+      <p class="hero-desc" id="heroDesc">
+        Tu acceso completo a la herramienta de gestión y finanzas personales está confirmado. Aquí tienes tus recursos directos para comenzar a usar Flowmint de inmediato.
+      </p>
+
+      <div class="notice-card">
+        <span class="notice-icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="8" x2="12" y2="12"></line>
+            <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          </svg>
+        </span>
+        <span id="noticeText">
+          <strong>Tip recomendado:</strong> Guarda este enlace en los marcadores de tu navegador para acceder rápidamente a tu app y manuales cuando lo desees.
+        </span>
+      </div>
+    </section>
+
+    <!-- Resources Section -->
+    <section aria-labelledby="resourcesTitle">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow" id="sectionEyebrow">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+            </svg>
+            <span id="sectionEyebrowText">RECURSOS INCLUIDOS</span>
+          </div>
+          <h2 class="section-title" id="resourcesTitle">Tus Accesos y Herramientas</h2>
+        </div>
+        <div class="badge-counter" id="badgeCounter">3 Recursos Disponibles</div>
+      </div>
+
+      <!-- Grid de 3 Tarjetas -->
+      <div class="cards-grid">
+
+        <!-- TARJETA 1: Aplicación Principal -->
+        <article class="card" id="cardApp">
+          <div class="card-top">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
+                <line x1="8" y1="21" x2="16" y2="21"></line>
+                <line x1="12" y1="17" x2="12" y2="21"></line>
+              </svg>
+            </div>
+            <span class="card-step-badge" id="card1Step">01 / APLICACIÓN</span>
+          </div>
+
+          <span class="card-tag" id="card1Tag">APLICACIÓN PRINCIPAL</span>
+          <h3 class="card-title" id="card1Title">Flowmint Web App</h3>
+          <p class="card-desc" id="card1Desc">
+            Acceso instantáneo a la plataforma ejecutable completa de gestión financiera. Funciona directamente en tu navegador web moderno sin requerir descargas pesadas.
+          </p>
+
+          <ul class="card-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card1Feat1">Ejecución 100% en la nube y local</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card1Feat2">Compatible con PC, Mac, tablets y móviles</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card1Feat3">Privacidad garantizada en tus registros</span>
+            </li>
+          </ul>
+
+          <a href="/app/flowmint.html" id="linkCard1" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-primary">
+            <span id="btnTextCard1">Abrir Aplicación Flowmint</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+
+        <!-- TARJETA 2: Manual / Guía de Usuario (PDF) -->
+        <article class="card" id="cardManual">
+          <div class="card-top">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                <polyline points="14 2 14 8 20 8"></polyline>
+                <line x1="16" y1="13" x2="8" y2="13"></line>
+                <line x1="16" y1="17" x2="8" y2="17"></line>
+                <polyline points="10 9 9 9 8 9"></polyline>
+              </svg>
+            </div>
+            <span class="card-step-badge" id="card2Step">02 / MANUAL</span>
+          </div>
+
+          <span class="card-tag" id="card2Tag">DOCUMENTO DIGITAL</span>
+          <h3 class="card-title" id="card2Title">Manual / Guía de Usuario (PDF)</h3>
+          <p class="card-desc" id="card2Desc">
+            Documentación oficial paso a paso con las mejores prácticas para estructurar tus presupuestos, categorías de gastos y metas financieras de alto impacto.
+          </p>
+
+          <ul class="card-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card2Feat1">Formato PDF descargable para siempre</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card2Feat2">Explicaciones claras y capturas ilustrativas</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card2Feat3">Tips de control financiero personal</span>
+            </li>
+          </ul>
+
+          <a href="/recursos-vip/downloads/guia-operativa.pdf" id="linkCard2" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary">
+            <span id="btnTextCard2">Descargar Guía Operativa (PDF)</span>
+            <span class="btn-arrow" aria-hidden="true">↓</span>
+          </a>
+        </article>
+
+        <!-- TARJETA 3: Centro de Tutoriales -->
+        <article class="card" id="cardTutorials">
+          <div class="card-top">
+            <div class="card-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="23 7 16 12 23 17 23 7"></polygon>
+                <rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect>
+              </svg>
+            </div>
+            <span class="card-step-badge" id="card3Step">03 / VIDEO</span>
+          </div>
+
+          <span class="card-tag" id="card3Tag">ACADEMIA EN VIDEO</span>
+          <h3 class="card-title" id="card3Title">Centro de Tutoriales</h3>
+          <p class="card-desc" id="card3Desc">
+            Colección de tutoriales en video guiados en alta resolución para que domines cada panel, gráfica y calculadora de Flowmint en cuestión de minutos.
+          </p>
+
+          <ul class="card-features">
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card3Feat1">Módulos en video paso a paso</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card3Feat2">A tu propio ritmo y en cualquier dispositivo</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="card3Feat3">Casos reales de configuración y uso</span>
+            </li>
+          </ul>
+
+          <a href="/recursos-vip/tutoriales/index.html" id="linkCard3" class="card-btn card-btn-secondary">
+            <span id="btnTextCard3">Ver Video Tutoriales Paso a Paso</span>
+            <span class="btn-arrow" aria-hidden="true">→</span>
+          </a>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- Quick Start Guide -->
+    <section class="steps-section" aria-labelledby="stepsHeading">
+      <div class="steps-header">
+        <h2 class="steps-title" id="stepsHeading">¿Cómo empezar en 3 sencillos pasos?</h2>
+        <p class="steps-desc" id="stepsSubheading">Sigue este flujo recomendado para poner a trabajar Flowmint a tu favor desde hoy mismo.</p>
+      </div>
+
+      <div class="steps-row">
+        <div class="step-item">
+          <div class="step-num">1</div>
+          <h3 class="step-heading" id="step1Title">Revisa el Manual o Video</h3>
+          <p class="step-text" id="step1Desc">Descarga la guía en PDF o reproduce el primer módulo de tutoriales para conocer las funciones esenciales.</p>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">2</div>
+          <h3 class="step-heading" id="step2Title">Abre la Aplicación Web</h3>
+          <p class="step-text" id="step2Desc">Ingresa directamente desde tu navegador a Flowmint Web App para familiarizarte con el entorno.</p>
+        </div>
+
+        <div class="step-item">
+          <div class="step-num">3</div>
+          <h3 class="step-heading" id="step3Title">Registra tus Primeros Datos</h3>
+          <p class="step-text" id="step3Desc">Configura tus categorías de ingresos y gastos para ver tus métricas financieras actualizadas en tiempo real.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer Support Section -->
+    <section class="support-footer-card" aria-labelledby="supportHeading">
+      <div class="support-icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+          <polyline points="22,6 12,13 2,6"></polyline>
+        </svg>
+      </div>
+
+      <h2 class="support-title" id="supportHeading">Soporte Técnico y Atención</h2>
+      <p class="support-text" id="supportText">
+        ¿Tienes alguna duda o necesitas ayuda? Escríbenos a: <strong>hola@centraliaportal.com</strong>
+      </p>
+
+      <div class="support-email-box">
+        <a href="mailto:hola@centraliaportal.com" class="support-email-link" id="emailLink">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          hola@centraliaportal.com
+        </a>
+
+        <button type="button" class="btn-copy" id="btnCopyEmail" onclick="copySupportEmail()" aria-label="Copiar correo electrónico">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span id="copyBtnText">Copiar correo</span>
+        </button>
+      </div>
+
+      <div class="support-note" id="supportNote">
+        Atención técnica oficial vía correo electrónico · Respuesta estimada en menos de 24 a 48 horas laborables.
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom Copyright Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <span class="footer-copy" id="footerCopy">© 2026 Flowmint. Todos los derechos reservados.</span>
+      <span class="footer-brand" id="footerPortal">Centralia Portal — Ecosistema Digital</span>
+    </div>
+  </footer>
+
+  <!-- DYNAMIC TRANSLATION LOGIC (ES | EN) -->
+  <script>
+    // Dictionary with complete bilingual texts
+    const I18N = {
+      es: {
+        pageTitle: "Flowmint — Portal de Bienvenida y Entrega Oficial",
+        tickerBadge: "ACCESO CONFIRMADO",
+        tickerText: "Entrega oficial para compradores de la versión Cliente Final ($19 USD)",
+        brandTag: "PORTAL DE CLIENTE",
+        heroBadgeText: "TU COMPRA ESTÁ LISTA · CLIENTE OFICIAL",
+        heroTitle: "¡Te damos la bienvenida a Flowmint!",
+        heroDesc: "Tu acceso completo a la herramienta de gestión y finanzas personales está confirmado. Aquí tienes tus recursos directos para comenzar a usar Flowmint de inmediato.",
+        noticeText: "<strong>Tip recomendado:</strong> Guarda este enlace en los marcadores de tu navegador para acceder rápidamente a tu app y manuales cuando lo desees.",
+        sectionEyebrowText: "RECURSOS INCLUIDOS",
+        resourcesTitle: "Tus Accesos y Herramientas",
+        badgeCounter: "3 Recursos Disponibles",
+        
+        // Card 1
+        card1Step: "01 / APLICACIÓN",
+        card1Tag: "APLICACIÓN PRINCIPAL",
+        card1Title: "Flowmint Web App",
+        card1Desc: "Acceso instantáneo a la plataforma ejecutable completa de gestión financiera. Funciona directamente en tu navegador web moderno sin requerir descargas pesadas.",
+        card1Feat1: "Ejecución 100% en la nube y local",
+        card1Feat2: "Compatible con PC, Mac, tablets y móviles",
+        card1Feat3: "Privacidad garantizada en tus registros",
+        btnTextCard1: "Abrir Aplicación Flowmint",
+        linkCard1: "/app/flowmint.html",
+
+        // Card 2
+        card2Step: "02 / MANUAL",
+        card2Tag: "DOCUMENTO DIGITAL",
+        card2Title: "Manual / Guía de Usuario (PDF)",
+        card2Desc: "Documentación oficial paso a paso con las mejores prácticas para estructurar tus presupuestos, categorías de gastos y metas financieras de alto impacto.",
+        card2Feat1: "Formato PDF descargable para siempre",
+        card2Feat2: "Explicaciones claras y capturas ilustrativas",
+        card2Feat3: "Tips de control financiero personal",
+        btnTextCard2: "Descargar Guía Operativa (PDF)",
+        linkCard2: "/recursos-vip/downloads/guia-operativa.pdf",
+
+        // Card 3
+        card3Step: "03 / VIDEO",
+        card3Tag: "ACADEMIA EN VIDEO",
+        card3Title: "Centro de Tutoriales",
+        card3Desc: "Colección de tutoriales en video guiados en alta resolución para que domines cada panel, gráfica y calculadora de Flowmint en cuestión de minutos.",
+        card3Feat1: "Módulos en video paso a paso",
+        card3Feat2: "A tu propio ritmo y en cualquier dispositivo",
+        card3Feat3: "Casos reales de configuración y uso",
+        btnTextCard3: "Ver Video Tutoriales Paso a Paso",
+        linkCard3: "/recursos-vip/tutoriales/index.html",
+
+        // Steps
+        stepsHeading: "¿Cómo empezar en 3 sencillos pasos?",
+        stepsSubheading: "Sigue este flujo recomendado para poner a trabajar Flowmint a tu favor desde hoy mismo.",
+        step1Title: "Revisa el Manual o Video",
+        step1Desc: "Descarga la guía en PDF o reproduce el primer módulo de tutoriales para conocer las funciones esenciales.",
+        step2Title: "Abre la Aplicación Web",
+        step2Desc: "Ingresa directamente desde tu navegador a Flowmint Web App para familiarizarte con el entorno.",
+        step3Title: "Registra tus Primeros Datos",
+        step3Desc: "Configura tus categorías de ingresos y gastos para ver tus métricas financieras actualizadas en tiempo real.",
+
+        // Support
+        supportHeading: "Soporte Técnico y Atención",
+        supportText: "¿Tienes alguna duda o necesitas ayuda? Escríbenos a: <strong>hola@centraliaportal.com</strong>",
+        copyBtnText: "Copiar correo",
+        copiedFeedback: "¡Copiado con éxito!",
+        supportNote: "Atención técnica oficial vía correo electrónico · Respuesta estimada en menos de 24 a 48 horas laborables.",
+        footerCopy: "© 2026 Flowmint. Todos los derechos reservados.",
+        footerPortal: "Centralia Portal — Ecosistema Digital"
+      },
+
+      en: {
+        pageTitle: "Flowmint — Official Welcome & Resource Portal",
+        tickerBadge: "ACCESS CONFIRMED",
+        tickerText: "Official delivery portal for Final Client purchasers ($19 USD)",
+        brandTag: "CLIENT PORTAL",
+        heroBadgeText: "YOUR ORDER IS READY · OFFICIAL CLIENT",
+        heroTitle: "Welcome to Flowmint!",
+        heroDesc: "Your complete access to the personal financial management tool is confirmed. Here are your direct resources to start using Flowmint right away.",
+        noticeText: "<strong>Pro Tip:</strong> Bookmark this page in your browser so you can quickly return to your app, manual, and tutorials anytime.",
+        sectionEyebrowText: "INCLUDED RESOURCES",
+        resourcesTitle: "Your Access & Tools",
+        badgeCounter: "3 Available Resources",
+
+        // Card 1
+        card1Step: "01 / APPLICATION",
+        card1Tag: "PRIMARY APP",
+        card1Title: "Flowmint Web App",
+        card1Desc: "Instant access to the complete executable financial dashboard. Runs directly in any modern web browser without heavy installations.",
+        card1Feat1: "100% cloud and local execution",
+        card1Feat2: "Compatible with PC, Mac, tablets & smartphones",
+        card1Feat3: "Guaranteed privacy for your records",
+        btnTextCard1: "Launch Flowmint Web App",
+        linkCard1: "/app/flowmint.html",
+
+        // Card 2
+        card2Step: "02 / MANUAL",
+        card2Tag: "DIGITAL DOCUMENT",
+        card2Title: "User Guide / Manual (PDF)",
+        card2Desc: "Official step-by-step documentation detailing best practices to structure your budgets, categorize expenses, and achieve financial clarity.",
+        card2Feat1: "Permanent downloadable PDF format",
+        card2Feat2: "Clear explanations and illustrated walkthroughs",
+        card2Feat3: "Proven personal finance control tips",
+        btnTextCard2: "Download User Guide (PDF)",
+        linkCard2: "/recursos-vip/downloads/user-guide.pdf",
+
+        // Card 3
+        card3Step: "03 / VIDEO",
+        card3Tag: "VIDEO ACADEMY",
+        card3Title: "Tutorial Center",
+        card3Desc: "High-definition video tutorial library designed to help you master every dashboard panel, chart, and calculator in Flowmint in minutes.",
+        card3Feat1: "Step-by-step guided video modules",
+        card3Feat2: "Learn at your own pace on any device",
+        card3Feat3: "Real-world examples and setups",
+        btnTextCard3: "Watch Step-by-Step Video Tutorials",
+        linkCard3: "/recursos-vip/tutoriales/index-en.html",
+
+        // Steps
+        stepsHeading: "How to get started in 3 easy steps?",
+        stepsSubheading: "Follow this recommended workflow to make Flowmint work for you starting today.",
+        step1Title: "Check the Manual or Videos",
+        step1Desc: "Download the PDF guide or watch module 1 of the video tutorials to discover the core features.",
+        step2Title: "Launch the Web App",
+        step2Desc: "Open Flowmint Web App directly from your browser to explore your personal dashboard.",
+        step3Title: "Log Your First Entries",
+        step3Desc: "Set up your income and expense categories to see your real-time financial metrics in action.",
+
+        // Support
+        supportHeading: "Technical Support & Inquiries",
+        supportText: "Need help or have questions? Email us at: <strong>hola@centraliaportal.com</strong>",
+        copyBtnText: "Copy email",
+        copiedFeedback: "Copied successfully!",
+        supportNote: "Official technical support via email · Typical response time within 24 to 48 business hours.",
+        footerCopy: "© 2026 Flowmint. All rights reserved.",
+        footerPortal: "Centralia Portal — Digital Ecosystem"
+      }
+    };
+
+    // State
+    let currentLang = 'es';
+
+    function initLanguage() {
+      // Check saved preference or browser default
+      const savedLang = localStorage.getItem('flowmint_lang');
+      if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
+        currentLang = savedLang;
+      } else {
+        const browserPref = (navigator.language || navigator.userLanguage || '').toLowerCase();
+        currentLang = browserPref.startsWith('en') ? 'en' : 'es';
+      }
+      applyLanguage(currentLang);
+    }
+
+    function switchLanguage(lang) {
+      if (lang !== 'es' && lang !== 'en') return;
+      currentLang = lang;
+      try {
+        localStorage.setItem('flowmint_lang', lang);
+      } catch (e) {}
+      applyLanguage(lang);
+    }
+
+    function applyLanguage(lang) {
+      const data = I18N[lang];
+      if (!data) return;
+
+      document.documentElement.lang = lang;
+
+      // Update toggles
+      const btnEs = document.getElementById('btnEs');
+      const btnEn = document.getElementById('btnEn');
+      if (btnEs && btnEn) {
+        if (lang === 'es') {
+          btnEs.classList.add('active');
+          btnEn.classList.remove('active');
+        } else {
+          btnEn.classList.add('active');
+          btnEs.classList.remove('active');
+        }
+      }
+
+      // Title & Page Head
+      document.title = data.pageTitle;
+
+      // Update all IDs present in data
+      for (const [key, val] of Object.entries(data)) {
+        const el = document.getElementById(key);
+        if (el) {
+          if (key === 'noticeText' || key === 'supportText') {
+            el.innerHTML = val;
+          } else {
+            el.textContent = val;
+          }
+        }
+      }
+
+      // Update Links and their hrefs
+      const link1 = document.getElementById('linkCard1');
+      if (link1 && data.linkCard1) link1.setAttribute('href', data.linkCard1);
+
+      const link2 = document.getElementById('linkCard2');
+      if (link2 && data.linkCard2) link2.setAttribute('href', data.linkCard2);
+
+      const link3 = document.getElementById('linkCard3');
+      if (link3 && data.linkCard3) link3.setAttribute('href', data.linkCard3);
+    }
+
+    // Email Copy Helper
+    function copySupportEmail() {
+      const email = 'hola@centraliaportal.com';
+      const btnText = document.getElementById('copyBtnText');
+      const originalText = I18N[currentLang].copyBtnText;
+      const feedbackText = I18N[currentLang].copiedFeedback;
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => {
+          showFeedback();
+        }).catch(() => {
+          fallbackCopy();
+        });
+      } else {
+        fallbackCopy();
+      }
+
+      function fallbackCopy() {
+        const temp = document.createElement('textarea');
+        temp.value = email;
+        document.body.appendChild(temp);
+        temp.select();
+        try {
+          document.execCommand('copy');
+          showFeedback();
+        } catch (err) {}
+        document.body.removeChild(temp);
+      }
+
+      function showFeedback() {
+        if (btnText) {
+          btnText.textContent = feedbackText;
+          setTimeout(() => {
+            btnText.textContent = originalText;
+          }, 2400);
+        }
+      }
+    }
+
+    // Initialize on load
+    document.addEventListener('DOMContentLoaded', initLanguage);
+  </script>
+</body>
+</html>
