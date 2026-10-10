@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title id="pageTitle">Flowmint — Portal de Bienvenida y Entrega Oficial</title>
-  <meta name="description" content="Acceso oficial y entrega de recursos para usuarios de Flowmint. Aplicación web, manual operativo y tutoriales paso a paso.">
+  <title id="pageTitle">Flowmint App — Portal de Bienvenida y Entrega Oficial</title>
+  <meta name="description" content="Acceso oficial y entrega de recursos para usuarios de Flowmint App. Aplicación web, manual operativo y tutoriales paso a paso.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,6 +24,7 @@
       --mint-glow: rgba(0, 255, 136, 0.25);
       --gold: #e4b57a;
       --gold-dim: rgba(228, 181, 122, 0.12);
+      --coral: #ff5c5c;
       --text: #f0f7f3;
       --text-sec: #95ada2;
       --text-muted: #5e7a6d;
@@ -295,7 +296,7 @@
     .hero-desc {
       font-size: clamp(15.5px, 2vw, 18px);
       color: var(--text-sec);
-      max-width: 680px;
+      max-width: 720px;
       margin: 0 auto 28px;
       line-height: 1.65;
     }
@@ -575,21 +576,6 @@
       transform: translateX(4px);
     }
 
-    /* Special card badge for card 1 */
-    .pill-status {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-family: var(--font-mono);
-      font-size: 11px;
-      color: #04140e;
-      background: var(--mint);
-      padding: 3px 10px;
-      border-radius: var(--radius-pill);
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
-
     /* ===== QUICK START STEPS SECTION ===== */
     .steps-section {
       background: rgba(16, 34, 28, 0.45);
@@ -616,7 +602,7 @@
     .steps-desc {
       font-size: 14px;
       color: var(--text-sec);
-      max-width: 540px;
+      max-width: 580px;
       margin: 0 auto;
     }
 
@@ -678,7 +664,7 @@
       background: linear-gradient(180deg, rgba(16, 34, 28, 0.8) 0%, rgba(11, 24, 20, 0.95) 100%);
       border: 1px solid var(--surface-border-strong);
       border-radius: var(--radius-lg);
-      padding: 40px 32px;
+      padding: 42px 32px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -691,8 +677,8 @@
       top: -50px;
       left: 50%;
       transform: translateX(-50%);
-      width: 320px;
-      height: 100px;
+      width: 340px;
+      height: 110px;
       background: radial-gradient(ellipse, rgba(0, 255, 136, 0.18), transparent 70%);
       pointer-events: none;
     }
@@ -718,7 +704,7 @@
 
     .support-title {
       font-family: var(--font-display);
-      font-size: clamp(1.4rem, 2.5vw, 1.8rem);
+      font-size: clamp(1.4rem, 2.5vw, 1.85rem);
       font-weight: 700;
       color: #ffffff;
       margin-bottom: 12px;
@@ -732,55 +718,55 @@
       line-height: 1.6;
     }
 
-    .support-email-box {
-      display: inline-flex;
+    .support-actions {
+      display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 12px;
-      background: rgba(7, 16, 13, 0.85);
-      border: 1px solid var(--surface-border-strong);
-      border-radius: var(--radius-pill);
-      padding: 10px 22px;
+      gap: 14px;
       margin-bottom: 22px;
-      transition: all 0.22s ease;
-      max-width: 100%;
-      flex-wrap: wrap;
-      justify-content: center;
     }
 
-    .support-email-box:hover {
-      border-color: var(--mint);
-      box-shadow: 0 0 20px rgba(0, 255, 136, 0.25);
-    }
-
-    .support-email-link {
-      font-family: var(--font-mono);
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--mint);
+    /* Neon Modal Trigger Button */
+    .btn-open-modal {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      justify-content: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #00ff88 0%, #0da672 100%);
+      color: #04140e;
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 28px;
+      border-radius: var(--radius-pill);
+      border: 1px solid #00ff88;
+      cursor: pointer;
+      box-shadow: 0 6px 24px rgba(0, 255, 136, 0.35);
+      transition: all 0.22s ease;
     }
 
-    .btn-copy {
-      background: rgba(0, 255, 136, 0.12);
-      border: 1px solid rgba(0, 255, 136, 0.3);
-      color: var(--mint);
+    .btn-open-modal:hover {
+      box-shadow: 0 8px 32px rgba(0, 255, 136, 0.55);
+      transform: translateY(-2px);
+      filter: brightness(1.06);
+    }
+
+    .btn-open-modal svg {
+      width: 18px;
+      height: 18px;
+    }
+
+    .support-email-info {
       font-family: var(--font-mono);
-      font-size: 11.5px;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: var(--radius-pill);
-      cursor: pointer;
+      font-size: 13px;
+      color: var(--text-sec);
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: all 0.2s ease;
     }
 
-    .btn-copy:hover {
-      background: var(--mint);
-      color: #04140e;
+    .support-email-info strong {
+      color: var(--mint);
     }
 
     .support-note {
@@ -788,6 +774,292 @@
       font-size: 12px;
       color: var(--text-muted);
       letter-spacing: 0.04em;
+    }
+
+    /* ===== MODAL CONTACT FORM ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(4, 10, 8, 0.78);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s ease, visibility 0.25s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-card {
+      background: linear-gradient(180deg, #10221c 0%, #0a1813 100%);
+      border: 1px solid var(--surface-border-strong);
+      border-radius: var(--radius-lg);
+      width: 100%;
+      max-width: 520px;
+      padding: 34px 28px;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.8), var(--shadow-glow);
+      transform: scale(0.95) translateY(12px);
+      transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .modal-overlay.open .modal-card {
+      transform: scale(1) translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 32px;
+      height: 32px;
+      background: rgba(0, 255, 136, 0.08);
+      border: 1px solid var(--surface-border);
+      border-radius: 50%;
+      color: var(--text-sec);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      background: rgba(0, 255, 136, 0.2);
+      color: var(--mint);
+      border-color: var(--mint);
+      transform: rotate(90deg);
+    }
+
+    .modal-head {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .modal-badge-icon {
+      width: 44px;
+      height: 44px;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid var(--surface-border-strong);
+      border-radius: 12px;
+      color: var(--mint);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 12px;
+      box-shadow: 0 0 16px rgba(0, 255, 136, 0.2);
+    }
+
+    .modal-badge-icon svg {
+      width: 22px;
+      height: 22px;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 21px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .modal-subtitle {
+      font-size: 13.5px;
+      color: var(--text-sec);
+      line-height: 1.5;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      text-align: left;
+    }
+
+    .form-group label {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--mint);
+      letter-spacing: 0.04em;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      background: rgba(7, 16, 13, 0.85);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      color: #ffffff;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--mint);
+      box-shadow: 0 0 0 3px rgba(0, 255, 136, 0.18);
+      background: rgba(9, 22, 17, 0.95);
+    }
+
+    .form-group input::placeholder,
+    .form-group textarea::placeholder {
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 95px;
+    }
+
+    /* Validation Banner */
+    .validation-alert {
+      display: none;
+      background: rgba(255, 92, 92, 0.12);
+      border: 1px solid rgba(255, 92, 92, 0.35);
+      color: #ff9494;
+      font-size: 12.5px;
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 16px;
+      line-height: 1.4;
+      text-align: left;
+    }
+
+    .validation-alert.show {
+      display: block;
+      animation: shake 0.3s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-4px); }
+      75% { transform: translateX(4px); }
+    }
+
+    /* Submit Button */
+    .btn-submit-modal {
+      width: 100%;
+      background: linear-gradient(135deg, #00ff88 0%, #0da672 100%);
+      color: #04140e;
+      border: 1px solid #00ff88;
+      border-radius: var(--radius-md);
+      font-family: var(--font-display);
+      font-size: 14.5px;
+      font-weight: 700;
+      padding: 14px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.22s ease;
+      box-shadow: 0 4px 18px rgba(0, 255, 136, 0.3);
+      margin-top: 8px;
+    }
+
+    .btn-submit-modal:hover:not(:disabled) {
+      filter: brightness(1.08);
+      box-shadow: 0 6px 24px rgba(0, 255, 136, 0.5);
+      transform: translateY(-1px);
+    }
+
+    .btn-submit-modal:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+    }
+
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(4, 20, 14, 0.3);
+      border-top-color: #04140e;
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      display: inline-block;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Confirmation Thank You Screen */
+    .thankyou-box {
+      text-align: center;
+      padding: 10px 6px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .thankyou-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      background: rgba(0, 255, 136, 0.15);
+      border: 1px solid var(--surface-border-strong);
+      color: var(--mint);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      box-shadow: 0 0 25px rgba(0, 255, 136, 0.3);
+      animation: pulseDot 2s infinite ease-in-out;
+    }
+
+    .thankyou-icon svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .thankyou-title {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 12px;
+    }
+
+    .thankyou-desc {
+      font-size: 14px;
+      color: var(--text-sec);
+      line-height: 1.6;
+      max-width: 420px;
+      margin-bottom: 26px;
+    }
+
+    .btn-thankyou-close {
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid var(--surface-border-strong);
+      color: var(--mint);
+      font-family: var(--font-display);
+      font-size: 14px;
+      font-weight: 600;
+      padding: 11px 26px;
+      border-radius: var(--radius-pill);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-thankyou-close:hover {
+      background: var(--mint);
+      color: #04140e;
+      box-shadow: 0 0 20px rgba(0, 255, 136, 0.4);
     }
 
     /* ===== FOOTER BOTTOM ===== */
@@ -822,6 +1094,9 @@
       .main-wrap {
         padding: 32px 16px 60px;
       }
+      .modal-card {
+        padding: 26px 18px;
+      }
     }
 
     .footer-copy {
@@ -843,7 +1118,7 @@
       <span class="ticker-dot"></span>
       <span id="tickerBadge">ACCESO CONFIRMADO</span>
     </span>
-    <span id="tickerText">Entrega oficial para compradores de la versión Cliente Final ($19 USD)</span>
+    <span id="tickerText">Entrega oficial para compradores de la versión Cliente Final de Flowmint App ($19 USD)</span>
   </aside>
 
   <!-- Sticky Header & Language Switcher -->
@@ -855,8 +1130,8 @@
         </svg>
       </div>
       <div class="brand-info">
-        <span class="brand-title">Flowmint</span>
-        <span class="brand-tag" id="brandTag">PORTAL DE CLIENTE</span>
+        <span class="brand-title">Flowmint App</span>
+        <span class="brand-tag" id="brandTag">PORTAL DE CLIENTE · FLOWMINT APP</span>
       </div>
     </div>
 
@@ -878,11 +1153,11 @@
     <section class="hero">
       <div class="hero-badge">
         <span class="pulse-ring" aria-hidden="true"></span>
-        <span id="heroBadgeText">TU COMPRA ESTÁ LISTA · CLIENTE OFICIAL</span>
+        <span id="heroBadgeText">TU COMPRA ESTÁ LISTA · CLIENTE OFICIAL DE FLOWMINT APP</span>
       </div>
-      <h1 class="hero-title" id="heroTitle">¡Te damos la bienvenida a Flowmint!</h1>
+      <h1 class="hero-title" id="heroTitle">¡Te damos la bienvenida a Flowmint App!</h1>
       <p class="hero-desc" id="heroDesc">
-        Tu acceso completo a la herramienta de gestión y finanzas personales está confirmado. Aquí tienes tus recursos directos para comenzar a usar Flowmint de inmediato.
+        Tu acceso completo a Flowmint App para la gestión y finanzas personales está confirmado. Aquí tienes tus recursos directos para comenzar a usar Flowmint App de inmediato.
       </p>
 
       <div class="notice-card">
@@ -894,7 +1169,7 @@
           </svg>
         </span>
         <span id="noticeText">
-          <strong>Tip recomendado:</strong> Guarda este enlace en los marcadores de tu navegador para acceder rápidamente a tu app y manuales cuando lo desees.
+          <strong>Tip recomendado:</strong> Guarda este enlace en los marcadores de tu navegador para acceder rápidamente a tu Flowmint App y manuales cuando lo desees.
         </span>
       </div>
     </section>
@@ -931,9 +1206,9 @@
           </div>
 
           <span class="card-tag" id="card1Tag">APLICACIÓN PRINCIPAL</span>
-          <h3 class="card-title" id="card1Title">Flowmint Web App</h3>
+          <h3 class="card-title" id="card1Title">Flowmint App Web</h3>
           <p class="card-desc" id="card1Desc">
-            Acceso instantáneo a la plataforma ejecutable completa de gestión financiera. Funciona directamente en tu navegador web moderno sin requerir descargas pesadas.
+            Acceso instantáneo a Flowmint App en su versión ejecutable completa de gestión financiera. Funciona directamente en tu navegador web moderno sin requerir descargas pesadas.
           </p>
 
           <ul class="card-features">
@@ -952,7 +1227,7 @@
           </ul>
 
           <a href="/app/flowmint.html" id="linkCard1" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-primary">
-            <span id="btnTextCard1">Abrir Aplicación Flowmint</span>
+            <span id="btnTextCard1">Abrir Flowmint App</span>
             <span class="btn-arrow" aria-hidden="true">→</span>
           </a>
         </article>
@@ -973,9 +1248,9 @@
           </div>
 
           <span class="card-tag" id="card2Tag">DOCUMENTO DIGITAL</span>
-          <h3 class="card-title" id="card2Title">Manual / Guía de Usuario (PDF)</h3>
+          <h3 class="card-title" id="card2Title">Manual / Guía de Usuario (PDF) — Flowmint App</h3>
           <p class="card-desc" id="card2Desc">
-            Documentación oficial paso a paso con las mejores prácticas para estructurar tus presupuestos, categorías de gastos y metas financieras de alto impacto.
+            Documentación oficial paso a paso con las mejores prácticas para estructurar tus presupuestos, categorías de gastos y metas financieras en Flowmint App.
           </p>
 
           <ul class="card-features">
@@ -994,12 +1269,12 @@
           </ul>
 
           <a href="/recursos-vip/downloads/guia-operativa.pdf" id="linkCard2" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary">
-            <span id="btnTextCard2">Descargar Guía Operativa (PDF)</span>
+            <span id="btnTextCard2">Descargar Guía de Flowmint App (PDF)</span>
             <span class="btn-arrow" aria-hidden="true">↓</span>
           </a>
         </article>
 
-        <!-- TARJETA 3: Centro de Tutoriales -->
+        <!-- TARJETA 3: Centro de Tutoriales (Abre en nueva pestaña target="_blank") -->
         <article class="card" id="cardTutorials">
           <div class="card-top">
             <div class="card-icon" aria-hidden="true">
@@ -1012,9 +1287,9 @@
           </div>
 
           <span class="card-tag" id="card3Tag">ACADEMIA EN VIDEO</span>
-          <h3 class="card-title" id="card3Title">Centro de Tutoriales</h3>
+          <h3 class="card-title" id="card3Title">Centro de Tutoriales — Flowmint App</h3>
           <p class="card-desc" id="card3Desc">
-            Colección de tutoriales en video guiados en alta resolución para que domines cada panel, gráfica y calculadora de Flowmint en cuestión de minutos.
+            Colección de tutoriales en video guiados en alta resolución para que domines cada panel, gráfica y calculadora de Flowmint App en cuestión de minutos.
           </p>
 
           <ul class="card-features">
@@ -1032,8 +1307,8 @@
             </li>
           </ul>
 
-          <a href="/recursos-vip/tutoriales/index.html" id="linkCard3" class="card-btn card-btn-secondary">
-            <span id="btnTextCard3">Ver Video Tutoriales Paso a Paso</span>
+          <a href="/recursos-vip/tutoriales/index.html" id="linkCard3" target="_blank" rel="noopener noreferrer" class="card-btn card-btn-secondary">
+            <span id="btnTextCard3">Ver Video Tutoriales de Flowmint App</span>
             <span class="btn-arrow" aria-hidden="true">→</span>
           </a>
         </article>
@@ -1045,31 +1320,31 @@
     <section class="steps-section" aria-labelledby="stepsHeading">
       <div class="steps-header">
         <h2 class="steps-title" id="stepsHeading">¿Cómo empezar en 3 sencillos pasos?</h2>
-        <p class="steps-desc" id="stepsSubheading">Sigue este flujo recomendado para poner a trabajar Flowmint a tu favor desde hoy mismo.</p>
+        <p class="steps-desc" id="stepsSubheading">Sigue este flujo recomendado para poner a trabajar Flowmint App a tu favor desde hoy mismo.</p>
       </div>
 
       <div class="steps-row">
         <div class="step-item">
           <div class="step-num">1</div>
           <h3 class="step-heading" id="step1Title">Revisa el Manual o Video</h3>
-          <p class="step-text" id="step1Desc">Descarga la guía en PDF o reproduce el primer módulo de tutoriales para conocer las funciones esenciales.</p>
+          <p class="step-text" id="step1Desc">Descarga la guía en PDF o reproduce el primer módulo de tutoriales para conocer las funciones esenciales de Flowmint App.</p>
         </div>
 
         <div class="step-item">
           <div class="step-num">2</div>
-          <h3 class="step-heading" id="step2Title">Abre la Aplicación Web</h3>
-          <p class="step-text" id="step2Desc">Ingresa directamente desde tu navegador a Flowmint Web App para familiarizarte con el entorno.</p>
+          <h3 class="step-heading" id="step2Title">Abre Flowmint App Web</h3>
+          <p class="step-text" id="step2Desc">Ingresa directamente desde tu navegador a Flowmint App Web para familiarizarte con el entorno.</p>
         </div>
 
         <div class="step-item">
           <div class="step-num">3</div>
           <h3 class="step-heading" id="step3Title">Registra tus Primeros Datos</h3>
-          <p class="step-text" id="step3Desc">Configura tus categorías de ingresos y gastos para ver tus métricas financieras actualizadas en tiempo real.</p>
+          <p class="step-text" id="step3Desc">Configura tus categorías de ingresos y gastos para ver tus métricas financieras en tiempo real.</p>
         </div>
       </div>
     </section>
 
-    <!-- Footer Support Section -->
+    <!-- Footer Support Section (Modal Trigger en lugar de mailto) -->
     <section class="support-footer-card" aria-labelledby="supportHeading">
       <div class="support-icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1078,57 +1353,116 @@
         </svg>
       </div>
 
-      <h2 class="support-title" id="supportHeading">Soporte Técnico y Atención</h2>
+      <h2 class="support-title" id="supportHeading">Soporte Técnico de Flowmint App</h2>
       <p class="support-text" id="supportText">
-        ¿Tienes alguna duda o necesitas ayuda? Escríbenos a: <strong>hola@centraliaportal.com</strong>
+        ¿Tienes alguna duda o necesitas ayuda? Haz clic a continuación para escribir a nuestro equipo de atención:
       </p>
 
-      <div class="support-email-box">
-        <a href="mailto:hola@centraliaportal.com" class="support-email-link" id="emailLink">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-            <polyline points="22,6 12,13 2,6"></polyline>
+      <div class="support-actions">
+        <button type="button" class="btn-open-modal" id="btnOpenSupportModal" onclick="openContactModal()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
           </svg>
-          hola@centraliaportal.com
-        </a>
-
-        <button type="button" class="btn-copy" id="btnCopyEmail" onclick="copySupportEmail()" aria-label="Copiar correo electrónico">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
-            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
-          </svg>
-          <span id="copyBtnText">Copiar correo</span>
+          <span id="btnSupportModalText">Enviar Mensaje a Soporte</span>
+          <span class="btn-arrow" aria-hidden="true">→</span>
         </button>
+
+        <div class="support-email-info" id="supportEmailInfo">
+          <span>Canal de atención directa:</span> <strong>hola@centraliaportal.com</strong>
+        </div>
       </div>
 
       <div class="support-note" id="supportNote">
-        Atención técnica oficial vía correo electrónico · Respuesta estimada en menos de 24 a 48 horas laborables.
+        Atención técnica oficial vía formulario y correo electrónico · Respuesta estimada en menos de 24 a 48 horas laborables.
       </div>
     </section>
 
   </main>
 
+  <!-- MODAL INTERACTIVO DE CONTACTO -->
+  <div id="contactModal" class="modal-overlay" onclick="handleModalOverlayClick(event)" aria-hidden="true" role="dialog" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button type="button" class="modal-close-btn" onclick="closeContactModal()" aria-label="Cerrar modal">&times;</button>
+      
+      <!-- Panel de Formulario -->
+      <div id="contactFormPanel">
+        <div class="modal-head">
+          <div class="modal-badge-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+            </svg>
+          </div>
+          <h3 class="modal-title" id="modalTitle">Contactar a Soporte Flowmint App</h3>
+          <p class="modal-subtitle" id="modalSubtitle">
+            Completa tus datos y nos pondremos en contacto contigo a la brevedad posible.
+          </p>
+        </div>
+
+        <form id="supportForm" onsubmit="handleSupportSubmit(event)" novalidate>
+          <div id="contactValidationAlert" class="validation-alert" role="alert"></div>
+
+          <div class="form-group">
+            <label for="contactName" id="lblContactName">Nombre Completo</label>
+            <input type="text" id="contactName" name="nombre" required placeholder="Tu nombre..." autocomplete="name">
+          </div>
+
+          <div class="form-group">
+            <label for="contactEmail" id="lblContactEmail">Correo Electrónico</label>
+            <input type="email" id="contactEmail" name="email" required placeholder="tu-correo@ejemplo.com" autocomplete="email">
+          </div>
+
+          <div class="form-group">
+            <label for="contactMessage" id="lblContactMessage">Mensaje o Consulta</label>
+            <textarea id="contactMessage" name="mensaje" rows="4" required placeholder="Describe tu duda o en qué te podemos ayudar..."></textarea>
+          </div>
+
+          <button type="submit" id="btnSubmitModal" class="btn-submit-modal">
+            <span id="btnSubmitModalText">Enviar Mensaje</span>
+            <span id="submitSpinner" class="spinner" style="display:none;" aria-hidden="true"></span>
+          </button>
+        </form>
+      </div>
+
+      <!-- Panel de Confirmación / Envío Exitoso -->
+      <div id="contactThankyouBox" class="thankyou-box" style="display:none;">
+        <div class="thankyou-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+          </svg>
+        </div>
+        <h3 class="thankyou-title" id="thankyouTitle">¡Mensaje Enviado con Éxito!</h3>
+        <p class="thankyou-desc" id="thankyouDesc">
+          Hemos recibido tu consulta sobre Flowmint App. Nuestro equipo te responderá directamente a tu correo en menos de 24 a 48 horas laborables.
+        </p>
+        <button type="button" class="btn-thankyou-close" onclick="closeContactModal()" id="btnThankyouClose">
+          Entendido, cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Bottom Copyright Footer -->
   <footer class="site-footer">
     <div class="footer-inner">
-      <span class="footer-copy" id="footerCopy">© 2026 Flowmint. Todos los derechos reservados.</span>
+      <span class="footer-copy" id="footerCopy">© 2026 Flowmint App. Todos los derechos reservados.</span>
       <span class="footer-brand" id="footerPortal">Centralia Portal — Ecosistema Digital</span>
     </div>
   </footer>
 
-  <!-- DYNAMIC TRANSLATION LOGIC (ES | EN) -->
+  <!-- DYNAMIC TRANSLATION LOGIC (ES | EN) & FORM LOGIC -->
   <script>
-    // Dictionary with complete bilingual texts
+    // Dictionary with complete bilingual texts (con branding "Flowmint App")
     const I18N = {
       es: {
-        pageTitle: "Flowmint — Portal de Bienvenida y Entrega Oficial",
+        pageTitle: "Flowmint App — Portal de Bienvenida y Entrega Oficial",
         tickerBadge: "ACCESO CONFIRMADO",
-        tickerText: "Entrega oficial para compradores de la versión Cliente Final ($19 USD)",
-        brandTag: "PORTAL DE CLIENTE",
-        heroBadgeText: "TU COMPRA ESTÁ LISTA · CLIENTE OFICIAL",
-        heroTitle: "¡Te damos la bienvenida a Flowmint!",
-        heroDesc: "Tu acceso completo a la herramienta de gestión y finanzas personales está confirmado. Aquí tienes tus recursos directos para comenzar a usar Flowmint de inmediato.",
-        noticeText: "<strong>Tip recomendado:</strong> Guarda este enlace en los marcadores de tu navegador para acceder rápidamente a tu app y manuales cuando lo desees.",
+        tickerText: "Entrega oficial para compradores de la versión Cliente Final de Flowmint App ($19 USD)",
+        brandTag: "PORTAL DE CLIENTE · FLOWMINT APP",
+        heroBadgeText: "TU COMPRA ESTÁ LISTA · CLIENTE OFICIAL DE FLOWMINT APP",
+        heroTitle: "¡Te damos la bienvenida a Flowmint App!",
+        heroDesc: "Tu acceso completo a Flowmint App para la gestión y finanzas personales está confirmado. Aquí tienes tus recursos directos para comenzar a usar Flowmint App de inmediato.",
+        noticeText: "<strong>Tip recomendado:</strong> Guarda este enlace en los marcadores de tu navegador para acceder rápidamente a tu Flowmint App y manuales cuando lo desees.",
         sectionEyebrowText: "RECURSOS INCLUIDOS",
         resourcesTitle: "Tus Accesos y Herramientas",
         badgeCounter: "3 Recursos Disponibles",
@@ -1136,65 +1470,85 @@
         // Card 1
         card1Step: "01 / APLICACIÓN",
         card1Tag: "APLICACIÓN PRINCIPAL",
-        card1Title: "Flowmint Web App",
-        card1Desc: "Acceso instantáneo a la plataforma ejecutable completa de gestión financiera. Funciona directamente en tu navegador web moderno sin requerir descargas pesadas.",
+        card1Title: "Flowmint App Web",
+        card1Desc: "Acceso instantáneo a Flowmint App en su versión ejecutable completa de gestión financiera. Funciona directamente en tu navegador web moderno sin requerir descargas pesadas.",
         card1Feat1: "Ejecución 100% en la nube y local",
         card1Feat2: "Compatible con PC, Mac, tablets y móviles",
         card1Feat3: "Privacidad garantizada en tus registros",
-        btnTextCard1: "Abrir Aplicación Flowmint",
+        btnTextCard1: "Abrir Flowmint App",
         linkCard1: "/app/flowmint.html",
 
         // Card 2
         card2Step: "02 / MANUAL",
         card2Tag: "DOCUMENTO DIGITAL",
-        card2Title: "Manual / Guía de Usuario (PDF)",
-        card2Desc: "Documentación oficial paso a paso con las mejores prácticas para estructurar tus presupuestos, categorías de gastos y metas financieras de alto impacto.",
+        card2Title: "Manual / Guía de Usuario (PDF) — Flowmint App",
+        card2Desc: "Documentación oficial paso a paso con las mejores prácticas para estructurar tus presupuestos, categorías de gastos y metas financieras en Flowmint App.",
         card2Feat1: "Formato PDF descargable para siempre",
         card2Feat2: "Explicaciones claras y capturas ilustrativas",
         card2Feat3: "Tips de control financiero personal",
-        btnTextCard2: "Descargar Guía Operativa (PDF)",
+        btnTextCard2: "Descargar Guía de Flowmint App (PDF)",
         linkCard2: "/recursos-vip/downloads/guia-operativa.pdf",
 
         // Card 3
         card3Step: "03 / VIDEO",
         card3Tag: "ACADEMIA EN VIDEO",
-        card3Title: "Centro de Tutoriales",
-        card3Desc: "Colección de tutoriales en video guiados en alta resolución para que domines cada panel, gráfica y calculadora de Flowmint en cuestión de minutos.",
+        card3Title: "Centro de Tutoriales — Flowmint App",
+        card3Desc: "Colección de tutoriales en video guiados en alta resolución para que domines cada panel, gráfica y calculadora de Flowmint App en cuestión de minutos.",
         card3Feat1: "Módulos en video paso a paso",
         card3Feat2: "A tu propio ritmo y en cualquier dispositivo",
         card3Feat3: "Casos reales de configuración y uso",
-        btnTextCard3: "Ver Video Tutoriales Paso a Paso",
+        btnTextCard3: "Ver Video Tutoriales de Flowmint App",
         linkCard3: "/recursos-vip/tutoriales/index.html",
 
         // Steps
         stepsHeading: "¿Cómo empezar en 3 sencillos pasos?",
-        stepsSubheading: "Sigue este flujo recomendado para poner a trabajar Flowmint a tu favor desde hoy mismo.",
+        stepsSubheading: "Sigue este flujo recomendado para poner a trabajar Flowmint App a tu favor desde hoy mismo.",
         step1Title: "Revisa el Manual o Video",
-        step1Desc: "Descarga la guía en PDF o reproduce el primer módulo de tutoriales para conocer las funciones esenciales.",
-        step2Title: "Abre la Aplicación Web",
-        step2Desc: "Ingresa directamente desde tu navegador a Flowmint Web App para familiarizarte con el entorno.",
+        step1Desc: "Descarga la guía en PDF o reproduce el primer módulo de tutoriales para conocer las funciones esenciales de Flowmint App.",
+        step2Title: "Abre Flowmint App Web",
+        step2Desc: "Ingresa directamente desde tu navegador a Flowmint App Web para familiarizarte con el entorno.",
         step3Title: "Registra tus Primeros Datos",
-        step3Desc: "Configura tus categorías de ingresos y gastos para ver tus métricas financieras actualizadas en tiempo real.",
+        step3Desc: "Configura tus categorías de ingresos y gastos para ver tus métricas financieras en tiempo real.",
 
         // Support
-        supportHeading: "Soporte Técnico y Atención",
-        supportText: "¿Tienes alguna duda o necesitas ayuda? Escríbenos a: <strong>hola@centraliaportal.com</strong>",
-        copyBtnText: "Copiar correo",
-        copiedFeedback: "¡Copiado con éxito!",
-        supportNote: "Atención técnica oficial vía correo electrónico · Respuesta estimada en menos de 24 a 48 horas laborables.",
-        footerCopy: "© 2026 Flowmint. Todos los derechos reservados.",
-        footerPortal: "Centralia Portal — Ecosistema Digital"
+        supportHeading: "Soporte Técnico de Flowmint App",
+        supportText: "¿Tienes alguna duda o necesitas ayuda? Haz clic a continuación para escribir a nuestro equipo de atención:",
+        btnSupportModalText: "Enviar Mensaje a Soporte",
+        supportEmailInfoText: "<span>Canal de atención directa:</span> <strong>hola@centraliaportal.com</strong>",
+        supportNote: "Atención técnica oficial vía formulario y correo electrónico · Respuesta estimada en menos de 24 a 48 horas laborables.",
+        footerCopy: "© 2026 Flowmint App. Todos los derechos reservados.",
+        footerPortal: "Centralia Portal — Ecosistema Digital",
+
+        // Modal Texts
+        modalTitle: "Contactar a Soporte Flowmint App",
+        modalSubtitle: "Completa tus datos y nos pondremos en contacto contigo a la brevedad posible.",
+        lblContactName: "Nombre Completo",
+        phContactName: "Tu nombre...",
+        lblContactEmail: "Correo Electrónico",
+        phContactEmail: "tu-correo@ejemplo.com",
+        lblContactMessage: "Mensaje o Consulta",
+        phContactMessage: "Describe tu duda o en qué te podemos ayudar...",
+        btnSubmitModalText: "Enviar Mensaje",
+        btnSubmittingText: "Enviando mensaje...",
+        thankyouTitle: "¡Mensaje Enviado con Éxito!",
+        thankyouDesc: "Hemos recibido tu consulta sobre Flowmint App. Nuestro equipo te responderá directamente a tu correo en menos de 24 a 48 horas laborables.",
+        btnThankyouClose: "Entendido, cerrar",
+
+        // Validation Errors
+        valEmptyName: "⚠️ Por favor, ingresa tu nombre completo.",
+        valInvalidEmail: "⚠️ Por favor, ingresa un correo electrónico válido.",
+        valEmptyMessage: "⚠️ Por favor, escribe tu mensaje o consulta antes de enviar."
       },
 
       en: {
-        pageTitle: "Flowmint — Official Welcome & Resource Portal",
+        pageTitle: "Flowmint App — Official Welcome & Resource Portal",
         tickerBadge: "ACCESS CONFIRMED",
-        tickerText: "Official delivery portal for Final Client purchasers ($19 USD)",
-        brandTag: "CLIENT PORTAL",
-        heroBadgeText: "YOUR ORDER IS READY · OFFICIAL CLIENT",
-        heroTitle: "Welcome to Flowmint!",
-        heroDesc: "Your complete access to the personal financial management tool is confirmed. Here are your direct resources to start using Flowmint right away.",
-        noticeText: "<strong>Pro Tip:</strong> Bookmark this page in your browser so you can quickly return to your app, manual, and tutorials anytime.",
+        tickerText: "Official delivery portal for Flowmint App Final Client purchasers ($19 USD)",
+        brandTag: "CLIENT PORTAL · FLOWMINT APP",
+        heroBadgeText: "YOUR ORDER IS READY · OFFICIAL FLOWMINT APP CLIENT",
+        heroTitle: "Welcome to Flowmint App!",
+        heroDesc: "Your complete access to Flowmint App for personal financial management is confirmed. Here are your direct resources to start using Flowmint App right away.",
+        noticeText: "<strong>Pro Tip:</strong> Bookmark this page in your browser so you can quickly return to your Flowmint App, manual, and tutorials anytime.",
         sectionEyebrowText: "INCLUDED RESOURCES",
         resourcesTitle: "Your Access & Tools",
         badgeCounter: "3 Available Resources",
@@ -1202,54 +1556,74 @@
         // Card 1
         card1Step: "01 / APPLICATION",
         card1Tag: "PRIMARY APP",
-        card1Title: "Flowmint Web App",
-        card1Desc: "Instant access to the complete executable financial dashboard. Runs directly in any modern web browser without heavy installations.",
+        card1Title: "Flowmint App Web",
+        card1Desc: "Instant access to the complete executable Flowmint App financial dashboard. Runs directly in any modern web browser without heavy installations.",
         card1Feat1: "100% cloud and local execution",
         card1Feat2: "Compatible with PC, Mac, tablets & smartphones",
         card1Feat3: "Guaranteed privacy for your records",
-        btnTextCard1: "Launch Flowmint Web App",
+        btnTextCard1: "Launch Flowmint App",
         linkCard1: "/app/flowmint.html",
 
         // Card 2
         card2Step: "02 / MANUAL",
         card2Tag: "DIGITAL DOCUMENT",
-        card2Title: "User Guide / Manual (PDF)",
-        card2Desc: "Official step-by-step documentation detailing best practices to structure your budgets, categorize expenses, and achieve financial clarity.",
+        card2Title: "User Guide / Manual (PDF) — Flowmint App",
+        card2Desc: "Official step-by-step documentation detailing best practices to structure your budgets, categorize expenses, and achieve financial clarity in Flowmint App.",
         card2Feat1: "Permanent downloadable PDF format",
         card2Feat2: "Clear explanations and illustrated walkthroughs",
         card2Feat3: "Proven personal finance control tips",
-        btnTextCard2: "Download User Guide (PDF)",
+        btnTextCard2: "Download Flowmint App Guide (PDF)",
         linkCard2: "/recursos-vip/downloads/user-guide.pdf",
 
         // Card 3
         card3Step: "03 / VIDEO",
         card3Tag: "VIDEO ACADEMY",
-        card3Title: "Tutorial Center",
-        card3Desc: "High-definition video tutorial library designed to help you master every dashboard panel, chart, and calculator in Flowmint in minutes.",
+        card3Title: "Tutorial Center — Flowmint App",
+        card3Desc: "High-definition video tutorial library designed to help you master every dashboard panel, chart, and calculator in Flowmint App in minutes.",
         card3Feat1: "Step-by-step guided video modules",
         card3Feat2: "Learn at your own pace on any device",
         card3Feat3: "Real-world examples and setups",
-        btnTextCard3: "Watch Step-by-Step Video Tutorials",
+        btnTextCard3: "Watch Flowmint App Video Tutorials",
         linkCard3: "/recursos-vip/tutoriales/index-en.html",
 
         // Steps
         stepsHeading: "How to get started in 3 easy steps?",
-        stepsSubheading: "Follow this recommended workflow to make Flowmint work for you starting today.",
+        stepsSubheading: "Follow this recommended workflow to make Flowmint App work for you starting today.",
         step1Title: "Check the Manual or Videos",
-        step1Desc: "Download the PDF guide or watch module 1 of the video tutorials to discover the core features.",
-        step2Title: "Launch the Web App",
-        step2Desc: "Open Flowmint Web App directly from your browser to explore your personal dashboard.",
+        step1Desc: "Download the PDF guide or watch module 1 of the video tutorials to discover the core features of Flowmint App.",
+        step2Title: "Launch Flowmint App Web",
+        step2Desc: "Open Flowmint App Web directly from your browser to explore your personal dashboard.",
         step3Title: "Log Your First Entries",
         step3Desc: "Set up your income and expense categories to see your real-time financial metrics in action.",
 
         // Support
-        supportHeading: "Technical Support & Inquiries",
-        supportText: "Need help or have questions? Email us at: <strong>hola@centraliaportal.com</strong>",
-        copyBtnText: "Copy email",
-        copiedFeedback: "Copied successfully!",
-        supportNote: "Official technical support via email · Typical response time within 24 to 48 business hours.",
-        footerCopy: "© 2026 Flowmint. All rights reserved.",
-        footerPortal: "Centralia Portal — Digital Ecosystem"
+        supportHeading: "Flowmint App Technical Support",
+        supportText: "Need help or have questions? Click below to reach out to our dedicated support team:",
+        btnSupportModalText: "Send Message to Support",
+        supportEmailInfoText: "<span>Direct inquiry channel:</span> <strong>hola@centraliaportal.com</strong>",
+        supportNote: "Official technical support via contact form & email · Typical response time within 24 to 48 business hours.",
+        footerCopy: "© 2026 Flowmint App. All rights reserved.",
+        footerPortal: "Centralia Portal — Digital Ecosystem",
+
+        // Modal Texts
+        modalTitle: "Contact Flowmint App Support",
+        modalSubtitle: "Provide your details and we will get back to you as soon as possible.",
+        lblContactName: "Full Name",
+        phContactName: "Your name...",
+        lblContactEmail: "Email Address",
+        phContactEmail: "your-email@example.com",
+        lblContactMessage: "Message or Inquiry",
+        phContactMessage: "Describe your question or how we can assist you...",
+        btnSubmitModalText: "Send Message",
+        btnSubmittingText: "Sending message...",
+        thankyouTitle: "Message Sent Successfully!",
+        thankyouDesc: "We have received your inquiry regarding Flowmint App. Our support team will reply directly to your email within 24 to 48 business hours.",
+        btnThankyouClose: "Got it, close",
+
+        // Validation Errors
+        valEmptyName: "⚠️ Please enter your full name.",
+        valInvalidEmail: "⚠️ Please enter a valid email address.",
+        valEmptyMessage: "⚠️ Please write your message or inquiry before submitting."
       }
     };
 
@@ -1257,7 +1631,6 @@
     let currentLang = 'es';
 
     function initLanguage() {
-      // Check saved preference or browser default
       const savedLang = localStorage.getItem('flowmint_lang');
       if (savedLang && (savedLang === 'es' || savedLang === 'en')) {
         currentLang = savedLang;
@@ -1303,7 +1676,7 @@
       for (const [key, val] of Object.entries(data)) {
         const el = document.getElementById(key);
         if (el) {
-          if (key === 'noticeText' || key === 'supportText') {
+          if (key === 'noticeText' || key === 'supportEmailInfoText') {
             el.innerHTML = val;
           } else {
             el.textContent = val;
@@ -1311,7 +1684,17 @@
         }
       }
 
-      // Update Links and their hrefs
+      // Placeholders in Modal
+      const inpName = document.getElementById('contactName');
+      if (inpName && data.phContactName) inpName.placeholder = data.phContactName;
+
+      const inpEmail = document.getElementById('contactEmail');
+      if (inpEmail && data.phContactEmail) inpEmail.placeholder = data.phContactEmail;
+
+      const inpMsg = document.getElementById('contactMessage');
+      if (inpMsg && data.phContactMessage) inpMsg.placeholder = data.phContactMessage;
+
+      // Update Links and their hrefs (Target 3 always opens in _blank)
       const link1 = document.getElementById('linkCard1');
       if (link1 && data.linkCard1) link1.setAttribute('href', data.linkCard1);
 
@@ -1319,45 +1702,154 @@
       if (link2 && data.linkCard2) link2.setAttribute('href', data.linkCard2);
 
       const link3 = document.getElementById('linkCard3');
-      if (link3 && data.linkCard3) link3.setAttribute('href', data.linkCard3);
+      if (link3 && data.linkCard3) {
+        link3.setAttribute('href', data.linkCard3);
+        link3.setAttribute('target', '_blank');
+        link3.setAttribute('rel', 'noopener noreferrer');
+      }
     }
 
-    // Email Copy Helper
-    function copySupportEmail() {
-      const email = 'hola@centraliaportal.com';
-      const btnText = document.getElementById('copyBtnText');
-      const originalText = I18N[currentLang].copyBtnText;
-      const feedbackText = I18N[currentLang].copiedFeedback;
-
-      if (navigator.clipboard && navigator.clipboard.writeText) {
-        navigator.clipboard.writeText(email).then(() => {
-          showFeedback();
-        }).catch(() => {
-          fallbackCopy();
-        });
-      } else {
-        fallbackCopy();
+    /* ===== MODAL LOGIC ===== */
+    function openContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (!modal) return;
+      
+      // Reset views
+      document.getElementById('contactFormPanel').style.display = 'block';
+      document.getElementById('contactThankyouBox').style.display = 'none';
+      const valAlert = document.getElementById('contactValidationAlert');
+      if (valAlert) {
+        valAlert.classList.remove('show');
+        valAlert.textContent = '';
       }
 
-      function fallbackCopy() {
-        const temp = document.createElement('textarea');
-        temp.value = email;
-        document.body.appendChild(temp);
-        temp.select();
-        try {
-          document.execCommand('copy');
-          showFeedback();
-        } catch (err) {}
-        document.body.removeChild(temp);
-      }
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.style.overflow = 'hidden';
 
-      function showFeedback() {
-        if (btnText) {
-          btnText.textContent = feedbackText;
-          setTimeout(() => {
-            btnText.textContent = originalText;
-          }, 2400);
+      setTimeout(() => {
+        const firstInp = document.getElementById('contactName');
+        if (firstInp) firstInp.focus();
+      }, 100);
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById('contactModal');
+      if (!modal) return;
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
+
+    function handleModalOverlayClick(e) {
+      if (e.target.id === 'contactModal') {
+        closeContactModal();
+      }
+    }
+
+    // Keyboard support: Close modal on ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        const modal = document.getElementById('contactModal');
+        if (modal && modal.classList.contains('open')) {
+          closeContactModal();
         }
+      }
+    });
+
+    /* ===== FORM SUBMIT (ASYNC VIA WEBHOOK / LOCAL BACKUP) ===== */
+    async function handleSupportSubmit(e) {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('contactName');
+      const emailInput = document.getElementById('contactEmail');
+      const msgInput = document.getElementById('contactMessage');
+      const valAlert = document.getElementById('contactValidationAlert');
+      const data = I18N[currentLang];
+
+      const nameVal = nameInput ? nameInput.value.trim() : '';
+      const emailVal = emailInput ? emailInput.value.trim() : '';
+      const msgVal = msgInput ? msgInput.value.trim() : '';
+
+      // Validation
+      if (!nameVal) {
+        valAlert.textContent = data.valEmptyName;
+        valAlert.classList.add('show');
+        if (nameInput) nameInput.focus();
+        return;
+      }
+
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailVal || !emailRegex.test(emailVal)) {
+        valAlert.textContent = data.valInvalidEmail;
+        valAlert.classList.add('show');
+        if (emailInput) emailInput.focus();
+        return;
+      }
+
+      if (!msgVal) {
+        valAlert.textContent = data.valEmptyMessage;
+        valAlert.classList.add('show');
+        if (msgInput) msgInput.focus();
+        return;
+      }
+
+      valAlert.classList.remove('show');
+
+      // UI Loading state
+      const btnSubmit = document.getElementById('btnSubmitModal');
+      const btnText = document.getElementById('btnSubmitModalText');
+      const spinner = document.getElementById('submitSpinner');
+
+      if (btnSubmit) btnSubmit.disabled = true;
+      if (btnText) btnText.textContent = data.btnSubmittingText;
+      if (spinner) spinner.style.display = 'inline-block';
+
+      // 1. Local backup
+      try {
+        const prev = JSON.parse(localStorage.getItem('fm_contact_messages') || '[]');
+        prev.push({
+          timestamp: new Date().toISOString(),
+          nombre: nameVal,
+          email: emailVal,
+          mensaje: msgVal,
+          lang: currentLang,
+          tipo: 'soporte_cliente_final'
+        });
+        localStorage.setItem('fm_contact_messages', JSON.stringify(prev));
+      } catch (err) {
+        console.warn('Flowmint App: Local backup warning', err);
+      }
+
+      // 2. Network delivery to /api/webhook
+      const payload = {
+        nombre: nameVal,
+        email: emailVal,
+        mensaje: msgVal,
+        tipo: 'soporte'
+      };
+
+      try {
+        await fetch('/api/webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+      } catch (networkErr) {
+        console.warn('Flowmint App: Webhook fetch non-blocking fallback', networkErr);
+      } finally {
+        if (btnSubmit) btnSubmit.disabled = false;
+        if (btnText) btnText.textContent = data.btnSubmitModalText;
+        if (spinner) spinner.style.display = 'none';
+
+        // Clear form inputs
+        if (nameInput) nameInput.value = '';
+        if (emailInput) emailInput.value = '';
+        if (msgInput) msgInput.value = '';
+
+        // Show thank you screen
+        document.getElementById('contactFormPanel').style.display = 'none';
+        document.getElementById('contactThankyouBox').style.display = 'flex';
       }
     }
 
