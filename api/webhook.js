@@ -1,30 +1,8 @@
 'use strict';
 
-/**
- * Flowmint — función de soporte y feedback (Vercel, Node.js 18+).
- *
- * UN solo POST desde el frontend; aquí se hacen las dos cosas en paralelo:
- *   1) Correo de notificación a hola@centraliaportal.com con TODOS los campos recibidos
- *      (Brevo transaccional: POST /v3/smtp/email).
- *   2) Alta/actualización del contacto (Brevo: POST /v3/contacts, updateEnabled: true)
- *      en la lista 8 (Cliente Final $19) o 9 (Reseller VIP $149).
- *
- * Variables de entorno:
- *   BREVO_API_KEY       (obligatoria)
- *   SUPPORT_EMAIL       (opcional, por defecto hola@centraliaportal.com)
- *   BREVO_SENDER_EMAIL  (opcional, por defecto SUPPORT_EMAIL; debe ser un remitente validado en Brevo)
- *   BREVO_SENDER_NAME   (opcional, por defecto "Flowmint")
- *   ALLOWED_ORIGINS     (opcional, separados por coma; por defecto https://flowmint.centraliaportal.com)
- *
- * Payload: JSON (o x-www-form-urlencoded). Los nombres de campo se reconocen en español e inglés,
- * sin importar mayúsculas ni acentos: Nombre/FIRSTNAME/Name, Email/Correo, Valoración/Rating,
- * Recomendación/Recommendation, Mensaje/Message/Feedback, Idioma/Language, Origen/Source.
- * Cualquier campo no reconocido NO se pierde: se añade al correo en "Otros campos".
- */
-
 const BREVO_API = 'https://api.brevo.com/v3';
-const LIST_CLIENT = 8;   // Soporte Cliente Final ($19)
-const LIST_RESELLER = 9; // Reseller VIP ($149)
+const LIST_CLIENT = 8;   
+const LIST_RESELLER = 9; 
 const MAX_MESSAGE = 10000;
 
 const FIELD_ALIASES = {
@@ -42,7 +20,6 @@ for (const [field, aliases] of Object.entries(FIELD_ALIASES)) {
   for (const a of aliases) ALIAS_TO_FIELD[a] = field;
 }
 
-// "Valoración" -> "valoracion", "first_name" -> "firstname", "E-mail" -> "email"
 const fold = (s) => String(s).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9]/g, '');
 
 function coerce(v) {
@@ -56,13 +33,12 @@ function parseBody(body) {
   if (!body) return {};
   if (Buffer.isBuffer(body)) body = body.toString('utf8');
   if (typeof body === 'string') {
-    try { return JSON.parse(body); } catch (_) { /* no es JSON */ }
+    try { return JSON.parse(body); } catch (_) {}
     return Object.fromEntries(new URLSearchParams(body));
   }
   return typeof body === 'object' ? body : {};
 }
 
-/** Convierte cualquier payload (ES/EN) a campos canónicos + "extra" con lo no reconocido. */
 function normalizePayload(raw) {
   const out = { name: '', email: '', rating: '', recommendation: '', message: '', language: '', source: '', timestamp: '', extra: {} };
   for (const [key, value] of Object.entries(raw || {})) {
@@ -70,7 +46,7 @@ function normalizePayload(raw) {
     if (v === '') continue;
     const field = ALIAS_TO_FIELD[fold(key)];
     if (field && !out[field]) out[field] = v;
-    else out.extra[key] = v; // desconocido o duplicado: no se pierde
+    else out.extra[key] = v;
   }
   return out;
 }
@@ -81,7 +57,6 @@ function validate(data) {
   return null;
 }
 
-/** lista 9 = Reseller VIP, lista 8 = Cliente Final (por defecto). */
 function resolveListId(source, headers) {
   const s = fold(source || '');
   if (/reseller|revendedor|vip/.test(s) || s === '149') return LIST_RESELLER;
@@ -133,7 +108,7 @@ function buildEmail(data, listId) {
 <h3 style="margin:20px 0 6px">Mensaje / Message</h3>
 <div style="white-space:pre-wrap;border:1px solid #ddd;border-radius:6px;padding:12px;background:#fafafa">${esc(message)}</div>
 ${extraHtml}
-<p style="color:#888;font-size:12px;margin-top:20px">Responde a este correo para contestar al usuario (Reply-To). / Reply to this email to answer the user.</p>
+<p style="color:#888;font-size:12px;margin-top:20px">Responde a este correo para contestar al usuario (Reply-To).</p>
 </div>`;
 
   const textContent = [
@@ -155,7 +130,7 @@ async function brevoPost(path, body, apiKey) {
   });
   const text = await r.text();
   let json = null;
-  try { json = text ? JSON.parse(text) : null; } catch (_) { /* respuesta no JSON */ }
+  try { json = text ? JSON.parse(text) : null; } catch (_) {}
   if (!r.ok) {
     const err = new Error(`Brevo ${path} respondió ${r.status}`);
     err.status = r.status;
@@ -169,7 +144,7 @@ function sendNotification(data, listId, apiKey) {
   const supportEmail = process.env.SUPPORT_EMAIL || 'hola@centraliaportal.com';
   const { subject, htmlContent, textContent } = buildEmail(data, listId);
   return brevoPost('/smtp/email', {
-    sender: { name: process.env.BREVO_SENDER_NAME || 'Flowmint', email: process.env.BREVO_SENDER_EMAIL || supportEmail },
+    sender: { name: process.env.BREVO_SENDER_NAME || 'Flowmint', email: process.env.BREVO_SENDER_EMAIL || supportemail },
     to: [{ email: supportEmail }],
     replyTo: { email: data.email, ...(data.name ? { name: data.name.slice(0, 100) } : {}) },
     subject, htmlContent, textContent,
@@ -178,7 +153,6 @@ function sendNotification(data, listId, apiKey) {
 }
 
 function syncContact(data, listId, apiKey) {
-  // Solo atributos con valor: con updateEnabled no queremos borrar un nombre existente con un vacío.
   const attributes = {};
   if (data.name) attributes.FIRSTNAME = data.name.slice(0, 100);
   if (data.recommendation) attributes.RECOMMENDATION = data.recommendation;
@@ -191,12 +165,7 @@ function syncContact(data, listId, apiKey) {
 }
 
 function setCors(req, res) {
-  const allowed = (process.env.ALLOWED_ORIGINS || 'https://flowmint.centraliaportal.com').split(',').map((s) => s.trim()).filter(Boolean);
-  const origin = req.headers && req.headers.origin;
-  if (origin && allowed.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin);
-    res.setHeader('Vary', 'Origin');
-  }
+  res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 }
@@ -206,18 +175,17 @@ async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(204).end();
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST, OPTIONS');
-    return res.status(405).json({ ok: false, error: 'method_not_allowed' });
+    return res.status(405).json({ success: false, ok: false, error: 'method_not_allowed' });
   }
 
   const apiKey = process.env.BREVO_API_KEY;
   if (!apiKey) {
-    console.error('[support] Falta la variable de entorno BREVO_API_KEY');
-    return res.status(500).json({ ok: false, error: 'server_not_configured' });
+    return res.status(500).json({ success: false, ok: false, error: 'server_not_configured' });
   }
 
   const data = normalizePayload(parseBody(req.body));
   const invalid = validate(data);
-  if (invalid) return res.status(400).json({ ok: false, error: invalid });
+  if (invalid) return res.status(400).json({ success: false, ok: false, error: invalid });
 
   const listId = resolveListId(data.source, req.headers);
   const [email, contact] = await Promise.allSettled([
@@ -225,19 +193,11 @@ async function handler(req, res) {
     syncContact(data, listId, apiKey),
   ]);
 
-  if (contact.status === 'rejected') {
-    console.error('[support] Falló la sincronización del contacto:', contact.reason.status, JSON.stringify(contact.reason.detail));
-  }
   if (email.status === 'rejected') {
-    // Si el correo no salió, el mensaje no llegó a soporte: el frontend debe poder mostrar un fallback.
-    console.error('[support] Falló el correo de notificación:', email.reason.status, JSON.stringify(email.reason.detail));
-    return res.status(502).json({ ok: false, error: 'email_failed', contact: contact.status === 'fulfilled' ? 'synced' : 'failed' });
+    return res.status(502).json({ success: false, ok: false, error: 'email_failed' });
   }
 
-  return res.status(200).json({ ok: true, email: 'sent', contact: contact.status === 'fulfilled' ? 'synced' : 'failed', listId });
+  return res.status(200).json({ success: true, ok: true, email: 'sent', contact: contact.status === 'fulfilled' ? 'synced' : 'failed', listId });
 }
 
 module.exports = handler;
-module.exports.normalizePayload = normalizePayload;
-module.exports.resolveListId = resolveListId;
-module.exports.buildEmail = buildEmail;
