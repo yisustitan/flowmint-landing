@@ -172,10 +172,13 @@ function syncContact(data, listId, apiKey) {
   if (data.recommendation) attributes.RECOMMENDATION = recommendationDisplay(data.recommendation);
   if (data.rating) attributes.RATING = String(data.rating);
   
+  // Asignamos tanto la lista específica del plan como la lista general #3 (FlowMint Leads)[cite: 11]
+  const listIds = [listId, 3];
+
   return brevoPost('/contacts', {
     email: data.email,
     ...(Object.keys(attributes).length ? { attributes } : {}),
-    listIds: [listId],
+    listIds,
     updateEnabled: true,
   }, apiKey);
 }
