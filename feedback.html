@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
@@ -604,13 +604,14 @@
     btnLabel.style.display   = 'none';
     btnSpinner.style.display = 'inline';
 
-    // Payload para /api/webhook
+    // Payload para /api/webhook (con recommendation incluido)
     const payload = {
       nombre: emailInput.value,
       email: emailInput.value,
       mensaje: suggestion || (lang === 'en' ? '(no comment)' : '(sin comentario)'),
       tipo: 'rating',
-      estrellas: selectedRating
+      estrellas: selectedRating,
+      recommendation: recommendLabel
     };
 
     try {
@@ -633,7 +634,7 @@
     }
   }
 
-    function resetButton() {
+  function resetButton() {
     const btnSubmit  = document.getElementById('btnSubmit');
     const btnLabel   = document.getElementById('btnLabel');
     const btnSpinner = document.getElementById('btnSpinner');
