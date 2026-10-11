@@ -52,7 +52,7 @@ function normalizePayload(raw) {
     const field = ALIAS_TO_FIELD[fold(key)];
     if (field && !out[field]) {
       out[field] = v;
-    } else if (fold(key) !== 'tipo') { // Ignoramos metadatos de control como 'tipo'
+    } else if (fold(key) !== 'tipo') {
       out.extra[key] = v;
     }
   }
@@ -165,7 +165,9 @@ function sendNotification(data, listId, apiKey) {
 function syncContact(data, listId, apiKey) {
   const attributes = {};
   if (data.name) attributes.FIRSTNAME = data.name.slice(0, 100);
-  if (data.recommendation) attributes.RECOMMENDATION = data.recommendation;
+  if (data.recommendation) attributes.RECOMMENDATION = recommendationDisplay(data.recommendation);
+  if (data.rating) attributes.RATING = String(data.rating);
+  
   return brevoPost('/contacts', {
     email: data.email,
     ...(Object.keys(attributes).length ? { attributes } : {}),
