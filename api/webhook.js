@@ -9,7 +9,7 @@ const FIELD_ALIASES = {
   name: ['firstname', 'nombre', 'name', 'fullname', 'nombrecompleto'],
   email: ['email', 'correo', 'correoelectronico', 'mail'],
   rating: ['rating', 'valoracion', 'calificacion', 'puntuacion', 'estrellas', 'stars'],
-  recommendation: ['recommendation', 'recomendacion', 'recommend', 'recomienda'],
+  recommendation: ['recommendation', 'recomendacion', 'recommend', 'recomienda', 'nps', 'recommend_score'],
   message: ['message', 'mensaje', 'feedback', 'comentario', 'comentarios', 'comment', 'comments', 'suggestion', 'sugerencia', 'consulta'],
   language: ['language', 'idioma', 'lang'],
   source: ['source', 'origen', 'origin', 'audience', 'audiencia', 'plan'],
@@ -72,6 +72,7 @@ function recommendationDisplay(v) {
   const f = fold(v);
   if (['yes', 'si', 'true', '1'].includes(f)) return 'Sí / Yes';
   if (['no', 'false', '0'].includes(f)) return 'No';
+  if (['maybe', 'talvez', 'tal_vez', 'quizas', '2'].includes(f)) return 'Tal vez / Maybe';
   return v;
 }
 const ratingDisplay = (v) => (!v ? '—' : /^\d+(\.\d+)?$/.test(v) ? `${v} / 5` : v);
