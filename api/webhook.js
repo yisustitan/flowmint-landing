@@ -144,7 +144,7 @@ function sendNotification(data, listId, apiKey) {
   const supportEmail = process.env.SUPPORT_EMAIL || 'hola@centraliaportal.com';
   const { subject, htmlContent, textContent } = buildEmail(data, listId);
   return brevoPost('/smtp/email', {
-    sender: { name: process.env.BREVO_SENDER_NAME || 'Flowmint', email: process.env.BREVO_SENDER_EMAIL || supportemail },
+    sender: { name: process.env.BREVO_SENDER_NAME || 'Flowmint', email: process.env.BREVO_SENDER_EMAIL || supportEmail },
     to: [{ email: supportEmail }],
     replyTo: { email: data.email, ...(data.name ? { name: data.name.slice(0, 100) } : {}) },
     subject, htmlContent, textContent,
