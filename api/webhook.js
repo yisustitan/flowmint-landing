@@ -1,15 +1,19 @@
 'use strict';
 
+/**
+ * Flowmint — función de soporte y feedback (Vercel, Node.js 18+).
+ */
+
 const BREVO_API = 'https://api.brevo.com/v3';
-const LIST_CLIENT = 8;   
-const LIST_RESELLER = 9; 
+const LIST_CLIENT = 8;   // Soporte Cliente Final ($19)
+const LIST_RESELLER = 9; // Reseller VIP ($149)
 const MAX_MESSAGE = 10000;
 
 const FIELD_ALIASES = {
   name: ['firstname', 'nombre', 'name', 'fullname', 'nombrecompleto'],
   email: ['email', 'correo', 'correoelectronico', 'mail'],
   rating: ['rating', 'valoracion', 'calificacion', 'puntuacion', 'estrellas', 'stars'],
-  recommendation: ['recommendation', 'recomendacion', 'recommend', 'recomienda', 'nps', 'recommend_score', 'recomendar', 'question', 'pregunta'],
+  recommendation: ['recommendation', 'recomendacion', 'recommend', 'recomienda', 'nps', 'recommend_score', 'recomendar'],
   message: ['message', 'mensaje', 'feedback', 'comentario', 'comentarios', 'comment', 'comments', 'suggestion', 'sugerencia', 'consulta'],
   language: ['language', 'idioma', 'lang'],
   source: ['source', 'origen', 'origin', 'audience', 'audiencia', 'plan'],
@@ -44,12 +48,13 @@ function normalizePayload(raw) {
   for (const [key, value] of Object.entries(raw || {})) {
     const v = coerce(value);
     if (v === '') continue;
-    
-    // TRUCO DE DEPURACIÓN: Guardamos absolutamente todo en extra también para verlo en el correo
-    out.extra[key] = v;
 
     const field = ALIAS_TO_FIELD[fold(key)];
-    if (field && !out[field]) out[field] = v;
+    if (field && !out[field]) {
+      out[field] = v;
+    } else if (fold(key) !== 'tipo') { // Ignoramos metadatos de control como 'tipo'
+      out.extra[key] = v;
+    }
   }
   return out;
 }
@@ -88,22 +93,11 @@ function buildEmail(data, listId) {
   const lang = data.language ? data.language.toUpperCase().slice(0, 2) : '--';
   const subject = `[Flowmint][${lang}] ${kind}: ${data.name || data.email}`.replace(/[\r\n]+/g, ' ');
 
-  // Si recommendation sigue vacío pero viene algo en extra que parezca recomendación, lo usamos
-  let finalRec = recommendationDisplay(data.recommendation);
-  if (finalRec === '—') {
-    for (const [k, val] of Object.entries(data.extra)) {
-      if (/recomend|recommend|nps/i.test(k)) {
-        finalRec = recommendationDisplay(val);
-        break;
-      }
-    }
-  }
-
   const rows = [
     ['Nombre / Name', data.name || '— (no proporcionado / not provided)'],
     ['Email', data.email],
     ['Valoración / Rating', ratingDisplay(data.rating)],
-    ['Recomendación / Recommendation', finalRec],
+    ['Recomendación / Recommendation', recommendationDisplay(data.recommendation)],
     ['Idioma / Language', data.language || '—'],
     ['Origen / Source', origin],
     ['Fecha / Date', data.timestamp || new Date().toISOString()],
