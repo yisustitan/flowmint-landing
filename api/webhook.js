@@ -153,8 +153,12 @@ async function brevoPost(path, body, apiKey) {
 function sendNotification(data, listId, apiKey) {
   const supportEmail = process.env.SUPPORT_EMAIL || 'hola@centraliaportal.com';
   const { subject, htmlContent, textContent } = buildEmail(data, listId);
+  
+  // Nombre del remitente dinámico según el plan
+  const senderName = listId === LIST_RESELLER ? 'Flowmint Reseller VIP' : (process.env.BREVO_SENDER_NAME || 'Flowmint Support');
+
   return brevoPost('/smtp/email', {
-    sender: { name: process.env.BREVO_SENDER_NAME || 'Flowmint', email: process.env.BREVO_SENDER_EMAIL || supportEmail },
+    sender: { name: senderName, email: supportEmail },
     to: [{ email: supportEmail }],
     replyTo: { email: data.email, ...(data.name ? { name: data.name.slice(0, 100) } : {}) },
     subject, htmlContent, textContent,
