@@ -45,7 +45,44 @@
     
     .val-msg{display:none;color:#FF6B6B;font-size:0.95rem;margin-bottom:16px;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);padding:12px;border-radius:8px}
 
-    .lang-btn{position:absolute;top:32px;right:32px;background:var(--bg);border:1px solid var(--line);color:var(--tx);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer}
+    .lang-btn{position:absolute;top:32px;right:75px;background:var(--bg);border:1px solid var(--line);color:var(--tx);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer}
+    
+    /* Botón de cierre "X" */
+    .close-btn {
+      position: absolute;
+      top: 24px;
+      right: 28px;
+      background: transparent;
+      border: none;
+      color: var(--mut);
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 0.2s;
+    }
+    .close-btn:hover {
+      color: var(--neon);
+    }
+
+    /* Botón de retorno al portal */
+    .btn-return {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--line);
+      color: var(--tx);
+      padding: 12px 24px;
+      border-radius: 12px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: background 0.2s, border-color 0.2s, color 0.2s;
+      margin-top: 24px;
+    }
+    .btn-return:hover {
+      border-color: var(--neon);
+      color: var(--neon);
+    }
   </style>
 </head>
 <body>
@@ -142,10 +179,18 @@
       </div>
 
       <!-- PANTALLA DE ÉXITO -->
-      <div class="thankyou-box" id="thankyouBox">
+      <div class="thankyou-box" id="thankyouBox" style="position: relative;">
+        <!-- Botón "X" para cerrar / regresar -->
+        <button type="button" class="close-btn" onclick="cerrarVentanaExito()" aria-label="Cerrar">&times;</button>
+        
         <div style="font-size: 60px;">🎉</div>
         <h2 data-es="¡Información y accesos recibidos con éxito!" data-en="Information and access received successfully!">¡Información y accesos recibidos con éxito!</h2>
         <p data-es="Nuestro equipo técnico ya cuenta con todo lo necesario para entrar a cada plataforma y realizar el montaje completo. Nos pondremos en contacto contigo en un plazo de 24 a 48 horas con tu negocio 100% operativo y listo para facturar." data-en="Our technical team now has everything needed to log into each platform and perform the complete setup. We will contact you within 24 to 48 hours with your business 100% operational and ready to bill.">Nuestro equipo técnico ya cuenta con todo lo necesario para entrar a cada plataforma y realizar el montaje completo. Nos pondremos en contacto contigo en un plazo de 24 a 48 horas con tu negocio 100% operativo y listo para facturar.</p>
+        
+        <!-- Botón para regresar al portal -->
+        <div>
+          <a href="https://flowmint.centraliaportal.com/recursos-vip/index.html" class="btn-return" data-es="← Volver al Portal VIP" data-en="← Back to VIP Portal">← Volver al Portal VIP</a>
+        </div>
       </div>
     </div>
   </div>
@@ -159,6 +204,10 @@
         const txt = el.getAttribute('data-' + lang);
         if (txt) el.innerText = txt;
       });
+    }
+
+    function cerrarVentanaExito() {
+      window.location.href = "https://flowmint.centraliaportal.com/recursos-vip/index.html";
     }
 
     async function submitVipForm() {
