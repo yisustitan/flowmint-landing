@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Centro de Incorporación VIP — Flowmint</title>
+  <style>
+    :root{--bg:#0D1117;--card:#161B26;--line:#252D3D;--neon:#00FF88;--tx:#E8EDF5;--mut:#8D99AE;--gold:#F5A623}
+    *{box-sizing:border-box;margin:0}
+    body{background:var(--bg);color:var(--tx);font:16px/1.6 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;-webkit-font-smoothing:antialiased;padding:40px 20px}
+    .wrap{max-width:820px;margin:0 auto}
+    .card{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:40px;box-shadow:0 25px 60px rgba(0,0,0,0.6);position:relative}
+    .badge{display:inline-block;border:1px solid var(--neon);color:var(--neon);padding:6px 16px;border-radius:99px;font-size:13px;font-weight:600;letter-spacing:.04em;box-shadow:0 0 18px rgba(0,255,136,.2);margin-bottom:20px}
+    h1{font-size:clamp(1.8rem,4vw,2.5rem);line-height:1.2;letter-spacing:-.02em;margin-bottom:12px}
+    h1 em{font-style:normal;color:var(--neon)}
+    .sub{color:var(--mut);font-size:1.05rem;margin-bottom:30px}
+    
+    .explain-container{display:grid;grid-template-columns:1fr;gap:14px;margin-bottom:30px}
+    .explain-card{background:rgba(0,255,136,0.03);border:1px solid rgba(0,255,136,0.15);border-radius:12px;padding:16px 20px}
+    .explain-card h4{color:var(--neon);font-size:0.95rem;margin-bottom:4px}
+    .explain-card p{color:var(--mut);font-size:0.9rem;line-height:1.5}
+
+    .security-notice{background:rgba(245,166,35,0.08);border:1px solid rgba(245,166,35,0.3);border-radius:12px;padding:22px;margin-bottom:30px;font-size:0.95rem;color:#FCE6C2}
+    .security-notice strong{color:var(--gold)}
+    .security-notice ul{margin-top:8px;padding-left:20px}
+    .security-notice li{margin-bottom:4px}
+
+    .section-title{font-size:1.3rem;color:var(--neon);margin:36px 0 16px;border-bottom:1px solid var(--line);padding-bottom:8px}
+    .form-group{margin-bottom:22px}
+    label{display:block;font-size:0.95rem;font-weight:600;margin-bottom:8px}
+    input,textarea,select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--tx);font:inherit;font-size:0.95rem;padding:14px 16px;border-radius:10px;outline:none;transition:border-color .2s}
+    input:focus,textarea:focus,select:focus{border-color:var(--neon)}
+    textarea{resize:vertical;min-height:90px}
+
+    .checkbox-group{display:flex;align-items:flex-start;gap:12px;margin-top:16px;background:rgba(255,255,255,0.02);padding:14px;border-radius:10px;border:1px solid var(--line)}
+    .checkbox-group input{width:20px;height:20px;margin-top:2px;accent-color:var(--neon);cursor:pointer}
+    .checkbox-group label{font-weight:normal;font-size:0.9rem;color:var(--mut);cursor:pointer;margin-bottom:0}
+
+    .btn-submit{display:block;width:100%;background:var(--neon);color:#04140B;font-weight:800;font-size:1.1rem;padding:16px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 8px 32px rgba(0,255,136,.3);transition:transform .15s,box-shadow .15s;margin-top:30px}
+    .btn-submit:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,255,136,.45)}
+
+    .thankyou-box{display:none;text-align:center;padding:40px 10px}
+    .thankyou-box h2{font-size:2rem;margin:16px 0 12px;color:var(--neon)}
+    .thankyou-box p{color:var(--mut);font-size:1.05rem;line-height:1.6}
+    
+    .val-msg{display:none;color:#FF6B6B;font-size:0.95rem;margin-bottom:16px;background:rgba(255,107,107,0.1);border:1px solid rgba(255,107,107,0.3);padding:12px;border-radius:8px}
+
+    .lang-btn{position:absolute;top:32px;right:32px;background:var(--bg);border:1px solid var(--line);color:var(--tx);padding:6px 14px;border-radius:20px;font-size:12px;cursor:pointer}
+  </style>
+</head>
+<body>
+
+  <div class="wrap">
+    <div class="card">
+      <button class="lang-btn" onclick="toggleLang()" id="langBtn">🌐 EN</button>
+      <span class="badge" data-es="⚡ CENTRO DE INCORPORACIÓN VIP" data-en="⚡ VIP ONBOARDING CENTER">⚡ CENTRO DE INCORPORACIÓN VIP</span>
+      
+      <div id="formPanel">
+        <h1 data-es="¡Felicidades por tu compra! Vamos a montar tu negocio" data-en="Congratulations on your purchase! Let's build your business">¡Felicidades por tu compra! Vamos a <em>montar tu negocio</em></h1>
+        <p class="sub" data-es="Para encargarnos de todo y dejar tu plataforma 100% lista para operar sin que tengas que mover un dedo, por favor facilítanos los accesos y credenciales de tus cuentas a continuación." data-en="To take care of everything and leave your platform 100% operational without lifting a finger, please provide your account credentials below.">Para encargarnos de todo y dejar tu plataforma 100% lista para operar sin que tengas que mover un dedo, por favor facilítanos los accesos y credenciales de tus cuentas a continuación.</p>
+
+        <!-- EXPLICACIONES APARTE -->
+        <h3 style="font-size: 1rem; color: var(--tx); margin-bottom: 12px;" data-es="📖 ¿Qué accesos necesitamos y por qué?" data-en="📖 What access do we need and why?">📖 ¿Qué accesos necesitamos y por qué?</h3>
+        <div class="explain-container">
+          <div class="explain-card">
+            <h4 data-es="1. Registrador de Dominio (GoDaddy, Namecheap, etc.)" data-en="1. Domain Registrar (GoDaddy, Namecheap, etc.)">1. Registrador de Dominio (GoDaddy, Namecheap, etc.)</h4>
+            <p data-es="Necesitamos entrar a tu panel para apuntar los registros DNS hacia tu servidor en Vercel y que tu dominio abra la app correctamente." data-en="We need to enter your panel to point DNS records to your Vercel server so your domain opens the app correctly.">Necesitamos entrar a tu panel para apuntar los registros DNS hacia tu servidor en Vercel y que tu dominio abra la app correctamente.</p>
+          </div>
+          <div class="explain-card">
+            <h4 data-es="2. Supabase (Base de Datos)" data-en="2. Supabase (Database)">2. Supabase (Base de Datos)</h4>
+            <p data-es="Acceso para entrar al Editor SQL y ejecutar los scripts de creación de tablas de licencias y dispositivos." data-en="Access to enter the SQL Editor and execute scripts for creating license and device tables.">Acceso para entrar al Editor SQL y ejecutar los scripts de creación de tablas de licencias y dispositivos.</p>
+          </div>
+          <div class="explain-card">
+            <h4 data-es="3. Brevo (Autorespondedor)" data-en="3. Brevo (Autoresponder)">3. Brevo (Autorespondedor)</h4>
+            <p data-es="Acceso a tu cuenta para configurar y estructurar de manera interna tus listas de contactos (#3, #8 y #9)." data-en="Access to your account to internally configure and structure your contact lists (#3, #8, and #9).">Acceso a tu cuenta para configurar y estructurar de manera interna tus listas de contactos (#3, #8 y #9).</p>
+          </div>
+          <div class="explain-card">
+            <h4 data-es="4. GitHub / Vercel & Tidio" data-en="4. GitHub / Vercel & Tidio">4. GitHub / Vercel & Tidio</h4>
+            <p data-es="Accesos para subir el código fuente, desplegar el servidor y vincular el chat de soporte en vivo 24/7." data-en="Access to upload source code, deploy the server, and link the 24/7 live support chat.">Accesos para subir el código fuente, desplegar el servidor y vincular el chat de soporte en vivo 24/7.</p>
+          </div>
+        </div>
+
+        <!-- AVISO DE SEGURIDAD Y 2FA -->
+        <div class="security-notice">
+          <strong data-es="🔒 1. Carácter provisional de tus accesos:" data-en="🔒 1. Provisional nature of your access:">🔒 1. Carácter provisional de tus accesos:</strong>
+          <p style="margin-top:4px;" data-es="Todas las credenciales que nos compartes son estrictamente provisionales para realizar el montaje técnico. Una vez entregada tu app operando al 100%, podrás cambiar tus contraseñas de inmediato. No guardamos información de acceso." data-en="All credentials you share are strictly provisional for technical setup. Once your app is 100% operational, you can change your passwords immediately. We do not store access info.">Todas las credenciales que nos compartes son <strong>estrictamente provisionales</strong> para realizar el montaje técnico. Una vez entregada tu app operando al 100%, podrás cambiar tus contraseñas de inmediato. No guardamos información de acceso.</p>
+          
+          <strong style="display:block; margin-top:14px;" data-es="⚠️ 2. Importante sobre Verificación 2FA / SMS:" data-en="⚠️ 2. Important about 2FA / SMS Verification:">⚠️ 2. Importante sobre Verificación 2FA / SMS:</strong>
+          <ul>
+            <li data-es="Te pedimos desactivar temporalmente la verificación por SMS (doble factor) en estas cuentas para que nuestro equipo pueda entrar sin trabas." data-en="We ask you to temporarily disable SMS verification (2FA) on these accounts so our team can log in smoothly.">Te pedimos <strong>desactivar temporalmente la verificación por SMS (doble factor)</strong> en estas cuentas para que nuestro equipo pueda entrar sin trabas.</li>
+            <li data-es="Mantente atento a tu correo por si necesitamos un código único de confirmación durante la instalación." data-en="Stay alert to your email in case we need a unique confirmation code during installation.">Mantente atento a tu correo por si necesitamos un código único de confirmación durante la instalación.</li>
+          </ul>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="no_2fa_confirm" required>
+            <label for="no_2fa_confirm" data-es="Entiendo que estos accesos son provisionales, he desactivado el 2FA por SMS y autorizo al equipo técnico a ingresar para realizar el montaje." data-en="I understand these accesses are provisional, I have disabled SMS 2FA and authorize the technical team to log in for setup.">Entiendo que estos accesos son provisionales, he desactivado el 2FA por SMS y autorizo al equipo técnico a ingresar para realizar el montaje.</label>
+          </div>
+        </div>
+
+        <div class="section-title" data-es="Formulario de Accesos y Datos" data-en="Access & Data Form">Formulario de Accesos y Datos</div>
+        
+        <div class="form-group">
+          <label for="email" data-es="Correo electrónico de compra (Hotmart)" data-en="Purchase Email (Hotmart)">Correo electrónico de compra (Hotmart)</label>
+          <input type="email" id="email" placeholder="tu@correo.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="domain" data-es="Nombre de tu Dominio web" data-en="Your Web Domain Name">Nombre de tu Dominio web</label>
+          <input type="text" id="domain" placeholder="ej. misganancias.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="domain_access" data-es="1. Proveedor de Dominio (GoDaddy, Namecheap, Hostinger, etc.)" data-en="1. Domain Registrar (GoDaddy, Namecheap, Hostinger, etc.)">1. Proveedor de Dominio (GoDaddy, Namecheap, Hostinger, etc.)</label>
+          <textarea id="domain_access" placeholder="Indica el proveedor, usuario/correo y contraseña para entrar a configurar los DNS..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="supabase_access" data-es="2. Supabase (Base de Datos)" data-en="2. Supabase (Database)">2. Supabase (Base de Datos)</label>
+          <textarea id="supabase_access" placeholder="Correo/Usuario y Contraseña de Supabase (o enlace de invitación al proyecto)..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="github_vercel_access" data-es="3. GitHub y Vercel (Código y Servidor)" data-en="3. GitHub & Vercel (Code & Server)">3. GitHub y Vercel (Código y Servidor)</label>
+          <textarea id="github_vercel_access" placeholder="Accesos o credenciales para entrar a GitHub y Vercel..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="brevo_access" data-es="4. Brevo (Listas y CRM)" data-en="4. Brevo (Lists & CRM)">4. Brevo (Listas y CRM)</label>
+          <textarea id="brevo_access" placeholder="Correo y Contraseña de Brevo para configurar las listas #3, #8 y #9..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="tidio_access" data-es="5. Tidio Chat (Soporte 24/7 - Opcional)" data-en="5. Tidio Chat (24/7 Support - Optional)">5. Tidio Chat (Soporte 24/7 - Opcional)</label>
+          <input type="text" id="tidio_access" placeholder="Correo y contraseña de Tidio (si deseas que configuremos el chat)...">
+        </div>
+
+        <div class="val-msg" id="valMsg"></div>
+
+        <button class="btn-submit" onclick="submitVipForm()" id="btnSubmit">
+          <span data-es="🚀 Enviar Accesos y Empezar el Montaje VIP" data-en="🚀 Send Access & Start VIP Setup">🚀 Enviar Accesos y Empezar el Montaje VIP</span>
+        </button>
+      </div>
+
+      <!-- PANTALLA DE ÉXITO -->
+      <div class="thankyou-box" id="thankyouBox">
+        <div style="font-size: 60px;">🎉</div>
+        <h2 data-es="¡Información y accesos recibidos con éxito!" data-en="Information and access received successfully!">¡Información y accesos recibidos con éxito!</h2>
+        <p data-es="Nuestro equipo técnico ya cuenta con todo lo necesario para entrar a cada plataforma y realizar el montaje completo. Nos pondremos en contacto contigo en un plazo de 24 a 48 horas con tu negocio 100% operativo y listo para facturar." data-en="Our technical team now has everything needed to log into each platform and perform the complete setup. We will contact you within 24 to 48 hours with your business 100% operational and ready to bill.">Nuestro equipo técnico ya cuenta con todo lo necesario para entrar a cada plataforma y realizar el montaje completo. Nos pondremos en contacto contigo en un plazo de 24 a 48 horas con tu negocio 100% operativo y listo para facturar.</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let lang = 'es';
+    function toggleLang() {
+      lang = lang === 'es' ? 'en' : 'es';
+      document.getElementById('langBtn').innerText = lang === 'es' ? '🌐 EN' : '🌐 ES';
+      document.querySelectorAll('[data-es]').forEach(el => {
+        const txt = el.getAttribute('data-' + lang);
+        if (txt) el.innerText = txt;
+      });
+    }
+
+    async function submitVipForm() {
+      const email = document.getElementById('email').value.trim();
+      const domain = document.getElementById('domain').value.trim();
+      const confirmCheck = document.getElementById('no_2fa_confirm').checked;
+      const valMsg = document.getElementById('valMsg');
+
+      if (!email || !email.includes('@')) {
+        valMsg.innerText = lang === 'es' ? '⚠️ Por favor, ingresa un correo electrónico de compra válido.' : '⚠️ Please enter a valid purchase email.';
+        valMsg.style.display = 'block';
+        return;
+      }
+      if (!domain) {
+        valMsg.innerText = lang === 'es' ? '⚠️ Por favor, ingresa el nombre de tu dominio.' : '⚠️ Please enter your domain name.';
+        valMsg.style.display = 'block';
+        return;
+      }
+      if (!confirmCheck) {
+        valMsg.innerText = lang === 'es' ? '⚠️ Por favor, confirma que has leído el aviso de seguridad y preparación de cuentas.' : '⚠️ Please confirm that you have read the security notice and prepared your accounts.';
+        valMsg.style.display = 'block';
+        return;
+      }
+
+      valMsg.style.display = 'none';
+      const btn = document.getElementById('btnSubmit');
+      btn.disabled = true;
+      btn.style.opacity = '0.7';
+
+      const payload = {
+        email,
+        domain,
+        domain_access: document.getElementById('domain_access').value.trim(),
+        supabase_access: document.getElementById('supabase_access').value.trim(),
+        github_vercel_access: document.getElementById('github_vercel_access').value.trim(),
+        brevo_access: document.getElementById('brevo_access').value.trim(),
+        tidio_access: document.getElementById('tidio_access').value.trim(),
+        tipo: 'configuracion_vip_completa_accesos',
+        source: 'vip_29_full_access',
+        language: lang
+      };
+
+      try {
+        await fetch('/api/webhook', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+        document.getElementById('formPanel').style.display = 'none';
+        document.getElementById('thankyouBox').style.display = 'block';
+      } catch (e) {
+        console.error(e);
+        document.getElementById('formPanel').style.display = 'none';
+        document.getElementById('thankyouBox').style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
