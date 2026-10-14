@@ -86,46 +86,38 @@ function recommendationDisplay(v) {
 
 const ratingDisplay = (v) => (!v ? '—' : /^\d+(\.\d+)?$/.test(v) ? `${v} / 5` : v);
 
-function buildEmail(data, listId) {
-  const isFeedback = Boolean(data.rating || data.recommendation);
-  const kind = isFeedback ? 'Feedback' : 'Soporte / Support';
-  const origin = listId === LIST_RESELLER ? 'Reseller VIP ($149)' : 'Cliente Final / End Customer ($19)';
-  const lang = data.language ? data.language.toUpperCase().slice(0, 2) : '--';
-  const subject = `[Flowmint][${lang}] ${kind}: ${data.name || data.email}`.replace(/[\r\n]+/g, ' ');
+function buildEmail(data, isVipSetup) {
+  const kind = isVipSetup ? 'Configuración VIP ($29) - Insumos' : 'Soporte / Feedback';
+  const subject = `⚙️ [MONTAJE VIP $29] Nuevos Accesos Recibidos: ${data.name || data.email}`.replace(/[\r\n]+/g, ' ');
 
   const rows = [
-    ['Nombre / Name', data.name || '— (no proporcionado / not provided)'],
+    ['Nombre / Name', data.name || '—'],
     ['Email', data.email],
-    ['Valoración / Rating', ratingDisplay(data.rating)],
-    ['Recomendación / Recommendation', recommendationDisplay(data.recommendation)],
     ['Idioma / Language', data.language || '—'],
-    ['Origen / Source', origin],
     ['Fecha / Date', data.timestamp || new Date().toISOString()],
   ];
-  const message = data.message || '(sin mensaje / no message)';
+  
   const extras = Object.entries(data.extra);
 
   const rowsHtml = rows.map(([k, v]) =>
     `<tr><td style="padding:6px 12px 6px 0;color:#555;white-space:nowrap;vertical-align:top"><b>${esc(k)}</b></td><td style="padding:6px 0">${esc(v)}</td></tr>`).join('');
+  
   const extraHtml = extras.length
-    ? `<h3 style="margin:20px 0 6px">Otros campos / Other fields</h3><table role="presentation" cellpadding="0" cellspacing="0">${extras.map(([k, v]) =>
-        `<tr><td style="padding:4px 12px 4px 0;color:#555;vertical-align:top"><b>${esc(k)}</b></td><td style="padding:4px 0">${esc(v)}</td></tr>`).join('')}</table>`
+    ? `<h3 style="margin:20px 0 6px;color:#00AA55;">Credenciales y Datos Recolectados</h3><table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse">${extras.map(([k, v]) =>
+        `<tr><td style="padding:6px 12px 6px 0;color:#333;vertical-align:top;border-bottom:1px solid #eee;"><b>${esc(k)}</b></td><td style="padding:6px 0;border-bottom:1px solid #eee;font-family:monospace;">${esc(v)}</td></tr>`).join('')}</table>`
     : '';
 
   const htmlContent = `<div style="font-family:Arial,Helvetica,sans-serif;max-width:640px;color:#1a1a1a">
-<h2 style="margin:0 0 12px">${esc(kind)} — Flowmint</h2>
+<h2 style="margin:0 0 12px;color:#00AA55;">⚙️ NUEVA SOLICITUD DE MONTAJE VIP ($29)</h2>
 <table role="presentation" cellpadding="0" cellspacing="0" style="width:100%;border-collapse:collapse">${rowsHtml}</table>
-<h3 style="margin:20px 0 6px">Mensaje / Message</h3>
-<div style="white-space:pre-wrap;border:1px solid #ddd;border-radius:6px;padding:12px;background:#fafafa">${esc(message)}</div>
 ${extraHtml}
-<p style="color:#888;font-size:12px;margin-top:20px">Responde a este correo para contestar al usuario (Reply-To).</p>
+<p style="color:#888;font-size:12px;margin-top:20px">Este correo fue generado automáticamente por el formulario de incorporación VIP.</p>
 </div>`;
 
   const textContent = [
-    `${kind} — Flowmint`, '',
+    `NUEVA SOLICITUD DE MONTAJE VIP ($29)`, '',
     ...rows.map(([k, v]) => `${k}: ${v}`), '',
-    'Mensaje / Message:', message,
-    ...(extras.length ? ['', 'Otros campos / Other fields:', ...extras.map(([k, v]) => `${k}: ${v}`)] : []),
+    ...(extras.length ? ['Credenciales y Datos Recolectados:', ...extras.map(([k, v]) => `${k}: ${v}`)] : []),
   ].join('\n');
 
   return { subject, htmlContent, textContent };
@@ -150,36 +142,17 @@ async function brevoPost(path, body, apiKey) {
   return json;
 }
 
-function sendNotification(data, listId, apiKey) {
+function sendNotification(data, isVipSetup, apiKey) {
   const supportEmail = process.env.SUPPORT_EMAIL || 'hola@centraliaportal.com';
-  const { subject, htmlContent, textContent } = buildEmail(data, listId);
-  
-  // Nombre del remitente dinámico según el plan
-  const senderName = listId === LIST_RESELLER ? 'Flowmint Reseller VIP' : (process.env.BREVO_SENDER_NAME || 'Flowmint Support');
+  const { subject, htmlContent, textContent } = buildEmail(data, isVipSetup);
+  const senderName = 'Flowmint VIP Deployment';
 
   return brevoPost('/smtp/email', {
     sender: { name: senderName, email: supportEmail },
     to: [{ email: supportEmail }],
     replyTo: { email: data.email, ...(data.name ? { name: data.name.slice(0, 100) } : {}) },
     subject, htmlContent, textContent,
-    tags: ['flowmint-support'],
-  }, apiKey);
-}
-
-function syncContact(data, listId, apiKey) {
-  const attributes = {};
-  if (data.name) attributes.FIRSTNAME = data.name.slice(0, 100);
-  if (data.recommendation) attributes.RECOMMENDATION = recommendationDisplay(data.recommendation);
-  if (data.rating) attributes.RATING = String(data.rating);
-  
-  // Asignamos tanto la lista específica del plan como la lista general #3 (FlowMint Leads)[cite: 11]
-  const listIds = [listId, 3];
-
-  return brevoPost('/contacts', {
-    email: data.email,
-    ...(Object.keys(attributes).length ? { attributes } : {}),
-    listIds,
-    updateEnabled: true,
+    tags: ['flowmint-vip-setup'],
   }, apiKey);
 }
 
@@ -202,21 +175,22 @@ async function handler(req, res) {
     return res.status(500).json({ success: false, ok: false, error: 'server_not_configured' });
   }
 
-  const data = normalizePayload(parseBody(req.body));
+  const rawBody = parseBody(req.body);
+  const data = normalizePayload(rawBody);
   const invalid = validate(data);
   if (invalid) return res.status(400).json({ success: false, ok: false, error: invalid });
 
-  const listId = resolveListId(data.source, req.headers);
-  const [email, contact] = await Promise.allSettled([
-    sendNotification(data, listId, apiKey),
-    syncContact(data, listId, apiKey),
-  ]);
+  // Detectamos si es la solicitud VIP de $29 a través de la fuente o campos extra
+  const isVipSetup = fold(data.source).includes('vip') || rawBody.tipo === 'configuracion_vip_completa_accesos';
 
-  if (email.status === 'rejected') {
+  // Solo enviamos el correo interno a ti (hola@...), omitiendo la sincronización de listas en Brevo para que el cliente no reciba correos no deseados de la lista de $149.
+  try {
+    await sendNotification(data, isVipSetup, apiKey);
+  } catch (_) {
     return res.status(502).json({ success: false, ok: false, error: 'email_failed' });
   }
 
-  return res.status(200).json({ success: true, ok: true, email: 'sent', contact: contact.status === 'fulfilled' ? 'synced' : 'failed', listId });
+  return res.status(200).json({ success: true, ok: true, email: 'sent', contact: 'skipped_brevo_list' });
 }
 
 module.exports = handler;
